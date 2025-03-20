@@ -1,0 +1,109 @@
+/* Barra superior */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Evitar scroll horizontal */
+}
+.barra-superior {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos correctamente */
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    font-family: 'Montserrat', sans-serif;
+    color: #111;
+    font-weight: 200;
+}
+.contenido {
+    margin-top: 60px; /* La misma altura que la barra superior */
+    display: flex;
+    flex-grow: 1;
+    background-color: #f5f5f5;
+    padding: 20px;
+    min-height: calc(100vh - 60px); /* Resta la altura de la barra superior */
+}
+/* Logo */
+.barra-superior .logo {
+    height: 59px;
+    width: auto;
+}
+
+/* Usuario */
+.usuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+    margin-right: 40px; /* Asegura que no esté pegado al borde */
+}
+
+.foto-perfil {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.info-usuario {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+.icono-flecha {
+    transition: transform 0.3s ease;
+}
+
+.icono-flecha.abierto {
+    transform: rotate(180deg);
+}
+.nombre {
+    font-weight: bold;
+}
+
+.rol {
+    font-size: 12px;
+    color: gray;
+}
+/* ====== Menú Desplegable ====== */
+.menu-desplegable {
+    position: absolute;
+    top: 112%; /* Se posiciona justo debajo del usuario */
+    right: -14px; /* Mueve el menú un poco a la derecha */
+    background: #d6d6d6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    width: max-content;
+    padding: 5px 0;
+    text-align: center;
+    z-index: 1100;
+    transition: all 0.3s ease-in-out;
+    transform: translateY(5px); /* Evita que se monte sobre el usuario */
+}
+
+/* Botón de cerrar sesión */
+.menu-desplegable button {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #d6d6d6;
+}
+
+/* Hover del botón */
+.menu-desplegable button:hover {
+    background-color: #c4c4c4;
+}

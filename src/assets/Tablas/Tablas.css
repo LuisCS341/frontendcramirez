@@ -1,0 +1,95 @@
+/* Contenedor de la tabla */
+.table-container {
+    width: 100%;
+    max-width: calc(100vw - 200px); /* Más espacio para la tabla */
+    max-height: 680px; /* Altura máxima antes de activar scroll */
+    overflow: auto; /* Scroll cuando sea necesario */
+    background: white;
+    padding: 20px;
+    margin-left: 190px; /* Menos margen lateral */
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateX(200px);
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    min-width: 1400px; /* Aumentado para más espacio */
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: 'Arial', sans-serif;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Encabezados */
+th {
+    background-color: #E67E22; /* Naranja fuerte */
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 16px; /* Espaciado mayor */
+    border: 1px solid #E67E22;
+    white-space: nowrap;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+
+/* Celdas */
+td {
+    padding: 16px;
+    border: 1px solid #ddd;
+    color: #333;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Alternancia de colores en filas */
+tr:nth-child(even) {
+    background-color: #fdf2e9; /* Color suave naranja claro */
+}
+
+/* Efecto hover */
+tr:hover {
+    background-color: #fbe6d4; /* Naranja más claro */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Bordes redondeados en tabla */
+table tr:first-child th:first-child {
+    border-top-left-radius: 12px;
+}
+table tr:first-child th:last-child {
+    border-top-right-radius: 12px;
+}
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+/* Responsividad */
+@media (max-width: 1024px) {
+    .table-container {
+        max-width: 100%;
+        margin-left: 400px;
+    }
+    table {
+        min-width: 1000px;
+    }
+}
+
+@media (max-width: 768px) {
+    th, td {
+        padding: 12px;
+        font-size: 14px;
+    }
+    th {
+        font-size: 13px;
+    }
+}
