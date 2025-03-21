@@ -399,13 +399,6 @@
 
               <input v-model="copropietario.conyuge.numTelefonicoCopropietariosConyuge" type="text" placeholder="Ingrese su número" />
             </div>
-
-            <label for="estadoCivil">Estado Civil:</label>
-            <select v-model="copropietario.conyuge.estadoCivilCopropietariosConyuge" id="estadoCivil">
-              <option :value="1">Soltero</option>
-              <option :value="2">Casado</option>
-              <option :value="3">Divorciado</option>
-            </select>
           </div>
         </div>
 
@@ -717,7 +710,6 @@ watch(() => form.value.numCopropietarios, (newVal) => {
       correoUsuarioCopropietariosConyuge: '',
       prefijoTelefonicoCopropietariosConyuge: 1,
       numTelefonicoCopropietariosConyuge: '',
-      estadoCivilCopropietariosConyuge: 1,
     }
   }));
 });
@@ -808,7 +800,6 @@ const submitForm2 = async () => {
             correoElectronicoCopropietarioConyuge: copropietario.conyuge.correoUsuarioCopropietariosConyuge,
             idPrefijoCopropietarioConyuge: copropietario.conyuge.prefijoTelefonicoCopropietariosConyuge,
             celularCopropietarioConyuge: copropietario.conyuge.numTelefonicoCopropietariosConyuge,
-            idEstadoCivilCopropietarioConyuge: copropietario.conyuge.estadoCivilCopropietariosConyuge,
           };
           requests.push(
               axios.post("http://localhost:8080/api/copropietarioconyuge", copropietarioconyugePayload, {
