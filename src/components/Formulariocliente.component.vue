@@ -600,7 +600,9 @@ const form = ref({
 const formularioClientevarios = async () => {
   try {
 
-    const idOperario = localStorage.getItem("idOperario");
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const idOperario = userData ? userData.idOperario : null;
+
 
     if (!idOperario) {
       console.error("No se encontró un ID de operario en localStorage.");
@@ -755,7 +757,8 @@ const submitForm2 = async () => {
       return;
     }
 
-    const idOperario = localStorage.getItem("idOperario");
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const idOperario = userData ? userData.idOperario : null;
 
     if (!idOperario) {
       console.error("No se encontró un ID de operario en localStorage.");

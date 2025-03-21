@@ -37,11 +37,11 @@
           <td>{{ cliente.ocupacion }}</td>
           <td>{{ cliente.residencia }}</td>
           <td>{{ cliente.prefijoPais }}</td>
-          <td>{{ cliente.nombre_Departamento }}</td>
-          <td>{{ cliente.nombre_Provincia }}</td>
-          <td>{{ cliente.nombre_Distrito }}</td>
+          <td>{{ cliente.departamento }}</td>
+          <td>{{ cliente.provincia }}</td>
+          <td>{{ cliente.distrito }}</td>
           <td>{{ cliente.nacionalidad }}</td>
-          <td>{{ cliente.tipo_Operario }}</td>
+          <td>{{ cliente.operario }}</td>
 
         </tr>
         </tbody>
@@ -66,12 +66,29 @@ export default {
   methods: {
     async obtenerClientes() {
       try {
-        const response = await axios.get('http://localhost:8080/api/clientes'); // URL de tu backend
+        const userData = JSON.parse(localStorage.getItem("user"));
+        const idOperario = userData ? userData.idOperario : null;
+        console.log("ID Operario enviado en la solicitud:", idOperario);
+
+        if (!idOperario) {
+          console.error("No se encontró 'idOperario' en localStorage.");
+          return;
+        }
+
+        const response = await axios.get("http://localhost:8080/api/clientes/operario", {
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-ID": 3,
+          },
+          withCredentials: true,
+        });
+
+        console.log("Clientes recibidos:", response.data);
         this.clientes = response.data;
       } catch (error) {
         console.error("Error al obtener clientes:", error);
       }
-    }
+    },
   }
 };
 </script>

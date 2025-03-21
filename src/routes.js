@@ -27,12 +27,12 @@ const routes = [
                 component: FormularioVeri,
             },
             {
-                path:"Clientes",
-                component: TablaClientes,
-            },
-            {
                 path:"MisClientes",
                 component: TablaMisClientes,
+            },
+            {
+                path:"Clientes",
+                component: TablaClientes,
             },
             {
                 path:"Generacion-Contrato",

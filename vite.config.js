@@ -9,5 +9,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  base: '/cramirezsac/', // Agrega esta línea con el nombre de tu repositorio
 });
