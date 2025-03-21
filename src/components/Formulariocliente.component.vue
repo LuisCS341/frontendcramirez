@@ -205,13 +205,6 @@
             </select>
             <input v-model="form.conyuge.numTelefonicoClienteConyuge" type="text" placeholder="Ingrese su número" />
           </div>
-          <!-- ESTADO CIVIL -->
-          <label for="estadoCivil">Estado Civil:</label>
-          <select v-model="form.conyuge.estadoCivilClienteConyuge" id="estadoCivil">
-            <option :value="1">Soltero</option>
-            <option :value="2">Casado</option>
-            <option :value="3">Divorciado</option>
-          </select>
         </div>
 
         <button type="submit">Siguiente</button>
@@ -440,7 +433,11 @@
           <input v-model="lote.manzanalote" type="text" />
 
           <label>Número de Lote:</label>
-          <input v-model="lote.numerolote" type="text" />
+          <input
+              v-model="lote.numerolote"
+              type="text"
+              @input="lote.numerolote = lote.numerolote.replace(/[^0-9]/g, '')"
+          />
 
           <label>Tipo de Contrato:</label>
           <select v-model="lote.tipoContratolote">
@@ -586,7 +583,6 @@ const form = ref({
     correoUsuarioCliente: '',
     prefijoTelefonicoClienteConyuge: 1,
     numTelefonicoClienteConyuge: '',
-    estadoCivilClienteConyuge: 1,
   },
 
     numCopropietarios: 0,
@@ -656,7 +652,6 @@ const formularioClientevarios = async () => {
         idPrefijoConyuge: form.value.conyuge.prefijoTelefonicoClienteConyuge,
         celularConyuge: form.value.conyuge.numTelefonicoClienteConyuge,
         nombresApellidosConyuge: form.value.conyuge.nombreClienteConyuge,
-        idEstadoCivilConyuge: form.value.conyuge.estadoCivilClienteConyuge,
       };
 
       console.log("Datos del Cónyuge a enviar:", conyugePayload);

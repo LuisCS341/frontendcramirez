@@ -78,7 +78,7 @@ export default {
         const response = await axios.get("http://localhost:8080/api/clientes/operario", {
           headers: {
             "Content-Type": "application/json",
-            "X-User-ID": 3,
+            "X-User-ID": idOperario,
           },
           withCredentials: true,
         });
