@@ -44,7 +44,7 @@ const routes = [
             },
 
             // 📋 Sección de clientes
-            //{ path: "clientes/mis-clientes", component: TablaMisClientes },
+            { path: "clientes/mis-clientes", component: TablaMisClientes },
             { path: "tablaclientes", component: TablaClientes },
 
             // // 📜 Sección de contratos
