@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import BarraLateralDashboard from "@/components/Dashboard/BarraLateralDashboard.vue";
-import BarraSuperiorDashboard from "@/components/Dashboard/BarraSuperiorDashboard.vue";
+import BarraLateralDashboard from "@/components/dashboard/BarraLateralDashboard.vue";
+import BarraSuperiorDashboard from "@/components/dashboard/BarraSuperiorDashboard.vue";
 
 export default {
   components: {
