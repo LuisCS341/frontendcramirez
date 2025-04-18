@@ -590,7 +590,7 @@ const formularioClientevarios = async () => {
 
     console.log("Datos del Cliente a enviar:", clientePayload);
 
-    await axios.post("http://localhost:8080/api/clientes", clientePayload, {
+    await axios.post("https://backendpruebav1.onrender.com/api/clientes", clientePayload, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
@@ -598,7 +598,7 @@ const formularioClientevarios = async () => {
       },
     });
 
-    const response = await axios.get("http://localhost:8080/api/clientes/ultimo");
+    const response = await axios.get("https://backendpruebav1.onrender.com/api/clientes/ultimo");
     idCliente.value = response.data;
     console.log("ID del cliente asignado:", idCliente.value);
 
@@ -626,7 +626,7 @@ const formularioClientevarios = async () => {
 
       console.log("Datos del Cónyuge a enviar:", conyugePayload);
 
-      await axios.post("http://localhost:8080/api/clienteConyuges", conyugePayload, {
+      await axios.post("https://backendpruebav1.onrender.com/api/clienteConyuges", conyugePayload, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
@@ -761,7 +761,7 @@ const submitForm2 = async () => {
         };
 
         requests.push(
-            axios.post("http://localhost:8080/api/copropietario", copropietarioPayload, {
+            axios.post("https://backendpruebav1.onrender.com/api/copropietario", copropietarioPayload, {
               withCredentials: true,
               headers: {
                 "Content-Type": "application/json",
@@ -788,7 +788,7 @@ const submitForm2 = async () => {
             celularCopropietarioConyuge: copropietario.conyuge.numTelefonicoCopropietariosConyuge,
           };
           requests.push(
-              axios.post("http://localhost:8080/api/copropietarioconyuge", copropietarioconyugePayload, {
+              axios.post("https://backendpruebav1.onrender.com/api/copropietarioconyuge", copropietarioconyugePayload, {
                 withCredentials: true,
                 headers: {
                   "Content-Type": "application/json",
@@ -812,7 +812,7 @@ const submitForm2 = async () => {
           areaLote: lote.areaLote,
         };
 
-        await axios.post("http://localhost:8080/api/lotes", lotePayload, {
+        await axios.post("https://backendpruebav1.onrender.com/api/lotes", lotePayload, {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
@@ -821,7 +821,7 @@ const submitForm2 = async () => {
         });
 
         // Obtener el último ID de lote registrado desde el backend
-        const { data: idLote } = await axios.get("http://localhost:8080/api/lotes/ultimo");
+        const { data: idLote } = await axios.get("https://backendpruebav1.onrender.com/api/lotes/ultimo");
 
         // Almacenar el idLote en el objeto del lote
         lote.idLote = idLote;
@@ -849,7 +849,7 @@ const submitLinderos= async() =>{
         porElFondo: lote.linderos.porElFondoLindero,
       };
 
-      return axios.post('http://localhost:8080/api/lindero', LinderoLoteDTO);
+      return axios.post('https://backendpruebav1.onrender.com/api/lindero', LinderoLoteDTO);
     });
 
     await Promise.all(requests);
@@ -912,7 +912,7 @@ const finalizarRegistroMatriz = async () => {
 
       };
 
-      return axios.post('http://localhost:8080/api/matrices', matrizLoteDTO);
+      return axios.post('https://backendpruebav1.onrender.com/api/matrices', matrizLoteDTO);
     });
 
     await Promise.all(requests);

@@ -169,7 +169,7 @@ export default {
           return;
         }
 
-        const response = await axios.get("http://localhost:8080/api/clientes/operario", {
+        const response = await axios.get("https://backendpruebav1.onrender.com/api/clientes/operario", {
           headers: {
             "X-User-ID": idOperario,
           },

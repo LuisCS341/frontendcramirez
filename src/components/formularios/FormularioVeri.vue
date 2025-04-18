@@ -98,12 +98,12 @@ export default {
       }
 
       // Paso 1: buscar datos de RENIEC/SUNAT (u otra fuente externa)
-      fetch(`http://localhost:8080/api/buscarCliente/${documento}?tipo=${tipoDocumento}`)
+      fetch(`https://backendpruebav1.onrender.com/api/buscarCliente/${documento}?tipo=${tipoDocumento}`)
           .then((response) => response.json())
           .then((data) => {
             if (data && data.nombres) {
 
-              fetch(`http://localhost:8080/api/clientes/existe?numeroIdentificacion=${documento}`)
+              fetch(`https://backendpruebav1.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
                   .then((response) => response.json())
                   .then((existe) => {
                     this.cliente = {
