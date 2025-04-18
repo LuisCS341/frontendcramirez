@@ -31,10 +31,10 @@
 <script>
 import  { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import ContratosFirmadosPorOperador from "@/components/Graficos/ContratosFirmadosPorOperador.vue";
-import GraficoClientesPorOperador from "@/components/Graficos/GraficoClientesPorOperador.vue";
-import GraficoClientesGeneral from "@/components/Graficos/GraficoClientesGeneral.vue";
-import ContratosFirmadosGeneral from "@/components/Graficos/ContratosFirmadosGeneral.vue";
+import ContratosFirmadosPorOperador from "@/components/graficos/ContratosFirmadosPorOperador.vue";
+import GraficoClientesPorOperador from "@/components/graficos/GraficoClientesPorOperador.vue";
+import GraficoClientesGeneral from "@/components/graficos/GraficoClientesGeneral.vue";
+import ContratosFirmadosGeneral from "@/components/graficos/ContratosFirmadosGeneral.vue";
 
 export default {
   components: {

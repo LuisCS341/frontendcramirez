@@ -7,20 +7,20 @@ const LoginOlvidarContra = () => import("@/components/views/LoginOlvidarContra.v
 const Dashboard = () => import("@/components/views/Dashboard.vue");
 
 // Componentes del dashboard
-const AreaTrabajo = () => import("@/components/Dashboard/AreaTrabajo.vue");
+const AreaTrabajo = () => import("@/components/dashboard/AreaTrabajo.vue");
 
 // 📝 Formularios (basado en la estructura de carpetas)
-const FormularioVeri = () => import("@/components/Formularios/FormularioVeri.vue");
-const Formulariocliente=() => import("@/components/Formularios/Formulariocliente.component.vue")
-const Summary = () => import("@/components/Formularios/Summary.vue");
+const FormularioVeri = () => import("@/components/formularios/FormularioVeri.vue");
+const Formulariocliente=() => import("@/components/formularios/Formulariocliente.component.vue")
+const Summary = () => import("@/components/formularios/Summary.vue");
 
 // 📋 Tablas
 const TablaClientes = () => import("@/components/tablas/TablaClientes.vue");
 const TablaMisClientes = () => import("@/components/tablas/TablaTotalclientes.vue");
 
 // 📜 Contratos
-const GeneracionContrato = () => import("@/components/Contratos/generacionContrato.vue");
-const SeguimientoContrato = () => import("@/components/Contratos/SeguimientoContrato.vue");
+const GeneracionContrato = () => import("@/components/contratos/generacionContrato.vue");
+const SeguimientoContrato = () => import("@/components/contratos/SeguimientoContrato.vue");
 
 const routes = [
     { path: "/", component: Login },
@@ -44,8 +44,8 @@ const routes = [
             },
 
             // 📋 Sección de clientes
-            { path: "clientes/mis-clientes", component: TablaMisClientes },
-            { path: "clientes", component: TablaClientes },
+            //{ path: "clientes/mis-clientes", component: TablaMisClientes },
+            { path: "tablaclientes", component: TablaClientes },
 
             // // 📜 Sección de contratos
             // { path: "contratos/generacion", component: GeneracionContrato },
