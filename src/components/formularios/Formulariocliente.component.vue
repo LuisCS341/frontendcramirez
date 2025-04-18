@@ -491,8 +491,8 @@
 import { ref, watch ,computed ,onMounted ,watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
-import BarraSuperiorDashboard from "@/components/Dashboard/BarraSuperiorDashboard.vue";
-import BarraLateralDashboard from "@/components/Dashboard/BarraLateralDashboard.vue";
+import BarraSuperiorDashboard from "@/components/dashboard/BarraSuperiorDashboard.vue";
+import BarraLateralDashboard from "@/components/dashboard/BarraLateralDashboard.vue";
 import { paises } from '@/data/paises.js';
 import { residencias } from '@/data/residencias'
 import {prefijos} from "@/data/prefijos.js";

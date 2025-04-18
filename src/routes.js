@@ -1,55 +1,53 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router';
 
-// Lazy loading de vistas
-const Login = () => import("@/components/views/Login.component.vue");
-const Error403 = () => import("@/components/views/Error403.vue");
-const LoginOlvidarContra = () => import("@/components/views/LoginOlvidarContra.vue");
-const Dashboard = () => import("@/components/views/Dashboard.vue");
+// ✅ Importación directa de vistas
+import Login from '@/components/views/Login.component.vue';
+import Error403 from '@/components/views/Error403.vue';
+import LoginOlvidarContra from '@/components/views/LoginOlvidarContra.vue';
+import Dashboard from '@/components/views/Dashboard.vue';
 
-// Componentes del dashboard
-const AreaTrabajo = () => import("@/components/dashboard/AreaTrabajo.vue");
+// ✅ Componentes del dashboard
+import AreaTrabajo from '@/components/dashboard/AreaTrabajo.vue';
 
-// 📝 Formularios (basado en la estructura de carpetas)
-const FormularioVeri = () => import("@/components/formularios/FormularioVeri.vue");
-const Formulariocliente=() => import("@/components/formularios/Formulariocliente.component.vue")
-const Summary = () => import("@/components/formularios/Summary.vue");
+// 📝 Formularios
+import FormularioVeri from '@/components/formularios/FormularioVeri.vue';
+import Formulariocliente from '@/components/formularios/Formulariocliente.component.vue';
 
 // 📋 Tablas
-const TablaClientes = () => import("@/components/tablas/TablaClientes.vue");
-const TablaMisClientes = () => import("@/components/tablas/TablaTotalclientes.vue");
+import TablaClientes from '@/components/tablas/TablaClientes.vue';
+import TablaMisClientes from '@/components/tablas/TablaTotalclientes.vue';
 
-// 📜 Contratos
-const GeneracionContrato = () => import("@/components/contratos/generacionContrato.vue");
-const SeguimientoContrato = () => import("@/components/contratos/SeguimientoContrato.vue");
+// 📜 Contratos (descomentar si lo necesitas)
+import GeneracionContrato from '@/components/contratos/generacionContrato.vue';
+import SeguimientoContrato from '@/components/contratos/SeguimientoContrato.vue';
 
 const routes = [
-    { path: "/", component: Login },
-    { path: "/login-olvidar-contra", component: LoginOlvidarContra },
-    { path: "/403", component: Error403 },
+    { path: '/', component: Login },
+    { path: '/login-olvidar-contra', component: LoginOlvidarContra },
+    { path: '/403', component: Error403 },
 
     {
-        path: "/dashboard",
+        path: '/dashboard',
         component: Dashboard,
         children: [
-            { path: "", component: AreaTrabajo },
+            { path: '', component: AreaTrabajo },
 
-            // 📝 Sección de formularios con los componentes existentes
+            // 📝 Formularios
             {
-                path: "formularios",
+                path: 'formularios',
                 children: [
-                    { path: "registro-cliente", component: FormularioVeri },
-                    { path: "detalle-cliente", component: Formulariocliente }, // Basado en tu estructura
-                    { path: "resumen", component: Summary },
+                    { path: 'registro-cliente', component: FormularioVeri },
+                    { path: 'detalle-cliente', component: Formulariocliente },
                 ],
             },
 
-            // 📋 Sección de clientes
-            { path: "clientes/mis-clientes", component: TablaMisClientes },
-            { path: "tablaclientes", component: TablaClientes },
+            // 📋 Tablas
+            { path: 'clientes/mis-clientes', component: TablaMisClientes },
+            { path: 'tablaclientes', component: TablaClientes },
 
-            // // 📜 Sección de contratos
-            // { path: "contratos/generacion", component: GeneracionContrato },
-            // { path: "contratos/seguimiento", component: SeguimientoContrato },
+            // 📜 Contratos
+            { path: 'contratos/generacion', component: GeneracionContrato },
+            { path: 'contratos/seguimiento', component: SeguimientoContrato },
         ],
     },
 ];
