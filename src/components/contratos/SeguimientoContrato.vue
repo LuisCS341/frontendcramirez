@@ -184,7 +184,7 @@
 </template>
 
 <script>
-import ("@/assets/Tablas/Tablas.css")
+import ("@/assets/tablas/Tablas.css")
 export default {
   data() {
     return {

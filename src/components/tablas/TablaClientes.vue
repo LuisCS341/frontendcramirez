@@ -134,7 +134,7 @@
 </template>
 
 <script>
-import "@/assets/Tablas/Tablas.css";
+import "@/assets/tablas/Tablas.css";
 import * as XLSX from "xlsx";
 import axios from 'axios';
 

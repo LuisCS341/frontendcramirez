@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import "@/assets/Tablas/Tablas.css";
+import "@/assets/tablas/Tablas.css";
 import PizZip from "pizzip";
 import Docxtemplater from "docxtemplater";
 import { saveAs } from "file-saver";

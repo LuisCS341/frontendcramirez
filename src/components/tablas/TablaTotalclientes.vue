@@ -130,7 +130,7 @@
 </template>
 
 <script>
-import "@/assets/Tablas/Tablas.css";
+import "@/assets/tablas/Tablas.css";
 import axios from "axios";
 import * as XLSX from "xlsx";
 
