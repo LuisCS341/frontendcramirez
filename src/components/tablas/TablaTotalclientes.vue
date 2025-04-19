@@ -174,7 +174,7 @@ export default {
   methods: {
     async obtenerClientes() {
       try {
-        const { data } = await axios.get("https://backendpruebav1.onrender.com/api/clientes", {
+        const { data } = await axios.get("https://backendcramirez.onrender.com/api/clientes", {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });
