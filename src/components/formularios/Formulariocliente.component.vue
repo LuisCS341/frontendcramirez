@@ -355,16 +355,16 @@
             <h4>Lindero para Lote {{ index + 1 }}</h4>
 
             <label>Por la derecha(m):</label>
-            <input v-model="lote.linderos.porLaDerechaLindero" type="number" required />
+            <input v-model="lote.linderos.porLaDerechaLindero" type="number" step="any" required />
 
             <label>Por la izquierda(m):</label>
-            <input v-model="lote.linderos.porLaIzquierdaLindero" type="number" required />
+            <input v-model="lote.linderos.porLaIzquierdaLindero" type="number" step="any" required />
 
             <label>Por el frente(m):</label>
-            <input v-model="lote.linderos.porElFrenteLindero" type="number" required />
+            <input v-model="lote.linderos.porElFrenteLindero" type="number" step="any" required />
 
             <label>Por el fondo(m):</label>
-            <input v-model="lote.linderos.porElFondoLindero" type="number" required />
+            <input v-model="lote.linderos.porElFondoLindero" type="number" step="any" required />
           </div>
           <button type="submit">Enviar</button>
         </form>
@@ -406,7 +406,7 @@
                   </select>
 
                   <label for="areaMatrizHas">Area Matriz Has:</label>
-                  <input id="areaMatrizHas" v-model.number="matriz.matriz.areaMatrizHasMatriz" type="number" min="0" required/>
+                  <input id="areaMatrizHas" v-model.number="matriz.matriz.areaMatrizHasMatriz" type="number" step="any"  required/>
 
                   <label for="Registros_DE">Registros DE:</label>
                   <input id="Registros_DE" v-model="matriz.matriz.registroDeMatriz" type="text"/>
@@ -442,9 +442,7 @@
       <div v-if="formularioActual === 3" class="overlay">
         <div class="modal">
           <h2 class="tituloformulario">Resumen del Registro</h2>
-
           <div class="formulario-all resumen-box">
-            <!-- Sección Cliente -->
             <div class="seccion-cliente">
               <h3>Datos del Cliente</h3>
               <p><strong>Nombre y Apellido:</strong> {{ form.nombreCliente }}</p>
@@ -457,7 +455,11 @@
               <p><strong>Número de Contratos:</strong> {{ form.lotes.length }}</p>
             </div>
 
-            <!-- Sección Lotes -->
+            <div v-if="form.lotes[0]?.copropietario?.nombreCopropietarios">
+              <h3>Datos del Copropietario</h3>
+              <p><strong>Copropietario:</strong> {{ form.lotes[0].copropietario.nombreCopropietarios }}</p>
+            </div>
+
             <div class="seccion-lotes" v-if="form.lotes.length">
               <h3>Información de Lotes</h3>
               <div v-for="(lote, index) in form.lotes" :key="index" class="lote-box">
@@ -468,13 +470,11 @@
               </div>
             </div>
 
-            <!-- Sección Contacto -->
             <div class="seccion-contacto">
               <p><strong>Correo Electrónico:</strong> {{ form.correoUsuario }}</p>
               <p><strong>Teléfono:</strong> {{ form.numTelefonico }}</p>
             </div>
 
-            <!-- Botón -->
             <div class="acciones">
               <button class="btn btn-secondary" @click="cerrarResumen">Cerrar</button>
             </div>
