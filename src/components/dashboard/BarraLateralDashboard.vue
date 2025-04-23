@@ -25,7 +25,7 @@
 
             <!-- Mostrar "Mis Clientes" solo si NO eres Jefe -->
             <li v-if="userRole === 2 || userRole === 3">
-              <router-link to="/dashboard/tablaclientes">
+              <router-link to="/dashboard/Clientes">
                 <img :src="icons['simbolo-de-hombre-y-flecha-derecha.png']" alt="Mis Clientes" class="icono" />
                 Mis Clientes
               </router-link>
@@ -49,13 +49,13 @@
           </div>
           <ul v-show="menuAbierto.contratos">
             <li>
-              <router-link to="/dashboard/Seguimiento-Contrato">
+              <router-link to="/dashboard/contratos/seguimientocontrato">
                 <img :src="icons['noticias.png']" alt="Seguimiento Contrato" class="icono" />
                 Seguimiento de Contrato
               </router-link>
             </li>
             <li>
-              <router-link to="/dashboard/Generacion-Contrato">
+              <router-link to="/dashboard/contratos/generacioncontrato">
                 <img :src="icons['acceso.png']" alt="Generar Contrato" class="icono" />
                 Generación de Contratos
               </router-link>
