@@ -79,7 +79,8 @@ export default {
     },
 
     buscarCliente() {
-      const documento = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
+      const documentoRaw = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
+      const documento = documentoRaw.replace(/\D/g, '');
       const tipoDocumento = this.nacionalidad === "peruano" ? "DNI" : "CE";
 
       if (this.nacionalidad === "extranjero") {
