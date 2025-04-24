@@ -3,7 +3,7 @@
     <BarraLateralDashboard />
     <div class="main-content">
       <BarraSuperiorDashboard />
-      <div class="content-container">
+      <div class="content-container form-verificacion">
         <div class="content">
           <h1 class="title">Registro de Cliente</h1>
 
@@ -54,7 +54,7 @@
 <script>
 import BarraSuperiorDashboard from "@/components/dashboard/BarraSuperiorDashboard.vue";
 import BarraLateralDashboard from "@/components/dashboard/BarraLateralDashboard.vue";
-import "@/assets/formulario/FormularioVerificacion.css"
+import "@/assets/formulario/FormularioVerificacion.css";
 
 export default {
   components: {
@@ -82,7 +82,6 @@ export default {
       const documento = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
       const tipoDocumento = this.nacionalidad === "peruano" ? "DNI" : "CE";
 
-      // Si es carnet de extranjería, eliminamos el localStorage
       if (this.nacionalidad === "extranjero") {
         localStorage.removeItem("nombreCompleto");
       }
@@ -98,7 +97,6 @@ export default {
         return;
       }
 
-      // Paso 1: buscar datos de RENIEC/SUNAT (u otra fuente externa)
       fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}?tipo=${tipoDocumento}`)
           .then((response) => response.json())
           .then((data) => {
@@ -141,6 +139,7 @@ export default {
             console.error("Error al consultar el backend:", error);
             this.cliente = {};
             this.estadoCliente = "Cliente nuevo";
+            localStorage.removeItem("nombreCompleto");
           });
     },
 
@@ -169,4 +168,5 @@ export default {
   },
 };
 </script>
+
 
