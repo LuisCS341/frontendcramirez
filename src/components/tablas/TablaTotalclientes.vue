@@ -12,46 +12,46 @@
         <table class="table">
           <thead>
           <tr>
+            <th>Tipo de contrato</th>
             <th>Cliente N°</th>
-            <th>Nombres y Apellidos</th>
-            <th>Dirección</th>
-            <th>Correo Electrónico</th>
-            <th>Celular</th>
-            <th>Identificación</th>
-            <th>Número Identificación</th>
-            <th>Estado Civil</th>
-            <th>Ocupación</th>
-            <th>Residencia</th>
-            <th>Prefijo</th>
-            <th>Empresa que Vende</th>
-            <th>RUC Vendedor</th>
-            <th>Dirección Vendedor</th>
-            <th>Representante Legal Vendedor</th>
-            <th>DNI Vendedor</th>
-            <th>Nº Partida Poder Vendedor</th>
+            <th>Contrato Nº</th>
+
+
+            <th>Proyecto</th>
+            <th>Empresa que vende</th>
+            <th>RUC vendedor</th>
+            <th>Direccion vendedor</th>
+            <th>Representante legal-Vendedor</th>
+            <th>DNI vendedor</th>
+            <th>Numero de partida (Poder Vendedor)</th>
             <th>Moneda</th>
-            <th>Número Cuenta</th>
+            <th>Num.Cuenta</th>
             <th>CCI</th>
-            <th>Fecha Entrega Proyecto</th>
-            <th>Fecha Firma Contrato Definitivo</th>
-            <th>Área Matriz (Has.)</th>
-            <th>Registros de Partida Matriz</th>
-            <th>Ubicación Lote (Predio Matriz)</th>
-            <th>Unidad Catastral de Matriz</th>
-            <th>Urbanización de Matriz</th>
-            <th>Distrito de Matriz</th>
-            <th>Provincia de Matriz</th>
-            <th>Departamento de Matriz</th>
-            <th>Compraventa de Matriz</th>
-            <th>Situación Legal de Matriz</th>
+            <th>Fecha de entrega de proyecto</th>
+            <th>Fecha de firma de contrato definitivo</th>
+            <th>Area matriz HAS.</th>
+            <th>Registro DE</th>
+            <th>Partida matriz</th>
+            <th>Ubicacion de lote predio matriz</th>
+            <th>Unidad catastral de matriz</th>
+            <th>Urbanizacion de matriz</th>
+            <th>Distrito-matriz</th>
+            <th>Provincia-matriz</th>
+            <th>Departamento-matriz</th>
+            <th>Compra venta de matriz</th>
+            <th>Situacion legal de matriz</th>
+            <th>Constancia de no Adeudo Municipal y Mas de Matriz</th>
+            <th>Avance de Proyecto de Matriz</th>
+            <th>Cronograma de Matriz</th>
             <th>Fecha Inicio Contrato</th>
             <th>Fecha Cancelación Contrato</th>
-            <th>MZ (Cliente)</th>
-            <th>LT (Cliente)</th>
-            <th>Área en Letras (Cliente)</th>
-            <th>Área Lote (Cliente)</th>
+            <th>MZ-LT (LOTE)</th>
+            <th>MZ (LOTE)</th>
+            <th>LT (LOTE)</th>
+            <th>Área en Letras (LOTE)</th>
+            <th>Área Lote (LOTE)</th>
+            <th>Cuota Ideal (alicuota)</th>
             <th>Cuota Ideal en Letras</th>
-            <th>Cuota Ideal (Cliente)</th>
             <th>Por el Frente</th>
             <th>Por la Derecha</th>
             <th>Por la Izquierda</th>
@@ -61,7 +61,44 @@
             <th>Nombres y Apellidos (Cliente)</th>
             <th>Nacionalidad (Cliente)</th>
             <th>Estado Civil (Cliente)</th>
-            <th>Acciones</th>
+            <th>Direccion (Cliente)</th>
+            <th>Distrito-cliente</th>
+            <th>Provincia-cliente</th>
+            <th>Departamento-cliente</th>
+            <th>Ocupacion</th>
+
+
+
+            <th>Costo de Lote numero</th>
+            <th>Costo de Lote letras</th>
+            <th>Pago inicial Incluido separacion</th>
+            <th>Separacion Cliente</th>
+            <th>Cantidad de Cuotas</th>
+            <th>Monto de Cuotas</th>
+            <th>Cantidad de Cuota extraordinaria</th>
+            <th>Monto de Cuota extraordinaria</th>
+            <th>Mantenimiento mensual en Numeros</th>
+            <th>Mantenimiento mensual en letras</th>
+            <th>Estado de cuenta(de tener deuda poner monto)</th>
+            <th>Monto de deuda en letras</th>
+            <th>Cuotas pendientes de pago</th>
+            <th>Dia de pago en numero</th>
+            <th>Dia de pago en letras</th>
+            <th>Carta de no adeuda</th>
+            <th>Certificado de lote</th>
+            <th>Medios de pago</th>
+            <th>Plano 1</th>
+            <th>Plano 2</th>
+            <th>Envio de minuta</th>
+            <th>Correo electronico del cliente</th>
+            <th>Celular del cliente</th>
+            <th>Fecha de cita</th>
+            <th>Hora de cita</th>
+            <th>Numero de atencion intranet</th>
+            <th>Modificacion de minuta</th>
+            <th>Minuta escaneada firmado</th>
+            <th>Exp. notaria</th>
+            <th>Firmo o no Firmo</th>
           </tr>
           </thead>
           <tbody>

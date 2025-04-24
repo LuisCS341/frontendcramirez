@@ -79,14 +79,8 @@ export default {
     },
 
     buscarCliente() {
-      const documentoRaw = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
+      const documento = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
       const tipoDocumento = this.nacionalidad === "peruano" ? "DNI" : "CE";
-
-      if (this.nacionalidad === "extranjero") {
-        localStorage.removeItem("nombreCompleto");
-      }
-
-      console.log("Buscando cliente con:", documento, tipoDocumento);
 
       if (
           (tipoDocumento === "DNI" && documento.length !== 8) ||
@@ -97,50 +91,69 @@ export default {
         return;
       }
 
-      fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}?tipo=${tipoDocumento}`)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data && data.nombres) {
+      if (tipoDocumento === "DNI") {
+        // Si es peruano, consulta Reniec
+        fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data && data.nombres) {
+                fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
+                    .then((response) => response.json())
+                    .then((existe) => {
+                      this.cliente = {
+                        nombres: data.nombres,
+                        apellidoPaterno: data.apellidoPaterno,
+                        apellidoMaterno: data.apellidoMaterno,
+                        nombreCompleto: data.nombreCompleto,
+                        tipoDocumento: data.tipoDocumento,
+                        numeroDocumento: data.numeroDocumento,
+                        digitoVerificador: data.digitoVerificador,
+                      };
+                      this.estadoCliente = existe
+                          ? "Cliente registrado - ya existe en el sistema"
+                          : "Cliente nuevo";
 
-              fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
-                  .then((response) => response.json())
-                  .then((existe) => {
-                    this.cliente = {
-                      nombres: data.nombres,
-                      apellidoPaterno: data.apellidoPaterno,
-                      apellidoMaterno: data.apellidoMaterno,
-                      nombreCompleto: data.nombreCompleto,
-                      tipoDocumento: data.tipoDocumento,
-                      numeroDocumento: data.numeroDocumento,
-                      digitoVerificador: data.digitoVerificador,
-                    };
-
-                    this.estadoCliente = existe
-                        ? "Cliente registrado - ya existe en el sistema"
-                        : "Cliente nuevo";
-
-                    localStorage.setItem("numeroDocumento", documento);
-                    if (this.cliente.nombreCompleto) {
-                      localStorage.setItem("nombreCompleto", this.cliente.nombreCompleto);
-                    }
-                  })
-                  .catch((error) => {
-                    console.error("Error al verificar existencia del cliente:", error);
-                    this.estadoCliente = "Cliente nuevo";
-                  });
-            } else {
+                      localStorage.setItem("numeroDocumento", documento);
+                      if (this.cliente.nombreCompleto) {
+                        localStorage.setItem("nombreCompleto", this.cliente.nombreCompleto);
+                      }
+                    })
+                    .catch((error) => {
+                      console.error("Error al verificar existencia del cliente:", error);
+                      this.estadoCliente = "Cliente nuevo";
+                    });
+              } else {
+                this.cliente = {};
+                this.estadoCliente = "Cliente nuevo";
+                localStorage.setItem("numeroDocumento", documento);
+                localStorage.removeItem("nombreCompleto");
+              }
+            })
+            .catch((error) => {
+              console.error("Error al consultar el backend (Reniec):", error);
               this.cliente = {};
               this.estadoCliente = "Cliente nuevo";
+              localStorage.removeItem("nombreCompleto");
+            });
+      } else {
+        // Si es extranjero, solo verificar si existe y mostrar estado, sin llenar this.cliente
+        fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
+            .then((response) => response.json())
+            .then((existe) => {
+              this.estadoCliente = existe
+                  ? "Cliente registrado - ya existe en el sistema"
+                  : "Cliente nuevo";
+
               localStorage.setItem("numeroDocumento", documento);
               localStorage.removeItem("nombreCompleto");
-            }
-          })
-          .catch((error) => {
-            console.error("Error al consultar el backend:", error);
-            this.cliente = {};
-            this.estadoCliente = "Cliente nuevo";
-            localStorage.removeItem("nombreCompleto");
-          });
+              this.cliente = {}; // ← Vaciar explícitamente cliente
+            })
+            .catch((error) => {
+              console.error("Error al verificar existencia del cliente:", error);
+              this.estadoCliente = "Cliente nuevo";
+              this.cliente = {}; // ← Vaciar explícitamente cliente
+            });
+      }
     },
 
     irFormulario() {

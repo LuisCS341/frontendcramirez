@@ -17,23 +17,81 @@
       <table>
         <thead>
         <tr>
-          <th>Tipo de Contrato</th>
-          <th>Cliente Nº</th>
-          <th>Contrato Nº</th>
-          <th>Proyecto</th>
-          <th>Empresa que Vende</th>
-          <th>RUC Vendedor</th>
-          <th>Dirección Vendedor</th>
-          <th>Representante Legal - Vendedor</th>
-          <th>DNI Vendedor</th>
-          <th>Fecha de Firma de Contrato Definitivo</th>
-          <th>Ubicación del Lote</th>
-          <th>Nombres y Apellidos (Cliente)</th>
-          <th>DNI (Cliente)</th>
-          <th>Dirección - Comprador</th>
-          <th>Correo Electrónico</th>
-          <th>Celular</th>
-          <th>Acciones</th>
+          <th>TIPO DE CONTRATO</th>
+          <th>CLIENTE Nº</th>
+          <th>CONTRATO Nº</th>
+          <th>PROYECTO</th>
+          <th>EMPRESA QUE VENDE</th>
+          <th>RUC VENDEDOR</th>
+          <th>DIRECCION VENDEDOR</th>
+          <th>REPRESENTANTE LEGAL - VENDEDOR</th>
+          <th>DNI VENDEDOR</th>
+          <th>Nº PARTIDA (PODER VENDEDOR)</th>
+          <th>MONEDA</th>
+          <th>NUM. CUENTA</th>
+          <th>CCI</th>
+          <th>FECHA DE ENTREGA DE PROYECTO</th>
+          <th>FECHA DE FIRMA DE CONTRATO DEFINITIVO</th>
+          <th>AREA MATRIZ HAS.</th>
+          <th>REGISTROS DE</th>
+          <th>PARTIDA MATRIZ</th>
+          <th>UBICACION DEL LOTE (PREDIO MATRIZ)</th>
+          <th>UNIDAD CATASTRAL DE MATRIZ</th>
+          <th>URBANIZACION DE MATRIZ</th>
+          <th>DISTRITO DE MATRIZ</th>
+          <th>PROVINCIA DE MATRIZ</th>
+          <th>DEPARTAMENTO DE MATRIZ</th>
+          <th>COMPRAVENTA DE MATRIZ</th>
+          <th>SITUACION LEGAL DE MATRIZ</th>
+          <th>FECHA DE INICIO DE CONTRATO</th>
+          <th>FECHA CANCELACIÓN DEL CONTRATO</th>
+          <th>MZ (CLIENTE)</th>
+          <th>LT (CLIENTE)</th>
+          <th>AREA EN LETRAS (CLIENTE)</th>
+          <th>AREA DEL LOTE (CLIENTE)</th>
+          <th>CUOTA IDEAL EN LETRAS</th>
+          <th>CUOTA IDEAL (CLIENTE)</th>
+          <th>POR EL FRENTE</th>
+          <th>POR LA DERECHA</th>
+          <th>POR LA IZQUIERDA</th>
+          <th>POR EL FONDO</th>
+          <th>Nº IDENTIF. (CLIENTE)</th>
+          <th>TIPO DOC. (CLIENTE)</th>
+          <th>NOMBRES Y APELLIDOS (CLIENTE)</th>
+          <th>NACIONALIDAD (CLIENTE)</th>
+          <th>ESTADO CIVIL (CLIENTE)</th>
+          <th>ESTADO CIVIL (COMPRADORES)</th>
+          <th>DIRECCION - COMPRADOR (CLIENTE)</th>
+          <th>DISTRITO (CLIENTE)</th>
+          <th>PROVINCIA (CLIENTE)</th>
+          <th>DEPARTAMENTO (CLIENTE)</th>
+          <th>OCUPACION</th>
+          <th>TIPO DE SOCIO_CÓNYUGE/CONVIVIENTE COPROPIEDAD</th>
+          <th>NUMERO DE DOCUMENTO (CONYUGUE) (CLIENTE)</th>
+          <th>TIPO DE DOCUMENTO (CONYUGUE) (CLIENTE)</th>
+          <th>NOMBRE COMPLETO (CONYUGUE) (CLIENTE)</th>
+          <th>ESTADO CIVIL (CONYUGUE) (CLIENTE)</th>
+          <th>OCUPACIÓN (CONYUGE)</th>
+          <th>DOMICILIO (CONYUGE)</th>
+          <th>DISTRITO (CONYUGE)</th>
+          <th>PROVINCIA (CONYUGE)</th>
+          <th>DEPARTAMENTO (CONYUGE)</th>
+          <th>COSTO DEL LOTE (CLIENTE) EN NUM</th>
+          <th>COSTO DEL LOTE (CLIENTE) EN LETRAS</th>
+          <th>PAGO INICIAL (CLIENTE) INCLUIDO SEPARACION</th>
+          <th>SEPARACIÓN (CLIENTE)</th>
+          <th>CANTIDAD DE CUOTAS (CLIENTE)</th>
+          <th>MONTO DE CUOTAS (CLIENTE)</th>
+          <th>CANTIDAD CUOTA EXTRAORDINARIA (CLIENTE)</th>
+          <th>MONTO DE CUOTA EXTRAORDINARIA (CLIENTE)</th>
+          <th>MANT.  MENSUAL EN NUM (CLIENTE)</th>
+          <th>MANT.  MENSUAL EN LETRAS (CLIENTE)</th>
+          <th>ESTADO DE CUENTA (CLIENTE) (DE TENER DEUDA PONER MONTO)</th>
+          <th>MONTO DE DEUDA EN LETRAS (CLIENTE)</th>
+          <th>CUOTAS PENDIENTES DE PAGO</th>
+          <th>DIA DE PAGO EN NUMERO Y LETRAS</th>
+          <th>CORREO ELECTRONICO (CLIENTE)</th>
+          <th>CELULAR (CLIENTE)</th>
         </tr>
         </thead>
         <tbody>
