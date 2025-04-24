@@ -1,8 +1,8 @@
 export function numeroALetras(numero) {
     const unidades = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve'];
 
-    // Aseguramos que el número tenga 3 decimales
-    const numeroStr = Number(numero).toFixed(3);
+    // Aseguramos que el número tenga 4 decimales
+    const numeroStr = Number(numero).toFixed(4);
     const [parteEnteraStr, parteDecimalStr] = numeroStr.split('.');
 
     // Convertimos la parte entera dígito por dígito

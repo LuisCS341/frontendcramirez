@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+// Vistas principales
 import Login from "@/components/views/Login.component.vue";
 import Error403 from "@/components/views/Error403.vue";
 import LoginOlvidarContra from "@/components/views/LoginOlvidarContra.vue";

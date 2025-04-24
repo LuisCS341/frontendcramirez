@@ -1,490 +1,542 @@
 <template>
   <div class="dashboard-container">
-      <BarraLateralDashboard />
+    <BarraLateralDashboard />
     <div class="main-content">
       <BarraSuperiorDashboard />
-    <div class="container">
+      <div class="container">
 
-    <h2 class="tituloformulario">Formulario de Registro</h2>
+        <h2 class="tituloformulario">Formulario de Registro</h2>
 
-    <div class="formulario-all">
-      <form @submit.prevent="formularioClientevarios">
-        <h3>Datos Personales</h3>
+        <div class="formulario-all">
+          <form @submit.prevent="formularioClientevarios">
+            <h3>Datos Personales</h3>
 
-        <label>Apellido y Nombre:</label>
-        <input v-model="form.nombreCliente" type="text"  @input="form.nombreCliente = form.nombreCliente.replace(/[0-9]/g, '')" />
-
-        <label>Ocupación:</label>
-        <input type="text" v-model="form.ocupacionCliente" placeholder="Ingrese su ocupación" @input="form.ocupacionCliente = form.ocupacionCliente.replace(/[0-9]/g, '')">
-
-        <label for="tipoIdentificacion">Tipo de Identificación:</label>
-        <select v-model="form.tipoIdentificacion" id="tipoIdentificacion">
-          <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
-        </select>
-
-        <label>Número de Identificación:</label>
-        <input v-model="form.numIdentificacionUsuario" type="text" @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"  />
-
-        <label for="paisOrigen">País de Origen:</label>
-        <select v-model="form.paisOrigen" id="paisOrigen">
-          <option disabled value="">Seleccione un país</option>
-          <option v-for="pais in paises" :key="pais.id" :value="pais.id">{{ pais.nombre }}</option>
-        </select>
-
-        <label for="paisResidencia">País de Residencia:</label>
-        <select v-model="form.paisdeResidencia" id="paisResidencia">
-          <option disabled value="">Seleccione un país</option>
-          <option v-for="residencia in residencias" :key="residencia.id" :value="residencia.id">{{ residencia.nombre }}</option>
-        </select>
-
-        <label for="departamento">Departamento:</label>
-        <select v-model="form.departamento" id="departamento">
-          <option value="" disabled>Selecciona un departamento</option>
-          <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
-        </select>
-
-        <label>Provincia:</label>
-        <select v-model="form.provincia">
-          <option value="" disabled selected>Seleccione una provincia</option>
-          <option v-for="provincia in provinciasFiltradas" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
-        </select>
-
-        <label>Distrito:</label>
-        <select v-model="form.distrito">
-          <option value="" disabled selected>Seleccione un distrito</option>
-          <option v-for="distrito in distritosFiltrados" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
-        </select>
-
-        <label>Dirección:</label>
-        <input v-model="form.direccion" type="text"  />
-
-        <label>Correo Electrónico:</label>
-        <div class="email-input">
-          <input v-model="form.correoUsuario" type="email" placeholder="usuario@dominio.com"  />
-        </div>
-
-        <label for="prefijoTelefonico">Número Telefónico:</label>
-        <div style="display: flex; gap: 5px;">
-          <select v-model="form.prefijoTelefonico" id="prefijoTelefonico">
-            <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
-          </select>
-          <input v-model="form.numTelefonico" type="text" id="numTelefonico" placeholder="Ingrese su número" @input="form.numTelefonico = form.numTelefonico.replace(/[^0-9]/g, '')" />
-        </div>
-
-        <label for="estadoCivil">Estado Civil:</label>
-        <select v-model="form.estadoCivil" id="estadoCivil">
-          <option v-for="estado in estadoCivil" :key="estado.id" :value="estado.id">{{ estado.nombre }}</option>
-        </select>
-
-
-        <div v-if="form.estadoCivil === 2">
-
-          <h3 class="titulodatoslotes">Datos del Cónyuge</h3>
-
-          <label>Nombre y Apellido:</label>
-          <input v-model="form.conyuge.nombreClienteConyuge" type="text"  @input="form.conyuge.nombreClienteConyuge = form.conyuge.nombreClienteConyuge.replace(/[0-9]/g, '')"/>
-
-          <label>Ocupación:</label>
-          <input type="text" v-model="form.conyuge.ocupacionClienteConyuge" placeholder="Ingrese su ocupación" @input="form.conyuge.ocupacionClienteConyuge = form.conyuge.ocupacionClienteConyuge.replace(/[0-9]/g, '')">
-
-
-          <label for="tipoIdentificacion">Tipo de Identificación:</label>
-          <select v-model="form.conyuge.tipoIdentificacionClienteConyuge" id="tipoIdentificacion">
-            <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
-          </select>
-
-          <label>Número de Identificación:</label>
-          <input v-model="form.conyuge.numIdentificacionClienteConyuge" type="text" @input="form.conyuge.numIdentificacionClienteConyuge = form.conyuge.numIdentificacionClienteConyuge.replace(/[^0-9]/g, '')"  />
-
-          <label for="paisOrigen">País de Origen:</label>
-          <select v-model="form.conyuge.paisOrigenClienteConyuge" id="paisOrigen">
-            <option disabled value="">Seleccione un país</option>
-            <option v-for="pais in paises" :key="pais.id" :value="pais.id">{{ pais.nombre }}</option>
-          </select>
-
-          <label for="paisResidencia">País de Residencia:</label>
-          <select v-model="form.conyuge.paisResidenciaClienteConyuge" id="paisResidencia">
-            <option disabled value="">Seleccione un país</option>
-            <option v-for="residencia in residencias" :key="residencia.id" :value="residencia.id">{{ residencia.nombre }}</option>
-          </select>
-
-          <label for="departamento">Departamento:</label>
-          <select v-model="form.conyuge.departamentoClienteConyuge" id="departamento">
-            <option value="" disabled>Selecciona un departamento</option>
-            <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
-          </select>
-
-          <label>Provincia:</label>
-          <select v-model="form.conyuge.provinciaClienteConyuge">
-            <option value="" disabled selected>Seleccione una provincia</option>
-            <option v-for="provincia in provinciasFiltradasConyuge" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
-          </select>
-
-          <label>Distrito:</label>
-          <select v-model="form.conyuge.distritoClienteConyuge">
-            <option value="" disabled selected>Seleccione un distrito</option>
-            <option v-for="distrito in distritosFiltradosConyuge" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
-          </select>
-
-          <label>Dirección:</label>
-          <input v-model="form.conyuge.direccionClienteConyuge" type="text"  />
-
-          <label>Correo Electrónico:</label>
-          <div class="email-input">
-            <input v-model="form.conyuge.correoUsuarioCliente" type="email" placeholder="usuario@dominio.com"  />
-          </div>
-
-          <label for="prefijoTelefonico">Número Telefónico:</label>
-          <div style="display: flex; gap: 5px;">
-            <select v-model="form.conyuge.prefijoTelefonicoClienteConyuge" id="prefijoTelefonico">
-              <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
-            </select>
-            <input v-model="form.conyuge.numTelefonicoClienteConyuge" type="text" placeholder="Ingrese su número" @input="form.conyuge.numTelefonicoClienteConyuge = form.conyuge.numTelefonicoClienteConyuge.replace(/[^0-9]/g, '')"  />
-          </div>
-
-        </div>
-
-        <button type="submit">Siguiente</button>
-      </form>
-      <form @submit.prevent="submitForm2">
-
-        <h3>Información de Copropietarios</h3>
-
-        <label>Número de Copropietarios:</label>
-        <input v-model.number="form.numCopropietarios" type="number" min="0" />
-
-        <div v-for="(copropietario, index) in form.copropietarios" :key="index">
-          <h3>Copropietario {{ index + 1 }}</h3>
-
-          <label>Nombre y Apellido:</label>
-          <input v-model="copropietario.nombreCopropietarios" type="text" @input="copropietario.nombreCopropietarios = copropietario.nombreCopropietarios.replace(/[0-9]/g, '')" />
-
-
-          <label>Ocupación:</label>
-          <input type="text"
-                 v-model="copropietario.ocupacionCopropietario"
-                 placeholder="Ingrese su ocupación"
-                 @input="copropietario.ocupacionCopropietario = copropietario.ocupacionCopropietario.replace(/[0-9]/g, '')">
-
-          <label>Tipo de Identificación:</label>
-          <select v-model="copropietario.tipoIdentificacionCopropietarios" id="tipoIdentificacion">
-            <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">
-              {{ tipo.nombre }}
-            </option>
-          </select>
-
-          <label>Número de Identificación:</label>
-          <input v-model="copropietario.numIdentificacionCopropietarios" type="text" />
-
-          <label for="paisOrigen">País de Origen:</label>
-          <select v-model="copropietario.paisOrigenCopropietarios" id="paisOrigen">
-            <option disabled value="">Seleccione un país</option>
-            <option v-for="pais in paises" :key="pais.id" :value="pais.id">
-              {{ pais.nombre }}
-            </option>
-          </select>
-
-          <label>País de Residencia:</label>
-          <select v-model="copropietario.paisResidenciaCopropietarios" id="paisResidencia">
-            <option disabled value="">Seleccione un país</option>
-            <option
-                v-for="residencia in residencias"
-                :key="residencia.id"
-                :value="residencia.id"
-            >
-              {{ residencia.nombre }}
-            </option>
-          </select>
-
-          <label for="departamento">Departamento:</label>
-          <select v-model="copropietario.departamentoCopropietarios" id="departamento">
-            <option value="" disabled>Selecciona un departamento</option>
-            <option v-for="departamento in departamentos"
-                    :key="departamento.id"
-                    :value="departamento.id">
-              {{ departamento.nombre }}
-            </option>
-          </select>
-
-          <label>Provincia:</label>
-          <select v-model="copropietario.provinciaCopropietarios">
-            <option value="" disabled selected>Seleccione una provincia</option>
-            <option v-for="provincia in provinciasFiltradasCopropietario" :key="provincia.id" :value="provincia.id">
-              {{ provincia.nombre }}
-            </option>
-          </select>
-
-          <label>Distrito:</label>
-          <select v-model="copropietario.distritoCopropietarios">
-            <option value="" disabled selected>Seleccione un distrito</option>
-            <option v-for="distrito in distritosFiltradosCopropietario" :key="distrito.id" :value="distrito.id">
-              {{ distrito.nombre }}
-            </option>
-          </select>
-
-          <label>Dirección:</label>
-          <input v-model="copropietario.direccionCopropietariosHogar" type="text" />
-
-          <label>Correo Electrónico:</label>
-          <input v-model="copropietario.correoUsuarioCopropietarios" type="email" placeholder="usuario@dominio.com" />
-
-          <label for="prefijoTelefonico">Número Telefónico:</label>
-          <div style="display: flex; gap: 5px;">
-            <select v-model="copropietario.prefijoTelefonicoCopropietarios" id="prefijoTelefonico">
-              <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
-            </select>
-            <input v-model="copropietario.numTelefonicoCopropietarios" type="text" placeholder="Ingrese su número" @input="copropietario.numTelefonicoCopropietarios = copropietario.numTelefonicoCopropietarios.replace(/[^0-9]/g, '')"/>
-          </div>
-
-          <label for="estadoCivil">Estado Civil:</label>
-          <select v-model="copropietario.estadoCivilCopropietarios" id="estadoCivil">
-            <option v-for="estado in estadoCivil" :key="estado.id" :value="estado.id">
-              {{ estado.nombre }}
-            </option>
-          </select>
-
-
-          <!-- Datos del CónyugeCOPROPIETARIO (solo si está casado) -->
-          <div v-if="copropietario.estadoCivilCopropietarios === 2">
-
-            <h3 class="titulodatoslotes">Datos del Cónyuge del Copropietario {{ index + 1 }}</h3>
-
-            <label>Nombre y Apellido:</label>
-            <input v-model="copropietario.conyuge.nombreCopropietariosConyuge" type="text"  @input="copropietario.conyuge.nombreCopropietariosConyuge = copropietario.conyuge.nombreCopropietariosConyuge.replace(/[0-9]/g, '')"  />
+            <label>Apellido y Nombre:</label>
+            <input v-model="form.nombreCliente" type="text"  @input="form.nombreCliente = form.nombreCliente.replace(/[0-9]/g, '')" />
 
             <label>Ocupación:</label>
-            <input type="text" v-model="copropietario.conyuge.ocupacionCopropietarioConyuge" placeholder="Ingrese su ocupación" @input="copropietario.conyuge.ocupacionCopropietarioConyuge = copropietario.conyuge.ocupacionCopropietarioConyuge.replace(/[0-9]/g, '')">
+            <input type="text" v-model="form.ocupacionCliente" placeholder="Ingrese su ocupación" @input="form.ocupacionCliente = form.ocupacionCliente.replace(/[0-9]/g, '')">
 
-            <label>Tipo de Identificación:</label>
-            <select v-model="copropietario.conyuge.tipoIdentificacionCopropietariosConyuge" id="tipoIdentificacion">
+            <label for="tipoIdentificacion">Tipo de Identificación:</label>
+            <select v-model="form.tipoIdentificacion" id="tipoIdentificacion">
               <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
             </select>
 
             <label>Número de Identificación:</label>
-            <input v-model="copropietario.conyuge.numIdentificacionCopropietariosConyuge" type="text" />
+            <input v-model="form.numIdentificacionUsuario" type="text" @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"  />
 
-            <label>País de Origen:</label>
-            <select v-model="copropietario.conyuge.paisOrigenCopropietariosConyuge" id="paisOrigen">
+            <label for="paisOrigen">País de Origen:</label>
+            <select v-model="form.paisOrigen" id="paisOrigen">
               <option disabled value="">Seleccione un país</option>
               <option v-for="pais in paises" :key="pais.id" :value="pais.id">{{ pais.nombre }}</option>
             </select>
 
-            <label>País de Residencia:</label>
-            <select v-model="copropietario.conyuge.paisResidenciaCopropietariosConyuge" id="paisResidencia">
+            <label for="paisResidencia">País de Residencia:</label>
+            <select v-model="form.paisdeResidencia" id="paisResidencia">
               <option disabled value="">Seleccione un país</option>
               <option v-for="residencia in residencias" :key="residencia.id" :value="residencia.id">{{ residencia.nombre }}</option>
             </select>
 
             <label for="departamento">Departamento:</label>
-            <select v-model="copropietario.conyuge.departamentoCopropietariosConyuge" id="departamento">
+            <select v-model="form.departamento" id="departamento">
               <option value="" disabled>Selecciona un departamento</option>
               <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
             </select>
 
             <label>Provincia:</label>
-            <select v-model="copropietario.conyuge.provinciaCopropietariosConyuge">
+            <select v-model="form.provincia">
               <option value="" disabled selected>Seleccione una provincia</option>
-              <option v-for="provincia in provinciasFiltradasCopropietarioConyuge" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
+              <option v-for="provincia in provinciasFiltradas" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
             </select>
 
             <label>Distrito:</label>
-            <select v-model="copropietario.conyuge.distritoCopropietariosConyuge">
+            <select v-model="form.distrito">
               <option value="" disabled selected>Seleccione un distrito</option>
-              <option v-for="distrito in distritosFiltradosCopropietarioConyuge" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
+              <option v-for="distrito in distritosFiltrados" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
             </select>
 
             <label>Dirección:</label>
-            <input v-model="copropietario.conyuge.direccionCopropietariosConyuge" type="text" />
+            <input v-model="form.direccion" type="text"  />
 
             <label>Correo Electrónico:</label>
-            <input v-model="copropietario.conyuge.correoUsuarioCopropietariosConyuge" type="email" placeholder="usuario@dominio.com" />
+            <div class="email-input">
+              <input v-model="form.correoUsuario" type="email" placeholder="usuario@dominio.com"  />
+            </div>
 
             <label for="prefijoTelefonico">Número Telefónico:</label>
             <div style="display: flex; gap: 5px;">
-              <select v-model="copropietario.conyuge.prefijoTelefonicoCopropietariosConyuge" id="prefijoTelefonico">
+              <select v-model="form.prefijoTelefonico" id="prefijoTelefonico">
                 <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
               </select>
-              <input v-model="copropietario.conyuge.numTelefonicoCopropietariosConyuge" type="text" placeholder="Ingrese su número" @input="copropietario.conyuge.numTelefonicoCopropietariosConyuge = copropietario.conyuge.numTelefonicoCopropietariosConyuge.replace(/[^0-9]/g, '')" />
+              <input v-model="form.numTelefonico" type="text" id="numTelefonico" placeholder="Ingrese su número" @input="form.numTelefonico = form.numTelefonico.replace(/[^0-9]/g, '')" />
             </div>
 
-          </div>
-        </div>
+            <label for="estadoCivil">Estado Civil:</label>
+            <select v-model="form.estadoCivil" id="estadoCivil">
+              <option v-for="estado in estadoCivil" :key="estado.id" :value="estado.id">{{ estado.nombre }}</option>
+            </select>
 
 
-        <h3>Datos de Lotes</h3>
+            <div v-if="form.estadoCivil === 2">
 
-        <label>Número de Lotes Adquiridos:</label>
-        <input v-model.number="form.numLotes" type="number" min="0" @change="actualizarLotes" />
+              <h3 class="titulodatoslotes">Datos del Cónyuge</h3>
 
-        <div v-for="(lote, index) in form.lotes" :key="index">
-          <h4>Lote {{ index + 1 }}</h4>
+              <label>Nombre y Apellido:</label>
+              <input v-model="form.conyuge.nombreClienteConyuge" type="text"  @input="form.conyuge.nombreClienteConyuge = form.conyuge.nombreClienteConyuge.replace(/[0-9]/g, '')"/>
 
-          <label>Proyecto:</label>
-          <select v-model="lote.proyectolote">
-            <option v-for="proyecto in proyectos" :key="proyecto.id" :value="proyecto.id">{{ proyecto.nombre }}</option>
-          </select>
-
-          <label>Ubicacion de Lote:</label>
-          <select v-model="lote.ubicacionLote">
-            <option v-for="ubicacion in getUbicacionesFiltradas(lote.proyectolote)" :key="ubicacion.id" :value="ubicacion.id">{{ ubicacion.nombre }}</option>
-          </select>
+              <label>Ocupación:</label>
+              <input type="text" v-model="form.conyuge.ocupacionClienteConyuge" placeholder="Ingrese su ocupación" @input="form.conyuge.ocupacionClienteConyuge = form.conyuge.ocupacionClienteConyuge.replace(/[0-9]/g, '')">
 
 
-          <label>Manzana:</label>
-          <input v-model="lote.manzanalote" type="text" />
+              <label for="tipoIdentificacion">Tipo de Identificación:</label>
+              <select v-model="form.conyuge.tipoIdentificacionClienteConyuge" id="tipoIdentificacion">
+                <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
+              </select>
 
-          <label>Número de Lote:</label>
-          <input v-model="lote.numerolote" type="text" @input="lote.numerolote = lote.numerolote.replace(/[^0-9]/g, '')"/>
+              <label>Número de Identificación:</label>
+              <input v-model="form.conyuge.numIdentificacionClienteConyuge" type="text" @input="form.conyuge.numIdentificacionClienteConyuge = form.conyuge.numIdentificacionClienteConyuge.replace(/[^0-9]/g, '')"  />
 
-          <label>Tipo de Contrato:</label>
-          <select v-model="lote.tipoContratolote">
-            <option v-for="tipo in tiposContrato" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
-          </select>
+              <label for="paisOrigen">País de Origen:</label>
+              <select v-model="form.conyuge.paisOrigenClienteConyuge" id="paisOrigen">
+                <option disabled value="">Seleccione un país</option>
+                <option v-for="pais in paises" :key="pais.id" :value="pais.id">{{ pais.nombre }}</option>
+              </select>
 
-          <label>Área del Lote m2:</label>
-          <input v-model="lote.areaLote" type="text" @input="lote.areaLote = lote.areaLote.replace(/[^0-9]/g, '')" />
+              <label for="paisResidencia">País de Residencia:</label>
+              <select v-model="form.conyuge.paisResidenciaClienteConyuge" id="paisResidencia">
+                <option disabled value="">Seleccione un país</option>
+                <option v-for="residencia in residencias" :key="residencia.id" :value="residencia.id">{{ residencia.nombre }}</option>
+              </select>
 
-        </div>
+              <label for="departamento">Departamento:</label>
+              <select v-model="form.conyuge.departamentoClienteConyuge" id="departamento">
+                <option value="" disabled>Selecciona un departamento</option>
+                <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
+              </select>
 
-        <button type="submit">Enviar</button>
-      </form>
+              <label>Provincia:</label>
+              <select v-model="form.conyuge.provinciaClienteConyuge">
+                <option value="" disabled selected>Seleccione una provincia</option>
+                <option v-for="provincia in provinciasFiltradasConyuge" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
+              </select>
 
-      <div v-if="form.numLotes > 0">
-        <form @submit.prevent="submitLinderos">
-          <div v-for="(lote, index) in form.lotes" :key="index">
-            <h4>Lindero para Lote {{ index + 1 }}</h4>
+              <label>Distrito:</label>
+              <select v-model="form.conyuge.distritoClienteConyuge">
+                <option value="" disabled selected>Seleccione un distrito</option>
+                <option v-for="distrito in distritosFiltradosConyuge" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
+              </select>
 
-            <label>Por la derecha(m):</label>
-            <input v-model="lote.linderos.porLaDerechaLindero" type="number" step="any" required />
+              <label>Dirección:</label>
+              <input v-model="form.conyuge.direccionClienteConyuge" type="text"  />
 
-            <label>Por la izquierda(m):</label>
-            <input v-model="lote.linderos.porLaIzquierdaLindero" type="number" step="any" required />
+              <label>Correo Electrónico:</label>
+              <div class="email-input">
+                <input v-model="form.conyuge.correoUsuarioCliente" type="email" placeholder="usuario@dominio.com"  />
+              </div>
 
-            <label>Por el frente(m):</label>
-            <input v-model="lote.linderos.porElFrenteLindero" type="number" step="any" required />
+              <label for="prefijoTelefonico">Número Telefónico:</label>
+              <div style="display: flex; gap: 5px;">
+                <select v-model="form.conyuge.prefijoTelefonicoClienteConyuge" id="prefijoTelefonico">
+                  <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
+                </select>
+                <input v-model="form.conyuge.numTelefonicoClienteConyuge" type="text" placeholder="Ingrese su número" @input="form.conyuge.numTelefonicoClienteConyuge = form.conyuge.numTelefonicoClienteConyuge.replace(/[^0-9]/g, '')"  />
+              </div>
 
-            <label>Por el fondo(m):</label>
-            <input v-model="lote.linderos.porElFondoLindero" type="number" step="any" required />
-          </div>
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
+            </div>
 
-      <div v-if="formularioActual === 2 " class="overlay">
-          <div class="modal">
-            <h2 class="tituloformulario">Detalles de Matriz</h2>
-            <div class="formulario-all">
-              <form @submit.prevent="finalizarRegistroMatriz">
-                <div v-for="(matriz, index) in form.lotes" :key="index">
-                  <h3>Matriz {{ index + 1 }}</h3>
+            <button type="submit">Siguiente</button>
+          </form>
+          <form @submit.prevent="submitForm2">
 
-                  <label>Departamento:</label>
-                  <select v-model="matriz.matriz.departamentoMatriz">
-                    <option value="" disabled>Selecciona un departamento</option>
-                    <option v-for="d in departamentos" :key="d.id" :value="d.id">
-                      {{ d.nombre }}
-                    </option>
+            <h3>Información de Copropietarios</h3>
+
+            <label>Número de Copropietarios:</label>
+            <input v-model.number="form.numCopropietarios" type="number" min="0" />
+
+            <div v-for="(copropietario, index) in form.copropietarios" :key="index">
+              <h3>Copropietario {{ index + 1 }}</h3>
+
+              <label>Nombre y Apellido:</label>
+              <input v-model="copropietario.nombreCopropietarios" type="text" @input="copropietario.nombreCopropietarios = copropietario.nombreCopropietarios.replace(/[0-9]/g, '')" />
+
+              <label>Ocupación:</label>
+              <input type="text"
+                     v-model="copropietario.ocupacionCopropietario"
+                     placeholder="Ingrese su ocupación"
+                     @input="copropietario.ocupacionCopropietario = copropietario.ocupacionCopropietario.replace(/[0-9]/g, '')">
+
+              <label>Tipo de Identificación:</label>
+              <select v-model="copropietario.tipoIdentificacionCopropietarios" id="tipoIdentificacion">
+                <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
+              </select>
+
+              <label>Número de Identificación:</label>
+              <input v-model="copropietario.numIdentificacionCopropietarios" type="text" />
+
+              <label for="paisOrigen">País de Origen:</label>
+              <select v-model="copropietario.paisOrigenCopropietarios" id="paisOrigen">
+                <option disabled value="">Seleccione un país</option>
+                <option v-for="pais in paises" :key="pais.id" :value="pais.id">{{ pais.nombre }}</option>
+              </select>
+
+              <label>País de Residencia:</label>
+              <select v-model="copropietario.paisResidenciaCopropietarios" id="paisResidencia">
+                <option disabled value="">Seleccione un país</option>
+                <option v-for="residencia in residencias" :key="residencia.id" :value="residencia.id">{{ residencia.nombre }}</option>
+              </select>
+
+              <label for="departamento">Departamento:</label>
+              <select v-model="copropietario.departamentoCopropietarios" id="departamento">
+                <option value="" disabled>Selecciona un departamento</option>
+                <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
+              </select>
+
+              <label>Provincia:</label>
+              <select v-model="copropietario.provinciaCopropietarios">
+                <option value="" disabled selected>Seleccione una provincia</option>
+                <option v-for="provincia in provinciasFiltradasCopropietario" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
+              </select>
+
+              <label>Distrito:</label>
+              <select v-model="copropietario.distritoCopropietarios">
+                <option value="" disabled selected>Seleccione un distrito</option>
+                <option v-for="distrito in distritosFiltradosCopropietario" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
+              </select>
+
+              <label>Dirección:</label>
+              <input v-model="copropietario.direccionCopropietariosHogar" type="text" />
+
+              <label>Correo Electrónico:</label>
+              <input v-model="copropietario.correoUsuarioCopropietarios" type="email" placeholder="usuario@dominio.com" />
+
+              <label for="prefijoTelefonico">Número Telefónico:</label>
+              <div style="display: flex; gap: 5px;">
+                <select v-model="copropietario.prefijoTelefonicoCopropietarios" id="prefijoTelefonico">
+                  <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
+                </select>
+                <input v-model="copropietario.numTelefonicoCopropietarios" type="text" placeholder="Ingrese su número" @input="copropietario.numTelefonicoCopropietarios = copropietario.numTelefonicoCopropietarios.replace(/[^0-9]/g, '')"/>
+              </div>
+
+              <label for="estadoCivil">Estado Civil:</label>
+              <select v-model="copropietario.estadoCivilCopropietarios" id="estadoCivil">
+                <option v-for="estado in estadoCivil" :key="estado.id" :value="estado.id">
+                  {{ estado.nombre }}
+                </option>
+              </select>
+
+              <div v-if="copropietario.estadoCivilCopropietarios === 2">
+
+                <h3 class="titulodatoslotes">Datos del Cónyuge del Copropietario {{ index + 1 }}</h3>
+
+                <label>Nombre y Apellido:</label>
+                <input v-model="copropietario.conyuge.nombreCopropietariosConyuge" type="text"  @input="copropietario.conyuge.nombreCopropietariosConyuge = copropietario.conyuge.nombreCopropietariosConyuge.replace(/[0-9]/g, '')"  />
+
+                <label>Ocupación:</label>
+                <input type="text" v-model="copropietario.conyuge.ocupacionCopropietarioConyuge" placeholder="Ingrese su ocupación" @input="copropietario.conyuge.ocupacionCopropietarioConyuge = copropietario.conyuge.ocupacionCopropietarioConyuge.replace(/[0-9]/g, '')">
+
+                <label>Tipo de Identificación:</label>
+                <select v-model="copropietario.conyuge.tipoIdentificacionCopropietariosConyuge" id="tipoIdentificacion">
+                  <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
+                </select>
+
+                <label>Número de Identificación:</label>
+                <input v-model="copropietario.conyuge.numIdentificacionCopropietariosConyuge" type="text" />
+
+                <label>País de Origen:</label>
+                <select v-model="copropietario.conyuge.paisOrigenCopropietariosConyuge" id="paisOrigen">
+                  <option disabled value="">Seleccione un país</option>
+                  <option v-for="pais in paises" :key="pais.id" :value="pais.id">{{ pais.nombre }}</option>
+                </select>
+
+                <label>País de Residencia:</label>
+                <select v-model="copropietario.conyuge.paisResidenciaCopropietariosConyuge" id="paisResidencia">
+                  <option disabled value="">Seleccione un país</option>
+                  <option v-for="residencia in residencias" :key="residencia.id" :value="residencia.id">{{ residencia.nombre }}</option>
+                </select>
+
+                <label for="departamento">Departamento:</label>
+                <select v-model="copropietario.conyuge.departamentoCopropietariosConyuge" id="departamento">
+                  <option value="" disabled>Selecciona un departamento</option>
+                  <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
+                </select>
+
+                <label>Provincia:</label>
+                <select v-model="copropietario.conyuge.provinciaCopropietariosConyuge">
+                  <option value="" disabled selected>Seleccione una provincia</option>
+                  <option v-for="provincia in provinciasFiltradasCopropietarioConyuge" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
+                </select>
+
+                <label>Distrito:</label>
+                <select v-model="copropietario.conyuge.distritoCopropietariosConyuge">
+                  <option value="" disabled selected>Seleccione un distrito</option>
+                  <option v-for="distrito in distritosFiltradosCopropietarioConyuge" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
+                </select>
+
+                <label>Dirección:</label>
+                <input v-model="copropietario.conyuge.direccionCopropietariosConyuge" type="text" />
+
+                <label>Correo Electrónico:</label>
+                <input v-model="copropietario.conyuge.correoUsuarioCopropietariosConyuge" type="email" placeholder="usuario@dominio.com" />
+
+                <label for="prefijoTelefonico">Número Telefónico:</label>
+                <div style="display: flex; gap: 5px;">
+                  <select v-model="copropietario.conyuge.prefijoTelefonicoCopropietariosConyuge" id="prefijoTelefonico">
+                    <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
                   </select>
-
-                  <label>Provincia:</label>
-                  <select v-model="matriz.matriz.provinciaMatriz">
-                    <option value="" disabled>Selecciona una provincia</option>
-                    <option v-for="p in provincias.filter(p => p.departamentoId === matriz.matriz.departamentoMatriz)" :key="p.id" :value="p.id">{{ p.nombre }}</option>
-                  </select>
-
-                  <label>Distrito:</label>
-                  <select v-model="matriz.matriz.distritoMatriz">
-                    <option value="" disabled>Selecciona un distrito</option>
-                    <option v-for="d in distritos.filter(d => d.provinciaId === matriz.matriz.provinciaMatriz)" :key="d.id" :value="d.id">{{ d.nombre }}</option>
-                  </select>
-
-
-                  <label>Ubicación:</label>
-                  <select v-model="matriz.matriz.ubicacionMatriz">
-                    <option value="" disabled >Seleccione una ubicación</option>
-                    <option v-for="ubicacion  in ubicaciones" :key="ubicacion.id" :value="ubicacion.id">{{ ubicacion.nombre }}</option>
-                  </select>
-
-                  <label for="areaMatrizHas">Area Matriz Has:</label>
-                  <input id="areaMatrizHas" v-model.number="matriz.matriz.areaMatrizHasMatriz" type="number" step="any"  required/>
-
-                  <label for="Registros_DE">Registros DE:</label>
-                  <input id="Registros_DE" v-model="matriz.matriz.registroDeMatriz" type="text"/>
-
-                  <label for="Partida_Matriz">Partida Matriz:</label>
-                  <input id="Partida_Matriz" v-model="matriz.matriz.partidaMatriz" type="text"/>
-
-                  <label for="Unidad_Catastral">Unidad Catastral:</label>
-                  <input id="Unidad_Catastral" v-model="matriz.matriz.unidadCatastralMatriz" type="text"/>
-
-                  <label for="Urbanizacion_Matriz">Urbanizacion Matriz:</label>
-                  <input id="Urbanizacion_Matriz" v-model="matriz.matriz.urbanizacionMatriz" type="text"/>
-
-                  <label for="Compraventa_Matriz">Compraventa Matriz:</label>
-                  <input id="Compraventa_Matriz" v-model="matriz.matriz.compraventaMatriz" type="text"/>
-
-                  <label for="Situacion_Legal">Situacion Legal:</label>
-                  <input id="Situacion_Legal" v-model="matriz.matriz.situacionLegalMatriz" type="text"/>
-
-                  <label for="Alicuota">Alicuota(%):</label>
-                  <input id="Alicuota" v-model="matriz.matriz.alicuotaMatriz" type="number"  step="any"  @input="matriz.matriz.alicuotaLetrasMatriz = numeroALetras(parseFloat(matriz.matriz.alicuotaMatriz).toFixed(3))" />
-
-                  <label>Alicuota en Letras:</label>
-                  <input v-model="matriz.matriz.alicuotaLetrasMatriz" type="text" readonly />
-
+                  <input v-model="copropietario.conyuge.numTelefonicoCopropietariosConyuge" type="text" placeholder="Ingrese su número" @input="copropietario.conyuge.numTelefonicoCopropietariosConyuge = copropietario.conyuge.numTelefonicoCopropietariosConyuge.replace(/[^0-9]/g, '')" />
                 </div>
-                  <button type="submit" class="btn btn-primary">Finalizar Registro</button>
-              </form>
-                  <button @click="cerrarModal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      <div v-if="formularioActual === 3" class="overlay">
-        <div class="modal">
-          <h2 class="tituloformulario">Resumen del Registro</h2>
-          <div class="formulario-all resumen-box">
-            <div class="seccion-cliente">
-              <h3>Datos del Cliente</h3>
-              <p><strong>Nombre y Apellido:</strong> {{ form.nombreCliente }}</p>
-              <p><strong>Nacionalidad:</strong> {{ obtenerNombrePais(form.paisOrigen) }}</p>
-              <p><strong>País de Residencia:</strong> {{  obtenerNombreResidencia(form.paisdeResidencia) }}</p>
-              <p><strong>Departamento:</strong> {{ obtenerNombreDepartamento(form.departamento) }}</p>
-              <p><strong>Provincia:</strong> {{ obtenerNombreProvincia(form.provincia) }}</p>
-              <p><strong>Distrito:</strong> {{ obtenerNombreDistrito(form.distrito) }}</p>
-              <p><strong>Código de Cliente Asignado:</strong> {{ form.idCliente.toString().padStart(5, '0') }}</p>
-              <p><strong>Número de Contratos:</strong> {{ form.lotes.length }}</p>
-            </div>
 
-            <div v-if="form.lotes[0]?.copropietario?.nombreCopropietarios">
-              <h3>Datos del Copropietario</h3>
-              <p><strong>Copropietario:</strong> {{ form.lotes[0].copropietario.nombreCopropietarios }}</p>
-            </div>
-
-            <div class="seccion-lotes" v-if="form.lotes.length">
-              <h3>Información de Lotes</h3>
-              <div v-for="(lote, index) in form.lotes" :key="index" class="lote-box">
-                <h4>Lote {{ index + 1 }}:</h4>
-                <p><strong>Proyecto:</strong> {{ obtenerNombreProyecto(lote.proyectolote) }}</p>
-                <p><strong>Manzana:</strong> {{ lote.manzanalote }}</p>
-                <p><strong>Lote:</strong> {{ lote.numerolote }}</p>
               </div>
             </div>
 
-            <div class="seccion-contacto">
-              <p><strong>Correo Electrónico:</strong> {{ form.correoUsuario }}</p>
-              <p><strong>Teléfono:</strong> {{ form.numTelefonico }}</p>
-            </div>
+            <h3>Datos de Lotes</h3>
 
-            <div class="acciones">
-              <button class="btn btn-secondary" @click="cerrarResumen">Cerrar</button>
+            <label>Número de Lotes Adquiridos:</label>
+            <input v-model.number="form.numLotes" type="number" min="0" @change="actualizarLotes" />
+
+            <div v-for="(lote, index) in form.lotes" :key="index">
+              <h4>Lote {{ index + 1 }}</h4>
+
+              <label>Proyecto:</label>
+              <select v-model="lote.proyectolote" >
+                <option value="" disabled selected>Selecciona el proyecto</option>
+                <option v-for="proyecto in proyectos" :key="proyecto.id" :value="proyecto.id">{{ proyecto.nombre }}</option>
+              </select>
+
+              <div v-if="lote.proyectolote" class="mini-formulario">
+
+                <div class="section">Información General</div>
+                <label>Empresa:</label>
+                <input v-model="lote.empresa" type="text" readonly />
+
+                <label>Empresa que Vende:</label>
+                <input v-model="lote.empresaVendedora" type="text" readonly />
+
+                <label>RUC Vendedor:</label>
+                <input v-model="lote.ruc" type="text" readonly />
+
+                <label>Dirección Vendedor:</label>
+                <input v-model="lote.direccion" type="text" readonly />
+
+                <label>Representante Legal - Vendedor:</label>
+                <input v-model="lote.representanteLegal" type="text" readonly />
+
+                <div class="section">Información Financiera</div>
+                <label>DNI Vendedor:</label>
+                <input v-model="lote.dniVendedor" type="text" readonly />
+
+                <label>Nº Partida (Poder Vendedor):</label>
+                <input v-model="lote.partidaPoder" type="text" readonly />
+
+                <label>Moneda:</label>
+                <input v-model="lote.moneda" type="text" readonly />
+
+                <label>Número de Cuenta:</label>
+                <input v-model="lote.numCuenta" type="text" readonly />
+
+                <label>CCI:</label>
+                <input v-model="lote.cci" type="text" readonly />
+
+                <div class="section">Fechas Importantes</div>
+                <label>Fecha de Entrega de Proyecto:</label>
+                <input v-model="lote.fechaEntrega" type="text" readonly />
+
+                <label>Fecha de Firma de Contrato Definitivo:</label>
+                <input v-model="lote.fechaFirma" type="text" readonly />
+
+                <div class="section">Detalles de la Propiedad</div>
+                <label>Área Matriz (Has.):</label>
+                <input v-model="lote.areaMatriz" type="text" readonly />
+
+                <label>Registros DE:</label>
+                <input v-model="lote.registrosDe" type="text" readonly />
+
+                <label>Partida Matriz:</label>
+                <input v-model="lote.partidaMatriz" type="text" readonly />
+
+                <label>Ubicación del Lote (Predio Matriz):</label>
+                <input v-model="lote.ubicacionPredio" type="text" readonly />
+
+                <label>Unidad Catastral de Matriz:</label>
+                <input v-model="lote.unidadCatastral" type="text" readonly />
+
+                <label>Urbanización de Matriz:</label>
+                <input v-model="lote.urbanizacionMatriz" type="text" readonly />
+
+                <label>Distrito de Matriz:</label>
+                <input v-model="lote.distritoMatriz" type="text" readonly />
+
+                <label>Provincia de Matriz:</label>
+                <input v-model="lote.provinciaMatriz" type="text" readonly />
+
+                <label>Departamento de Matriz:</label>
+                <input v-model="lote.departamentoMatriz" type="text" readonly />
+
+                <label>Compraventa de Matriz:</label>
+                <input v-model="lote.compraventaMatriz" type="text" readonly />
+
+                <label>Situación Legal de Matriz:</label>
+                <input v-model="lote.situacionLegalMatriz" type="text" readonly />
+              </div>
+
+              <label>Ubicacion de Lote:</label>
+              <select v-model="lote.ubicacionLote">
+                <option v-for="ubicacion in getUbicacionesFiltradas(lote.proyectolote)" :key="ubicacion.id" :value="ubicacion.id">{{ ubicacion.nombre }}</option>
+              </select>
+
+              <label>Manzana:</label>
+              <input v-model="lote.manzanalote" type="text" />
+
+              <label>Número de Lote:</label>
+              <input v-model="lote.numerolote" type="text" @input="lote.numerolote = lote.numerolote.replace(/[^0-9]/g, '')"/>
+
+              <label>Tipo de Contrato:</label>
+              <select v-model="lote.tipoContratolote">
+                <option v-for="tipo in tiposContrato" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
+              </select>
+
+              <label>Área del Lote m2:</label>
+              <input v-model="lote.areaLote" type="text" @input="lote.areaLote = lote.areaLote.replace(/[^0-9]/g, '')" />
+
+            </div>
+            <button type="submit" :disabled="form.numLotes === 0 || form.lotes.length === 0">Enviar</button>
+          </form>
+
+          <div v-if="form.numLotes > 0">
+            <form @submit.prevent="submitLinderos">
+              <div v-for="(lote, index) in form.lotes" :key="index">
+                <h4>Lindero para Lote {{ index + 1 }}</h4>
+
+                <label>Por la derecha(m):</label>
+                <input v-model="lote.linderos.porLaDerechaLindero" type="number" required />
+
+                <label>Por la izquierda(m):</label>
+                <input v-model="lote.linderos.porLaIzquierdaLindero" type="number" required />
+
+                <label>Por el frente(m):</label>
+                <input v-model="lote.linderos.porElFrenteLindero" type="number" required />
+
+                <label>Por el fondo(m):</label>
+                <input v-model="lote.linderos.porElFondoLindero" type="number" required />
+              </div>
+              <button type="submit">Enviar</button>
+            </form>
+          </div>
+
+          <div v-if="formularioActual === 2 " class="overlay">
+            <div class="modal">
+              <h2 class="tituloformulario">Detalles de Matriz</h2>
+              <div class="formulario-all-matriz">
+                <form @submit.prevent="finalizarRegistroMatriz">
+                  <div v-for="(matriz, index) in form.lotes" :key="index">
+                    <h3>Matriz {{ index + 1 }}</h3>
+
+                    <label>Departamento:</label>
+                    <select v-model="matriz.matriz.departamentoMatriz">
+                      <option value="" disabled>Selecciona un departamento</option>
+                      <option v-for="d in departamentos" :key="d.id" :value="d.id">
+                        {{ d.nombre }}
+                      </option>
+                    </select>
+
+                    <label>Provincia:</label>
+                    <select v-model="matriz.matriz.provinciaMatriz">
+                      <option value="" disabled>Selecciona una provincia</option>
+                      <option v-for="p in provincias.filter(p => p.departamentoId === matriz.matriz.departamentoMatriz)" :key="p.id" :value="p.id">{{ p.nombre }}</option>
+                    </select>
+
+                    <label>Distrito:</label>
+                    <select v-model="matriz.matriz.distritoMatriz">
+                      <option value="" disabled>Selecciona un distrito</option>
+                      <option v-for="d in distritos.filter(d => d.provinciaId === matriz.matriz.provinciaMatriz)" :key="d.id" :value="d.id">{{ d.nombre }}</option>
+                    </select>
+
+
+                    <label>Ubicación:</label>
+                    <select v-model="matriz.matriz.ubicacionMatriz">
+                      <option value="" disabled >Seleccione una ubicación</option>
+                      <option v-for="ubicacion  in ubicaciones" :key="ubicacion.id" :value="ubicacion.id">{{ ubicacion.nombre }}</option>
+                    </select>
+
+                    <label for="areaMatrizHas">Area Matriz Has:</label>
+                    <input id="areaMatrizHas" v-model.number="matriz.matriz.areaMatrizHasMatriz" type="number" min="0" required/>
+
+                    <label for="Registros_DE">Registros DE:</label>
+                    <input id="Registros_DE" v-model="matriz.matriz.registroDeMatriz" type="text"/>
+
+                    <label for="Partida_Matriz">Partida Matriz:</label>
+                    <input id="Partida_Matriz" v-model="matriz.matriz.partidaMatriz" type="text"/>
+
+                    <label for="Unidad_Catastral">Unidad Catastral:</label>
+                    <input id="Unidad_Catastral" v-model="matriz.matriz.unidadCatastralMatriz" type="text"/>
+
+                    <label for="Urbanizacion_Matriz">Urbanizacion Matriz:</label>
+                    <input id="Urbanizacion_Matriz" v-model="matriz.matriz.urbanizacionMatriz" type="text"/>
+
+                    <label for="Compraventa_Matriz">Compraventa Matriz:</label>
+                    <input id="Compraventa_Matriz" v-model="matriz.matriz.compraventaMatriz" type="text"/>
+
+                    <label for="Situacion_Legal">Situacion Legal:</label>
+                    <input id="Situacion_Legal" v-model="matriz.matriz.situacionLegalMatriz" type="text"/>
+
+                    <label for="Alicuota">Alicuota(%):</label>
+                    <input id="Alicuota" v-model="matriz.matriz.alicuotaMatriz" type="number"  step="any"  @input="matriz.matriz.alicuotaLetrasMatriz = numeroALetras(parseFloat(matriz.matriz.alicuotaMatriz).toFixed(3))" />
+
+                    <label>Alicuota en Letras:</label>
+                    <input v-model="matriz.matriz.alicuotaLetrasMatriz" type="text" readonly />
+
+                  </div>
+                  <button type="submit" class="btn btn-primary">Finalizar Registro</button>
+                </form>
+                <button @click="cerrarModal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+          <div v-if="formularioActual === 3" class="overlay">
+            <div class="modal-resumen-registo">
+              <h2 class="tituloformulario">Resumen del Registro</h2>
+
+              <div class="formulario-all resumen-box">
+                <div class="seccion-cliente">
+                  <h3>Datos del Cliente</h3>
+                  <p><strong>Nombre y Apellido:</strong> {{ form.nombreCliente }}</p>
+                  <p><strong>Nacionalidad:</strong> {{ obtenerNombrePais(form.paisOrigen) }}</p>
+                  <p><strong>País de Residencia:</strong> {{  obtenerNombreResidencia(form.paisdeResidencia) }}</p>
+                  <p><strong>Departamento:</strong> {{ obtenerNombreDepartamento(form.departamento) }}</p>
+                  <p><strong>Provincia:</strong> {{ obtenerNombreProvincia(form.provincia) }}</p>
+                  <p><strong>Distrito:</strong> {{ obtenerNombreDistrito(form.distrito) }}</p>
+                  <p><strong>Código de Cliente Asignado:</strong> {{ form.idCliente.toString().padStart(5, '0') }}</p>
+                  <p><strong>Número de Contratos:</strong> {{ form.lotes.length }}</p>
+                </div>
+
+                <!-- Sección Lotes -->
+                <div class="seccion-lotes" v-if="form.lotes.length">
+                  <h3>Información de Lotes</h3>
+                  <div v-for="(lote, index) in form.lotes" :key="index" class="lote-box">
+                    <h4>Lote {{ index + 1 }}:</h4>
+                    <p><strong>Proyecto:</strong> {{ obtenerNombreProyecto(lote.proyectolote) }}</p>
+                    <p><strong>Manzana:</strong> {{ lote.manzanalote }}</p>
+                    <p><strong>Lote:</strong> {{ lote.numerolote }}</p>
+                  </div>
+                </div>
+
+                <!-- Sección Contacto -->
+                <div class="seccion-contacto">
+                  <p><strong>Correo Electrónico:</strong> {{ form.correoUsuario }}</p>
+                  <p><strong>Teléfono:</strong> {{ form.numTelefonico }}</p>
+                </div>
+
+                <!-- Botón -->
+                <div class="acciones">
+                  <button class="btn btn-secondary" @click="cerrarResumen">Cerrar</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
- </div>
-</div>
 </template>
 
 <script setup>
@@ -505,6 +557,7 @@ import { departamentos } from '@/data/departamentos.js';
 import { provincias } from '@/data/provincias.js';
 import { distritos } from '@/data/distritos.js';
 import {numeroALetras} from "@/data/numeroALetras.js";
+import "@/assets/formulario/FormularioCliente.css"
 
 
 const router = useRouter();
@@ -525,10 +578,6 @@ const form = ref({
   prefijoTelefonico: 8,
   numTelefonico: '',
   estadoCivil: 1,
-
-// ✅ NUEVO CAMPO
-  idCliente: null,
-
   // Datos del cónyuge
   conyuge: {
     nombreClienteConyuge: '',
@@ -546,10 +595,10 @@ const form = ref({
     numTelefonicoClienteConyuge: '',
   },
 
-    numCopropietarios: 0,
-    copropietarios: [],
-    numLotes: 0,
-    lotes: []
+  numCopropietarios: 0,
+  copropietarios: [],
+  numLotes: 0,
+  lotes: []
 });
 
 
@@ -590,7 +639,7 @@ const formularioClientevarios = async () => {
 
     console.log("Datos del Cliente a enviar:", clientePayload);
 
-    await axios.post("https://backendcramirez.onrender.com/api/clientes", clientePayload, {
+    const response = await axios.post("https://backendcramirez.onrender.com/api/clientes", clientePayload, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
@@ -598,12 +647,9 @@ const formularioClientevarios = async () => {
       },
     });
 
-    const response = await axios.get("https://backendcramirez.onrender.com/api/clientes/ultimo");
-    idCliente.value = response.data;
-    console.log("ID del cliente asignado:", idCliente.value);
+    idCliente.value = response.data.idCliente;
+    form.value.idCliente = response.data.idCliente;
 
-
-    form.value.idCliente = response.data;
     console.log("ID del cliente asignado:", form.value.idCliente);
 
     if (form.value.estadoCivil === 2) {
@@ -693,7 +739,7 @@ watch(() => form.value.numCopropietarios, (newVal) => {
 
 watch(() => form.value.numLotes, (newVal) => {
   form.value.lotes = Array.from({ length: newVal }, () => ({
-    proyectolote:1,
+    proyectolote:'',
     ubicacionLote: 1,
     manzanalote: '',
     numerolote: '',
@@ -723,8 +769,73 @@ watch(() => form.value.numLotes, (newVal) => {
   }));
 });
 
+
+watchEffect(() => {
+  form.value.lotes.forEach(lote => {
+    const proyecto = proyectos.find(p => p.id === lote.proyectolote);
+    if (proyecto) {
+      lote.empresa = proyecto.nombre;
+      lote.empresaVendedora = proyecto.EmpresaVende;
+      lote.ruc = proyecto.RUCVendedor;
+      lote.direccion = proyecto.DireccionVendedor;
+      lote.representanteLegal = proyecto.RepresentanteLegalVendedor;
+      lote.dniVendedor = proyecto.DNIVendedor;
+      lote.partidaPoder = proyecto.NPartidaPoderVendedor;
+      lote.moneda = proyecto.Moneda;
+      lote.numCuenta = proyecto.NumCuenta;
+      lote.cci = proyecto.CCI;
+      lote.fechaEntrega = proyecto.FechaEntregaProyecto;
+      lote.fechaFirma = proyecto.FechaFirmaContratoDefinitivo;
+      lote.areaMatriz = proyecto.AreaMatrizHas;
+      lote.registrosDe = proyecto.RegistroDE;
+      lote.partidaMatriz = proyecto.PartidaMatriz;
+      lote.ubicacionPredio = proyecto.UbicacionLote;
+      lote.unidadCatastral = proyecto.UnidadCatastralMatriz;
+      lote.urbanizacionMatriz = proyecto.UrbanizacionMatriz;
+      lote.distritoMatriz = proyecto.DistritoMatriz;
+      lote.provinciaMatriz = proyecto.ProvinciaMatriz;
+      lote.departamentoMatriz = proyecto.DepartamentoMatriz;
+      lote.compraventaMatriz = proyecto.CompraVentaMatriz;
+      lote.situacionLegalMatriz = proyecto.SituacionLegalMatriz;
+    } else {
+      // Limpiar todos los campos si no hay proyecto relacionado
+      Object.assign(lote, {
+        empresa: '',
+        empresaVendedora: '',
+        ruc: '',
+        direccion: '',
+        representanteLegal: '',
+        dniVendedor: '',
+        partidaPoder: '',
+        moneda: '',
+        numCuenta: '',
+        cci: '',
+        fechaEntrega: '',
+        fechaFirma: '',
+        areaMatriz: '',
+        registrosDe: '',
+        partidaMatriz: '',
+        ubicacionPredio: '',
+        unidadCatastral: '',
+        urbanizacionMatriz: '',
+        distritoMatriz: '',
+        provinciaMatriz: '',
+        departamentoMatriz: '',
+        compraventaMatriz: '',
+        situacionLegalMatriz: ''
+      });
+    }
+  });
+});
+
+
 const submitForm2 = async () => {
+  const confirmacion = window.confirm("¿Estás seguro de que todos los datos están correctos?");
+  if (!confirmacion) {
+    return;
+  }
   try {
+
     if (!idCliente.value) {
       console.error("Error: ID del cliente no encontrado.");
       return;
@@ -874,7 +985,7 @@ watch(
         const areaMatriz = parseFloat(lote.matriz.areaMatrizHasMatriz);
 
         if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-          const alicuota = ((areaLote * 100) / 1000) / areaMatriz;
+          const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
           lote.matriz.alicuotaMatriz = alicuota.toFixed(3);
           lote.matriz.alicuotaLetrasMatriz = numeroALetras(parseFloat(lote.matriz.alicuotaMatriz));
         } else {
@@ -933,12 +1044,10 @@ const cerrarModal = () => {
 const cerrarResumen = () => {
   router.push("/dashboard/formularios/registro-cliente");
 };
-
-
-
 const getUbicacionesFiltradas = (proyectoId) => {
   return ubicaciones.filter(u => String(u.proyectoId) === String(proyectoId));
 };
+
 
 
 watch(() => form.value.lotes, (lotes) => {
@@ -952,32 +1061,24 @@ watch(() => form.value.lotes, (lotes) => {
   });
 }, { deep: true });
 
-
-//-------------------------------------
-
-// Provincias filtradas por departamento seleccionado
 const provinciasFiltradas = computed(() =>
     provincias.filter(p => p.departamentoId === form.value.departamento)
 );
 
-// Cuando cambia el departamento, seleccionar la primera provincia automáticamente
 watch(() => form.value.departamento, () => {
   const primeraProvincia = provinciasFiltradas.value[0];
   form.value.provincia = primeraProvincia ? primeraProvincia.id : '';
-  form.value.distrito = ''; // resetear distrito al cambiar de departamento
+  form.value.distrito = '';
 });
 
-// Distritos filtrados por provincia seleccionada
 const distritosFiltrados = computed(() =>
     distritos.filter(d => d.provinciaId === form.value.provincia)
 );
 
-// Cuando cambia la provincia, seleccionar el primer distrito automáticamente
 watch(() => form.value.provincia, () => {
   const primerDistrito = distritosFiltrados.value[0];
   form.value.distrito = primerDistrito ? primerDistrito.id : '';
 });
-//-------------------------------------------------------------------
 
 const distritosFiltradosConyuge = computed(() =>
     distritos.filter(distrito => distrito.provinciaId === form.value.conyuge.provinciaClienteConyuge)
@@ -996,8 +1097,6 @@ watch(() => form.value.conyuge.departamentoClienteConyuge, () => {
   const primeraProvinciaConyuge = provinciasFiltradasConyuge.value[0];
   form.value.conyuge.provinciaClienteConyuge = primeraProvinciaConyuge ? primeraProvinciaConyuge.id : '';
 });
-
-// //---------------------------------------------------------------
 
 const distritosFiltradosCopropietario = computed(() => {
   if (!form.value.copropietarios.length) return [];
@@ -1020,8 +1119,6 @@ watch(() => form.value.copropietarios[0]?.departamentoCopropietarios, () => {
   const primeraProvinciaCopropietario = provinciasFiltradasCopropietario.value[0];
   form.value.copropietarios[0].provinciaCopropietarios = primeraProvinciaCopropietario ? primeraProvinciaCopropietario.id : '';
 });
-
-// //----------------------------------------------
 
 const distritosFiltradosCopropietarioConyuge = computed(() => {
   if (!form.value.copropietarios.length) return [];
@@ -1050,8 +1147,6 @@ watch(() => form.value.copropietarios[0]?.conyuge.departamentoCopropietariosCony
   form.value.copropietarios[0].conyuge.provinciaCopropietariosConyuge =
       primeraProvinciaCopropietarioConyuge ? primeraProvinciaCopropietarioConyuge.id : '';
 });
-
-// //--------------------
 
 
 const obtenerNombreResidencia = (id) => {
@@ -1083,201 +1178,4 @@ const obtenerNombreProyecto = (id) => {
   const proyecto = proyectos.find(p => p.id === id);
   return proyecto ? proyecto.nombre : 'Desconocido';
 };
-
-
-
 </script>
-
-<style scoped>
-
-/* BACKGROUND */
-
-.container {
-  background-image: url("@/assets/imagenes/FondoDashboard.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 125vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.nav-buttons button {
-  margin: 5px;
-  padding: 8px 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.nav-buttons button:hover {
-  background-color: #0056b3;
-}
-
-
-.user-icon img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-.logo img {
-  height: 50px;
-}
-.tituloformulario{
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 20px;
-  text-align: center;
-  color:black;
-}
-
-
-/*STYLE FORMULARIO 1*/
-.formulario-all{
-
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-height: 80vh; /* Altura máxima para evitar que sobresalga */
-  overflow-y: auto;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input, select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-.email-input {
-  width: 90%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-
-
-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-h3{
-  text-align: center;
-}
-
-
-/* FORMULARIO 2  */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(50, 50, 50, 0.7); /* Fondo plomo oscuro translúcido */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; /* el modal esté sobre */
-  backdrop-filter: blur(5px); /* Efecto de desenfoque */
-  animation: fade-in 0.3s ease-in-out;
-}
-
-/* 🔹 CONTENEDOR DEL MODAL 🔹 */
-.modal {
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
-  width: 380px;
-  max-width: 90%;
-  text-align: center;
-  position: relative;
-  transform: scale(0.9);
-  animation: scale-in 0.3s ease-in-out forwards;
-}
-
-/* 🔹 ANIMACIONES PARA UNA TRANSICIÓN SUAVE 🔹 */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scale-in {
-  from {
-    transform: scale(0.9);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-
-
-/* 🔹 MEJORAS EN EL FORMULARIO 🔹 */
-.modal form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.modal label {
-  font-weight: bold;
-  text-align: left;
-  display: block;
-  color: #333;
-}
-
-.modal input,
-.modal select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-/* 🔹 BOTÓN "FINALIZAR REGISTRO" 🔹 */
-.modal button[type="submit"] {
-  background: #007bff;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.modal button[type="submit"]:hover {
-  background: #0056b3;
-}
-</style>
