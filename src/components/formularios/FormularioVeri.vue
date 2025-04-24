@@ -3,7 +3,7 @@
     <BarraLateralDashboard />
     <div class="main-content">
       <BarraSuperiorDashboard />
-      <div class="content-container">
+      <div class="content-container form-verificacion">
         <div class="content">
           <h1 class="title">Registro de Cliente</h1>
 
@@ -79,10 +79,9 @@ export default {
     },
 
     buscarCliente() {
-      const documento = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
+      const documentoRaw = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
       const tipoDocumento = this.nacionalidad === "peruano" ? "DNI" : "CE";
 
-      // Si es carnet de extranjería, eliminamos el localStorage
       if (this.nacionalidad === "extranjero") {
         localStorage.removeItem("nombreCompleto");
       }
@@ -97,7 +96,6 @@ export default {
         this.estadoCliente = "";
         return;
       }
-
 
       fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}?tipo=${tipoDocumento}`)
           .then((response) => response.json())
@@ -170,3 +168,5 @@ export default {
   },
 };
 </script>
+
+
