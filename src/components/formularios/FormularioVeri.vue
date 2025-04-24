@@ -80,7 +80,6 @@ export default {
 
     buscarCliente() {
       const documentoRaw = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
-      const documento = documentoRaw.replace(/\D/g, '');
       const tipoDocumento = this.nacionalidad === "peruano" ? "DNI" : "CE";
 
       if (this.nacionalidad === "extranjero") {
@@ -98,7 +97,7 @@ export default {
         return;
       }
 
-      fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`)
+      fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}?tipo=${tipoDocumento}`)
           .then((response) => response.json())
           .then((data) => {
             if (data && data.nombres) {
