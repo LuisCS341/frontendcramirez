@@ -3,7 +3,7 @@
     <BarraLateralDashboard />
     <div class="main-content">
       <BarraSuperiorDashboard />
-      <div class="content-container form-verificacion">
+      <div class="content-container">
         <div class="content">
           <h1 class="title">Registro de Cliente</h1>
 
@@ -52,9 +52,8 @@
   </div>
 </template>
 <script>
-import BarraSuperiorDashboard from "@/components/dashboard/BarraSuperiorDashboard.vue";
-import BarraLateralDashboard from "@/components/dashboard/BarraLateralDashboard.vue";
-import "@/assets/formulario/FormularioVerificacion.css";
+import BarraSuperiorDashboard from "@/components/Dashboard/BarraSuperiorDashboard.vue";
+import BarraLateralDashboard from "@/components/Dashboard/BarraLateralDashboard.vue";
 
 export default {
   components: {
@@ -79,9 +78,10 @@ export default {
     },
 
     buscarCliente() {
-      const documentoRaw = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
+      const documento = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
       const tipoDocumento = this.nacionalidad === "peruano" ? "DNI" : "CE";
 
+      // Si es carnet de extranjería, eliminamos el localStorage
       if (this.nacionalidad === "extranjero") {
         localStorage.removeItem("nombreCompleto");
       }
@@ -97,7 +97,8 @@ export default {
         return;
       }
 
-      fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`)
+
+      fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}?tipo=${tipoDocumento}`)
           .then((response) => response.json())
           .then((data) => {
             if (data && data.nombres) {
@@ -168,5 +169,3 @@ export default {
   },
 };
 </script>
-
-
