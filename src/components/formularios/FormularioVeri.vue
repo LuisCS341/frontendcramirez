@@ -97,7 +97,7 @@ export default {
         return;
       }
 
-      fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}?tipo=${tipoDocumento}`)
+      fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`)
           .then((response) => response.json())
           .then((data) => {
             if (data && data.nombres) {
