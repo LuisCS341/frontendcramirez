@@ -11,7 +11,7 @@ import AreaTrabajo from "@/components/dashboard/AreaTrabajo.vue";
 
 // Formularios
 import FormularioVeri from "@/components/formularios/FormularioVeri.vue";
-import Formulariocliente from "@/components/formularios/Formulariocliente.component.vue";
+import FormularioCliente from "@/components/formularios/FormularioCliente.vue";
 
 // Tablas
 import TablaClientes from "@/components/tablas/TablaClientes.vue";
@@ -38,7 +38,7 @@ export default createRouter({
                 },
                 {
                     path: "formularios/detalle-cliente",
-                    component: Formulariocliente,
+                    component: FormularioCliente,
                 },
                 { path: "clientes", component: TablaClientes },
                 { path: "clientes/mis-clientes", component: TablaMisClientes },
