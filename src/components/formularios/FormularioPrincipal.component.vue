@@ -243,7 +243,6 @@ const formularioClientevarios = async () => {
       return;
     }
 
-    // Crear payload del cliente
     const clientePayload = buildClientePayload(form.value);
     console.log("Datos del Cliente a enviar:", clientePayload);
 
@@ -255,6 +254,7 @@ const formularioClientevarios = async () => {
       }
     });
 
+    console.log("Respuesta del backend:", response.data);
     idCliente.value = response.data.idCliente;
     form.value.idCliente = response.data.idCliente;
     console.log("ID del cliente asignado:", form.value.idCliente);
@@ -293,6 +293,7 @@ const submitForm2 = async () => {
       return;
     }
 
+    console.log("ID del cliente antes de enviar lotes:", idCliente.value);
     const userData = JSON.parse(localStorage.getItem("user"));
     const idOperario = userData?.idOperario;
 
@@ -468,10 +469,38 @@ watch(() => form.value.numLotes, (newVal) => {
   form.value.lotes = Array.from({ length: newVal }, () => ({
     proyectolote:'',
     ubicacionLote: 1,
+    empresa:'',
+    empresaVendedora:'',
+    ruc:'',
+    direccion:'',
+    representanteLegal:'',
+    dniVendedor:'',
+    partidaPoder:'',
+    moneda:'',
+    numCuenta:'',
+    cci:'',
+    fechaSale:'',
+    fechaFirma:'',
+    areaMatriz:'',
+    registrosDe:'',
+    partidaMatriz:'',
+    ubicacionPredio:'',
+    unidadCatastral:'',
+    urbanizacionMatriz:'',
+    distritoMatriz:'',
+    provinciaMatriz:'',
+    departamentoMatriz:'',
+    compraventaMatriz:'',
+    situacionLegalMatriz:'',
     manzanalote: '',
     numerolote: '',
     tipoContratolote: 1,
-    areaLote: "",
+    areaLote: '',
+    montoLetras: '',
+    pagoInicial: '',
+    separacion: '',
+    montoCuotas: '',
+    catidadCuotas: '',
     matriz:{
       departamentoMatriz: '',
       provinciaMatriz: '',
