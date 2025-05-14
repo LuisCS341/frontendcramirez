@@ -114,7 +114,7 @@ export function buildLotePayload(idCliente, lote) {
         pagoInicial: lote.pagoInicial,
         separacion: lote.separacion,
         montoCuotas: lote.montoCuotas,
-        catidadCuotas: lote.catidadCuotas,
+        cantidadCuotas: lote.cantidadCuotas,
     };
 }
 

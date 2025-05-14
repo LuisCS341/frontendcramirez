@@ -134,7 +134,7 @@
       <input v-model="lote.montoCuotas" type="number" />
 
       <label>Cantidad de Cuotas:</label>
-      <input v-model="lote.catidadCuotas" type="number" />
+      <input v-model="lote.cantidadCuotas" type="number" />
 
 
       <div>

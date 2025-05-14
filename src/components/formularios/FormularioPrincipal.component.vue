@@ -526,7 +526,7 @@ watch(() => form.value.numLotes, (newVal) => {
     pagoInicial: '',
     separacion: '',
     montoCuotas: '',
-    catidadCuotas: '',
+    cantidadCuotas: '',
     matriz:{
       departamentoMatriz: '',
       provinciaMatriz: '',
