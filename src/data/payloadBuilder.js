@@ -129,12 +129,12 @@ export const buildCuotaExtraordinariaPayload = ({ idLote, cuotaextraordinaria })
 });
 
 
-export const buildLinderoPayload = ({ idLote, linderos }) => ({
+export const buildLinderoPayload = ({ idLote, lindero }) => ({
     idLote,
-    porLaDerecha: linderos?.porLaDerechaLindero ,
-    porLaIzquierda: linderos?.porLaIzquierdaLindero ,
-    porElFrente: linderos?.porElFrenteLindero ,
-    porElFondo: linderos?.porElFondoLindero ,
+    porLaDerecha: lindero?.porLaDerechaLindero ,
+    porLaIzquierda: lindero?.porLaIzquierdaLindero ,
+    porElFrente: lindero?.porElFrenteLindero ,
+    porElFondo: lindero?.porElFondoLindero ,
 });
 
 export function buildMatrizLotePayload(lote) {

@@ -104,15 +104,27 @@
       </select>
 
       <label>Área del Lote m2:</label>
-      <input v-model="lote.areaLote" type="text" step="any" @input="lote.areaLote = lote.areaLote.replace(/[^0-9]/g, '')" />
+      <input v-model="lote.areaLote" type="text" step="any" @input="lote.areaLote = lote.areaLote.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')"/>
 
-      <label>Costo de Lote:</label>
-      <input v-model="lote.costoLote" type="text" step="any" @input="lote.costoLote = lote.costoLote.replace(/[^0-9]/g, '')" />
+    <label>Costo de Lote:</label>
+    <input
+        v-model="lote.costoLote"
+        step="any"
+        @input="
+      lote.costoLote = lote.costoLote.toString().replace(/[^0-9.]/g, '');
+      lote.montoLetras = numeroLetrasSinDecimal(Math.floor(lote.costoLote));
+    "
+    />
 
-      <label>Monto en Letras:</label>
-      <input v-model="lote.montoLetras" type="text" />
+    <label>Monto en Letras:</label>
+    <input
+        v-model="lote.montoLetras"
+        type="text"
+        readonly
+    />
 
-      <label>Pago Inicial:</label>
+
+    <label>Pago Inicial:</label>
       <input v-model="lote.pagoInicial" type="number" />
 
       <label>Separacion:</label>
@@ -142,6 +154,8 @@
 
 <script setup>
 
+import {numeroLetrasSinDecimal} from "@/data/numeroLetrasSinDecimal.js";
+
 defineProps({
   lote: {
     type: Object,
@@ -153,6 +167,7 @@ defineProps({
   },
   proyectos: Array,
   tiposContrato: Array,
+  numeroLetrasSinDecimal: Function,
   getUbicacionesFiltradas: Function,
 });
 </script>

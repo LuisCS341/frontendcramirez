@@ -45,7 +45,7 @@
               <h3>Información de Copropietarios</h3>
 
               <label>Número de Copropietarios:</label>
-              <input v-model.number="form.numCopropietarios" type="number" min="0" />
+              <input v-model.number="form.numCopropietarios" type="number" min="0" max="5"   @input="validateNumCopropietarios"/>
 
               <div v-for="(copropietario, index) in form.copropietarios" :key="index">
                 <FormularioCopropietario
@@ -78,13 +78,14 @@
 
               <h3>Datos de Lotes</h3>
               <label>Número de Lotes Adquiridos:</label>
-              <input v-model.number="form.numLotes" type="number" min="0" />
+              <input v-model.number="form.numLotes" type="number" min="0" @input="validateNumLote"/>
 
-              <div v-for="(lote, index) in form.lotes" :key="index">
+              <div v-for="(lote, index) in form.lotes" :key="index" >
                 <FormularioLotes
                     :index="index"
                     :lote="lote"
                     :proyectos="proyectos"
+                    :numeroLetrasSinDecimal="numeroLetrasSinDecimal"
                     :tiposContrato="tiposContrato"
                     :getUbicacionesFiltradas="getUbicacionesFiltradas"
                 />
@@ -229,6 +230,31 @@ const form = ref({
     numLotes: 0,
     lotes: []
 });
+
+const validateNumLote = () =>{
+  if (form.value.numLotes === '' || isNaN(form.value.numLotes)) {
+    form.value.numLotes = 0;
+  }
+  if (form.value.numLotes < 0 || isNaN(form.value.numLotes)) {
+    form.value.numLotes = 0;
+  }
+  if (form.value.numLotes > 15) {
+    form.value.numLotes = 15;
+  }
+};
+const validateNumCopropietarios = () => {
+
+  if (form.value.numCopropietarios === '' || isNaN(form.value.numCopropietarios)) {
+    form.value.numCopropietarios = 0;
+  }
+
+  if (form.value.numCopropietarios < 0 || isNaN(form.value.numCopropietarios)) {
+    form.value.numCopropietarios = 0;
+  }
+  if (form.value.numCopropietarios > 5) {
+    form.value.numCopropietarios = 5;
+  }
+};
 
 const formularioClientevarios = async () => {
   const confirmacion = window.confirm("¿Estás seguro de que todos los datos están correctos?");
@@ -516,7 +542,7 @@ watch(() => form.value.numLotes, (newVal) => {
       alicuotaMatriz: "",
       alicuotaLetrasMatriz: "",
     },
-    linderos:{
+    lindero:{
       porLaDerechaLindero: "",
       porLaIzquierdaLindero: "",
       porElFrenteLindero: "",
@@ -615,7 +641,7 @@ onMounted(() => {
   }
 
   if (clienteCompleto) {
-    form.value.nombreCliente = clienteCompleto.nombresApellidos || '';
+    form.value.nombreCliente = clienteCompleto.nombresApellidos || clienteCompleto.ocupacionCliente || '';
     form.value.ocupacionCliente = clienteCompleto.ocupacion || clienteCompleto.ocupacionCliente || '';
     form.value.tipoIdentificacion = clienteCompleto.idIdentificacion || '';
     form.value.paisOrigen = clienteCompleto.idNacionalidad || clienteCompleto.paisOrigen || '';
