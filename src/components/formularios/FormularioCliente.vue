@@ -72,7 +72,7 @@ import {provincias} from "@/data/provincias.js";
 import {distritos} from "@/data/distritos.js";
 import {departamentos} from "@/data/departamentos.js";
 import "@/assets/formulario/FormularioCliente.css"
-import {computed,watch } from "vue";
+import {computed, watch} from "vue";
 
 const props = defineProps({
   form: Object,
@@ -96,14 +96,4 @@ const distritosFiltrados = computed(() =>
     distritos.filter(d => d.provinciaId === props.form.provincia)
 );
 
-// 🔁 Resetear provincia y distrito si cambia el departamento
-watch(() => props.form.departamento, () => {
-  props.form.provincia = "";
-  props.form.distrito = "";
-});
-
-// 🔁 Resetear distrito si cambia la provincia
-watch(() => props.form.provincia, () => {
-  props.form.distrito = "";
-});
 </script>

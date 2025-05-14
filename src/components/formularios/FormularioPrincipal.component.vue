@@ -604,6 +604,7 @@ watch(() => form.value.conyuge.numIdentificacionClienteConyuge, async (documento
 onMounted(() => {
   const nombreGuardado = localStorage.getItem('nombreCompleto');
   const numeroDocumentoGuardado = localStorage.getItem('numeroDocumento');
+  const clienteCompleto = JSON.parse(localStorage.getItem('clienteCompleto'));
 
   if (nombreGuardado) {
     form.value.nombreCliente = nombreGuardado;
@@ -611,6 +612,22 @@ onMounted(() => {
 
   if (numeroDocumentoGuardado) {
     form.value.numIdentificacionUsuario = numeroDocumentoGuardado;
+  }
+
+  if (clienteCompleto) {
+    form.value.nombreCliente = clienteCompleto.nombresApellidos || '';
+    form.value.ocupacionCliente = clienteCompleto.ocupacion || clienteCompleto.ocupacionCliente || '';
+    form.value.tipoIdentificacion = clienteCompleto.idIdentificacion || '';
+    form.value.paisOrigen = clienteCompleto.idNacionalidad || clienteCompleto.paisOrigen || '';
+    form.value.paisdeResidencia = clienteCompleto.idResidencia || clienteCompleto.paisdeResidencia || '';
+    form.value.departamento = clienteCompleto.idDepartamento || clienteCompleto.departamento || '';
+    form.value.provincia = clienteCompleto.idProvincia || clienteCompleto.provincia || '';
+    form.value.distrito = clienteCompleto.idDistrito || clienteCompleto.distrito || '';
+    form.value.direccion = clienteCompleto.direccion || '';
+    form.value.correoUsuario = clienteCompleto.correoElectronico || clienteCompleto.correoUsuario || '';
+    form.value.prefijoTelefonico = clienteCompleto.idPrefijo || clienteCompleto.prefijoTelefonico || '';
+    form.value.numTelefonico = clienteCompleto.celularCliente || clienteCompleto.numTelefonico || '';
+    form.value.estadoCivil = clienteCompleto.idEstadoCivil || '';
   }
 });
 
