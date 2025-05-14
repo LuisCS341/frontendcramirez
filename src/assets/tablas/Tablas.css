@@ -52,20 +52,19 @@
 
 /* Contenedor de tabla con scroll */
 .table-container {
-    border-radius: 10px;
-    background-color: #ffffff;
-    width: 100%;
-    overflow-x: auto;  /* Permite desplazamiento horizontal */
-    overflow-y: hidden;  /* Desactiva el scroll vertical */
+    overflow-x: auto;
+    overflow-y: auto;
     max-height: 75vh;
+    max-width: 1186px;
+    border-radius: 10px;
+    background-color: #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    scrollbar-width: auto;  /* Personaliza el tamaño del scroll */
 }
 
 /* Scroll personalizado (WebKit) */
 .table-container::-webkit-scrollbar {
-    height: 8px;  /* Tamaño del scroll horizontal */
+    height: 5px;  /* Tamaño del scroll horizontal */
 }
 
 .table-container::-webkit-scrollbar-thumb {
@@ -79,9 +78,9 @@
 
 /* Tabla */
 .table {
-    width: max-content;  /* Permite que la tabla crezca según las columnas */
-    min-width: 100%;     /* Asegura que la tabla ocupe el 100% del ancho mínimo */
     border-collapse: collapse;
+    white-space: normal;
+    table-layout: auto;
 }
 
 /* Cabecera sticky */
@@ -96,11 +95,12 @@
 /* Celdas */
 .table th,
 .table td {
-    padding: 10px;
+    padding: 8px 12px;
     border-bottom: 1px solid #ddd;
     white-space: nowrap; /* Mantiene columnas en una línea */
     font-size: 14px;
     text-align: left;
+    word-wrap: break-word; /* Permite que el texto se divida si es necesario */
 }
 
 /* Hover filas */
