@@ -100,48 +100,48 @@
           <tbody>
           <tr v-for="(cliente) in clientes" :key="cliente.idCliente">
             <td>{{ cliente.cliente.nombresApellidos ?? '-'}}</td>
-            <td>{{ cliente.lotes[0]?.contrato ?? '-'}}</td>
+            <td>{{ getLote(cliente)?.contrato ?? '-'}}</td>
             <td>{{ cliente.cliente.idCliente.toString().padStart(5, '0') }}</td>
-            <td>{{ cliente.lotes[0]?.idLote ?? '-'}}</td>
-            <td>{{ cliente.lotes[0]?.tipoProyecto ?? '-' }}</td>
-            <td>{{cliente.lotes[0]?.empresaVende ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.rucVendedor ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.direccionVendedor ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.representanteLegalVendedor ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.dniVendedor ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.numeroPartidaPoderVendedor ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.moneda ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.numCuenta ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.cci ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.fechaSale ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.fechaFirmaContratoDefinitivo ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz?.[0]?.areaMatrizHas ?? '-'  }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.registrosDE ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.partidaMatriz ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.ubicacion ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.unidadCatastral ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.urbanizacionMatriz ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.distrito ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.provincia ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.departamento ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.compraventaMatriz ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.situacionLegal ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.constancianoadeudo ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.avanceproyectomatriz ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.cronogramamatriz ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.fechainiciocontrato ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.fechacancelaciondecontrato ?? '-' }}</td>
-            <td>{{ cliente.lotes?.[0]?.manzana && cliente.lotes?.[0]?.numeroLote ? `MZ ${cliente.lotes[0].manzana} - LT ${cliente.lotes[0].numeroLote}` : '-' }}</td>
-            <td>{{  cliente.lotes[0]?.manzana ?? '-' }}</td>
-            <td>{{  cliente.lotes[0]?.numeroLote ?? '-' }}</td>
-            <td>{{  cliente.lotes[0]?.areaLote ?? '-' }}</td>
-            <td>{{  cliente.lotes[0]?.arealoteletras ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.alicuota ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.matriz[0]?.alicuotaLetras ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.lindero[0]?.porElFrente ?? '-' }}</td>
-            <td>{{ cliente.lotes?.[0]?.lindero?.[0]?.porLaDerecha ?? '-' }}</td>
-            <td>{{ cliente.lotes?.[0]?.lindero?.[0]?.porLaIzquierda ?? '-' }}</td>
-            <td>{{ cliente.lotes?.[0]?.lindero?.[0]?.porElFondo ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.idLote ?? '-'}}</td>
+            <td>{{ getLote(cliente)?.tipoProyecto ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.empresaVende ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.rucVendedor ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.direccionVendedor ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.representanteLegalVendedor ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.dniVendedor ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.numeroPartidaPoderVendedor ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.moneda ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.numCuenta ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.cci ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.fechaSale ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.fechaFirmaContratoDefinitivo ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.areaMatrizHas ?? '-'  }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.registrosDE ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.partidaMatriz ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.ubicacion ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.unidadCatastral ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.urbanizacionMatriz ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.distrito ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.provincia ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.departamento ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.compraventaMatriz ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.situacionLegal ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.constancianoadeudo ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.avanceproyectomatriz ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.cronogramamatriz ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.fechainiciocontrato ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.fechacancelaciondecontrato ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.manzana && getLote(cliente)?.numeroLote ? `MZ ${getLote(cliente).manzana} - LT ${getLote(cliente).numeroLote}` : '-' }}</td>
+            <td>{{ getLote(cliente)?.manzana ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.numeroLote ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.areaLote ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.arealoteletras ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.alicuota ?? '-' }}</td>
+            <td>{{ getMatriz(getLote(cliente))?.alicuotaLetras ?? '-' }}</td>
+            <td>{{ getLindero(getLote(cliente))?.porElFrente ?? '-' }}</td>
+            <td>{{ getLindero(getLote(cliente))?.porLaDerecha ?? '-' }}</td>
+            <td>{{ getLindero(getLote(cliente))?.porLaIzquierda ?? '-' }}</td>
+            <td>{{ getLindero(getLote(cliente))?.porElFondo ?? '-' }}</td>
             <td>{{ cliente.cliente.documentoIdentificacion ?? '-'}}</td>
             <td>{{ cliente.cliente.numeroIdentificacion ?? '-'}}</td>
             <td>{{ cliente.cliente.residencia ?? '-'}}</td>
@@ -151,12 +151,12 @@
             <td>{{ cliente.cliente.provincia ?? '-'}}</td>
             <td>{{ cliente.cliente.departamento ?? '-'}}</td>
             <td>{{ cliente.cliente.ocupacion ?? '-'}}</td>
-            <td>{{ cliente.lotes[0]?.costoLote ?? '-' }}</td>
-            <td>{{ cliente.lote[0]?.montoLetras ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.pagoInicial ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.separacion ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.catidadCuotas ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.montoCuotas ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.costoLote ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.montoLetras ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.pagoInicial ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.separacion ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.cantidadCuotas ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.montoCuotas ?? '-' }}</td>
             <td>{{ cliente.cantidadCuotaExtraordinaria ?? '-' }}</td>
             <td>{{ cliente.montoCuotaExtraordinaria ?? '-' }}</td>
             <td>{{ cliente.mantenimientoMensualNumeros ?? '-' }}</td>
@@ -181,7 +181,6 @@
             <td>{{ cliente.minutaEscaneadaFirmado ?? '-' }}</td>
             <td>{{ cliente.expNotaria ?? '-' }}</td>
             <td>{{ cliente.firmoONoFirmo ?? '-' }}</td>
-
             <td class="acciones-td">
               <button @click="editarCliente(cliente.ID_Cliente)" class="btn-accion btn-editar">
                 <i class="fas fa-edit"></i>
@@ -246,6 +245,18 @@ export default {
       }
     },
 
+    // Método para obtener el primer lote o un objeto vacío si no existe
+    getLote(cliente) {
+      return Array.isArray(cliente.lotes) ? cliente.lotes[0] || {} : {};
+    },
+    // Método para obtener el primer elemento de la matriz o un objeto vacío
+    getMatriz(lote) {
+      return Array.isArray(lote.matriz) ? lote.matriz[0] || {} : {};
+    },
+    // Método para obtener el primer lindero o un objeto vacío
+    getLindero(lote) {
+      return Array.isArray(lote.lindero) ? lote.lindero[0] || {} : {};
+    },
     editarCliente(idCliente) {
       this.$router.push({ name: "EditarCliente", params: { id: idCliente } });
     },
@@ -334,7 +345,7 @@ export default {
           lote?.montoLetras ?? '-' ,
           lote?.pagoInicial ?? '-' ,
           lote?.separacion ?? '-' ,
-          lote?.catidadCuotas ?? '-' ,
+          lote?.cantidadCuotas ?? '-' ,
           lote?.montoCuotas ?? '-' ,
           cliente.cantidadCuotaExtraordinaria ?? '-' ,
           cliente.montoCuotaExtraordinaria ?? '-' ,

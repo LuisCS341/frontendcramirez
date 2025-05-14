@@ -154,7 +154,7 @@
             <td>{{ cliente.costoLoteLetras ?? '-' }}</td>
             <td>{{ cliente.lotes[0]?.pagoInicial ?? '-' }}</td>
             <td>{{ cliente.lotes[0]?.separacion ?? '-' }}</td>
-            <td>{{ cliente.lotes[0]?.catidadCuotas ?? '-' }}</td>
+            <td>{{ cliente.lotes[0]?.cantidadCuotas ?? '-' }}</td>
             <td>{{ cliente.lotes[0]?.montoCuotas ?? '-' }}</td>
             <td>{{ cliente.cantidadCuotaExtraordinaria ?? '-' }}</td>
             <td>{{ cliente.montoCuotaExtraordinaria ?? '-' }}</td>
@@ -333,7 +333,7 @@ methods: {
           cliente.costoLoteLetras ?? '-' ,
           lote?.pagoInicial ?? '-' ,
           lote?.separacion ?? '-' ,
-          lote?.catidadCuotas ?? '-' ,
+          lote?.cantidadCuotas ?? '-' ,
           lote?.montoCuotas ?? '-' ,
           cliente.cantidadCuotaExtraordinaria ?? '-' ,
           cliente.montoCuotaExtraordinaria ?? '-' ,
