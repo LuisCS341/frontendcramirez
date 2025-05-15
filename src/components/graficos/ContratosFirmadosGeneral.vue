@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref,computed } from "vue";
 import { Chart, BarController, BarElement, CategoryScale, LinearScale } from "chart.js";
 
 export default {

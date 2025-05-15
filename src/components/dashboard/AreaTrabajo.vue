@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import  { ref, onMounted } from "vue";
+import  { ref, onMounted ,computed} from "vue";
 import { useRouter } from "vue-router";
 import ContratosFirmadosPorOperador from "@/components/graficos/ContratosFirmadosPorOperador.vue";
 import GraficoClientesPorOperador from "@/components/graficos/GraficoClientesPorOperador.vue";

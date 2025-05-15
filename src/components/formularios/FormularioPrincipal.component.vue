@@ -163,7 +163,7 @@
 
 
 <script setup>
-import { ref, watch ,computed ,onMounted ,watchEffect } from 'vue';
+import { ref, watch ,computed,onMounted ,watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import BarraSuperiorDashboard from "@/components/dashboard/BarraSuperiorDashboard.vue";
