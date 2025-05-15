@@ -3,8 +3,6 @@
     <div class="secundary-container">
       <div class="items">
         <input class="buscador" type="text" v-model="busquedaGlobal" placeholder="Buscar cliente..."/>
-
-        <button @click="exportarClientesXLSX" class="btn-accion btn-exportar">Exportar Clientes</button>
       </div>
 
       <div class="table-container">

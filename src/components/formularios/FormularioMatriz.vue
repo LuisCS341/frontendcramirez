@@ -17,26 +17,14 @@
 
             <label>Provincia:</label>
             <select v-model="matriz.matriz.provinciaMatriz" class="select-readonly">
-              <option value="" disabled>Selecciona una provincia</option>
-              <option
-                  v-for="p in provincias.filter(p => p.departamentoId === matriz.matriz.departamentoMatriz)"
-                  :key="p.id"
-                  :value="p.id"
-              >
-                {{ p.nombre }}
-              </option>
+              <option disabled value="">Seleccione una provincia</option>
+              <option v-for="provincia in provinciasFiltradas" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
             </select>
 
             <label>Distrito:</label>
             <select v-model="matriz.matriz.distritoMatriz" class="select-readonly">
               <option value="" disabled>Selecciona un distrito</option>
-              <option
-                  v-for="d in distritos.filter(d => d.provinciaId === matriz.matriz.provinciaMatriz)"
-                  :key="d.id"
-                  :value="d.id"
-              >
-                {{ d.nombre }}
-              </option>
+              <option v-for="distrito in distritosFiltrados" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
             </select>
 
             <label>Ubicación:</label>
@@ -128,4 +116,15 @@ defineProps({
   numeroALetras: Function,
   finalizarRegistroMatriz: Function,
 });
+
+// ✅ Provincias según departamento
+const provinciasFiltradas = computed(() =>
+    provincias.filter(p => p.departamentoId === props.form.departamento)
+);
+
+// ✅ Distritos según provincia
+const distritosFiltrados = computed(() =>
+    distritos.filter(d => d.provinciaId === props.form.provincia)
+);
+
 </script>
