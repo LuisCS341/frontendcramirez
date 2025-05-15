@@ -108,8 +108,10 @@
 
 <script setup>
 import {computed} from "vue";
+import {provincias} from "@/data/provincias.js";
+import {distritos} from "@/data/distritos.js";
 
-defineProps({
+const props = defineProps({
   form: Object,
   departamentos: Array,
   provincias: Array,
