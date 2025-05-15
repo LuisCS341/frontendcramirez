@@ -28,6 +28,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.mantenimientoMensualLetras"
+          required
           readonly
       />
     </div>
@@ -50,6 +51,7 @@
           v-model="lote.cuotaextraordinaria.montoDeudaLetra"
           placeholder="Ingrese su Monto Deuda"
           required
+          readonly
       />
     </div>
 
