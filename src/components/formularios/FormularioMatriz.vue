@@ -97,7 +97,6 @@
             <label>Alicuota en Letras:</label>
             <input v-model="matriz.matriz.alicuotaLetrasMatriz" type="text" readonly />
           </div>
-          <button type="submit" class="btn btn-primary">Siguiente</button>
     </div>
 
 </template>
