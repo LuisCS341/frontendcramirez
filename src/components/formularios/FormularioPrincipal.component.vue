@@ -124,15 +124,19 @@
           </div>
 
           <div v-if="formStep === 5">
-              <FormularioMatriz
-                  :form="form"
-                  :departamentos="departamentos"
-                  :provincias="provincias"
-                  :distritos="distritos"
-                  :ubicaciones="ubicaciones"
-                  :numeroALetras="numeroALetras"
-                  :finalizarRegistroMatriz="finalizarRegistroMatriz"
-              />
+            <form @submit.prevent="finalizarRegistroMatriz">
+                <div v-for="(matriz, index) in form.lotes" :key="index">
+                    <FormularioMatriz
+                        :matriz="matriz"
+                        :index="index"
+                        :departamentos="departamentos"
+                        :provincias="provincias"
+                        :distritos="distritos"
+                        :ubicaciones="ubicaciones"
+                        :numeroALetras="numeroALetras"
+                    />
+                </div>
+            </form>
           </div>
 
           <div v-if="formStep === 6">

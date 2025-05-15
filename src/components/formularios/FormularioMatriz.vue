@@ -3,8 +3,6 @@
     <div class="modal">
       <h2 class="tituloformulario">Detalles de Matriz</h2>
       <div class="formulario-all-matriz-a">
-        <form @submit.prevent="finalizarRegistroMatriz">
-          <div v-for="(matriz, index) in form.lotes" :key="index">
             <h3>Matriz {{ index + 1 }}</h3>
 
             <label>Departamento:</label>
@@ -100,8 +98,6 @@
             <input v-model="matriz.matriz.alicuotaLetrasMatriz" type="text" readonly />
           </div>
           <button type="submit" class="btn btn-primary">Siguiente</button>
-        </form>
-      </div>
     </div>
 
 </template>
@@ -112,23 +108,23 @@ import {provincias} from "@/data/provincias.js";
 import {distritos} from "@/data/distritos.js";
 
 const props = defineProps({
-  form: Object,
+  matriz: Object,
+  index: Number,
   departamentos: Array,
   provincias: Array,
   distritos: Array,
   ubicaciones: Array,
-  numeroALetras: Function,
-  finalizarRegistroMatriz: Function,
+  numeroALetras: Function
 });
 
-// ✅ Provincias según departamento
+
 const provinciasFiltradas = computed(() =>
-    provincias.filter(p => p.departamentoId === props.form.departamento)
+    props.provincias.filter(p => p.departamentoId === props.matriz.matriz.departamentoMatriz)
 );
 
-// ✅ Distritos según provincia
 const distritosFiltrados = computed(() =>
-    distritos.filter(d => d.provinciaId === props.form.provincia)
+    props.distritos.filter(d => d.provinciaId === props.matriz.matriz.provinciaMatriz)
 );
+
 
 </script>
