@@ -3,10 +3,21 @@
     <h3>Datos Personales</h3>
 
     <label>Apellido y Nombre:</label>
-    <input v-model="form.nombreCliente" type="text" @input="form.nombreCliente = form.nombreCliente.replace(/[0-9]/g, '')" />
+    <input
+        v-model="form.nombreCliente"
+        type="text"
+        required
+        @input="form.nombreCliente = form.nombreCliente.replace(/[0-9]/g, '')"
+    />
 
     <label>Ocupación:</label>
-    <input v-model="form.ocupacionCliente" type="text"  @input="form.ocupacionCliente = form.ocupacionCliente.replace(/[0-9]/g, '')" />
+    <input
+        v-model="form.ocupacionCliente"
+        type="text"
+        required
+        placeholder="Ingrese su Ocupación"
+        @input="form.ocupacionCliente = form.ocupacionCliente.replace(/[0-9]/g, '')"
+    />
 
     <label>Tipo de Identificación:</label>
     <select v-model="form.tipoIdentificacion">
@@ -14,7 +25,12 @@
     </select>
 
     <label>Número de Identificación:</label>
-    <input v-model="form.numIdentificacionUsuario" type="text"  @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')" />
+    <input
+        v-model="form.numIdentificacionUsuario"
+        type="text"
+        required
+        @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"
+    />
 
     <label for="paisOrigen">País de Origen:</label>
     <select v-model="form.paisOrigen">
@@ -47,17 +63,33 @@
     </select>
 
     <label>Dirección:</label>
-    <input v-model="form.direccion" type="text"  />
+    <input
+        v-model="form.direccion"
+        type="text"
+        required
+        placeholder="Ingrese su Dirección"
+    />
 
     <label>Correo Electrónico:</label>
-    <input v-model="form.correoUsuario" type="email" placeholder="usuario@dominio.com" />
+    <input
+        v-model="form.correoUsuario"
+        type="email"
+        required
+        placeholder="usuario@dominio.com"
+    />
 
     <label for="prefijoTelefonico">Número Telefónico:</label>
     <div class="prefijo-cliente">
       <select v-model="form.prefijoTelefonico">
         <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
       </select>
-      <input v-model="form.numTelefonico" type="text" placeholder="Ingrese su número" @input="form.numTelefonico = form.numTelefonico.replace(/[^0-9]/g, '')" />
+      <input
+          v-model="form.numTelefonico"
+          type="text"
+          placeholder="Ingrese su Número"
+          required
+          @input="form.numTelefonico = form.numTelefonico.replace(/[^0-9]/g, '')"
+      />
     </div>
 
     <label for="estadoCivil">Estado Civil:</label>

@@ -3,10 +3,20 @@
     <h3 class="titulodatoslotes">Datos del Cónyuge del Copropietario {{ index + 1 }}</h3>
 
     <label>Nombre y Apellido:</label>
-    <input v-model="copropietario.conyuge.nombreCopropietariosConyuge" type="text"  @input="copropietario.conyuge.nombreCopropietariosConyuge = copropietario.conyuge.nombreCopropietariosConyuge.replace(/[0-9]/g, '')"  />
+    <input
+        v-model="copropietario.conyuge.nombreCopropietariosConyuge"
+        type="text"
+        readonly
+        @input="copropietario.conyuge.nombreCopropietariosConyuge = copropietario.conyuge.nombreCopropietariosConyuge.replace(/[0-9]/g, '')"
+    />
 
     <label>Ocupación:</label>
-    <input type="text" v-model="copropietario.conyuge.ocupacionCopropietarioConyuge" placeholder="Ingrese su ocupación" @input="copropietario.conyuge.ocupacionCopropietarioConyuge = copropietario.conyuge.ocupacionCopropietarioConyuge.replace(/[0-9]/g, '')">
+    <input
+        type="text"
+        v-model="copropietario.conyuge.ocupacionCopropietarioConyuge"
+        placeholder="Ingrese su Ocupación"
+        @input="copropietario.conyuge.ocupacionCopropietarioConyuge = copropietario.conyuge.ocupacionCopropietarioConyuge.replace(/[0-9]/g, '')"
+    >
 
     <label>Tipo de Identificación:</label>
     <select v-model="copropietario.conyuge.tipoIdentificacionCopropietariosConyuge" id="tipoIdentificacion">
@@ -14,7 +24,11 @@
     </select>
 
     <label>Número de Identificación:</label>
-    <input v-model="copropietario.conyuge.numIdentificacionCopropietariosConyuge" type="text" />
+    <input
+        v-model="copropietario.conyuge.numIdentificacionCopropietariosConyuge"
+        type="text"
+        placeholder="Ingrese su Número de Identificación"
+    />
 
     <label>País de Origen:</label>
     <select v-model="copropietario.conyuge.paisOrigenCopropietariosConyuge" id="paisOrigen">
@@ -47,7 +61,11 @@
     </select>
 
     <label>Dirección:</label>
-    <input v-model="copropietario.conyuge.direccionCopropietariosConyuge" type="text" />
+    <input
+        v-model="copropietario.conyuge.direccionCopropietariosConyuge"
+        type="text"
+        placeholder="Ingrese su Dirección"
+    />
 
     <label>Correo Electrónico:</label>
     <input v-model="copropietario.conyuge.correoUsuarioCopropietariosConyuge" type="email" placeholder="usuario@dominio.com" />
@@ -57,7 +75,12 @@
       <select v-model="copropietario.conyuge.prefijoTelefonicoCopropietariosConyuge" id="prefijoTelefonico">
         <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
       </select>
-      <input v-model="copropietario.conyuge.numTelefonicoCopropietariosConyuge" type="text" placeholder="Ingrese su número" @input="copropietario.conyuge.numTelefonicoCopropietariosConyuge = copropietario.conyuge.numTelefonicoCopropietariosConyuge.replace(/[^0-9]/g, '')" />
+      <input
+          v-model="copropietario.conyuge.numTelefonicoCopropietariosConyuge"
+          type="text"
+          placeholder="Ingrese su número"
+          @input="copropietario.conyuge.numTelefonicoCopropietariosConyuge = copropietario.conyuge.numTelefonicoCopropietariosConyuge.replace(/[^0-9]/g, '')"
+      />
     </div>
 
   </div>

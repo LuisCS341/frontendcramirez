@@ -1,4 +1,4 @@
-export function numeroLetrasSinDecimal(valor) {
+export function numeroLetrasConNumeros(valor) {
     const UNIDADES = [
         '', 'UNO', 'DOS', 'TRES', 'CUATRO', 'CINCO', 'SEIS', 'SIETE', 'OCHO', 'NUEVE',
         'DIEZ', 'ONCE', 'DOCE', 'TRECE', 'CATORCE', 'QUINCE', 'DIECISÉIS', 'DIECISIETE', 'DIECIOCHO', 'DIECINUEVE'
@@ -56,6 +56,10 @@ export function numeroLetrasSinDecimal(valor) {
         return resultado;
     }
 
+    // Validar que sea un número válido y no contenga letras
+    if (isNaN(valor) || typeof valor === 'string' && /[^\d.]/.test(valor)) {
+        return '-';
+    }
 
     valor = Number(valor).toFixed(2);
 

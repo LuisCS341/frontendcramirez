@@ -3,12 +3,21 @@
     <h3 class="titulodatoslotes">Datos del Cónyuge</h3>
 
     <label>Nombre y Apellido:</label>
-    <input v-model="form.conyuge.nombreClienteConyuge" type="text"
-           @input="form.conyuge.nombreClienteConyuge = form.conyuge.nombreClienteConyuge.replace(/[0-9]/g, '')" />
+    <input
+        v-model="form.conyuge.nombreClienteConyuge"
+        type="text"
+        readonly
+        @input="form.conyuge.nombreClienteConyuge = form.conyuge.nombreClienteConyuge.replace(/[0-9]/g, '')"
+    />
 
     <label>Ocupación:</label>
-    <input v-model="form.conyuge.ocupacionClienteConyuge" type="text" placeholder="Ingrese su ocupación"
-           @input="form.conyuge.ocupacionClienteConyuge = form.conyuge.ocupacionClienteConyuge.replace(/[0-9]/g, '')" />
+    <input
+        v-model="form.conyuge.ocupacionClienteConyuge"
+        type="text"
+        required
+        placeholder="Ingrese su Ocupación"
+        @input="form.conyuge.ocupacionClienteConyuge = form.conyuge.ocupacionClienteConyuge.replace(/[0-9]/g, '')"
+    />
 
     <label for="tipoIdentificacion">Tipo de Identificación:</label>
     <select v-model="form.conyuge.tipoIdentificacionClienteConyuge" id="tipoIdentificacion">
@@ -16,8 +25,13 @@
     </select>
 
     <label>Número de Identificación:</label>
-    <input v-model="form.conyuge.numIdentificacionClienteConyuge" type="text"
-           @input="form.conyuge.numIdentificacionClienteConyuge = form.conyuge.numIdentificacionClienteConyuge.replace(/[^0-9]/g, '')" />
+    <input
+        v-model="form.conyuge.numIdentificacionClienteConyuge"
+        type="text"
+        required
+        placeholder="Ingrese su Número de Identificación"
+        @input="form.conyuge.numIdentificacionClienteConyuge = form.conyuge.numIdentificacionClienteConyuge.replace(/[^0-9]/g, '')"
+    />
 
     <label for="paisOrigen">País de Origen:</label>
     <select v-model="form.conyuge.paisOrigenClienteConyuge" id="paisOrigen">
@@ -50,18 +64,33 @@
     </select>
 
     <label>Dirección:</label>
-    <input v-model="form.conyuge.direccionClienteConyuge" type="text" />
+    <input
+        v-model="form.conyuge.direccionClienteConyuge"
+        type="text"
+        placeholder="Ingrese su Dirección"
+        required
+    />
 
     <label>Correo Electrónico:</label>
-    <input v-model="form.conyuge.correoUsuarioCliente" type="email" placeholder="usuario@dominio.com" />
+    <input
+        v-model="form.conyuge.correoUsuarioCliente"
+        type="email"
+        placeholder="usuario@dominio.com"
+        required
+    />
 
     <label for="prefijoTelefonico">Número Telefónico:</label>
     <div style="display: flex; gap: 5px;">
       <select v-model="form.conyuge.prefijoTelefonicoClienteConyuge" id="prefijoTelefonico">
         <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
       </select>
-      <input v-model="form.conyuge.numTelefonicoClienteConyuge" type="text" placeholder="Ingrese su número"
-             @input="form.conyuge.numTelefonicoClienteConyuge = form.conyuge.numTelefonicoClienteConyuge.replace(/[^0-9]/g, '')" />
+      <input
+          v-model="form.conyuge.numTelefonicoClienteConyuge"
+          type="text"
+          required
+          placeholder="Ingrese su Número Telefónico"
+          @input="form.conyuge.numTelefonicoClienteConyuge = form.conyuge.numTelefonicoClienteConyuge.replace(/[^0-9]/g, '')"
+      />
     </div>
   </div>
 </template>

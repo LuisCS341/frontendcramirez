@@ -6,6 +6,7 @@
     <input
         v-model="copropietario.nombreCopropietarios"
         type="text"
+        readonly
         @input="copropietario.nombreCopropietarios = copropietario.nombreCopropietarios.replace(/[0-9]/g, '')"
     />
 
@@ -13,7 +14,7 @@
     <input
         type="text"
         v-model="copropietario.ocupacionCopropietario"
-        placeholder="Ingrese su ocupación"
+        placeholder="Ingrese su Ocupación"
         @input="copropietario.ocupacionCopropietario = copropietario.ocupacionCopropietario.replace(/[0-9]/g, '')"
     />
 
@@ -23,7 +24,11 @@
     </select>
 
     <label>Número de Identificación:</label>
-    <input v-model="copropietario.numIdentificacionCopropietarios" type="text" />
+    <input
+        v-model="copropietario.numIdentificacionCopropietarios"
+        type="text"
+        placeholder="Ingrese su Número de Identificación"
+    />
 
     <label>País de Origen:</label>
     <select v-model="copropietario.paisOrigenCopropietarios">
@@ -56,17 +61,30 @@
     </select>
 
     <label>Dirección:</label>
-    <input v-model="copropietario.direccionCopropietariosHogar" type="text" />
+    <input
+        v-model="copropietario.direccionCopropietariosHogar"
+        type="text"
+        placeholder="Ingrese su Dirección"
+    />
 
     <label>Correo Electrónico:</label>
-    <input v-model="copropietario.correoUsuarioCopropietarios" type="email" placeholder="usuario@dominio.com"/>
+    <input
+        v-model="copropietario.correoUsuarioCopropietarios"
+        type="email"
+        placeholder="usuario@dominio.com"
+    />
 
     <label>Número Telefónico:</label>
     <div style="display: flex; gap: 5px;">
       <select v-model="copropietario.prefijoTelefonicoCopropietarios">
         <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
       </select>
-      <input v-model="copropietario.numTelefonicoCopropietarios" type="text" placeholder="Ingrese su número" @input="copropietario.numTelefonicoCopropietarios = copropietario.numTelefonicoCopropietarios.replace(/[^0-9]/g, '')"/>
+      <input
+          v-model="copropietario.numTelefonicoCopropietarios"
+          type="text"
+          placeholder="Ingrese su Número Telefónico"
+          @input="copropietario.numTelefonicoCopropietarios = copropietario.numTelefonicoCopropietarios.replace(/[^0-9]/g, '')"
+      />
     </div>
 
     <label>Estado Civil:</label>

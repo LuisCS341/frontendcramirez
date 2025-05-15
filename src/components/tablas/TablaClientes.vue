@@ -47,16 +47,15 @@
             <th>MZ (LOTE)</th>
             <th>LT (LOTE)</th>
             <th>Área Lote (LOTE)</th>
-            <th>Área en Letras (LOTE)</th>
+            <th>Área de Lote en Letras (LOTE)</th>
             <th>Cuota Ideal (alicuota)</th>
             <th>Cuota Ideal en Letras</th>
             <th>Por el Frente</th>
             <th>Por la Derecha</th>
             <th>Por la Izquierda</th>
             <th>Por el Fondo</th>
-            <th>Nº Identif. (Cliente)</th>
             <th>Tipo Doc. (Cliente)</th>
-            <th>Nombres y Apellidos (Cliente)</th>
+            <th>Nº Identif. (Cliente)</th>
             <th>Nacionalidad (Cliente)</th>
             <th>Estado Civil (Cliente)</th>
             <th>Direccion (Cliente)</th>
@@ -135,7 +134,7 @@
             <td>{{ getLote(cliente)?.manzana ?? '-' }}</td>
             <td>{{ getLote(cliente)?.numeroLote ?? '-' }}</td>
             <td>{{ getLote(cliente)?.areaLote ?? '-' }}</td>
-            <td>{{ getLote(cliente)?.arealoteletras ?? '-' }}</td>
+            <td>{{ getLote(cliente)?.areaLoteLetras ?? '-' }}</td>
             <td>{{ getMatriz(getLote(cliente))?.alicuota ?? '-' }}</td>
             <td>{{ getMatriz(getLote(cliente))?.alicuotaLetras ?? '-' }}</td>
             <td>{{ getLindero(getLote(cliente))?.porElFrente ?? '-' }}</td>
@@ -157,13 +156,13 @@
             <td>{{ getLote(cliente)?.separacion ?? '-' }}</td>
             <td>{{ getLote(cliente)?.cantidadCuotas ?? '-' }}</td>
             <td>{{ getLote(cliente)?.montoCuotas ?? '-' }}</td>
-            <td>{{ cliente.cantidadCuotaExtraordinaria ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.cuotaExtraordinaria ?? '-' }}</td>
             <td>{{ cliente.montoCuotaExtraordinaria ?? '-' }}</td>
-            <td>{{ cliente.mantenimientoMensualNumeros ?? '-' }}</td>
-            <td>{{ cliente.mantenimientoMensualLetras ?? '-' }}</td>
-            <td>{{ cliente.estadoCuenta ?? '-' }}</td>
-            <td>{{ cliente.montoDeudaLetras ?? '-' }}</td>
-            <td>{{ cliente.cuotasPendientesPago ?? '-' }}</td>
+            <td>{{getCuotaExtraordinaria(getLote(cliente))?.mantenimientoMensual ?? '-' ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.mantenimientoMensualLetras ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.estadoCuenta ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.montoDeudaLetra ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.cuotaPendientePago ?? '-' }}</td>
             <td>{{ cliente.diaPagoNumero ?? '-' }}</td>
             <td>{{ cliente.diaPagoLetras ?? '-' }}</td>
             <td>{{ cliente.cartaNoAdeuda ?? '-' }}</td>
@@ -172,8 +171,8 @@
             <td>{{ cliente.plano1 ?? '-' }}</td>
             <td>{{ cliente.plano2 ?? '-' }}</td>
             <td>{{ cliente.envioMinuta ?? '-' }}</td>
-            <td>{{ cliente.correoElectronico ?? '-' }}</td>
-            <td>{{ cliente.celularCliente ?? '-' }}</td>
+            <td>{{ cliente.cliente.correoElectronico ?? '-' }}</td>
+            <td>{{ cliente.cliente.celularCliente ?? '-' }}</td>
             <td>{{ cliente.fechaCita ?? '-' }}</td>
             <td>{{ cliente.horaCita ?? '-' }}</td>
             <td>{{ cliente.numeroAtencionIntranet ?? '-' }}</td>
@@ -247,16 +246,24 @@ export default {
 
     // Método para obtener el primer lote o un objeto vacío si no existe
     getLote(cliente) {
-      return Array.isArray(cliente.lotes) ? cliente.lotes[0] || {} : {};
+      return Array.isArray(cliente.lotes) && cliente.lotes.length > 0 ? cliente.lotes[0] : null;
     },
+
     // Método para obtener el primer elemento de la matriz o un objeto vacío
     getMatriz(lote) {
       return Array.isArray(lote.matriz) ? lote.matriz[0] || {} : {};
     },
+
     // Método para obtener el primer lindero o un objeto vacío
     getLindero(lote) {
-      return Array.isArray(lote.lindero) ? lote.lindero[0] || {} : {};
+      return lote && lote.lindero ? lote.lindero : null;
     },
+    getCuotaExtraordinaria(lote) {
+      return Array.isArray(lote.cuotasExtraordinarias) && lote.cuotasExtraordinarias.length > 0
+          ? lote.cuotasExtraordinarias[0]
+          : null;
+    },
+
     editarCliente(idCliente) {
       this.$router.push({ name: "EditarCliente", params: { id: idCliente } });
     },
@@ -286,6 +293,7 @@ export default {
         const cliente = item.cliente ?? {};
         const lote = item.lotes?.[0] ?? {};
         const matriz = lote.matriz?.[0] ?? {};
+        const cuotaExtraordinaria = lote.cuotasExtraordinarias?.[0] ?? {};
         const lindero = lote.lindero ?? {};
 
         return [
@@ -325,7 +333,7 @@ export default {
           lote?.manzana ?? '-' ,
           lote?.numeroLote ?? '-' ,
           lote?.areaLote ?? '-' ,
-          lote?.arealoteletras ?? '-' ,
+          lote?.areaLoteLetras ?? '-' ,
           matriz?.alicuota ?? '-',
           matriz?.alicuotaLetras ?? '-',
           lindero?.porElFrente ?? '-',
@@ -347,13 +355,13 @@ export default {
           lote?.separacion ?? '-' ,
           lote?.cantidadCuotas ?? '-' ,
           lote?.montoCuotas ?? '-' ,
-          cliente.cantidadCuotaExtraordinaria ?? '-' ,
+          cuotaExtraordinaria?.cuotaExtraordinaria ?? '-' ,
           cliente.montoCuotaExtraordinaria ?? '-' ,
-          cliente.mantenimientoMensualNumeros ?? '-' ,
-          cliente.mantenimientoMensualLetras ?? '-' ,
-          cliente.estadoCuenta ?? '-' ,
-          cliente.montoDeudaLetras ?? '-' ,
-          cliente.cuotasPendientesPago ?? '-' ,
+          cuotaExtraordinaria?.mantenimientoMensual ?? '-' ,
+          cuotaExtraordinaria?.mantenimientoMensualLetras ?? '-' ,
+          cuotaExtraordinaria?.estadoCuenta ?? '-' ,
+          cuotaExtraordinaria?.montoDeudaLetra ?? '-' ,
+          cuotaExtraordinaria?.cuotaPendientePago ?? '-' ,
           cliente.diaPagoNumero ?? '-' ,
           cliente.diaPagoLetras ?? '-' ,
           cliente.cartaNoAdeuda ?? '-' ,

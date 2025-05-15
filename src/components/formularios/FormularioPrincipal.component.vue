@@ -81,14 +81,15 @@
               <input v-model.number="form.numLotes" type="number" min="0" @input="validateNumLote"/>
 
               <div v-for="(lote, index) in form.lotes" :key="index" >
+
                 <FormularioLotes
                     :index="index"
                     :lote="lote"
                     :proyectos="proyectos"
-                    :numeroLetrasSinDecimal="numeroLetrasSinDecimal"
                     :tiposContrato="tiposContrato"
                     :getUbicacionesFiltradas="getUbicacionesFiltradas"
                 />
+
               </div>
               <button type="submit">Siguiente</button>
             </form>
@@ -97,11 +98,14 @@
           <div v-if="formStep === 3">
             <form @submit.prevent="FormCuotaExtraordinaria">
               <div v-for="(lote, index) in form.lotes" :key="index">
+
                 <CuotaExtraordinariaLote
-                    :cuotaextraordinaria="cuotaextraordinaria"
+                    v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
+                    :cuotaextraordinaria="lote.cuotaextraordinaria"
                     :lote="lote"
                     :index="index"
                 />
+
               </div>
               <button type="submit">Siguiente</button>
             </form>
@@ -308,6 +312,12 @@ const formularioClientevarios = async () => {
 
 const submitForm2 = async () => {
 
+
+  if (form.value.numLotes <= 0) {
+    alert("Debe ingresar al menos un lote para continuar.");
+    return;
+  }
+
   const confirmacion = window.confirm("¿Estás seguro de que todos los datos están correctos?");
   if (!confirmacion) {
     return;
@@ -391,7 +401,12 @@ const FormCuotaExtraordinaria = async () => {
   }
 
   try {
-    const requests = form.value.lotes.map(lote => {
+
+    const lotesConCuota = form.value.lotes.filter(
+        lote => lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria
+    );
+
+    const requests = lotesConCuota.map(lote => {
       const payload = buildCuotaExtraordinariaPayload(lote);
       return axios.post('https://backendcramirez.onrender.com/api/cuotaextraordinaria', payload);
     });
@@ -522,6 +537,7 @@ watch(() => form.value.numLotes, (newVal) => {
     numerolote: '',
     tipoContratolote: 1,
     areaLote: '',
+    areaLoteLetras: '',
     montoLetras: '',
     pagoInicial: '',
     separacion: '',
@@ -548,13 +564,14 @@ watch(() => form.value.numLotes, (newVal) => {
       porElFrenteLindero: "",
       porElFondoLindero: "",
     },
+    tieneCuotaExtraordinaria: null,
     cuotaextraordinaria: {
-      cuotaExtraordinariaLote: 0,
-      mantenimientoMensual: 0,
+      cuotaExtraordinariaLote: "",
+      mantenimientoMensual: "",
       mantenimientoMensualLetras: "",
       estadoCuenta: "",
       montoDeudaLetra: "",
-      cuotaPendientePago: 0
+      cuotaPendientePago: "",
     }
   }));
 });
@@ -744,6 +761,7 @@ watch(() => form.value.lotes, (lotes) => {
     },
     { deep: true }
 );
+
 const getUbicacionesFiltradas = (proyectoId) => {
   return ubicaciones.filter(u => String(u.proyectoId) === String(proyectoId));
 };

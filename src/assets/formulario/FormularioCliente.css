@@ -282,3 +282,38 @@ h3{
     color: black;
     appearance: none;
 }
+
+
+.mostrar.detalles {
+    margin-top: 1rem;
+    display: block;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.contenedor-radio-tarjetas {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.tarjeta-radio {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tarjeta-radio:hover {
+    border-color: #007bff;
+}
+
+.tarjeta-radio input[type="radio"] {
+    accent-color: #007bff;
+}
+
+

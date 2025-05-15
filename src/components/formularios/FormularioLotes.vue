@@ -5,17 +5,21 @@
 
       <label>Proyecto:</label>
       <select v-model="lote.proyectolote" >
-        <option value="" disabled selected>Selecciona el proyecto</option>
+        <option disabled value=""  >Selecciona el proyecto</option>
         <option v-for="proyecto in proyectos" :key="proyecto.id" :value="proyecto.id">{{ proyecto.nombre }}</option>
       </select>
 
       <label>Ubicacion de Lote:</label>
       <select v-model="lote.ubicacionLote">
-        <option value="" disabled selected>Selecciona la Ubicacion</option>
+        <option disabled value="" >Selecciona la Ubicacion</option>
         <option v-for="ubicacion in getUbicacionesFiltradas(lote.proyectolote)" :key="ubicacion.id" :value="ubicacion.id">{{ ubicacion.UbicacionLote}}</option>
       </select>
 
-      <div v-if="lote.ubicacionLote" class="mini-formulario">
+      <button type="button" class="mostrar detalles" @click="mostrarFormulario[index] = !mostrarFormulario[index]">
+        {{ mostrarFormulario[index] ? 'Ocultar detalles' : 'Mostrar detalles' }}
+      </button>
+
+    <div v-if="mostrarFormulario[index] && lote.ubicacionLote" class="mini-formulario">
 
         <div class="section">Información General</div>
         <label>Empresa:</label>
@@ -93,10 +97,21 @@
 
 
       <label>Manzana:</label>
-      <input v-model="lote.manzanalote" type="text" />
+      <input
+          v-model="lote.manzanalote"
+          type="text"
+          required
+          placeholder="Ingrese su Manzana"
+      />
 
       <label>Número de Lote:</label>
-      <input v-model="lote.numerolote" type="text" @input="lote.numerolote = lote.numerolote.replace(/[^0-9]/g, '')"/>
+      <input
+          v-model="lote.numerolote"
+          type="text"
+          required
+          placeholder="Ingrese su Número de Lote"
+          @input="lote.numerolote = lote.numerolote.replace(/[^0-9]/g, '')"
+      />
 
       <label>Tipo de Contrato:</label>
       <select v-model="lote.tipoContratolote">
@@ -104,15 +119,34 @@
       </select>
 
       <label>Área del Lote m2:</label>
-      <input v-model="lote.areaLote" type="text" step="any" @input="lote.areaLote = lote.areaLote.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')"/>
+      <input
+          v-model="lote.areaLote"
+          type="text"
+          step="any"
+          required
+          placeholder="Ingrese su Área del Lote"
+          @input="
+          lote.areaLote = lote.areaLote.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')
+          lote.areaLoteLetras = numeroLetrasConDecimal(lote.areaLote);
+          "
+      />
+
+    <label>Área del Lote en Letras:</label>
+    <input
+        v-model="lote.areaLoteLetras"
+        type="text"
+        readonly
+    />
 
     <label>Costo de Lote:</label>
     <input
         v-model="lote.costoLote"
         step="any"
+        required
+        placeholder="Ingrese su Costo de Lote"
         @input="
       lote.costoLote = lote.costoLote.toString().replace(/[^0-9.]/g, '');
-      lote.montoLetras = numeroLetrasSinDecimal(Math.floor(lote.costoLote));
+      lote.montoLetras = numeroLetrasSinDecimal(parseFloat(lote.costoLote).toFixed(2));
     "
     />
 
@@ -125,36 +159,77 @@
 
 
     <label>Pago Inicial:</label>
-      <input v-model="lote.pagoInicial" type="number" />
+      <input
+          v-model="lote.pagoInicial"
+          type="number"
+          required
+          placeholder="Ingrese su Pago Inicial"
+      />
 
       <label>Separacion:</label>
-      <input v-model="lote.separacion" type="text" />
+      <input
+          v-model="lote.separacion"
+          type="text"
+          required
+          placeholder="Ingrese su Separacion"
+      />
 
       <label>Monto en Cuotas:</label>
-      <input v-model="lote.montoCuotas" type="number" />
+      <input
+          v-model="lote.montoCuotas"
+          type="number"
+          required
+          placeholder="Ingrese su Monto en Cuotas"
+      />
 
       <label>Cantidad de Cuotas:</label>
-      <input v-model="lote.cantidadCuotas" type="number" />
+      <input
+          v-model="lote.cantidadCuotas"
+          type="number"
+          required
+          placeholder="Ingrese su Cantidad de Cuotas"
+      />
 
-
-      <div>
-        <label>¿Tiene cuota extraordinaria?</label>
-        <div>
-          <label for="si-{{ index }}">Sí</label>
-          <input type="radio" :id="'si-' + index" />
-        </div>
-        <div>
-          <label for="no-{{ index }}">No</label>
-          <input type="radio" :id="'no-' + index" />
-        </div>
+    <div>
+      <label><strong>¿Tiene cuota extraordinaria?</strong></label>
+      <div class="contenedor-radio-tarjetas">
+        <label class="tarjeta-radio">
+          <input
+              type="radio"
+              :id="'si-' + index"
+              :name="'cuotaExtraordinaria-' + index"
+              value="si"
+              v-model="lote.tieneCuotaExtraordinaria"
+              @change="inicializarCuotaExtraordinaria(lote)"
+          />
+          <span>Sí</span>
+        </label>
+        <label class="tarjeta-radio">
+          <input
+              type="radio"
+              :id="'no-' + index"
+              :name="'cuotaExtraordinaria-' + index"
+              value="no"
+              v-model="lote.tieneCuotaExtraordinaria"
+              @change="limpiarCuotaExtraordinaria(lote)"
+          />
+          <span>No</span>
+        </label>
       </div>
     </div>
+
+
+  </div>
 
 </template>
 
 <script setup>
-
 import {numeroLetrasSinDecimal} from "@/data/numeroLetrasSinDecimal.js";
+import {ref} from "vue";
+import {numeroLetrasConDecimal} from "@/data/numeroLetrasConDecimal.js";
+
+const mostrarFormulario = ref({});
+
 
 defineProps({
   lote: {
@@ -167,8 +242,25 @@ defineProps({
   },
   proyectos: Array,
   tiposContrato: Array,
+  numeroALetras: Function,
   numeroLetrasSinDecimal: Function,
   getUbicacionesFiltradas: Function,
 });
+
+function limpiarCuotaExtraordinaria(lote) {
+  delete lote.cuotaextraordinaria;
+}
+
+function inicializarCuotaExtraordinaria(lote) {
+  lote.cuotaextraordinaria = {
+    cuotaExtraordinariaLote: "",
+    mantenimientoMensual: "",
+    mantenimientoMensualLetras: "",
+    estadoCuenta: "",
+    montoDeudaLetra: "",
+    cuotaPendientePago: "",
+  };
+}
+
 </script>
 
