@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 // Vistas principales
-import Login from "@/components/views/Login.component.vue";
-import Error403 from "@/components/views/Error403.vue";
-import LoginOlvidarContra from "@/components/views/LoginOlvidarContra.vue";
-import Dashboard from "@/components/views/Dashboard.vue";
+import Login from "@/views/Login.component.vue";
+import Error403 from "@/views/Error403.vue";
+import LoginOlvidarContra from "@/views/LoginOlvidarContra.vue";
+import Dashboard from "@/views/Dashboard.vue";
 
 // Dashboard
 import AreaTrabajo from "@/components/dashboard/AreaTrabajo.vue";
 
 // Formularios
-import FormularioVeri from "@/components/formularios/FormularioVeri.vue";
-import FormularioPrincipalComponent from "@/components/formularios/FormularioPrincipal.component.vue";
+import FormularioVeri from "@/components/formularios/Verificacion/FormularioVeri.vue";
+import FormularioPrincipalComponent from "@/components/formularios/Principal/FormularioPrincipal.component.vue";
 
 // Tablas
 import TablaClientes from "@/components/tablas/TablaClientes.vue";
