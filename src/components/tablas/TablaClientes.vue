@@ -222,7 +222,7 @@ export default {
 
 
     getMatriz(lote) {
-      return Array.isArray(lote.matriz) ? lote.matriz[0] || {} : {};
+      return lote?.matriz?.[0] || {};
     },
 
     getLindero(lote) {
