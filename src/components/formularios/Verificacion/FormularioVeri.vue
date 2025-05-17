@@ -52,9 +52,9 @@
   </div>
 </template>
 <script>
-import BarraSuperiorDashboard from "@/components/dashboard/BarraSuperiorDashboard.vue";
-import BarraLateralDashboard from "@/components/dashboard/BarraLateralDashboard.vue";
-import "@/assets/formulario/FormularioVerificacion.css";
+import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
+import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
+import "@/components/formularios/Verificacion/FormularioVerificacion.css";
 
 export default {
   components: {

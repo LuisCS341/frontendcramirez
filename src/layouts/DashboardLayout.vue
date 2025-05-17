@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import BarraLateralDashboard from "@/components/dashboard/BarraLateralDashboard.vue";
-import BarraSuperiorDashboard from "@/components/dashboard/BarraSuperiorDashboard.vue";
+import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
+import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
 
 export default {
   components: {
@@ -26,7 +26,7 @@ export default {
 <style scoped>
 .dashboard-container {
   display: flex;
-  height: 100vh; /* importante para que ocupe toda la pantalla */
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -34,11 +34,11 @@ export default {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  height: 100vh; /* para que herede el tamaño total de viewport */
+  height: 100vh;
 }
 
 .area-trabajo {
-  flex-grow: 1; /* para que ocupe todo el espacio restante debajo de la barra superior */
+  flex-grow: 1;
   padding: 20px;
   background: #f8f9fa;
   overflow-y: auto;

@@ -96,27 +96,27 @@
 </template>
 
 <script setup>
+import {provincias} from "@/data/provincias.js";
+import {distritos} from "@/data/distritos.js";
+import {departamentos} from "@/data/departamentos.js";
+import { paises } from '@/data/paises.js';
+import { residencias } from '@/data/residencias.js'
+import {prefijos} from "@/data/prefijos.js";
+import { tipoIdentificacion } from '@/data/tipoIdentificacion.js';
 import {computed, watch} from "vue";
 
 const props = defineProps({
-  form: Object,
-  tipoIdentificacion: Array,
-  paises: Array,
-  residencias: Array,
-  departamentos: Array,
-  provincias: Array,
-  distritos: Array,
-  prefijos: Array
+  form: Object
 });
 
 // ✅ Provincias según departamento
 const provinciasFiltradas = computed(() =>
-    props.provincias.filter(p => p.departamentoId === props.form.conyuge.departamentoClienteConyuge)
+    provincias.filter(p => p.departamentoId === props.form.conyuge.departamentoClienteConyuge)
 );
 
 // ✅ Distritos según provincia
 const distritosFiltrados = computed(() =>
-    props.distritos.filter(d => d.provinciaId === props.form.conyuge.provinciaClienteConyuge)
+    distritos.filter(d => d.provinciaId === props.form.conyuge.provinciaClienteConyuge)
 );
 
 // 🔁 Resetear provincia y distrito si cambia el departamento

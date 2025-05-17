@@ -16,13 +16,13 @@
             <label>Provincia:</label>
             <select v-model="matriz.matriz.provinciaMatriz" class="select-readonly">
               <option disabled value="">Seleccione una provincia</option>
-              <option v-for="provincia in provinciasFiltradas" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
+              <option v-for="provincia in provincias" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
             </select>
 
             <label>Distrito:</label>
             <select v-model="matriz.matriz.distritoMatriz" class="select-readonly">
               <option value="" disabled>Selecciona un distrito</option>
-              <option v-for="distrito in distritosFiltrados" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
+              <option v-for="distrito in distritos" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
             </select>
 
             <label>Ubicación:</label>
@@ -102,28 +102,17 @@
 </template>
 
 <script setup>
-import {computed} from "vue";
+
 import {provincias} from "@/data/provincias.js";
 import {distritos} from "@/data/distritos.js";
+import {departamentos} from "@/data/departamentos.js";
+import { ubicaciones } from '@/data/ubicaciones.js'
 
-const props = defineProps({
+defineProps({
   matriz: Object,
   index: Number,
-  departamentos: Array,
-  provincias: Array,
-  distritos: Array,
-  ubicaciones: Array,
   numeroALetras: Function
 });
-
-
-const provinciasFiltradas = computed(() =>
-    props.provincias.filter(p => p.departamentoId === props.matriz.matriz.departamentoMatriz)
-);
-
-const distritosFiltrados = computed(() =>
-    props.distritos.filter(d => d.provinciaId === props.matriz.matriz.provinciaMatriz)
-);
 
 
 </script>

@@ -103,19 +103,16 @@
 import {provincias} from "@/data/provincias.js";
 import {distritos} from "@/data/distritos.js";
 import {departamentos} from "@/data/departamentos.js";
-import "@/assets/formulario/FormularioCliente.css"
+import { paises } from '@/data/paises.js';
+import { residencias } from '@/data/residencias.js'
+import {prefijos} from "@/data/prefijos.js";
+import { estadoCivil } from '@/data/estadoCivil.js';
+import { tipoIdentificacion } from '@/data/tipoIdentificacion.js';
+import "@/components/formularios/Cliente/FormularioCliente.css"
 import {computed, watch} from "vue";
 
 const props = defineProps({
-  form: Object,
-  paises: Array,
-  residencias: Array,
-  prefijos: Array,
-  estadoCivil: Array,
-  tipoIdentificacion: Array,
-  departamentos: Array,
-  provincias: Array,
-  distritos: Array,
+  form: Object
 });
 
 // ✅ Provincias según departamento
@@ -127,7 +124,6 @@ const provinciasFiltradas = computed(() =>
 const distritosFiltrados = computed(() =>
     distritos.filter(d => d.provinciaId === props.form.provincia)
 );
-
 
 
 </script>

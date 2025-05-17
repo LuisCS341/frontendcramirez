@@ -97,29 +97,26 @@
 import { departamentos } from '@/data/departamentos.js';
 import { provincias } from '@/data/provincias.js';
 import { distritos } from '@/data/distritos.js';
+import { paises } from '@/data/paises.js';
+import { residencias } from '@/data/residencias.js'
+import {prefijos} from "@/data/prefijos.js";
+import { estadoCivil } from '@/data/estadoCivil.js';
+import { tipoIdentificacion } from '@/data/tipoIdentificacion.js';
 import { computed, watch } from 'vue';
 
 const props = defineProps({
   index: Number,
-  copropietario: Object,
-  tipoIdentificacion: Array,
-  paises: Array,
-  residencias: Array,
-  departamentos: Array,
-  prefijos: Array,
-  estadoCivil: Array,
-  provincias: Array,
-  distritos: Array
+  copropietario: Object
 });
 
 // ✅ Provincias según departamento
 const provinciasFiltradas = computed(() =>
-    props.provincias.filter(p => p.departamentoId === props.copropietario.departamentoCopropietarios)
+    provincias.filter(p => p.departamentoId === props.copropietario.departamentoCopropietarios)
 );
 
 // ✅ Distritos según provincia
 const distritosFiltrados = computed(() =>
-    props.distritos.filter(d => d.provinciaId ===  props.copropietario.provinciaCopropietarios)
+    distritos.filter(d => d.provinciaId ===  props.copropietario.provinciaCopropietarios)
 );
 
 

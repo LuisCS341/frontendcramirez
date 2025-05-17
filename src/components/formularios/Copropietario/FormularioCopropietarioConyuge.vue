@@ -95,28 +95,22 @@ import {departamentos} from "@/data/departamentos.js";
 import {prefijos} from "@/data/prefijos.js";
 import {distritos} from "@/data/distritos.js";
 import {provincias} from "@/data/provincias.js";
+
 import {computed, watch} from "vue";
 
 const props = defineProps({
   index: Number,
-  copropietario: Object,
-  tipoIdentificacion: Array,
-  paises: Array,
-  residencias: Array,
-  departamentos: Array,
-  provincias: Array,
-  distritos: Array,
-  prefijos: Array
+  copropietario: Object
 });
 
 // ✅ Provincias del cónyuge según el departamento seleccionado
 const provinciasFiltradas = computed(() =>
-    props.provincias.filter(p => p.departamentoId === props.copropietario.conyuge.departamentoCopropietariosConyuge)
+    provincias.filter(p => p.departamentoId === props.copropietario.conyuge.departamentoCopropietariosConyuge)
 );
 
 // ✅ Distritos del cónyuge según la provincia seleccionada
 const distritosFiltrados = computed(() =>
-    props.distritos.filter(d => d.provinciaId === props.copropietario.conyuge.provinciaCopropietariosConyuge)
+    distritos.filter(d => d.provinciaId === props.copropietario.conyuge.provinciaCopropietariosConyuge)
 );
 
 // 🔁 Reseteo de provincia y distrito del cónyuge si cambia el departamento

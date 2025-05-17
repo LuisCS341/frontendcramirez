@@ -36,36 +36,18 @@
 </template>
 
 <script setup>
-
+import {provincias} from "@/data/provincias.js";
+import {distritos} from "@/data/distritos.js";
+import {departamentos} from "@/data/departamentos.js";
+import { paises } from '@/data/paises.js';
+import { residencias } from '@/data/residencias.js'
 import {useRouter} from "vue-router";
+import {proyectos} from "@/data/proyectos.js";
 
 const router = useRouter();
+
 defineProps({
   form: Object,
-  proyectos: {
-    type: Array,
-    required: true
-  },
-  paises: {
-    type: Array,
-    required: true
-  },
-  residencias: {
-    type: Array,
-    required: true
-  },
-  departamentos: {
-    type: Array,
-    required: true
-  },
-  provincias: {
-    type: Array,
-    required: true
-  },
-  distritos: {
-    type: Array,
-    required: true
-  },
 
   obtenerNombrePais: {
     type: Function,

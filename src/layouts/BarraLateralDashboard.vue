@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import "@/assets/layouts/BarraLateralDashboard.css";
+import "@/layouts/BarraLateralDashboard.css";
 import { ref, computed } from 'vue';
 
 export default {
