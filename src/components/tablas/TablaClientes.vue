@@ -88,9 +88,9 @@
                   <p><strong>Area matriz HAS.:</strong> {{ getMatriz(getLote(cliente))?.areaMatrizHas ?? '-' }}</p>
                   <p><strong>Registros DE:</strong> {{ getMatriz(getLote(cliente))?.registrosDE ?? '-' }}</p>
                   <p><strong>Partida Matriz:</strong> {{ getMatriz(getLote(cliente))?.partidaMatriz ?? '-' }}</p>
-                  <p><strong>Ubicacion de lote predio :</strong> {{ getMatriz(getLote(cliente))?.ubicacion ?? '-' }}</p>
+                  <p><strong>Ubicacion de<br> lote predio :</strong> {{ getMatriz(getLote(cliente))?.ubicacion ?? '-' }}</p>
                   <p><strong>Unidad catastral :</strong> {{ getMatriz(getLote(cliente))?.unidadCatastral ?? '-' }}</p>
-                  <p><strong>Urbanizacion de matriz:</strong> {{ getMatriz(getLote(cliente))?.urbanizacionMatriz ?? '-' }}</p>
+                  <p><strong>Urbanizacion de<br> matriz:</strong> {{ getMatriz(getLote(cliente))?.urbanizacionMatriz ?? '-' }}</p>
                   <p><strong>Distrito:</strong> {{ getMatriz(getLote(cliente))?.distrito ?? '-' }}</p>
                   <p><strong>Provincia:</strong> {{ getMatriz(getLote(cliente))?.provincia ?? '-' }}</p>
                   <p><strong>Departamento:</strong> {{ getMatriz(getLote(cliente))?.departamento ?? '-' }}</p>
