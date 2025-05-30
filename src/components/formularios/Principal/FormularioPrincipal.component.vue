@@ -148,6 +148,8 @@ import {ubicaciones} from "@/data/ubicaciones.js";
 import {distritos} from "@/data/distritos.js";
 import {provincias} from "@/data/provincias.js";
 import {departamentos} from "@/data/departamentos.js";
+import {proyectos, proyectosT3Ids} from "@/data/proyectos.js";
+
 
 const formStep = ref(1);
 const router = useRouter();
@@ -264,6 +266,10 @@ watch(() => form.value.numLotes, (newVal) => {
     separacion: '',
     montoCuotas: '',
     cantidadCuotas: '',
+    mantenimientoMensual: '',
+    mantenimientoMensualLetras: '',
+    fechaInicioContrato: '',
+    fechaCancelacionContrato: '',
     matriz:{
       departamentoMatriz: '',
       provinciaMatriz: '',
@@ -287,7 +293,8 @@ watch(() => form.value.numLotes, (newVal) => {
     },
     tieneCuotaExtraordinaria: null,
     cuotaextraordinaria: {
-      cuotaExtraordinariaLote: "",
+      cantidadCuotaExtraordinaria: "",
+      montoCuotaExtraordinaria: "",
       mantenimientoMensual: "",
       mantenimientoMensualLetras: "",
       estadoCuenta: "",
@@ -735,5 +742,19 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (newValues, oldValues) =>
 const cerrarResumen = () => {
   router.push("/dashboard/formularios/registro-cliente");
 };
+
+watch(() => form.value.lotes.map(l => l.proyectolote),
+    (nuevosIds) => {
+      nuevosIds.forEach((idProyecto, index) => {
+        if (proyectosT3Ids.includes(idProyecto)) {
+          form.value.lotes[index].tipoContratolote = 3;
+        } else {
+          form.value.lotes[index].tipoContratolote = 1;
+        }
+      });
+    },
+    { deep: true }
+);
+
 
 </script>

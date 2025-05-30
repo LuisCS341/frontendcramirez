@@ -3,10 +3,20 @@
     <h4>Cuota Extraordinaria para Lote {{ index + 1 }}</h4>
 
     <div>
-      <label>Cuota Extraordinaria:</label>
+      <label>Cantidad Cuota Extraordinaria:</label>
       <input
           type="number"
-          v-model="lote.cuotaextraordinaria.cuotaExtraordinaria"
+          v-model="lote.cuotaextraordinaria.cantidadCuotaExtraordinaria"
+          required
+
+      />
+    </div>
+
+    <div>
+      <label>Monto de Cuota Extraordinaria:</label>
+      <input
+          type="number"
+          v-model="lote.cuotaextraordinaria.montoCuotaExtraordinaria"
           required
 
       />

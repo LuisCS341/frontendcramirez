@@ -1889,5 +1889,6 @@ export const distritos = [
     {id :1887,nombre:'ALEXANDER VON HUMBOLDT',provinciaId:195},
     {id :1888,nombre:'HUIPOCA',provinciaId:195},
     {id :1889,nombre:'BOQUERON',provinciaId:195},
-    {id :1890,nombre:'PURÚS',provinciaId:196}
+    {id :1890,nombre:'PURÚS',provinciaId:196},
+    {id :1891,nombre:'SANTA MARIA',provinciaId:128},
 ];

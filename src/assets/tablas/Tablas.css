@@ -201,6 +201,25 @@
     color: #555;
 }
 
+.input-editar {
+    font-size: 1rem;
+    padding: 1px 2px;
+    max-width: 250px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+.input-editar:focus {
+    border-color: #999;
+    box-shadow: none;
+}
+
+
+
+
+
 
 
 

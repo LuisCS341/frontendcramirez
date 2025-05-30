@@ -116,12 +116,17 @@ export function buildLotePayload(idCliente, lote) {
         separacion: lote.separacion,
         montoCuotas: lote.montoCuotas,
         cantidadCuotas: lote.cantidadCuotas,
+        mantenimientoMensual: lote.mantenimientoMensual,
+        mantenimientoMensualLetras: lote.mantenimientoMensualLetras,
+        fechaInicioContrato: lote.fechaInicioContrato,
+        fechaCancelacionContrato: lote.fechaCancelacionContrato,
     };
 }
 
 export const buildCuotaExtraordinariaPayload = ({ idLote, cuotaextraordinaria }) => ({
     idLote,
-    cuotaExtraordinaria: cuotaextraordinaria.cuotaExtraordinaria,
+    cantidadCuotaExtraordinaria: cuotaextraordinaria.cantidadCuotaExtraordinaria,
+    montoCuotaExtraordinaria: cuotaextraordinaria.montoCuotaExtraordinaria,
     mantenimientoMensual: cuotaextraordinaria.mantenimientoMensual,
     mantenimientoMensualLetras: cuotaextraordinaria.mantenimientoMensualLetras,
     estadoCuenta: cuotaextraordinaria.estadoCuenta ,

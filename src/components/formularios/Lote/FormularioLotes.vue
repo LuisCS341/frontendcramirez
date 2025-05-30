@@ -190,6 +190,43 @@
           placeholder="Ingrese su Cantidad de Cuotas"
       />
 
+
+    <label>Mantenimiento Mensual:</label>
+    <input
+        type="text"
+        v-model="lote.mantenimientoMensual"
+        required
+        placeholder="Ingrese su Estado de Cuenta"
+        @input="lote.mantenimientoMensualLetras=numeroLetrasConNumeros(lote.mantenimientoMensual);"
+    />
+
+    <label>Mantenimiento Mensual en Letras:</label>
+    <input
+        v-model="lote.mantenimientoMensualLetras"
+        type="text"
+        readonly
+    />
+
+    <label>Fecha de Inicio de Contrato:</label>
+    <input
+        type="text"
+        v-model="lote.fechaInicioContrato"
+        @input="formatearFecha($event, 'inicio')"
+        placeholder="dd/mm/aaaa"
+        maxlength="10"
+    />
+
+
+    <label>Fecha de Cancelación de Contrato:</label>
+    <input
+        v-model="lote.fechaCancelacionContrato"
+        @input="formatearFecha($event, 'cancelacion')"
+        type="text"
+        placeholder="dd/mm/aaaa"
+        maxlength="10"
+        required
+    />
+
     <div>
       <label><strong>¿Tiene cuota extraordinaria?</strong></label>
       <div class="contenedor-radio-tarjetas">
@@ -228,12 +265,15 @@
 <script setup>
 import {numeroLetrasSinDecimal} from "@/data/numeroLetrasSinDecimal.js";
 import {numeroLetrasAreaLote} from "@/data/numeroLetrasAreaLote.js";
-import { proyectos } from '@/data/proyectos.js';
+import {proyectos} from '@/data/proyectos.js';
 import { tiposContrato } from '@/data/tiposContrato.js';
 
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {ubicaciones} from "@/data/ubicaciones.js";
+import {numeroLetrasConNumeros} from "@/data/numeroLetrasConNumeros.js";
 
+const fechaInicioContrato = ref('');
+const fechaCancelacionContrato = ref('');
 const mostrarFormulario = ref({});
 
 
@@ -264,6 +304,23 @@ function inicializarCuotaExtraordinaria(lote) {
     montoDeudaLetra: "",
     cuotaPendientePago: "",
   };
+}
+
+function formatearFecha(event, tipo) {
+
+  let input = event.target.value;
+  input = input.replace(/[^0-9]/g, '');
+
+  if (input.length > 2) input = input.slice(0, 2) + '/' + input.slice(2);
+  if (input.length > 5) input = input.slice(0, 5) + '/' + input.slice(5);
+  if (input.length > 10) input = input.slice(0, 10);
+
+  event.target.value = input;
+  if (tipo === 'inicio') {
+    fechaInicioContrato.value = input;
+  } else if (tipo === 'cancelacion') {
+    fechaCancelacionContrato.value = input;
+  }
 }
 
 

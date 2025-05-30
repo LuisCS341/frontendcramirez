@@ -28,3 +28,5 @@ export const proyectos = [
     {id: 27, nombre: 'VIÑA DEL MAR'},
     {id: 28, nombre: 'RIVERA DEL CAMPO'},
 ];
+
+export const proyectosT3Ids = [18, 7, 21, 5, 3, 27, 26]; // ✅ Correcto
