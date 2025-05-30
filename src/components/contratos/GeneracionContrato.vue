@@ -274,7 +274,7 @@ export default {
 
     async descargarWordT1(cliente, lote) {
       try {
-        const response = await axios.get("https://backendcramirez.onrender.com/plantillas/plantilla_T1.docx", {
+        const response = await axios.get("/plantillas/plantilla_T1.docx", {
           responseType: "arraybuffer",
         });
 
