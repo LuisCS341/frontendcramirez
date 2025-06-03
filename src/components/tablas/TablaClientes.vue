@@ -758,7 +758,7 @@ export default {
         const userData = JSON.parse(localStorage.getItem("user"));
         const idOperario = userData?.idOperario;
 
-        const response = await axios.get(`http://localhost:8080/api/clientes/por-operario/${idOperario}`, {
+        const response = await axios.get(`https://backendcramirez.onrender.com/api/clientes/por-operario/${idOperario}`, {
           headers: {
             "Content-Type": "application/json",
             'X-User-ID': idOperario

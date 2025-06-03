@@ -349,7 +349,7 @@ const formularioClientevarios = async () => {
     const clientePayload = buildClientePayload(form.value);
     console.log("Datos del Cliente a enviar:", clientePayload);
 
-    const response = await axios.post("http://localhost:8080/api/clientes", clientePayload, {
+    const response = await axios.post("https://backendcramirez.onrender.com/api/clientes", clientePayload, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
@@ -366,7 +366,7 @@ const formularioClientevarios = async () => {
       const conyugePayload = buildClienteConyugePayload(form.value, idCliente.value);
       console.log("Datos del Cónyuge a enviar:", conyugePayload);
 
-      await axios.post("http://localhost:8080/api/clienteConyuges", conyugePayload, {
+      await axios.post("https://backendcramirez.onrender.com/api/clienteConyuges", conyugePayload, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
@@ -417,7 +417,7 @@ const submitForm2 = async () => {
       form.value.copropietarios.forEach((copropietario) => {
         const copropietarioPayload = buildCopropietarioPayload(idCliente.value, copropietario);
         requests.push(
-            axios.post("http://localhost:8080/api/copropietario", copropietarioPayload, {
+            axios.post("https://backendcramirez.onrender.com/api/copropietario", copropietarioPayload, {
               withCredentials: true,
               headers: {
                 "Content-Type": "application/json",
@@ -429,7 +429,7 @@ const submitForm2 = async () => {
         if (copropietario.estadoCivilCopropietarios === 2 && copropietario.conyuge) {
           const conyugePayload = buildConyugePayload(idCliente.value, copropietario.conyuge);
           requests.push(
-              axios.post("http://localhost:8080/api/copropietarioconyuge", conyugePayload, {
+              axios.post("https://backendcramirez.onrender.com/api/copropietarioconyuge", conyugePayload, {
                 withCredentials: true,
                 headers: {
                   "Content-Type": "application/json",
@@ -445,7 +445,7 @@ const submitForm2 = async () => {
       for (const lote of form.value.lotes) {
         const lotePayload = buildLotePayload(idCliente.value, lote);
 
-        const { data: nuevoLote } =await axios.post("http://localhost:8080/api/lotes", lotePayload, {
+        const { data: nuevoLote } =await axios.post("https://backendcramirez.onrender.com/api/lotes", lotePayload, {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
@@ -482,7 +482,7 @@ const FormCuotaExtraordinaria = async () => {
 
     const requests = lotesConCuota.map(lote => {
       const payload = buildCuotaExtraordinariaPayload(lote);
-      return axios.post('http://localhost:8080/api/cuotaextraordinaria', payload);
+      return axios.post('https://backendcramirez.onrender.com/api/cuotaextraordinaria', payload);
     });
 
     await Promise.all(requests);
@@ -504,7 +504,7 @@ const submitLinderos = async () => {
   try {
     const requests = form.value.lotes.map(lote => {
       const payload = buildLinderoPayload(lote);
-      return axios.post('http://localhost:8080/api/lindero', payload);
+      return axios.post('https://backendcramirez.onrender.com/api/lindero', payload);
     });
 
     await Promise.all(requests);
@@ -525,7 +525,7 @@ const finalizarRegistroMatriz = async () => {
 
   try {
     const payloads = form.value.lotes.map(buildMatrizLotePayload);
-    const requests = payloads.map(payload => axios.post('http://localhost:8080/api/matrices', payload));
+    const requests = payloads.map(payload => axios.post('https://backendcramirez.onrender.com/api/matrices', payload));
 
     await Promise.all(requests);
 
@@ -577,7 +577,7 @@ watch(() => form.value.conyuge.numIdentificacionClienteConyuge, async (documento
 
   timeoutIdConyuge = setTimeout(async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/buscarCliente/${documento}`);
+      const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
 
       if (!response.ok) throw new Error('Cliente no encontrado');
 
@@ -603,7 +603,7 @@ watch(() => form.value.copropietarios, (copropietarios) => {
 
       if (documento && documento.length === longitudEsperada) {
         try {
-          const response = await fetch(`http://localhost:8080/api/buscarCliente/${documento}`);
+          const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
           if (!response.ok) throw new Error('Cliente no encontrado');
           const data = await response.json();
           copropietario.nombreCopropietarios = data.nombreCompleto || '';
@@ -619,7 +619,7 @@ watch(() => form.value.copropietarios, (copropietarios) => {
 
       if (docConyuge && docConyuge.length === longitudEsperada) {
         try {
-          const response = await fetch(`http://localhost:8080/api/buscarCliente/${docConyuge}`);
+          const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${docConyuge}`);
           if (!response.ok) throw new Error('Cliente no encontrado');
           const data = await response.json();
           conyuge.nombreCopropietariosConyuge = data.nombreCompleto || '';
