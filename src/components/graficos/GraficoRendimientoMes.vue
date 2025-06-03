@@ -110,7 +110,7 @@ onMounted(async () => {
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   height: 400px;
-  margin-top: -18px;
+  margin-top: -90px;
   width: 660px;
   text-align: center;
 }

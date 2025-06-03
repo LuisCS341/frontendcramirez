@@ -1,7 +1,7 @@
 <template>
   <div class="graficos-container">
     <!-- 📌 Solo visible para Operador (Rol 3) -->
-    <div v-if="userRole === 3" class="graficos-fila-grandes">
+    <div v-if="userRole === 3" class="graficos-fila-grandes-administrador">
       <GraficoRendimientoMes />
       <GraficoContratos />
     </div>
@@ -70,16 +70,10 @@ export default {
 <style scoped>
 .graficos-container {
   display: grid;
-  gap: 5px;
-  width: 90vw;
-  max-width: 1400px;
-  margin: 50px auto 0 auto;
-  margin-left: 250px;
-  padding: 10px;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 10;
-  overflow-y: auto;
+  width: 1400px;
+  height: 800px;
+  margin-top: 50px;
+  margin-left: 255px;
   background-color: #dcdcdc;
 }
 
@@ -108,14 +102,11 @@ export default {
   padding: 10px;
 }
 
-
-
-
-
-/* 📌 Ajuste para pantallas más pequeñas */
-@media (max-width: 768px) {
-  .graficos-container {
-    grid-template-columns: repeat(1, 1fr); /* 1 columna en pantallas pequeñas */
-  }
+.graficos-fila-grandes-administrador {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 150px;
 }
+
 </style>

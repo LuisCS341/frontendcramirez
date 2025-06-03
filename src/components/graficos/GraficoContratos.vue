@@ -68,7 +68,7 @@ onMounted(() => {
   align-items: center;
   height: 400px;
   width: 340px;
-  margin-top: -15px;
+  margin-top: -90px;
   margin-left: 100px ;
   text-align: center;
 }
