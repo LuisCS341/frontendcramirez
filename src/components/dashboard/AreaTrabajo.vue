@@ -2,8 +2,8 @@
   <div class="graficos-container">
     <!-- 📌 Solo visible para Operador (Rol 3) -->
     <div v-if="userRole === 3" class="graficos-fila-grandes">
-      <GraficoContratos />
       <GraficoRendimientoMes />
+      <GraficoContratos />
     </div>
 
     <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
