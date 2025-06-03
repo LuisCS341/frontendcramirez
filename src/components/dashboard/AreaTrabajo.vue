@@ -1,11 +1,8 @@
 <template>
   <div class="graficos-container">
     <!-- 📌 Solo visible para Operador (Rol 3) -->
-    <div v-if="userRole === 3" class="grafico-item">
+    <div v-if="userRole === 3" class="graficos-fila-grandes">
       <GraficoContratos />
-    </div>
-
-    <div v-if="userRole === 3" class="grafico-item">
       <GraficoRendimientoMes />
     </div>
 
