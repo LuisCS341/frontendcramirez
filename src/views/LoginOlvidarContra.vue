@@ -37,6 +37,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
+
 
 const username = ref("");
 const email = ref("");
@@ -51,16 +53,18 @@ const sendVerificationCode = async () => {
   if (!username.value || !email.value) return;
 
   try {
-    const response = await fetch("https://backendcramirez.onrender.com/api/authEmail/send-code", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ usuario: username.value, email: email.value }),
-    });
+    const response = await axios.post(
+        "https://backendcramirez.onrender.com/api/authEmail/send-code",
+        new URLSearchParams({ usuario: username.value, email: email.value }),
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+    );
 
-    const responseText = await response.text(); // Captura la respuesta en texto
+    const responseText = response.data; // Captura la respuesta en texto
 
-    if (response.ok) {
-      //alert("Código enviado. Revisa tu correo electrónico.");
+    // Simula el .ok de fetch
+    if (response.status >= 200 && response.status < 300) {
       codeSent.value = true;
     } else {
       alert(responseText || "Usuario o email incorrecto.");
@@ -76,16 +80,18 @@ const resetPassword = async () => {
   if (!username.value || !email.value || !verificationCode.value || !newPassword.value) return;
 
   try {
-    const response = await fetch("https://backendcramirez.onrender.com/api/authEmail/reset-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        usuario: username.value,
-        email: email.value,
-        code: verificationCode.value,
-        newPassword: newPassword.value,
-      }),
-    });
+    const response = await axios.post(
+        "https://backendcramirez.onrender.com/api/authEmail/reset-password",
+        new URLSearchParams({
+          usuario: username.value,
+          email: email.value,
+          code: verificationCode.value,
+          newPassword: newPassword.value,
+        }),
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+    );
 
     if (response.ok) {
       router.push("/");

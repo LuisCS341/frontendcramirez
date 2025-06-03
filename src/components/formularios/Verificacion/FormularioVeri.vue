@@ -68,6 +68,7 @@ export default {
       carnetExtranjeria: "",
       cliente: {},
       estadoCliente: "",
+      timeoutId: null,
       form: {
         ocupacion: '',
         tipoIdentificacion: '',
@@ -94,136 +95,144 @@ export default {
       localStorage.removeItem("clienteCompleto");
     },
 
-    buscarCliente()   {
-      const documento = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
-      const tipoDocumento = this.nacionalidad === "peruano" ? "DNI" : "CE";
+    buscarCliente() {
 
-      if (
-          (tipoDocumento === "DNI" && documento.length !== 8) ||
-          (tipoDocumento === "CE" && documento.length !== 12)
-      ) {
-        this.cliente = {};
-        this.estadoCliente = "";
-        return;
+      // Cancelar cualquier intento anterior
+      if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
       }
 
-      if (tipoDocumento === "DNI") {
-        // Si es peruano, consulta Reniec
-        fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`)
-            .then((response) => response.json())
-            .then((data) => {
-              if (data && data.nombres) {
-                fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
-                    .then((response) => response.json())
-                    .then((existe) => {
-                      this.cliente = {
-                        nombres: data.nombres,
-                        apellidoPaterno: data.apellidoPaterno,
-                        apellidoMaterno: data.apellidoMaterno,
-                        nombreCompleto: data.nombreCompleto,
-                        tipoDocumento: data.tipoDocumento,
-                        numeroDocumento: data.numeroDocumento,
-                        digitoVerificador: data.digitoVerificador,
-                      };
-                      this.estadoCliente = existe
-                          ? "Cliente registrado - ya existe en el sistema"
-                          : "Cliente nuevo";
+      this.timeoutId = setTimeout(() => {
+        const documento = this.nacionalidad === "peruano" ? this.dni : this.carnetExtranjeria;
+        const tipoDocumento = this.nacionalidad === "peruano" ? "DNI" : "CE";
 
-                      localStorage.setItem("numeroDocumento", documento);
-                      if (this.cliente.nombreCompleto) {
-                        localStorage.setItem("nombreCompleto", this.cliente.nombreCompleto);
-                      }
-                      if (existe) {
+        if (
+            (tipoDocumento === "DNI" && documento.length !== 8) ||
+            (tipoDocumento === "CE" && documento.length !== 12)
+        ) {
+          this.cliente = {};
+          this.estadoCliente = "";
+          return;
+        }
 
-                        fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`)
-                            .then((response) => response.json())
-                            .then((clienteBD) => {
-                              this.form.ocupacionCliente = clienteBD.ocupacion || '';
-                              this.form.tipoIdentificacion = clienteBD.idIdentificacion || '';
-                              this.form.paisOrigen = clienteBD.idNacionalidad || '';
-                              this.form.paisdeResidencia = clienteBD.idResidencia || '';
-                              this.form.departamento = clienteBD.idDepartamento || '';
-                              this.form.provincia = clienteBD.idProvincia || '';
-                              this.form.distrito = clienteBD.idDistrito || '';
-                              this.form.direccion = clienteBD.direccion || '';
-                              this.form.correoUsuario = clienteBD.correoElectronico || '';
-                              this.form.prefijoTelefonico = clienteBD.idPrefijo || '';
-                              this.form.numTelefonico = clienteBD.celularCliente || '';
-                              this.form.estadoCivil = clienteBD.estadoCivil || '';
+        if (tipoDocumento === "DNI") {
+          // Si es peruano, consulta Reniec
+          fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`)
+              .then((response) => response.json())
+              .then((data) => {
+                if (data && data.nombres) {
+                  fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
+                      .then((response) => response.json())
+                      .then((existe) => {
+                        this.cliente = {
+                          nombres: data.nombres,
+                          apellidoPaterno: data.apellidoPaterno,
+                          apellidoMaterno: data.apellidoMaterno,
+                          nombreCompleto: data.nombreCompleto,
+                          tipoDocumento: data.tipoDocumento,
+                          numeroDocumento: data.numeroDocumento,
+                          digitoVerificador: data.digitoVerificador,
+                        };
+                        this.estadoCliente = existe
+                            ? "Cliente registrado - ya existe en el sistema"
+                            : "Cliente nuevo";
 
-                              localStorage.setItem("clienteCompleto", JSON.stringify(clienteBD));
-                            })
-                            .catch((error) => {
-                              console.error("Error al obtener datos del cliente desde BD:", error);
-                            });
-                      }
-                    })
-                    .catch((error) => {
-                      console.error("Error al verificar existencia del cliente:", error);
-                      this.estadoCliente = "Cliente nuevo";
-                    });
-              } else {
+                        localStorage.setItem("numeroDocumento", documento);
+                        if (this.cliente.nombreCompleto) {
+                          localStorage.setItem("nombreCompleto", this.cliente.nombreCompleto);
+                        }
+                        if (existe) {
+
+                          fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`)
+                              .then((response) => response.json())
+                              .then((clienteBD) => {
+                                this.form.ocupacionCliente = clienteBD.ocupacion || '';
+                                this.form.tipoIdentificacion = clienteBD.idIdentificacion || '';
+                                this.form.paisOrigen = clienteBD.idNacionalidad || '';
+                                this.form.paisdeResidencia = clienteBD.idResidencia || '';
+                                this.form.departamento = clienteBD.idDepartamento || '';
+                                this.form.provincia = clienteBD.idProvincia || '';
+                                this.form.distrito = clienteBD.idDistrito || '';
+                                this.form.direccion = clienteBD.direccion || '';
+                                this.form.correoUsuario = clienteBD.correoElectronico || '';
+                                this.form.prefijoTelefonico = clienteBD.idPrefijo || '';
+                                this.form.numTelefonico = clienteBD.celularCliente || '';
+                                this.form.estadoCivil = clienteBD.estadoCivil || '';
+
+                                localStorage.setItem("clienteCompleto", JSON.stringify(clienteBD));
+                              })
+                              .catch((error) => {
+                                console.error("Error al obtener datos del cliente desde BD:", error);
+                              });
+                        }
+                      })
+                      .catch((error) => {
+                        console.error("Error al verificar existencia del cliente:", error);
+                        this.estadoCliente = "Cliente nuevo";
+                      });
+                } else {
+                  this.cliente = {};
+                  this.estadoCliente = "Cliente nuevo";
+                  localStorage.setItem("numeroDocumento", documento);
+                  localStorage.removeItem("nombreCompleto");
+                  localStorage.removeItem("clienteCompleto");
+                }
+
+
+              })
+              .catch((error) => {
+                console.error("Error al consultar el backend (Reniec):", error);
                 this.cliente = {};
                 this.estadoCliente = "Cliente nuevo";
+                localStorage.removeItem("nombreCompleto");
+                localStorage.removeItem("clienteCompleto");
+              });
+        } else {
+
+          fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
+              .then((response) => response.json())
+              .then((existe) => {
+                this.estadoCliente = existe
+                    ? "Cliente registrado - ya existe en el sistema"
+                    : "Cliente nuevo";
+
                 localStorage.setItem("numeroDocumento", documento);
                 localStorage.removeItem("nombreCompleto");
                 localStorage.removeItem("clienteCompleto");
-              }
+                this.cliente = {};
 
+                if (existe) {
+                  fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`)
+                      .then((response) => response.json())
+                      .then((clienteBD) => {
+                        this.form.nombreCliente = clienteBD.nombresApellidos || '';
+                        this.form.ocupacionCliente = clienteBD.ocupacion || '';
+                        this.form.tipoIdentificacion = clienteBD.idIdentificacion || '';
+                        this.form.paisOrigen = clienteBD.idNacionalidad || '';
+                        this.form.paisdeResidencia = clienteBD.idResidencia || '';
+                        this.form.departamento = clienteBD.idDepartamento || '';
+                        this.form.provincia = clienteBD.idProvincia || '';
+                        this.form.distrito = clienteBD.idDistrito || '';
+                        this.form.direccion = clienteBD.direccion || '';
+                        this.form.correoUsuario = clienteBD.correoElectronico || '';
+                        this.form.prefijoTelefonico = clienteBD.idPrefijo || '';
+                        this.form.numTelefonico = clienteBD.celularCliente || '';
+                        this.form.estadoCivil = clienteBD.estadoCivil || '';
 
-            })
-            .catch((error) => {
-              console.error("Error al consultar el backend (Reniec):", error);
-              this.cliente = {};
-              this.estadoCliente = "Cliente nuevo";
-              localStorage.removeItem("nombreCompleto");
-              localStorage.removeItem("clienteCompleto");
-            });
-      } else {
-
-        fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
-            .then((response) => response.json())
-            .then((existe) => {
-              this.estadoCliente = existe
-                  ? "Cliente registrado - ya existe en el sistema"
-                  : "Cliente nuevo";
-
-              localStorage.setItem("numeroDocumento", documento);
-              localStorage.removeItem("nombreCompleto");
-              localStorage.removeItem("clienteCompleto");
-              this.cliente = {};
-
-              if (existe) {
-                fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`)
-                    .then((response) => response.json())
-                    .then((clienteBD) => {
-                      this.form.nombreCliente = clienteBD.nombresApellidos || '';
-                      this.form.ocupacionCliente = clienteBD.ocupacion || '';
-                      this.form.tipoIdentificacion = clienteBD.idIdentificacion || '';
-                      this.form.paisOrigen = clienteBD.idNacionalidad || '';
-                      this.form.paisdeResidencia = clienteBD.idResidencia || '';
-                      this.form.departamento = clienteBD.idDepartamento || '';
-                      this.form.provincia = clienteBD.idProvincia || '';
-                      this.form.distrito = clienteBD.idDistrito || '';
-                      this.form.direccion = clienteBD.direccion || '';
-                      this.form.correoUsuario = clienteBD.correoElectronico || '';
-                      this.form.prefijoTelefonico = clienteBD.idPrefijo || '';
-                      this.form.numTelefonico = clienteBD.celularCliente || '';
-                      this.form.estadoCivil = clienteBD.estadoCivil || '';
-
-                      localStorage.setItem("clienteCompleto", JSON.stringify(clienteBD));
-                    })
-                    .catch((error) => {
-                      console.error("Error al obtener datos del cliente desde BD:", error);
-                    });
-              }
-            })
-            .catch((error) => {
-              console.error("Error al verificar existencia del cliente:", error);
-              this.estadoCliente = "Cliente nuevo";
-              this.cliente = {};
-            });
-      }
+                        localStorage.setItem("clienteCompleto", JSON.stringify(clienteBD));
+                      })
+                      .catch((error) => {
+                        console.error("Error al obtener datos del cliente desde BD:", error);
+                      });
+                }
+              })
+              .catch((error) => {
+                console.error("Error al verificar existencia del cliente:", error);
+                this.estadoCliente = "Cliente nuevo";
+                this.cliente = {};
+              });
+        }
+      }, 600); // tiempo en milisegundos (ajústalo según lo necesites)
     },
 
     irFormulario() {
@@ -244,5 +253,3 @@ export default {
   },
 };
 </script>
-
-

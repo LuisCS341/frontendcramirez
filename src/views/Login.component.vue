@@ -77,7 +77,6 @@ const validateForm = async () => {
   errorMessage.value = "";
   isLoading.value = true;
 
-  // Validación básica
   if (!username.value || !password.value) {
     errorMessage.value = "⚠️ Todos los campos son obligatorios.";
     isLoading.value = false;
@@ -102,16 +101,14 @@ const validateForm = async () => {
       throw new Error(data.message || "Error en la autenticación");
     }
 
-    // Verificación de datos esenciales
     if (!data.rol || !data.idOperario || !data.nombre) {
       throw new Error("Datos de usuario incompletos");
     }
 
-    // Guardar datos de usuario
     const userData = {
       nombre: data.nombre,
       rol: parseInt(data.rol, 10),
-      idOperario: data.idOperario
+      idOperario: data.idOperario,
     };
 
     localStorage.setItem("user", JSON.stringify(userData));
@@ -130,7 +127,7 @@ const validateForm = async () => {
   } catch (error) {
     console.error("Error en autenticación:", error);
     errorMessage.value = error.message || "❌ Error en el servidor. Intente nuevamente.";
-    password.value = ""; // Limpiar contraseña por seguridad
+    password.value = "";
   } finally {
     isLoading.value = false;
   }

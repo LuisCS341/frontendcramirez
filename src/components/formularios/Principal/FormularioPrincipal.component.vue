@@ -293,13 +293,16 @@ watch(() => form.value.numLotes, (newVal) => {
     },
     tieneCuotaExtraordinaria: null,
     cuotaextraordinaria: {
+      pagoInicial: "",
+      separacion: "",
       cantidadCuotaExtraordinaria: "",
       montoCuotaExtraordinaria: "",
-      mantenimientoMensual: "",
-      mantenimientoMensualLetras: "",
       estadoCuenta: "",
       montoDeudaLetra: "",
       cuotaPendientePago: "",
+      diaPagoNumero: "",
+      diaPagoLetras: "",
+      ponerMonto: "",
     }
   }));
 });
@@ -406,6 +409,7 @@ const submitForm2 = async () => {
       console.error("No se encontró un ID de operario en localStorage.");
       return;
     }
+
 
     const requests = [];
 
@@ -559,87 +563,73 @@ watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
     { deep: true, immediate: true }
 );
 
-watch(() => form.value.copropietarios, async (copropietarios) => {
-  for (let i = 0; i < copropietarios.length; i++) {
-    const copropietario = copropietarios[i];
-    const documento = copropietario.numIdentificacionCopropietarios;
-    const longitudEsperada = 8;
-
-    if (documento && documento.length === longitudEsperada) {
-      try {
-        const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
-        if (!response.ok) {
-          throw new Error('Cliente no encontrado');
-        }
-
-        const data = await response.json();
-
-        copropietario.nombreCopropietarios = data.nombreCompleto || '';
-      } catch (error) {
-        console.error('Error al buscar cliente:', error);
-
-        copropietario.nombreCopropietarios = '';
-      }
-    }
-  }
-}, { deep: true });
+let timeoutIdConyuge;
 
 watch(() => form.value.conyuge.numIdentificacionClienteConyuge, async (documento) => {
   const longitudEsperada = 8;
+
+  if (timeoutIdConyuge) clearTimeout(timeoutIdConyuge);
+
 
   if (documento.length !== longitudEsperada) {
     return;
   }
 
-  try {
-    const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
+  timeoutIdConyuge = setTimeout(async () => {
+    try {
+      const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
 
-    if (!response.ok) {
-      throw new Error('Cliente no encontrado');
+      if (!response.ok) throw new Error('Cliente no encontrado');
+
+      const data = await response.json();
+      form.value.conyuge.nombreClienteConyuge = data.nombreCompleto || '';
+    } catch (error) {
+      console.error('Error al buscar cliente:', error);
+      form.value.conyuge.nombreClienteConyuge = '';
     }
-
-    const data = await response.json();
-    form.value.conyuge.nombreClienteConyuge = data.nombreCompleto || '';
-  } catch (error) {
-    console.error('Error al buscar cliente:', error);
-    form.value.conyuge.nombreClienteConyuge = '';
-  }
+  }, 600);
 });
 
-watch(() => form.value.copropietarios, async (copropietarios) => {
+let timeoutIdCopropietarios;
 
-  for (let i = 0; i < copropietarios.length; i++) {
-    const copropietario = copropietarios[i];
-    const conyuge = copropietario.conyuge;
-    const documento = conyuge?.numIdentificacionCopropietariosConyuge;
-    const longitudEsperada = 8;
+watch(() => form.value.copropietarios, (copropietarios) => {
+  if (timeoutIdCopropietarios) clearTimeout(timeoutIdCopropietarios);
 
-    if (documento && documento.length === longitudEsperada) {
-      try {
+  timeoutIdCopropietarios = setTimeout(async () => {
+    for (let i = 0; i < copropietarios.length; i++) {
+      const copropietario = copropietarios[i];
+      const documento = copropietario.numIdentificacionCopropietarios;
+      const longitudEsperada = 8;
 
-        const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
-
-        if (!response.ok) {
-          throw new Error('Cliente no encontrado');
+      if (documento && documento.length === longitudEsperada) {
+        try {
+          const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
+          if (!response.ok) throw new Error('Cliente no encontrado');
+          const data = await response.json();
+          copropietario.nombreCopropietarios = data.nombreCompleto || '';
+        } catch (error) {
+          console.error('Error al buscar cliente:', error);
+          copropietario.nombreCopropietarios = '';
         }
+      }
 
-        const data = await response.json();
+      // Ahora el cónyuge de copropietario
+      const conyuge = copropietario.conyuge;
+      const docConyuge = conyuge?.numIdentificacionCopropietariosConyuge;
 
-
-        if (data && data.nombreCompleto) {
-
+      if (docConyuge && docConyuge.length === longitudEsperada) {
+        try {
+          const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${docConyuge}`);
+          if (!response.ok) throw new Error('Cliente no encontrado');
+          const data = await response.json();
           conyuge.nombreCopropietariosConyuge = data.nombreCompleto || '';
-        } else {
-          console.error('No se encontró el nombre completo en la respuesta');
+        } catch (error) {
+          console.error('Error al buscar cliente:', error);
+          conyuge.nombreCopropietariosConyuge = '';
         }
-      } catch (error) {
-
-        console.error('Error al buscar cliente:', error);
-
-        conyuge.nombreCopropietariosConyuge = '';
       }
     }
-  }
+  }, 600);
 }, { deep: true });
 
 
@@ -743,8 +733,7 @@ const cerrarResumen = () => {
   router.push("/dashboard/formularios/registro-cliente");
 };
 
-watch(() => form.value.lotes.map(l => l.proyectolote),
-    (nuevosIds) => {
+watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
       nuevosIds.forEach((idProyecto, index) => {
         if (proyectosT3Ids.includes(idProyecto)) {
           form.value.lotes[index].tipoContratolote = 3;

@@ -2,46 +2,47 @@
   <div class="graficos-container">
     <!-- 📌 Solo visible para Operador (Rol 3) -->
     <div v-if="userRole === 3" class="grafico-item">
-      <ContratosFirmadosPorOperador />
+      <GraficoContratos />
     </div>
 
     <div v-if="userRole === 3" class="grafico-item">
-      <GraficoClientesPorOperador />
+      <GraficoRendimientoMes />
     </div>
 
     <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
-    <div v-if="userRole <= 2" class="grafico-item">
-      <ContratosFirmadosPorOperador />
+    <div v-if="userRole <= 2" class="graficos-fila">
+      <ClientesRegistrados />
+      <ContratosGenerados />
+      <TiempoCliente />
+      <MetaDia />
     </div>
 
-    <div v-if="userRole <= 2" class="grafico-item">
-      <ContratosFirmadosGeneral />
+    <div v-if="userRole <= 2" class="graficos-fila-grandes">
+        <GraficoRendimientoMes />
+        <GraficoContratos />
     </div>
 
-    <div v-if="userRole <= 2" class="grafico-item">
-      <GraficoClientesPorOperador />
-    </div>
-
-    <div v-if="userRole <= 2" class="grafico-item">
-      <GraficoClientesGeneral />
-    </div>
   </div>
 </template>
 
 <script>
 import  { ref, onMounted ,computed} from "vue";
 import { useRouter } from "vue-router";
-import ContratosFirmadosPorOperador from "@/components/graficos/ContratosFirmadosPorOperador.vue";
-import GraficoClientesPorOperador from "@/components/graficos/GraficoClientesPorOperador.vue";
-import GraficoClientesGeneral from "@/components/graficos/GraficoClientesGeneral.vue";
-import ContratosFirmadosGeneral from "@/components/graficos/ContratosFirmadosGeneral.vue";
+import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
+import GraficoContratos from "@/components/graficos/GraficoContratos.vue";
+import GraficoRendimientoMes from "@/components/graficos/GraficoRendimientoMes.vue";
+import ClientesRegistrados from "@/components/graficos/ClientesRegistrados.vue";
+import TiempoCliente from "@/components/graficos/TiempoCliente.vue";
+import MetaDia from "@/components/graficos/MetaDia.vue";
 
 export default {
   components: {
-    ContratosFirmadosPorOperador,
-    GraficoClientesPorOperador,
-    GraficoClientesGeneral,
-    ContratosFirmadosGeneral,
+    MetaDia,
+    TiempoCliente,
+    GraficoRendimientoMes,
+    ContratosGenerados,
+    GraficoContratos,
+    ClientesRegistrados,
   },
   setup() {
     const userRole = ref(null); // 📌 Valor por defecto (Operador)
@@ -72,18 +73,17 @@ export default {
 <style scoped>
 .graficos-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columnas */
-  grid-template-rows: repeat(2, auto);  /* 2 filas automáticas */
   gap: 5px;
   width: 90vw;
   max-width: 1400px;
   margin: 50px auto 0 auto;
-  margin-left: 260px;
+  margin-left: 250px;
   padding: 10px;
   box-sizing: border-box;
   position: relative;
   z-index: 10;
   overflow-y: auto;
+  background-color: #dcdcdc;
 }
 
 .grafico-item {
@@ -97,6 +97,23 @@ export default {
   width: 100%;
   max-width: 500px;
 }
+
+
+.graficos-fila {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  row-gap: 1px;
+  padding: 10px;
+}
+.graficos-fila-grandes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+}
+
+
+
+
 
 /* 📌 Ajuste para pantallas más pequeñas */
 @media (max-width: 768px) {

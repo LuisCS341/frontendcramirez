@@ -103,6 +103,7 @@
             <th>PERSONA QUE SACÓ CITA</th>
             <th>PERSONA QUE ATIENDE</th>
             <th>FIRMÓ</th>
+            <th>SELECIONE EL OPERARIO</th>
             <th></th>
 
           </tr>
@@ -217,6 +218,7 @@
             </td>
 
             <td>{{ getMatriz(getLote(cliente))?.ubicacion ?? '-' }}</td>
+
             <td>
               <div v-if="!cliente.editando">{{ getLote(cliente)?.unidadCatastralMatriz ?? '-' }}</div>
               <div v-else>
@@ -339,30 +341,48 @@
             <td>
               <div v-if="!cliente.editando">{{ getLindero(getLote(cliente))?.porElFrente ?? '-' }}</div>
               <div v-else>
-                <input v-model="getLindero(getLote(cliente)).porElFrente" />
+                <input
+                    v-if="getLindero(getLote(cliente))"
+                    v-model="getLindero(getLote(cliente)).porElFrente"
+                />
+                <span v-else>-</span>
               </div>
             </td>
+
 
             <td>
               <div v-if="!cliente.editando">{{ getLindero(getLote(cliente))?.porLaDerecha ?? '-' }}</div>
               <div v-else>
-                <input v-model="getLindero(getLote(cliente)).porLaDerecha" />
+                <input
+                    v-if="getLindero(getLote(cliente))"
+                    v-model="getLindero(getLote(cliente)).porLaDerecha"
+                />
+                <span v-else>-</span>
               </div>
             </td>
 
             <td>
               <div v-if="!cliente.editando">{{ getLindero(getLote(cliente))?.porLaIzquierda ?? '-' }}</div>
               <div v-else>
-                <input v-model="getLindero(getLote(cliente)).porLaIzquierda" />
+                <input
+                    v-if="getLindero(getLote(cliente))"
+                    v-model="getLindero(getLote(cliente)).porLaIzquierda"
+                />
+                <span v-else>-</span>
               </div>
             </td>
 
             <td>
               <div v-if="!cliente.editando">{{ getLindero(getLote(cliente))?.porElFondo ?? '-' }}</div>
               <div v-else>
-                <input v-model="getLindero(getLote(cliente)).porElFondo" />
+                <input
+                    v-if="getLindero(getLote(cliente))"
+                    v-model="getLindero(getLote(cliente)).porElFondo"
+                />
+                <span v-else>-</span>
               </div>
             </td>
+
 
             <td>
               <div v-if="!cliente.editando">{{ cliente.cliente.numeroIdentificacion ?? '-' }}</div>
@@ -379,18 +399,22 @@
                 <input v-model="cliente.cliente.nombresApellidos" />
               </div>
             </td>
+
             <td>{{ cliente.cliente.residencia ?? '-'}}</td>
             <td>{{ cliente.cliente.estadoCivil ?? '-'}}</td>
             <td>{{ getCopropietario(cliente.cliente).estadoCivilCopropietarios ?? '-'}}</td>
+
             <td>
               <div v-if="!cliente.editando">{{ cliente.cliente.direccion ?? '-' }}</div>
               <div v-else>
                 <input v-model="cliente.cliente.direccion" />
               </div>
             </td>
+
             <td>{{ cliente.cliente.distrito ?? '-' }}</td>
             <td>{{ cliente.cliente.provincia ?? '-'}}</td>
             <td>{{ cliente.cliente.departamento ?? '-'}}</td>
+
             <td>
               <div v-if="!cliente.editando">{{ cliente.cliente.ocupacion ?? '-' }}</div>
               <div v-else>
@@ -430,6 +454,7 @@
             <td>{{ getConyuge(cliente.cliente).distritoConyuge ?? '-' }}</td>
             <td>{{ getConyuge(cliente.cliente).provinciaConyuge ?? '-' }}</td>
             <td>{{ getConyuge(cliente.cliente).departamentoConyuge ?? '-' }}</td>
+
             <td>
               <div v-if="!cliente.editando">{{ getLote(cliente).costoLote ?? '-' }}</div>
               <div v-else>
@@ -475,49 +500,57 @@
             <td>
               <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.cantidadCuotaExtraordinaria ?? '-' }}</div>
               <div v-else>
-                <input v-model="getCuotaExtraordinaria(getLote(cliente)).cantidadCuotaExtraordinaria" />
+                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).cantidadCuotaExtraordinaria" />
+                <span v-else>-</span>
               </div>
             </td>
+
 
             <td>
               <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.montoCuotaExtraordinaria ?? '-' }}</div>
               <div v-else>
-                <input v-model="getCuotaExtraordinaria(getLote(cliente)).montoCuotaExtraordinaria" />
+                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).montoCuotaExtraordinaria" />
+                <span v-else>-</span>
               </div>
             </td>
 
             <td>
               <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.mantenimientoMensual ?? '-' }}</div>
               <div v-else>
-                <input v-model="getCuotaExtraordinaria(getLote(cliente)).mantenimientoMensual" />
+                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).mantenimientoMensual" />
+                <span v-else>-</span>
               </div>
             </td>
 
             <td>
               <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.mantenimientoMensualLetras ?? '-' }}</div>
               <div v-else>
-                <input v-model="getCuotaExtraordinaria(getLote(cliente)).mantenimientoMensualLetras" />
+                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).mantenimientoMensualLetras" />
+                <span v-else>-</span>
               </div>
             </td>
 
             <td>
               <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.estadoCuenta ?? '-' }}</div>
               <div v-else>
-                <input v-model="getCuotaExtraordinaria(getLote(cliente)).estadoCuenta" />
+                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).estadoCuenta" />
+                <span v-else>-</span>
               </div>
             </td>
 
             <td>
               <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.montoDeudaLetra ?? '-' }}</div>
               <div v-else>
-                <input v-model="getCuotaExtraordinaria(getLote(cliente)).montoDeudaLetra" />
+                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).montoDeudaLetra" />
+                <span v-else>-</span>
               </div>
             </td>
 
             <td>
               <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.cuotaPendientePago ?? '-' }}</div>
               <div v-else>
-                <input v-model="getCuotaExtraordinaria(getLote(cliente)).cuotaPendientePago" />
+                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).cuotaPendientePago" />
+                <span v-else>-</span>
               </div>
             </td>
 
@@ -655,9 +688,18 @@
             </td>
 
             <td>
+              <select v-model="selectedTemporal">
+                <option disabled value="">Seleccione un operario</option>
+                <option v-for="op in operarios" :key="op.id" :value="op.usuario">
+                  {{ op.usuario }}
+                </option>
+              </select>
+            </td>
+            <td>
               <button v-if="!cliente.editando" @click="activarEdicion(cliente)">Editar</button>
               <button v-else @click="guardarEdicion(cliente)">Guardar</button>
             </td>
+
           </tr>
           </tbody>
         </table>
@@ -672,6 +714,7 @@ import axios from "axios";
 import * as XLSX from "xlsx";
 import {ubicaciones} from "@/data/ubicaciones.js";
 import {tiposContrato} from "@/data/tiposContrato.js";
+import {operarios} from "@/data/operarios.js";
 
 export default {
   data() {
@@ -679,6 +722,8 @@ export default {
       clientes: [],
       lotes: [],
       ubicaciones: [],
+      selectedTemporal: "",
+      operarios,
       busquedaGlobal: "",
       filtros: {
         nombresApellidos: "",

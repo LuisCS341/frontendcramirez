@@ -197,7 +197,7 @@
         v-model="lote.mantenimientoMensual"
         required
         placeholder="Ingrese su Estado de Cuenta"
-        @input="lote.mantenimientoMensualLetras=numeroLetrasConNumeros(lote.mantenimientoMensual);"
+        @input="lote.mantenimientoMensualLetras=numeroLetrasConNumerosDolares(lote.mantenimientoMensual);"
     />
 
     <label>Mantenimiento Mensual en Letras:</label>
@@ -263,14 +263,13 @@
 </template>
 
 <script setup>
-import {numeroLetrasSinDecimal} from "@/data/numeroLetrasSinDecimal.js";
-import {numeroLetrasAreaLote} from "@/data/numeroLetrasAreaLote.js";
 import {proyectos} from '@/data/proyectos.js';
 import { tiposContrato } from '@/data/tiposContrato.js';
+import {numeroLetrasAreaLote} from '@/data/numeroLetrasAreaLote.js';
+import {numeroLetrasConNumerosDolares} from '@/data/numeroLetrasConNumeros.js'
+import {numeroLetrasSinDecimal} from '@/data/numeroLetrasSinDecimal.js';
 
 import {ref, watch} from "vue";
-import {ubicaciones} from "@/data/ubicaciones.js";
-import {numeroLetrasConNumeros} from "@/data/numeroLetrasConNumeros.js";
 
 const fechaInicioContrato = ref('');
 const fechaCancelacionContrato = ref('');

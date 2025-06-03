@@ -125,13 +125,16 @@ export function buildLotePayload(idCliente, lote) {
 
 export const buildCuotaExtraordinariaPayload = ({ idLote, cuotaextraordinaria }) => ({
     idLote,
+    pagoInicial: cuotaextraordinaria.pagoInicial,
+    separacion: cuotaextraordinaria.separacion,
     cantidadCuotaExtraordinaria: cuotaextraordinaria.cantidadCuotaExtraordinaria,
     montoCuotaExtraordinaria: cuotaextraordinaria.montoCuotaExtraordinaria,
-    mantenimientoMensual: cuotaextraordinaria.mantenimientoMensual,
-    mantenimientoMensualLetras: cuotaextraordinaria.mantenimientoMensualLetras,
     estadoCuenta: cuotaextraordinaria.estadoCuenta ,
     montoDeudaLetra: cuotaextraordinaria.montoDeudaLetra,
-    cuotaPendientePago: cuotaextraordinaria.cuotaPendientePago
+    cuotaPendientePago: cuotaextraordinaria.cuotaPendientePago,
+    diaPagoNumero: cuotaextraordinaria.diaPagoNumero,
+    diaPagoLetras: cuotaextraordinaria.diaPagoLetras,
+    ponerMonto: cuotaextraordinaria.ponerMonto
 });
 
 

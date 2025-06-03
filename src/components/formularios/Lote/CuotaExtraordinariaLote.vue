@@ -2,6 +2,28 @@
   <div >
     <h4>Cuota Extraordinaria para Lote {{ index + 1 }}</h4>
 
+
+
+    <div>
+      <label>Pago Inicial:</label>
+      <input
+          type="number"
+          v-model="lote.cuotaextraordinaria.pagoInicial"
+          required
+
+      />
+    </div>
+
+    <div>
+      <label>Separación:</label>
+      <input
+          type="number"
+          v-model="lote.cuotaextraordinaria.separacion"
+          required
+
+      />
+    </div>
+
     <div>
       <label>Cantidad Cuota Extraordinaria:</label>
       <input
@@ -22,24 +44,13 @@
       />
     </div>
 
-    <div>
-      <label>Mantenimiento Mensual:</label>
-      <input
-          type="number"
-          v-model="lote.cuotaextraordinaria.mantenimientoMensual"
-          required
-          placeholder="Ingrese su Mantenimiento Mensual"
-          @input="lote.cuotaextraordinaria.mantenimientoMensualLetras = numeroLetrasEntero(lote.cuotaextraordinaria.mantenimientoMensual);"
-      />
-    </div>
 
     <div>
-      <label>Mantenimiento Mensual (en letras):</label>
+      <label>Cuota Pendiente de Pago:</label>
       <input
-          type="text"
-          v-model="lote.cuotaextraordinaria.mantenimientoMensualLetras"
+          type="number"
+          v-model="lote.cuotaextraordinaria.cuotaPendientePago"
           required
-          readonly
       />
     </div>
 
@@ -66,10 +77,28 @@
     </div>
 
     <div>
-      <label>Cuota Pendiente de Pago:</label>
+      <label>Día de Pago en Número:</label>
       <input
           type="number"
-          v-model="lote.cuotaextraordinaria.cuotaPendientePago"
+          v-model="lote.cuotaextraordinaria.diaPagoNumero"
+          required
+      />
+    </div>
+
+    <div>
+      <label>Dia de Pago en Letras:</label>
+      <input
+          type="number"
+          v-model="lote.cuotaextraordinaria.diaPagoLetras"
+          required
+      />
+    </div>
+
+    <div>
+      <label>Poner Monto:</label>
+      <input
+          type="number"
+          v-model="lote.cuotaextraordinaria.ponerMonto"
           required
       />
     </div>
@@ -77,7 +106,6 @@
 </template>
 
 <script setup>
-import {numeroLetrasEntero} from "@/data/numeroLetrasEntero.js";
 import {numeroLetrasConNumeros} from "@/data/numeroLetrasConNumeros.js";
 
 defineProps({
