@@ -1,11 +1,13 @@
 <template>
-  <div class="graficos-container">
+  <div v-if="userRole === 3" class="graficos-container">
     <!-- 📌 Solo visible para Operador (Rol 3) -->
     <div v-if="userRole === 3" class="graficos-fila-grandes-administrador">
       <GraficoRendimientoMes />
       <GraficoContratos />
     </div>
+  </div>
 
+  <div v-if="userRole <= 2"  class="graficos-container-operador">
     <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
     <div v-if="userRole <= 2" class="graficos-fila">
       <ClientesRegistrados />
@@ -15,11 +17,13 @@
     </div>
 
     <div v-if="userRole <= 2" class="graficos-fila-grandes">
-        <GraficoRendimientoMes />
-        <GraficoContratos />
+      <GraficoRendimientoMes />
+      <GraficoContratos />
     </div>
 
   </div>
+
+
 </template>
 
 <script>
@@ -77,6 +81,21 @@ export default {
   background-color: #dcdcdc;
 }
 
+.graficos-container-operador {
+  display: grid;
+  gap: 5px;
+  width: 90vw;
+  max-width: 1400px;
+  margin: 50px auto 0 auto;
+  margin-left: 250px;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+  overflow-y: auto;
+  background-color: #dcdcdc;
+}
+
 .grafico-item {
   background-color: white;
   padding: 10px;
@@ -100,6 +119,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding: 10px;
+  margin-top: 75px;
 }
 
 .graficos-fila-grandes-administrador {
