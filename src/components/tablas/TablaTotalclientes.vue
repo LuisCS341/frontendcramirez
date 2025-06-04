@@ -122,7 +122,7 @@
                 {{ getLote(cliente)?.contrato ?? '-' }}
               </template>
             </td>
-            <td>{{ cliente.idCliente.toString().padStart(5, '0') }}</td>
+            <td>{{ cliente.idCliente.toString().padStart(5, '0') + '-01' }}</td>
             <td>{{ getLote(cliente)?.idLote ?? '-'}}</td>
             <td>{{ getLote(cliente)?.tipoProyecto ?? '-' }}</td>
 
