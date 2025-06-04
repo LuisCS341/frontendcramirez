@@ -113,7 +113,7 @@
             <td>
               <template v-if="cliente.editando">
                 <select v-model="getLote(cliente).tipoContratolote">
-                  <option v-for="tipo in tiposContrato()" :key="tipo.id" :value="tipo.id">
+                  <option v-for="tipo in tiposContrato" :key="tipo.id" :value="tipo.id">
                     {{ tipo.nombre }}
                   </option>
                 </select>
@@ -122,7 +122,7 @@
                 {{ getLote(cliente)?.contrato ?? '-' }}
               </template>
             </td>
-            <td>{{ cliente.cliente.idCliente.toString().padStart(5, '0') }}</td>
+            <td>{{ cliente.idCliente.toString().padStart(5, '0') }}</td>
             <td>{{ getLote(cliente)?.idLote ?? '-'}}</td>
             <td>{{ getLote(cliente)?.tipoProyecto ?? '-' }}</td>
 
@@ -385,75 +385,75 @@
 
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.numeroIdentificacion ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.numeroIdentificacion ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.numeroIdentificacion" />
+                <input v-model="cliente.numeroIdentificacion" />
               </div>
             </td>
 
-            <td>{{ cliente.cliente.documentoIdentificacion ?? '-'}}</td>
+            <td>{{ cliente.documentoIdentificacion ?? '-'}}</td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.nombresApellidos ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.nombresApellidos ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.nombresApellidos" />
+                <input v-model="cliente.nombresApellidos" />
               </div>
             </td>
 
-            <td>{{ cliente.cliente.residencia ?? '-'}}</td>
-            <td>{{ cliente.cliente.estadoCivil ?? '-'}}</td>
-            <td>{{ getCopropietario(cliente.cliente).estadoCivilCopropietarios ?? '-'}}</td>
+            <td>{{ cliente.residencia ?? '-'}}</td>
+            <td>{{ cliente.estadoCivil ?? '-'}}</td>
+            <td>{{ getCopropietario(cliente).estadoCivilCopropietarios ?? '-'}}</td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.direccion ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.direccion ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.direccion" />
+                <input v-model="cliente.direccion" />
               </div>
             </td>
 
-            <td>{{ cliente.cliente.distrito ?? '-' }}</td>
-            <td>{{ cliente.cliente.provincia ?? '-'}}</td>
-            <td>{{ cliente.cliente.departamento ?? '-'}}</td>
+            <td>{{ cliente.distrito ?? '-' }}</td>
+            <td>{{ cliente.provincia ?? '-'}}</td>
+            <td>{{ cliente.departamento ?? '-'}}</td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.ocupacion ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.ocupacion ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.ocupacion" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getConyuge(cliente.cliente).numeroIdentificacionConyuge ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getConyuge(cliente.cliente).numeroIdentificacionConyuge" />
-              </div>
-            </td>
-
-            <td>{{ getConyuge(cliente.cliente).documentoIdentificacionConyuge ?? '-' }}</td>
-            <td>
-              <div v-if="!cliente.editando">{{ getConyuge(cliente.cliente).nombresApellidosConyuge ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getConyuge(cliente.cliente).nombresApellidosConyuge" />
+                <input v-model="cliente.ocupacion" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ getConyuge(cliente.cliente).ocupacionConyuge ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ getConyuge(cliente).numeroIdentificacionConyuge ?? '-' }}</div>
               <div v-else>
-                <input v-model="getConyuge(cliente.cliente).ocupacionConyuge" />
+                <input v-model="getConyuge(cliente).numeroIdentificacionConyuge" />
+              </div>
+            </td>
+
+            <td>{{ getConyuge(cliente).documentoIdentificacionConyuge ?? '-' }}</td>
+            <td>
+              <div v-if="!cliente.editando">{{ getConyuge(cliente).nombresApellidosConyuge ?? '-' }}</div>
+              <div v-else>
+                <input v-model="getConyuge(cliente).nombresApellidosConyuge" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ getConyuge(cliente.cliente).direccionConyuge ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ getConyuge(cliente).ocupacionConyuge ?? '-' }}</div>
               <div v-else>
-                <input v-model="getConyuge(cliente.cliente).direccionConyuge" />
+                <input v-model="getConyuge(cliente).ocupacionConyuge" />
               </div>
             </td>
 
-            <td>{{ getConyuge(cliente.cliente).distritoConyuge ?? '-' }}</td>
-            <td>{{ getConyuge(cliente.cliente).provinciaConyuge ?? '-' }}</td>
-            <td>{{ getConyuge(cliente.cliente).departamentoConyuge ?? '-' }}</td>
+            <td>
+              <div v-if="!cliente.editando">{{ getConyuge(cliente).direccionConyuge ?? '-' }}</div>
+              <div v-else>
+                <input v-model="getConyuge(cliente).direccionConyuge" />
+              </div>
+            </td>
+
+            <td>{{ getConyuge(cliente).distritoConyuge ?? '-' }}</td>
+            <td>{{ getConyuge(cliente).provinciaConyuge ?? '-' }}</td>
+            <td>{{ getConyuge(cliente).departamentoConyuge ?? '-' }}</td>
 
             <td>
               <div v-if="!cliente.editando">{{ getLote(cliente).costoLote ?? '-' }}</div>
@@ -555,146 +555,150 @@
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.diaPagoNumero ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.diaPagoNumero ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.diaPagoNumero" />
+                <input v-model="cliente.diaPagoNumero" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.cartaNoAdeudo ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.cartaNoAdeudo ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.cartaNoAdeudo" />
+                <input v-model="cliente.cartaNoAdeudo" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.certificadolote ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.certificadolote ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.certificadolote" />
+                <input v-model="cliente.certificadolote" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.mediospago ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.mediospago ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.mediospago" />
+                <input v-model="cliente.mediospago" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.planos1 ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.planos1 ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.planos1" />
+                <input v-model="cliente.planos1" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.planos2 ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.planos2 ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.planos2" />
+                <input v-model="cliente.planos2" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.envioMinuta ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.envioMinuta ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.envioMinuta" />
+                <input v-model="cliente.envioMinuta" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.correoElectronico ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.correoElectronico ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.correoElectronico" />
+                <input v-model="cliente.correoElectronico" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.celularCliente ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.celularCliente ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.celularCliente" />
+                <input v-model="cliente.celularCliente" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.fechaCita ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.fechaCita ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.fechaCita" />
+                <input v-model="cliente.fechaCita" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.horaCita ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.horaCita ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.horaCita" />
+                <input v-model="cliente.horaCita" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.atencionIntranet ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.atencionIntranet ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.atencionIntranet" />
+                <input v-model="cliente.atencionIntranet" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.modificacionMinuta ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.modificacionMinuta ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.modificacionMinuta" />
+                <input v-model="cliente.modificacionMinuta" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.minutaEscaneada ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.minutaEscaneada ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.minutaEscaneada" />
+                <input v-model="cliente.minutaEscaneada" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.expedienteNotaria ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.expedienteNotaria ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.expedienteNotaria" />
+                <input v-model="cliente.expedienteNotaria" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.llenoInformacion ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.llenoInformacion ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.llenoInformacion" />
+                <input v-model="cliente.llenoInformacion" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.personaSacoCita ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.personaSacoCita ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.personaSacoCita" />
+                <input v-model="cliente.personaSacoCita" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.personaAtiende ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.personaAtiende ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.personaAtiende" />
+                <input v-model="cliente.personaAtiende" />
               </div>
             </td>
 
             <td>
-              <div v-if="!cliente.editando">{{ cliente.cliente.firmo ?? '-' }}</div>
+              <div v-if="!cliente.editando">{{ cliente.firmo ?? '-' }}</div>
               <div v-else>
-                <input v-model="cliente.cliente.firmo" />
+                <input v-model="cliente.firmo" />
               </div>
             </td>
 
             <td>
-              <select v-model="selectedTemporal">
+              <select
+                  :value="selectedTemporal[cliente.idCliente]"
+                  @change="onCambioOperario($event, cliente)"
+              >
                 <option disabled value="">Seleccione un operario</option>
                 <option v-for="op in operarios" :key="op.id" :value="op.usuario">
-                  {{ op.usuario }}
+                  {{ op.nombre }}
                 </option>
               </select>
             </td>
+
             <td>
               <button v-if="!cliente.editando" @click="activarEdicion(cliente)">Editar</button>
               <button v-else @click="guardarEdicion(cliente)">Guardar</button>
@@ -708,352 +712,377 @@
   </div>
 </template>
 
-<script >
+<script setup>
 import "@/assets/tablas/Tablas.css";
 import axios from "axios";
 import * as XLSX from "xlsx";
-import {ubicaciones} from "@/data/ubicaciones.js";
 import {operarios} from "@/data/operarios.js";
 import {tiposContrato} from "@/data/tiposContrato.js";
+import {onMounted, reactive, ref} from "vue";
 
-export default {
-  data() {
-    return {
-      clientes: [],
-      lotes: [],
-      ubicaciones: [],
-      selectedTemporal: "",
-      operarios,
-      busquedaGlobal: "",
-      filtros: {
-        nombresApellidos: "",
-        direccion: "",
-        correoElectronico: "",
-        celularCliente: "",
-        documentoIdentificacion: "",
-        numeroIdentificacion: "",
-        estadoCivil: "",
-        ocupacion: "",
-        residencia: "",
-        prefijoPais: "",
-        idTipoContrato: "",
-      },
-    };
-  },
-  mounted() {
-    this.obtenerDatosCombinados();
-  },
 
-  methods: {
-    operarios() {
-      return operarios
-    },
-    tiposContrato() {
-      return tiposContrato
-    },
+const clientes = ref([]);
+const selectedTemporal = reactive({});
+const busquedaGlobal = ref("");
 
-    async obtenerDatosCombinados() {
-      try {
+const filtros = reactive({
+  nombresApellidos: "",
+  direccion: "",
+  correoElectronico: "",
+  celularCliente: "",
+  documentoIdentificacion: "",
+  numeroIdentificacion: "",
+  estadoCivil: "",
+  ocupacion: "",
+  residencia: "",
+  prefijoPais: "",
+  idTipoContrato: "",
+});
 
-        const userData = JSON.parse(localStorage.getItem("user"));
-        const idOperario = userData?.idOperario;
+const obtenerDatosCombinados = async () => {
+  try {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const idOperario = userData?.idOperario;
 
-        const response = await axios.get(`https://backendcramirez.onrender.com/api/clientes/por-operario/${idOperario}`, {
+    const response = await axios.get(
+        `https://backendcramirez.onrender.com/api/clientes/por-operario/${idOperario}`,
+        {
           headers: {
             "Content-Type": "application/json",
-            'X-User-ID': idOperario
+            "X-User-ID": idOperario,
           },
           withCredentials: true,
-        });
-
-        console.log(response.data);
-
-        this.clientes = response.data.map(cliente => ({
-          ...cliente,
-          editando: false
-        }));
-      } catch (error) {
-        console.error("Error al obtener datos combinados:", error);
-        alert("Error al obtener datos de clientes y lotes.");
-      }
-    },
-
-    // Método para obtener el primer lote o un objeto vacío si no existe
-    getLote(cliente) {
-      return Array.isArray(cliente.lotes) ? cliente.lotes[0] || {} : {};
-    },
-    // Método para obtener el primer elemento de la matriz o un objeto vacío
-    getMatriz(lote) {
-      return Array.isArray(lote.matriz) ? lote.matriz[0] || {} : {};
-    },
-    // Método para obtener el primer lindero o un objeto vacío
-    getLindero(lote) {
-      return lote && lote.lindero ? lote.lindero : null;
-    },
-
-    getCuotaExtraordinaria(lote) {
-      return Array.isArray(lote.cuotasExtraordinarias) && lote.cuotasExtraordinarias.length > 0
-          ? lote.cuotasExtraordinarias[0]
-          : null;
-    },
-
-    // Método para obtener el cónyuge o un objeto vacío si no existe
-    getConyuge(cliente) {
-      return cliente && cliente.conyuge ? cliente.conyuge : {};
-    },
-
-    getCopropietario(cliente) {
-      return Array.isArray(cliente.copropietarios) ? cliente.copropietarios[0] || {} : {};
-    },
-
-
-    activarEdicion(cliente) {
-      if (cliente) {
-        cliente.editando = true;
-        const lote = this.getLote(cliente);
-
-        if (!lote.tipoContratolote) {
-
-          lote.tipoContratolote = lote.contratoId || (this.tiposContrato()[0] && this.tiposContrato()[0].id) || null;
         }
-      }
-    },
-    guardarEdicion(cliente) {
-      if (cliente) {
-        cliente.editando = false;
-      }
-    },
+    );
+
+    clientes.value = response.data.map((cliente) => {
+      selectedTemporal[cliente.idCliente] = cliente.operario || "";
+
+      return {
+        ...cliente,
+        ...cliente.cliente,
+        editando: false,
+      };
+    });
+
+  } catch (error) {
+    console.error("Error al obtener datos combinados:", error);
+    alert("Error al obtener datos de clientes y lotes.");
+  }
+};
+
+// Método para obtener el primer lote o un objeto vacío si no existe
+const getLote = (cliente) => {
+  return Array.isArray(cliente.lotes) ? cliente.lotes[0] || {} : {};
+};
+
+// Método para obtener el primer elemento de la matriz o un objeto vacío
+const getMatriz = (lote) =>{
+  return Array.isArray(lote.matriz) ? lote.matriz[0] || {} : {};
+};
+// Método para obtener el primer lindero o un objeto vacío
+const getLindero = (lote) => {
+  return lote && lote.lindero ? lote.lindero : null;
+};
+
+const getCuotaExtraordinaria = (lote) => {
+  return Array.isArray(lote.cuotasExtraordinarias) && lote.cuotasExtraordinarias.length > 0
+      ? lote.cuotasExtraordinarias[0]
+      : null;
+};
+
+// Método para obtener el cónyuge o un objeto vacío si no existe
+const getConyuge =(cliente) =>  {
+  return cliente && cliente.conyuge ? cliente.conyuge : {};
+};
+
+const getCopropietario = (cliente) => {
+  return Array.isArray(cliente.copropietarios) ? cliente.copropietarios[0] || {} : {};
+};
 
 
-    formatearFecha(event, tipo) {
+const activarEdicion = (cliente) => {
+  if (cliente) {
+    cliente.editando = true;
+    const lote = getLote(cliente);
+    if (!lote.tipoContratolote) {
+      lote.tipoContratolote = lote.contratoId || tiposContrato?.[0]?.id || null;
+    }
+  }
+};
 
-      let input = event.target.value;
-      input = input.replace(/[^0-9]/g, '');
-
-      if (input.length > 2) input = input.slice(0, 2) + '/' + input.slice(2);
-      if (input.length > 5) input = input.slice(0, 5) + '/' + input.slice(5);
-      if (input.length > 10) input = input.slice(0, 10);
-
-      event.target.value = input;
-
-      if (tipo === 'inicio') {
-        let fechaInicioContrato;
-        fechaInicioContrato = input;
-      } else if (tipo === 'cancelacion') {
-        let fechaCancelacionContrato;
-        fechaCancelacionContrato = input;
-      }
-    },
+const guardarEdicion = (cliente) => {
+  if (cliente) {
+    cliente.editando = false;
+  }
+};
 
 
+const formatearFecha = (event, tipo) => {
+  let input = event.target.value;
+  input = input.replace(/[^0-9]/g, '');
 
-exportarClientesXLSX() {
-      const encabezados = [
-        "TIPO DE CONTRATO",
-        "CLIENTE Nº",
-        "CONTRATO Nº",
-        "PROYECTO",
-        "EMPRESA QUE VENDE",
-        "RUC VENDEDOR",
-        "DIRECCION VENDEDOR",
-        "REPRESENTANTE LEGAL - VENDEDOR",
-        "DNI VENDEDOR",
-        "Nº PARTIDA (PODER VENDEDOR)",
-        "MONEDA",
-        "NUM. CUENTA",
-        "CCI",
-        "FECHA DE ENTREGA DE PROYECTO",
-        "FECHA DE FIRMA DE CONTRATO DEFINITIVO",
-        "AREA MATRIZ HAS.",
-        "REGISTROS DE PARTIDA MATRIZ",
-        "UBICACION DEL LOTE (PREDIO MATRIZ)",
-        "UNIDAD CATASTRAL DE MATRIZ",
-        "URBANIZACION DE MATRIZ",
-        "DISTRITO DE MATRIZ",
-        "PROVINCIA DE MATRIZ",
-        "DEPARTAMENTO DE MATRIZ",
-        "COMPRAVENTA DE MATRIZ",
-        "SITUACION LEGAL DE MATRIZ",
-        "CONSTANCIA DE NO ADEUDO MUNICIPAL Y MÁS(MATRIZ)",
-        "AVANCE DE PROYECTO DE MATRIZ",
-        "CRONOGRAMA DE MATRIZ",
-        "FECHA DE INICIO DE CONTRARO",
-        "FECHA DE CANCELACIÓN DE CONTRATO",
-        "MZ-LT(CLIENTE)",
-        "MZ(CLIENTE)",
-        "LT(CLIENTE)",
-        "ÁREA DE LETRAS(CLIENTE)",
-        "ÁREA DEL LOTE (CLIENTE)",
-        "CUOTA IDEAL EN LETRAS",
-        "CUOTA IDEAL(CLIENTE)",
-        "POR EL FRENTE",
-        "POR LA DERECHA",
-        "POR LA IZQUIERDA",
-        "POR EL FONDO",
-        "N°IDENTIFICACIÓN(CLIENTE)",
-        "TIPO DE DOCUMENTO(CLIENTE)",
-        "NOMBRES Y APELLIDOS(CLIENTE)",
-        "NACIONALIDAD(CLIENTE)",
-        "ESTADO CIVIL (CLIENTE)",
-        "ESTADO CIVIL (COMPRADORES)",
-        "DIRECCIÓN-COMPRADOR (CLIENTE)",
-        "DISTRITO(CLIENTE)",
-        "PROVINCIA(CLIENTE)",
-        "DEPARTAMENTO (CLIENTE)",
-        "OCUPACIÓN",
-        "NÚMERO DE DOCUMENTO(CÓNYUGE)(CLIENTE)",
-        "TIPO DE DOCUMENTO(CÓNYUGE)(CLIENTE)",
-        "NOMBRE COMPLETO(CÓNYUGE)(CLIENTE)",
-        "OCUPACION(CÓNYUGE)",
-        "DOMICILIO(CÓNYUGE)",
-        "DISTRITO(CÓNYUGE)",
-        "PROVINCIA(CÓNYUGE)",
-        "DEPARTAMENTO (CÓNYUGE)",
-        "COSTO DEL LOTE(CLIENTE) EN NÚMERO",
-        "COSTO DEL LOTE(CLIENTE) EN LETRAS",
-        "PAGO INICIAL(CLIENTE)INCLUIDO SEPARACION",
-        "SEPARACIÓN(CLIENTE)",
-        "CANTIDAD DE CUOTAS(CLIENTE)",
-        "MONTO DE CUOTAS(CLIENTE)",
-        "CANTIDAD CUOTA EXTRAORDINARIA(CLIENTE)",
-        "MONTO DE CUOTA EXTRAORDINARIA (CLIENTE)",
-        "MANTENIMIENTO MENSUAL EN NÚMERO(CLIENTE)",
-        "MANTENIMIENTO MENSUAL EN LETRAS(CLIENTE)",
-        "ESTADO DE CUENTA(CLIENTE)(DE TENER DEUDA PONER MONTO)",
-        "MONTO DE DEUDA EN LETRAS(CLIENTE)",
-        "CUOTAS PENDIENTES DE PAGO",
-        "DIA DE PAGO EN NÚMERO Y LETRAS",
-        "CARTA DE NO ADEUDO(CLIENTE)",
-        "CERTIFICADO DE LOTE(CLIENTE)",
-        "MEDIOS DE PAGO(CLIENTE)",
-        "PLANOS 1(CLIENTE)",
-        "PLANOS 2(CLIENTE)",
-        "ENVIO DE MINUTA(CLIENTE)",
-        "CORREO ELECTRONICO(CLIENTE)",
-        "CELULAR(CLIENTE)",
-        "FECHA DE CITA(CLIENTE)",
-        "HORA DE CITA(CLIENTE)",
-        "N°ATENCIÓN INTRANET(CLIENTE)",
-        "MODIFICACIÓN DE MINUTA(CLIENTE)",
-        "MINUTA ESCANEADA(CLIENTE)FIRMADA",
-        "EXPEDIENTE NOTARIA",
-        "LLENÓ INFORMACIÓN",
-        "PERSONA QUE SACÓ CITA",
-        "PERSONA QUE ATIENDE",
-        "FIRMÓ"
-      ];
+  if (input.length > 2) input = input.slice(0, 2) + '/' + input.slice(2);
+  if (input.length > 5) input = input.slice(0, 5) + '/' + input.slice(5);
+  if (input.length > 10) input = input.slice(0, 10);
 
-      const filas = this.clientes.map((item) => {
-        const cliente = item.cliente ?? {};
-        const lote = item.lotes?.[0] ?? {};
-        const matriz = lote.matriz?.[0] ?? {};
-        const lindero = lote.lindero ?? {};
-        const copropietario = cliente.copropietarios?.[0] ?? {};
-        const conyuge = cliente.conyuge ?? {};
-        const cuotaExtra = lote.cuotasExtraordinarias?.[0] ?? {};
+  event.target.value = input;
+
+  // Aquí podrías usar una variable `ref()` si necesitas guardar la fecha
+  // pero actualmente no se guarda en ningún lado
+};
 
 
-        return [
-          lote?.contrato ?? '-',
-          cliente.idCliente?.toString().padStart(5, '0') ?? '-',
-          lote?.idLote ?? '-',
-          lote?.tipoProyecto ?? '-',
-          lote?.empresaVende ?? '-',
-          lote?.rucVendedor ?? '-',
-          lote?.direccionVendedor ?? '-',
-          lote?.representanteLegalVendedor ?? '-',
-          lote?.dniVendedor ?? '-',
-          lote?.numeroPartidaPoderVendedor ?? '-',
-          lote?.moneda ?? '-',
-          lote?.numCuenta ?? '-',
-          lote?.cci ?? '-',
-          lote?.fechaSale ?? '-',
-          lote?.fechaFirmaContratoDefinitivo ?? '-',
-          matriz?.areaMatrizHas ?? '-',
-          matriz?.registrosDE ?? '-',
-          matriz?.ubicacion ?? '-',
-          lote?.unidadCatastralMatriz ?? '-',
-          matriz?.urbanizacionMatriz ?? '-',
-          matriz?.distrito ?? '-',
-          matriz?.provincia ?? '-',
-          matriz?.departamento ?? '-',
-          matriz?.situacionLegal ?? '-',
-          matriz?.compraventaMatriz ?? '-',
-          matriz?.constancianoadeudo ?? '-',
-          matriz?.avanceproyectomatriz ?? '-',
-          matriz?.cronogramamatriz ?? '-',
-          lote?.fechaInicioContrato ?? '-',
-          lote?.fechaCancelacionContrato ?? '-',
-          lote?.manzana && lote?.numeroLote ? `MZ ${lote.manzana} - LT ${lote.numeroLote}` : '-',
-          lote?.manzana ?? '-',
-          lote?.numeroLote ?? '-',
-          lote?.areaLoteLetras ?? '-',
-          lote?.areaLote ?? '-',
-          matriz?.alicuotaLetras ?? '-',
-          matriz?.alicuota ?? '-',
-          lindero?.porElFrente ?? '-',
-          lindero?.porLaDerecha ?? '-',
-          lindero?.porLaIzquierda ?? '-',
-          lindero?.porElFondo ?? '-',
-          cliente.numeroIdentificacion ?? '-',
-          cliente.documentoIdentificacion ?? '-',
-          cliente.nombresApellidos ?? '-',
-          cliente.residencia ?? '-',
-          cliente.estadoCivil ?? '-',
-          copropietario?.estadoCivilCopropietarios ?? '-',
-          cliente.direccion ?? '-',
-          cliente.distrito ?? '-',
-          cliente.provincia ?? '-',
-          cliente.departamento ?? '-',
-          cliente.ocupacion ?? '-',
-          conyuge?.numeroIdentificacionConyuge ?? '-',
-          conyuge?.documentoIdentificacionConyuge ?? '-',
-          conyuge?.nombresApellidosConyuge ?? '-',
-          conyuge?.ocupacionConyuge ?? '-',
-          conyuge?.direccionConyuge ?? '-',
-          conyuge?.distritoConyuge ?? '-',
-          conyuge?.provinciaConyuge ?? '-',
-          conyuge?.departamentoConyuge ?? '-',
-          lote?.costoLote ?? '-',
-          lote?.montoLetras ?? '-',
-          lote?.pagoInicial ?? '-',
-          lote?.separacion ?? '-',
-          lote?.cantidadCuotas ?? '-',
-          lote?.montoCuotas ?? '-',
-          cuotaExtra?.cantidadCuotaExtraordinaria ?? '-',
-          cuotaExtra?.montoCuotaExtraordinaria ?? '-',
-          cuotaExtra?.mantenimientoMensual ?? '-',
-          cuotaExtra?.mantenimientoMensualLetras ?? '-',
-          cuotaExtra?.estadoCuenta ?? '-',
-          cuotaExtra?.montoDeudaLetra ?? '-',
-          cuotaExtra?.cuotaPendientePago ?? '-',
-          cliente.diaPagoNumero ?? '-',
-          cliente.cartaNoAdeudo ?? '-',
-          cliente.certificadolote ?? '-',
-          cliente.mediospago ?? '-',
-          cliente.planos1 ?? '-',
-          cliente.planos2 ?? '-',
-          cliente.envioMinuta ?? '-',
-          cliente.correoElectronico ?? '-',
-          cliente.celularCliente ?? '-',
-          cliente.fechaCita ?? '-',
-          cliente.horaCita ?? '-',
-          cliente.atencionIntranet ?? '-',
-          cliente.modificacionMinuta ?? '-',
-          cliente.minutaEscaneada ?? '-',
-          cliente.expedienteNotaria ?? '-',
-          cliente.llenoInformacion ?? '-',
-          cliente.personaSacoCita ?? '-',
-          cliente.personaAtiende ?? '-',
-          cliente.firmonofirmo ?? '-',
-        ];
-      });
+onMounted(() => {
+  obtenerDatosCombinados();
+});
 
-      const hoja = XLSX.utils.aoa_to_sheet([encabezados, ...filas]);
-      const libro = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(libro, hoja, "Clientes");
-      XLSX.writeFile(libro, "clientes.xlsx");
-    },
-  },
+const onCambioOperario = async (event, cliente) => {
+  const nuevoUsuario = event.target.value;  // El nuevo usuario seleccionado
+  const idCliente = cliente.idCliente;
+
+  // Guardamos el operario anterior en caso de que se cancele la operación
+  const operarioAnterior = selectedTemporal[idCliente];
+
+  // Si no ha habido cambios, no realizamos la operación
+  if (nuevoUsuario === operarioAnterior) {
+    return;
+  }
+
+  // Pedimos confirmación para el cambio
+  const confirmacion = confirm(`¿Estás seguro que quieres cambiar el operario`);
+  if (!confirmacion) {
+    selectedTemporal[idCliente] = operarioAnterior; // Restauramos el operario anterior
+    return;
+  }
+
+  try {
+    // Realizamos la solicitud al backend para actualizar el operario
+    await axios.put(`https://backendcramirez.onrender.com/api/clientes/transferir/${idCliente}`, {
+      nuevoUsuarioOperario: nuevoUsuario,
+    }, {
+      withCredentials: true,
+    });
+
+    alert("Cliente transferido correctamente");
+
+    cliente.operario = nuevoUsuario;  // Actualizamos el operario en el objeto cliente
+    selectedTemporal[idCliente] = nuevoUsuario;  // Actualizamos el operario en el estado temporal
+
+  } catch (error) {
+    // Si hubo un error, mostramos un mensaje y restauramos el operario anterior
+    console.error("Error detallado:", error);
+    alert("Error al transferir cliente: " + (error.response?.data?.message || error.message));
+
+    selectedTemporal[idCliente] = operarioAnterior;  // Restauramos el operario anterior
+  }
+};
+
+
+const exportarClientesXLSX = () => {
+  const encabezados = [
+    "TIPO DE CONTRATO",
+    "CLIENTE Nº",
+    "CONTRATO Nº",
+    "PROYECTO",
+    "EMPRESA QUE VENDE",
+    "RUC VENDEDOR",
+    "DIRECCION VENDEDOR",
+    "REPRESENTANTE LEGAL - VENDEDOR",
+    "DNI VENDEDOR",
+    "Nº PARTIDA (PODER VENDEDOR)",
+    "MONEDA",
+    "NUM. CUENTA",
+    "CCI",
+    "FECHA DE ENTREGA DE PROYECTO",
+    "FECHA DE FIRMA DE CONTRATO DEFINITIVO",
+    "AREA MATRIZ HAS.",
+    "REGISTROS DE PARTIDA MATRIZ",
+    "UBICACION DEL LOTE (PREDIO MATRIZ)",
+    "UNIDAD CATASTRAL DE MATRIZ",
+    "URBANIZACION DE MATRIZ",
+    "DISTRITO DE MATRIZ",
+    "PROVINCIA DE MATRIZ",
+    "DEPARTAMENTO DE MATRIZ",
+    "COMPRAVENTA DE MATRIZ",
+    "SITUACION LEGAL DE MATRIZ",
+    "CONSTANCIA DE NO ADEUDO MUNICIPAL Y MÁS(MATRIZ)",
+    "AVANCE DE PROYECTO DE MATRIZ",
+    "CRONOGRAMA DE MATRIZ",
+    "FECHA DE INICIO DE CONTRARO",
+    "FECHA DE CANCELACIÓN DE CONTRATO",
+    "MZ-LT(CLIENTE)",
+    "MZ(CLIENTE)",
+    "LT(CLIENTE)",
+    "ÁREA DE LETRAS(CLIENTE)",
+    "ÁREA DEL LOTE (CLIENTE)",
+    "CUOTA IDEAL EN LETRAS",
+    "CUOTA IDEAL(CLIENTE)",
+    "POR EL FRENTE",
+    "POR LA DERECHA",
+    "POR LA IZQUIERDA",
+    "POR EL FONDO",
+    "N°IDENTIFICACIÓN(CLIENTE)",
+    "TIPO DE DOCUMENTO(CLIENTE)",
+    "NOMBRES Y APELLIDOS(CLIENTE)",
+    "NACIONALIDAD(CLIENTE)",
+    "ESTADO CIVIL (CLIENTE)",
+    "ESTADO CIVIL (COMPRADORES)",
+    "DIRECCIÓN-COMPRADOR (CLIENTE)",
+    "DISTRITO(CLIENTE)",
+    "PROVINCIA(CLIENTE)",
+    "DEPARTAMENTO (CLIENTE)",
+    "OCUPACIÓN",
+    "NÚMERO DE DOCUMENTO(CÓNYUGE)(CLIENTE)",
+    "TIPO DE DOCUMENTO(CÓNYUGE)(CLIENTE)",
+    "NOMBRE COMPLETO(CÓNYUGE)(CLIENTE)",
+    "OCUPACION(CÓNYUGE)",
+    "DOMICILIO(CÓNYUGE)",
+    "DISTRITO(CÓNYUGE)",
+    "PROVINCIA(CÓNYUGE)",
+    "DEPARTAMENTO (CÓNYUGE)",
+    "COSTO DEL LOTE(CLIENTE) EN NÚMERO",
+    "COSTO DEL LOTE(CLIENTE) EN LETRAS",
+    "PAGO INICIAL(CLIENTE)INCLUIDO SEPARACION",
+    "SEPARACIÓN(CLIENTE)",
+    "CANTIDAD DE CUOTAS(CLIENTE)",
+    "MONTO DE CUOTAS(CLIENTE)",
+    "CANTIDAD CUOTA EXTRAORDINARIA(CLIENTE)",
+    "MONTO DE CUOTA EXTRAORDINARIA (CLIENTE)",
+    "MANTENIMIENTO MENSUAL EN NÚMERO(CLIENTE)",
+    "MANTENIMIENTO MENSUAL EN LETRAS(CLIENTE)",
+    "ESTADO DE CUENTA(CLIENTE)(DE TENER DEUDA PONER MONTO)",
+    "MONTO DE DEUDA EN LETRAS(CLIENTE)",
+    "CUOTAS PENDIENTES DE PAGO",
+    "DIA DE PAGO EN NÚMERO Y LETRAS",
+    "CARTA DE NO ADEUDO(CLIENTE)",
+    "CERTIFICADO DE LOTE(CLIENTE)",
+    "MEDIOS DE PAGO(CLIENTE)",
+    "PLANOS 1(CLIENTE)",
+    "PLANOS 2(CLIENTE)",
+    "ENVIO DE MINUTA(CLIENTE)",
+    "CORREO ELECTRONICO(CLIENTE)",
+    "CELULAR(CLIENTE)",
+    "FECHA DE CITA(CLIENTE)",
+    "HORA DE CITA(CLIENTE)",
+    "N°ATENCIÓN INTRANET(CLIENTE)",
+    "MODIFICACIÓN DE MINUTA(CLIENTE)",
+    "MINUTA ESCANEADA(CLIENTE)FIRMADA",
+    "EXPEDIENTE NOTARIA",
+    "LLENÓ INFORMACIÓN",
+    "PERSONA QUE SACÓ CITA",
+    "PERSONA QUE ATIENDE",
+    "FIRMÓ"
+  ];
+
+  const filas = clientes.value.map((item) => {
+    const cliente = item.cliente ?? {};
+    const lote = item.lotes?.[0] ?? {};
+    const matriz = lote.matriz?.[0] ?? {};
+    const lindero = lote.lindero ?? {};
+    const copropietario = cliente.copropietarios?.[0] ?? {};
+    const conyuge = cliente.conyuge ?? {};
+    const cuotaExtra = lote.cuotasExtraordinarias?.[0] ?? {};
+
+    return [
+      lote?.contrato ?? '-',
+      cliente.idCliente?.toString().padStart(5, '0') ?? '-',
+      lote?.idLote ?? '-',
+      lote?.tipoProyecto ?? '-',
+      lote?.empresaVende ?? '-',
+      lote?.rucVendedor ?? '-',
+      lote?.direccionVendedor ?? '-',
+      lote?.representanteLegalVendedor ?? '-',
+      lote?.dniVendedor ?? '-',
+      lote?.numeroPartidaPoderVendedor ?? '-',
+      lote?.moneda ?? '-',
+      lote?.numCuenta ?? '-',
+      lote?.cci ?? '-',
+      lote?.fechaSale ?? '-',
+      lote?.fechaFirmaContratoDefinitivo ?? '-',
+      matriz?.areaMatrizHas ?? '-',
+      matriz?.registrosDE ?? '-',
+      matriz?.ubicacion ?? '-',
+      lote?.unidadCatastralMatriz ?? '-',
+      matriz?.urbanizacionMatriz ?? '-',
+      matriz?.distrito ?? '-',
+      matriz?.provincia ?? '-',
+      matriz?.departamento ?? '-',
+      matriz?.compraventaMatriz ?? '-',
+      matriz?.situacionLegal ?? '-',
+      matriz?.constancianoadeudo ?? '-',
+      matriz?.avanceproyectomatriz ?? '-',
+      matriz?.cronogramamatriz ?? '-',
+      lote?.fechaInicioContrato ?? '-',
+      lote?.fechaCancelacionContrato ?? '-',
+      lote?.manzana && lote?.numeroLote ? `MZ ${lote.manzana} - LT ${lote.numeroLote}` : '-',
+      lote?.manzana ?? '-',
+      lote?.numeroLote ?? '-',
+      lote?.areaLoteLetras ?? '-',
+      lote?.areaLote ?? '-',
+      matriz?.alicuotaLetras ?? '-',
+      matriz?.alicuota ?? '-',
+      lindero?.porElFrente ?? '-',
+      lindero?.porLaDerecha ?? '-',
+      lindero?.porLaIzquierda ?? '-',
+      lindero?.porElFondo ?? '-',
+      cliente.numeroIdentificacion ?? '-',
+      cliente.documentoIdentificacion ?? '-',
+      cliente.nombresApellidos ?? '-',
+      cliente.residencia ?? '-',
+      cliente.estadoCivil ?? '-',
+      copropietario?.estadoCivilCopropietarios ?? '-',
+      cliente.direccion ?? '-',
+      cliente.distrito ?? '-',
+      cliente.provincia ?? '-',
+      cliente.departamento ?? '-',
+      cliente.ocupacion ?? '-',
+      conyuge?.numeroIdentificacionConyuge ?? '-',
+      conyuge?.documentoIdentificacionConyuge ?? '-',
+      conyuge?.nombresApellidosConyuge ?? '-',
+      conyuge?.ocupacionConyuge ?? '-',
+      conyuge?.direccionConyuge ?? '-',
+      conyuge?.distritoConyuge ?? '-',
+      conyuge?.provinciaConyuge ?? '-',
+      conyuge?.departamentoConyuge ?? '-',
+      lote?.costoLote ?? '-',
+      lote?.montoLetras ?? '-',
+      lote?.pagoInicial ?? '-',
+      lote?.separacion ?? '-',
+      lote?.cantidadCuotas ?? '-',
+      lote?.montoCuotas ?? '-',
+      cuotaExtra?.cantidadCuotaExtraordinaria ?? '-',
+      cuotaExtra?.montoCuotaExtraordinaria ?? '-',
+      cuotaExtra?.mantenimientoMensual ?? '-',
+      cuotaExtra?.mantenimientoMensualLetras ?? '-',
+      cuotaExtra?.estadoCuenta ?? '-',
+      cuotaExtra?.montoDeudaLetra ?? '-',
+      cuotaExtra?.cuotaPendientePago ?? '-',
+      cliente.diaPagoNumero ?? '-',
+      cliente.cartaNoAdeudo ?? '-',
+      cliente.certificadolote ?? '-',
+      cliente.mediospago ?? '-',
+      cliente.planos1 ?? '-',
+      cliente.planos2 ?? '-',
+      cliente.envioMinuta ?? '-',
+      cliente.correoElectronico ?? '-',
+      cliente.celularCliente ?? '-',
+      cliente.fechaCita ?? '-',
+      cliente.horaCita ?? '-',
+      cliente.atencionIntranet ?? '-',
+      cliente.modificacionMinuta ?? '-',
+      cliente.minutaEscaneada ?? '-',
+      cliente.expedienteNotaria ?? '-',
+      cliente.llenoInformacion ?? '-',
+      cliente.personaSacoCita ?? '-',
+      cliente.personaAtiende ?? '-',
+      cliente.firmonofirmo ?? '-',
+    ];
+  });
+
+  const hoja = XLSX.utils.aoa_to_sheet([encabezados, ...filas]);
+  const libro = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(libro, hoja, "Clientes");
+  XLSX.writeFile(libro, "clientes.xlsx");
 };
 </script>
