@@ -74,11 +74,13 @@ export default {
 <style scoped>
 .graficos-container {
   display: grid;
-  width: 1400px;
-  height: 800px;
-  margin-top: 50px;
-  margin-left: 255px;
+  width: 100%;
+  max-width: 1400px; /* máximo en pantallas grandes */
+  height: auto;
+  margin: 50px auto 0 auto; /* centra horizontalmente */
   background-color: #dcdcdc;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .graficos-container-operador {
@@ -95,7 +97,12 @@ export default {
   overflow-y: auto;
   background-color: #dcdcdc;
 }
-
+@media (max-width: 768px) {
+  .graficos-container {
+    padding: 10px;
+    grid-template-columns: 1fr; /* si tienes varios gráficos */
+  }
+}
 .grafico-item {
   background-color: white;
   padding: 10px;
