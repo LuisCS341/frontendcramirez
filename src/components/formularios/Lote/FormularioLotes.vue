@@ -180,6 +180,7 @@
           type="number"
           required
           placeholder="Ingrese su Monto en Cuotas"
+          step="any"
       />
 
       <label>Cantidad de Cuotas:</label>
