@@ -72,68 +72,88 @@ export default {
 </script>
 
 <style scoped>
-.graficos-container {
+.graficos-container,
+.graficos-container-operador {
   display: grid;
   width: 100%;
-  max-width: 1400px; /* máximo en pantallas grandes */
-  height: auto;
-  margin: 50px auto 0 auto; /* centra horizontalmente */
-  background-color: #dcdcdc;
+  max-width: 1400px;
+  margin: 50px auto 0 auto;
   padding: 20px;
   box-sizing: border-box;
+  background-color: #dcdcdc;
 }
 
 .graficos-container-operador {
-  display: grid;
-  gap: 5px;
-  width: 90vw;
-  max-width: 1400px;
-  margin: 50px auto 0 auto;
   margin-left: 250px;
-  padding: 10px;
-  box-sizing: border-box;
+  gap: 10px;
   position: relative;
   z-index: 10;
   overflow-y: auto;
-  background-color: #dcdcdc;
-}
-@media (max-width: 768px) {
-  .graficos-container {
-    padding: 10px;
-    grid-template-columns: 1fr; /* si tienes varios gráficos */
-  }
-}
-.grafico-item {
-  background-color: white;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  justify-content: center;
-  align-items: center;
-  height: 370px;
-  width: 100%;
-  max-width: 500px;
 }
 
-
+/* Fila de 4 gráficos pequeños */
 .graficos-fila {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
-  row-gap: 1px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   padding: 10px;
 }
-.graficos-fila-grandes {
+
+/* Fila de 2 gráficos grandes */
+.graficos-fila-grandes,
+.graficos-fila-grandes-administrador {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
   padding: 10px;
   margin-top: 75px;
 }
 
 .graficos-fila-grandes-administrador {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 10px;
   margin-top: 150px;
+}
+
+/* Estilo común de cada tarjeta/gráfico */
+.grafico-item {
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  height: 370px;
+  width: 100%;
+  max-width: 500px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🧠 Responsive: tablets y móviles */
+@media (max-width: 1024px) {
+  .graficos-fila {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .graficos-fila-grandes,
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .graficos-container,
+  .graficos-container-operador {
+    width: 95vw;
+    padding: 10px;
+    margin-left: 0 !important; /* elimina margen lateral en móviles */
+  }
+
+  .graficos-fila {
+    grid-template-columns: 1fr;
+  }
+
+  .graficos-fila-grandes,
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    margin-top: 30px;
+  }
 }
 
 </style>
