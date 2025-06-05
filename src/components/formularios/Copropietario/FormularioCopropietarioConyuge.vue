@@ -25,8 +25,9 @@
 
     <label>Número de Identificación:</label>
     <input
-        v-model="copropietario.conyuge.numIdentificacionCopropietariosConyuge"
+        v-model="copropietario.conyuge.numeroIdentificacionCopropietariosConyuge"
         type="text"
+        maxlength="8"
         placeholder="Ingrese su Número de Identificación"
     />
 

@@ -25,8 +25,9 @@
 
     <label>Número de Identificación:</label>
     <input
-        v-model="copropietario.numIdentificacionCopropietarios"
+        v-model="copropietario.numeroIdentificacionCopropietarios"
         type="text"
+        maxlength="8"
         placeholder="Ingrese su Número de Identificación"
     />
 
@@ -80,10 +81,10 @@
         <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
       </select>
       <input
-          v-model="copropietario.numTelefonicoCopropietarios"
+          v-model="copropietario.numeroTelefonicoCopropietarios"
           type="text"
           placeholder="Ingrese su Número Telefónico"
-          @input="copropietario.numTelefonicoCopropietarios = copropietario.numTelefonicoCopropietarios.replace(/[^0-9]/g, '')"
+          @input="copropietario.numeroTelefonicoCopropietarios = copropietario.numeroTelefonicoCopropietarios.replace(/[^0-9]/g, '')"
       />
     </div>
 
