@@ -11,681 +11,22 @@
         <table class="table">
           <thead>
           <tr>
-            <th>TIPO DE CONTRATO</th>
-            <th>CLIENTE Nº</th>
-            <th>CONTRATO Nº</th>
-            <th>PROYECTO</th>
-            <th>EMPRESA QUE VENDE</th>
-            <th>RUC VENDEDOR</th>
-            <th>DIRECCION VENDEDOR</th>
-            <th>REPRESENTANTE LEGAL - VENDEDOR</th>
-            <th>DNI VENDEDOR</th>
-            <th>Nº PARTIDA (PODER VENDEDOR)</th>
-            <th>MONEDA</th>
-            <th>NUM. CUENTA</th>
-            <th>CCI</th>
-            <th>FECHA DE ENTREGA DE PROYECTO</th>
-            <th>FECHA DE FIRMA DE CONTRATO DEFINITIVO</th>
-            <th>AREA MATRIZ HAS.</th>
-            <th>REGISTROS DE PARTIDA MATRIZ</th>
-            <th>UBICACION DEL LOTE (PREDIO MATRIZ)</th>
-            <th>UNIDAD CATASTRAL DE MATRIZ</th>
-            <th>URBANIZACION DE MATRIZ</th>
-            <th>DISTRITO DE MATRIZ</th>
-            <th>PROVINCIA DE MATRIZ</th>
-            <th>DEPARTAMENTO DE MATRIZ</th>
-            <th>COMPRAVENTA DE MATRIZ</th>
-            <th>SITUACION LEGAL DE MATRIZ</th>
-            <th>CONSTANCIA DE NO ADEUDO MUNICIPAL Y MÁS(MATRIZ)</th>
-            <th>AVANCE DE PROYECTO DE MATRIZ</th>
-            <th>CRONOGRAMA DE MATRIZ</th>
-            <th>FECHA DE INICIO DE CONTRARO</th>
-            <th>FECHA DE CANCELACIÓN DE CONTRATO</th>
-            <th>MZ-LT(CLIENTE)</th>
-            <th>MZ(CLIENTE)</th>
-            <th>LT(CLIENTE) </th>
-            <th>ÁREA DE LETRAS(CLIENTE)</th>
-            <th>ÁREA DEL LOTE (CLIENTE)</th>
-            <th>CUOTA IDEAL EN LETRAS</th>
-            <th>CUOTA IDEAL(CLIENTE)</th>
-            <th>POR EL FRENTE</th>
-            <th>POR LA DERECHA</th>
-            <th>POR LA IZQUIERDA</th>
-            <th>POR EL FONDO</th>
-            <th>N°IDENTIFICACIÓN(CLIENTE)</th>
-            <th>TIPO DE DOCUMENTO(CLIENTE)</th>
-            <th>NOMBRES Y APELLIDOS(CLIENTE)</th>
-            <th>NACIONALIDAD(CLIENTE)</th>
-            <th>ESTADO CIVIL (CLIENTE)</th>
-            <th>ESTADO CIVIL (COMPRADORES)</th>
-            <th>DIRECCIÓN-COMPRADOR (CLIENTE)</th>
-            <th>DISTRITO(CLIENTE)</th>
-            <th>PROVINCIA(CLIENTE)</th>
-            <th>DEPARTAMENTO (CLIENTE)</th>
-            <th>OCUPACIÓN</th>
-            <th>NÚMERO DE DOCUMENTO(CÓNYUGE)(CLIENTE)</th>
-            <th>TIPO DE DOCUMENTO(CÓNYUGE)(CLIENTE)</th>
-            <th>NOMBRE COMPLETO(CÓNYUGE)(CLIENTE)</th>
-            <th>OCUPACION(CÓNYUGE)</th>
-            <th>DOMICILIO(CÓNYUGE)</th>
-            <th>DISTRITO(CÓNYUGE)</th>
-            <th>PROVINCIA(CÓNYUGE)</th>
-            <th>DEPARTAMENTO (CÓNYUGE)</th>
-            <th>COSTO DEL LOTE(CLIENTE) EN NÚMERO</th>
-            <th>COSTO DEL LOTE(CLIENTE) EN LETRAS</th>
-            <th>PAGO INICIAL(CLIENTE)INCLUIDO SEPARACION</th>
-            <th>SEPARACIÓN(CLIENTE)</th>
-            <th>CANTIDAD DE CUOTAS(CLIENTE)</th>
-            <th>MONTO DE CUOTAS(CLIENTE)</th>
-            <th>CANTIDAD CUOTA EXTRAORDINARIA(CLIENTE)</th>
-            <th>MONTO DE CUOTA EXTRAORDINARIA (CLIENTE)</th>
-            <th>MANTENIMIENTO MENSUAL EN NÚMERO(CLIENTE)</th>
-            <th>MANTENIMIENTO MENSUAL EN LETRAS(CLIENTE)</th>
-            <th>ESTADO DE CUENTA(CLIENTE)(DE TENER DEUDA PONER MONTO)</th>
-            <th>MONTO DE DEUDA EN LETRAS(CLIENTE)</th>
-            <th>CUOTAS PENDIENTES DE PAGO</th>
-            <th>DIA DE PAGO EN NÚMERO Y LETRAS</th>
-            <th>CARTA DE NO ADEUDO(CLIENTE)</th>
-            <th>CERTIFICADO DE LOTE(CLIENTE)</th>
-            <th>MEDIOS DE PAGO(CLIENTE)</th>
-            <th>PLANOS 1(CLIENTE)</th>
-            <th>PLANOS 2(CLIENTE)</th>
-            <th>ENVIO DE MINUTA(CLIENTE)</th>
-            <th>CORREO ELECTRONICO(CLIENTE)</th>
-            <th>CELULAR(CLIENTE)</th>
-            <th>FECHA DE CITA(CLIENTE)</th>
-            <th>HORA DE CITA(CLIENTE)</th>
-            <th>N°ATENCIÓN INTRANET(CLIENTE)</th>
-            <th>MODIFICACIÓN DE MINUTA(CLIENTE)</th>
-            <th>MINUTA ESCANEADA(CLIENTE)FIRMADA</th>
-            <th>EXPEDIENTE NOTARIA</th>
-            <th>LLENÓ INFORMACIÓN</th>
-            <th>PERSONA QUE SACÓ CITA</th>
-            <th>PERSONA QUE ATIENDE</th>
-            <th>FIRMÓ</th>
-            <th>SELECIONE EL OPERARIO</th>
+            <th v-for="col in columnasClientes" :key="col.key">{{ col.label }}</th>
+            <th>SELECCIONE SU OPERARIO</th>
             <th></th>
-
           </tr>
+
           </thead>
           <tbody>
-          <tr v-for="(cliente) in clientes" :key="cliente.idCliente">
-            <td>
-              <template v-if="cliente.editando">
-                <select v-model="getLote(cliente).tipoContratolote">
-                  <option v-for="tipo in tiposContrato" :key="tipo.id" :value="tipo.id">
-                    {{ tipo.nombre }}
-                  </option>
-                </select>
-              </template>
-              <template v-else>
-                {{ getLote(cliente)?.contrato ?? '-' }}
-              </template>
-            </td>
-            <td>{{ cliente.idCliente.toString().padStart(5, '0') + '-01' }}</td>
-            <td>{{ getLote(cliente)?.idLote ?? '-'}}</td>
-            <td>{{ getLote(cliente)?.tipoProyecto ?? '-' }}</td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.empresaVende ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).empresaVende" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.rucVendedor ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).rucVendedor" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.direccionVendedor ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).direccionVendedor" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.representanteLegalVendedor ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).representanteLegalVendedor" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.dniVendedor ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).dniVendedor" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.numeroPartidaPoderVendedor ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).numeroPartidaPoderVendedor" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.moneda ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).moneda" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.numCuenta ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).numCuenta" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.cci ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).cci" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.fechaSale ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).fechaSale" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.fechaFirmaContratoDefinitivo ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).fechaFirmaContratoDefinitivo" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getMatriz(getLote(cliente))?.areaMatrizHas ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getMatriz(getLote(cliente)).areaMatrizHas" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getMatriz(getLote(cliente))?.registrosDE ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getMatriz(getLote(cliente)).registrosDE" />
-              </div>
-            </td>
-
-            <td>{{ getMatriz(getLote(cliente))?.ubicacion ?? '-' }}</td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.unidadCatastralMatriz ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).unidadCatastralMatriz" />
-              </div>
-            </td>
-
-            <td>{{ getMatriz(getLote(cliente))?.urbanizacionMatriz ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.distrito ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.provincia ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.departamento ?? '-' }}</td>
-            <td>
-              <div v-if="!cliente.editando">{{ getMatriz(getLote(cliente))?.compraventaMatriz ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getMatriz(getLote(cliente)).compraventaMatriz" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getMatriz(getLote(cliente))?.situacionLegal ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getMatriz(getLote(cliente)).situacionLegal" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getMatriz(getLote(cliente))?.constancianoadeudo ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getMatriz(getLote(cliente)).constancianoadeudo" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getMatriz(getLote(cliente))?.avanceproyectomatriz ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getMatriz(getLote(cliente)).avanceproyectomatriz" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getMatriz(getLote(cliente))?.cronogramamatriz ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getMatriz(getLote(cliente)).cronogramamatriz" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">
-                {{ getLote(cliente)?.fechaInicioContrato ?? '-' }}
-              </div>
-              <div v-else>
-                <input
-                    type="text"
-                    v-model="getLote(cliente).fechaInicioContrato"
-                    @input="formatearFecha($event, 'inicio', getLote(cliente))"
-                    placeholder="dd/mm/aaaa"
-                    maxlength="10"
-                />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">
-                {{ getLote(cliente)?.fechaCancelacionContrato ?? '-' }}
-              </div>
-              <div v-else>
-                <input
-                    type="text"
-                    v-model="getLote(cliente).fechaCancelacionContrato"
-                    @input="formatearFecha($event, 'cancelacion', getLote(cliente))"
-                    placeholder="dd/mm/aaaa"
-                    maxlength="10"
-                />
-              </div>
-            </td>
-
-            <td>{{ getLote(cliente)?.manzana && getLote(cliente)?.numeroLote ? `MZ ${getLote(cliente).manzana} - LT ${getLote(cliente).numeroLote}` : '-' }}</td>
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.manzana ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).manzana" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.numeroLote ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).numeroLote" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.areaLoteLetras ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).areaLoteLetras" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente)?.areaLote ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).areaLote" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getMatriz(getLote(cliente))?.alicuotaLetras ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getMatriz(getLote(cliente)).alicuotaLetras" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getMatriz(getLote(cliente))?.alicuota ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getMatriz(getLote(cliente)).alicuota" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLindero(getLote(cliente))?.porElFrente ?? '-' }}</div>
-              <div v-else>
-                <input
-                    v-if="getLindero(getLote(cliente))"
-                    v-model="getLindero(getLote(cliente)).porElFrente"
-                />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLindero(getLote(cliente))?.porLaDerecha ?? '-' }}</div>
-              <div v-else>
-                <input
-                    v-if="getLindero(getLote(cliente))"
-                    v-model="getLindero(getLote(cliente)).porLaDerecha"
-                />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLindero(getLote(cliente))?.porLaIzquierda ?? '-' }}</div>
-              <div v-else>
-                <input
-                    v-if="getLindero(getLote(cliente))"
-                    v-model="getLindero(getLote(cliente)).porLaIzquierda"
-                />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLindero(getLote(cliente))?.porElFondo ?? '-' }}</div>
-              <div v-else>
-                <input
-                    v-if="getLindero(getLote(cliente))"
-                    v-model="getLindero(getLote(cliente)).porElFondo"
-                />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.numeroIdentificacion ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.numeroIdentificacion" />
-              </div>
-            </td>
-
-            <td>{{ cliente.documentoIdentificacion ?? '-'}}</td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.nombresApellidos ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.nombresApellidos" />
-              </div>
-            </td>
-
-            <td>{{ cliente.residencia ?? '-'}}</td>
-            <td>{{ cliente.estadoCivil ?? '-'}}</td>
-            <td>{{ getCopropietario(cliente).estadoCivilCopropietarios ?? '-'}}</td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.direccion ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.direccion" />
-              </div>
-            </td>
-
-            <td>{{ cliente.distrito ?? '-' }}</td>
-            <td>{{ cliente.provincia ?? '-'}}</td>
-            <td>{{ cliente.departamento ?? '-'}}</td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.ocupacion ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.ocupacion" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getConyuge(cliente).numeroIdentificacionConyuge ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getConyuge(cliente).numeroIdentificacionConyuge" />
-              </div>
-            </td>
-
-            <td>{{ getConyuge(cliente).documentoIdentificacionConyuge ?? '-' }}</td>
-            <td>
-              <div v-if="!cliente.editando">{{ getConyuge(cliente).nombresApellidosConyuge ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getConyuge(cliente).nombresApellidosConyuge" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getConyuge(cliente).ocupacionConyuge ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getConyuge(cliente).ocupacionConyuge" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getConyuge(cliente).direccionConyuge ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getConyuge(cliente).direccionConyuge" />
-              </div>
-            </td>
-
-            <td>{{ getConyuge(cliente).distritoConyuge ?? '-' }}</td>
-            <td>{{ getConyuge(cliente).provinciaConyuge ?? '-' }}</td>
-            <td>{{ getConyuge(cliente).departamentoConyuge ?? '-' }}</td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente).costoLote ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).costoLote" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente).montoLetras ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).montoLetras" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente).pagoInicial ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).pagoInicial" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente).separacion ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).separacion" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente).cantidadCuotas ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).cantidadCuotas" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getLote(cliente).montoCuotas ?? '-' }}</div>
-              <div v-else>
-                <input v-model="getLote(cliente).montoCuotas" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.cantidadCuotaExtraordinaria ?? '-' }}</div>
-              <div v-else>
-                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).cantidadCuotaExtraordinaria" />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-
-            <td>
-              <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.montoCuotaExtraordinaria ?? '-' }}</div>
-              <div v-else>
-                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).montoCuotaExtraordinaria" />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.mantenimientoMensual ?? '-' }}</div>
-              <div v-else>
-                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).mantenimientoMensual" />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.mantenimientoMensualLetras ?? '-' }}</div>
-              <div v-else>
-                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).mantenimientoMensualLetras" />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.estadoCuenta ?? '-' }}</div>
-              <div v-else>
-                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).estadoCuenta" />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.montoDeudaLetra ?? '-' }}</div>
-              <div v-else>
-                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).montoDeudaLetra" />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ getCuotaExtraordinaria(getLote(cliente))?.cuotaPendientePago ?? '-' }}</div>
-              <div v-else>
-                <input v-if="getCuotaExtraordinaria(getLote(cliente))" v-model="getCuotaExtraordinaria(getLote(cliente)).cuotaPendientePago" />
-                <span v-else>-</span>
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.diaPagoNumero ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.diaPagoNumero" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.cartaNoAdeudo ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.cartaNoAdeudo" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.certificadolote ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.certificadolote" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.mediospago ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.mediospago" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.planos1 ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.planos1" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.planos2 ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.planos2" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.envioMinuta ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.envioMinuta" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.correoElectronico ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.correoElectronico" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.celularCliente ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.celularCliente" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.fechaCita ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.fechaCita" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.horaCita ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.horaCita" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.atencionIntranet ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.atencionIntranet" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.modificacionMinuta ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.modificacionMinuta" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.minutaEscaneada ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.minutaEscaneada" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.expedienteNotaria ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.expedienteNotaria" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.llenoInformacion ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.llenoInformacion" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.personaSacoCita ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.personaSacoCita" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.personaAtiende ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.personaAtiende" />
-              </div>
-            </td>
-
-            <td>
-              <div v-if="!cliente.editando">{{ cliente.firmo ?? '-' }}</div>
-              <div v-else>
-                <input v-model="cliente.firmo" />
-              </div>
-            </td>
+          <tr v-for="(cliente,index) in clientes" :key="cliente.idCliente">
+
+            <CeldaEditable
+                v-for="col in columnasClientes"
+                :key="col.key"
+                :cliente="cliente"
+                :columna="col"
+                :tiposContrato="tiposContrato"
+            />
 
             <td>
               <select
@@ -719,6 +60,9 @@ import * as XLSX from "xlsx";
 import {operarios} from "@/data/operarios.js";
 import {tiposContrato} from "@/data/tiposContrato.js";
 import {onMounted, reactive, ref} from "vue";
+import {columnasClientes} from "@/data/columnasClientes.js";
+import CeldaEditable from "@/components/tablas/CeldaEditable.vue";
+import {getLote} from "@/data/funcionesGetTablaClientes.js";
 
 
 const clientes = ref([]);
@@ -755,6 +99,8 @@ const obtenerDatosCombinados = async () => {
         }
     );
 
+    console.log("Respuesta del backend:", response.data);
+
     clientes.value = response.data.map((cliente) => {
       selectedTemporal[cliente.idCliente] = cliente.operario || "";
 
@@ -765,40 +111,13 @@ const obtenerDatosCombinados = async () => {
       };
     });
 
+
   } catch (error) {
     console.error("Error al obtener datos combinados:", error);
     alert("Error al obtener datos de clientes y lotes.");
   }
 };
 
-// Método para obtener el primer lote o un objeto vacío si no existe
-const getLote = (cliente) => {
-  return Array.isArray(cliente.lotes) ? cliente.lotes[0] || {} : {};
-};
-
-// Método para obtener el primer elemento de la matriz o un objeto vacío
-const getMatriz = (lote) =>{
-  return Array.isArray(lote.matriz) ? lote.matriz[0] || {} : {};
-};
-// Método para obtener el primer lindero o un objeto vacío
-const getLindero = (lote) => {
-  return lote && lote.lindero ? lote.lindero : null;
-};
-
-const getCuotaExtraordinaria = (lote) => {
-  return Array.isArray(lote.cuotasExtraordinarias) && lote.cuotasExtraordinarias.length > 0
-      ? lote.cuotasExtraordinarias[0]
-      : null;
-};
-
-// Método para obtener el cónyuge o un objeto vacío si no existe
-const getConyuge =(cliente) =>  {
-  return cliente && cliente.conyuge ? cliente.conyuge : {};
-};
-
-const getCopropietario = (cliente) => {
-  return Array.isArray(cliente.copropietarios) ? cliente.copropietarios[0] || {} : {};
-};
 
 
 const activarEdicion = (cliente) => {
@@ -811,11 +130,29 @@ const activarEdicion = (cliente) => {
   }
 };
 
-const guardarEdicion = (cliente) => {
+
+const guardarEdicion = async (cliente) => {
   if (cliente) {
     cliente.editando = false;
+
+    const clienteConLotes = {
+      cliente: cliente,
+      lotes: cliente.lotes || []
+    };
+
+    console.log("Enviando al backend:", clienteConLotes);
+
+    try {
+      const response = await axios.put("https://backendcramirez.onrender.com/api/clientes/editar", clienteConLotes);
+      console.log("Cliente actualizado:", response.data);
+    } catch (error) {
+      console.error("Error al actualizar el cliente:", error);
+      alert("Hubo un error al guardar los cambios.");
+    }
   }
 };
+
+
 
 
 const formatearFecha = (event, tipo) => {
@@ -828,8 +165,6 @@ const formatearFecha = (event, tipo) => {
 
   event.target.value = input;
 
-  // Aquí podrías usar una variable `ref()` si necesitas guardar la fecha
-  // pero actualmente no se guarda en ningún lado
 };
 
 

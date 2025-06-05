@@ -29,6 +29,7 @@
         v-model="form.numIdentificacionUsuario"
         type="text"
         required
+        maxlength="8"
         @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"
     />
 

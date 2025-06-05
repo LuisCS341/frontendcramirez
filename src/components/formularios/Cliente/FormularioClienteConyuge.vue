@@ -29,6 +29,7 @@
         v-model="form.conyuge.numIdentificacionClienteConyuge"
         type="text"
         required
+        maxlength="8"
         placeholder="Ingrese su Número de Identificación"
         @input="form.conyuge.numIdentificacionClienteConyuge = form.conyuge.numIdentificacionClienteConyuge.replace(/[^0-9]/g, '')"
     />

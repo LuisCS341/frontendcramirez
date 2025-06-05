@@ -577,7 +577,7 @@ watch(() => form.value.conyuge.numIdentificacionClienteConyuge, async (documento
 
   timeoutIdConyuge = setTimeout(async () => {
     try {
-      const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
+      const response = await fetch(`http://localhost:8080/api/buscarCliente/${documento}`);
 
       if (!response.ok) throw new Error('Cliente no encontrado');
 
@@ -598,12 +598,12 @@ watch(() => form.value.copropietarios, (copropietarios) => {
   timeoutIdCopropietarios = setTimeout(async () => {
     for (let i = 0; i < copropietarios.length; i++) {
       const copropietario = copropietarios[i];
-      const documento = copropietario.numIdentificacionCopropietarios;
+      const documento = copropietario.numeroIdentificacionCopropietarios;
       const longitudEsperada = 8;
 
       if (documento && documento.length === longitudEsperada) {
         try {
-          const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
+          const response = await fetch(`http://localhost:8080/api/buscarCliente/${documento}`);
           if (!response.ok) throw new Error('Cliente no encontrado');
           const data = await response.json();
           copropietario.nombreCopropietarios = data.nombreCompleto || '';
@@ -613,13 +613,12 @@ watch(() => form.value.copropietarios, (copropietarios) => {
         }
       }
 
-      // Ahora el cónyuge de copropietario
       const conyuge = copropietario.conyuge;
-      const docConyuge = conyuge?.numIdentificacionCopropietariosConyuge;
+      const docConyuge = conyuge?.numeroIdentificacionCopropietariosConyuge;
 
       if (docConyuge && docConyuge.length === longitudEsperada) {
         try {
-          const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${docConyuge}`);
+          const response = await fetch(`http://localhost:8080/api/buscarCliente/${docConyuge}`);
           if (!response.ok) throw new Error('Cliente no encontrado');
           const data = await response.json();
           conyuge.nombreCopropietariosConyuge = data.nombreCompleto || '';
