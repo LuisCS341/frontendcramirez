@@ -72,90 +72,68 @@ export default {
 </script>
 
 <style scoped>
-/* Contenedor general para rol 3 */
-.graficos-container,
-.graficos-container-operador {
+.graficos-container {
   display: grid;
-  grid-template-columns: 1fr;
   width: 100%;
-  max-width: 1400px;
-  margin: 50px auto 0 auto;
+  max-width: 1400px; /* máximo en pantallas grandes */
+  height: auto;
+  margin: 50px auto 0 auto; /* centra horizontalmente */
+  background-color: #dcdcdc;
   padding: 20px;
   box-sizing: border-box;
-  background-color: #dcdcdc;
-  gap: 20px;
 }
 
-/* Sección para operador (rol 3) con barra lateral (evita usar margin-left fijo) */
 .graficos-container-operador {
-  overflow-x: hidden;
-  z-index: 10;
+  display: grid;
+  gap: 5px;
+  width: 90vw;
+  max-width: 1400px;
+  margin: 50px auto 0 auto;
+  margin-left: 250px;
+  padding: 10px;
+  box-sizing: border-box;
   position: relative;
+  z-index: 10;
+  overflow-y: auto;
+  background-color: #dcdcdc;
 }
-
-/* Tarjetas pequeñas (4 por fila en pantallas grandes) */
-.graficos-fila {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
-  padding: 10px;
+@media (max-width: 768px) {
+  .graficos-container {
+    padding: 10px;
+    grid-template-columns: 1fr; /* si tienes varios gráficos */
+  }
 }
-
-/* Gráficos grandes (2 por fila en pantallas grandes) */
-.graficos-fila-grandes,
-.graficos-fila-grandes-administrador {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 10px;
-  margin-top: 50px;
-}
-
-/* Tarjeta individual */
 .grafico-item {
   background-color: white;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
   height: 370px;
   width: 100%;
   max-width: 500px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-/* Responsividad para tablets */
-@media (max-width: 768px) {
-  .graficos-container,
-  .graficos-container-operador {
-    padding: 10px;
-  }
 
-  .graficos-fila,
-  .graficos-fila-grandes,
-  .graficos-fila-grandes-administrador {
-    grid-template-columns: 1fr; /* una sola columna en móviles/tablets */
-    margin-top: 30px;
-  }
-
-  .grafico-item {
-    height: auto;
-    max-width: 100%;
-  }
+.graficos-fila {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  row-gap: 1px;
+  padding: 10px;
+}
+.graficos-fila-grandes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 75px;
 }
 
-/* Responsividad para móviles pequeños */
-@media (max-width: 480px) {
-  .graficos-container,
-  .graficos-container-operador {
-    padding: 5px;
-  }
-
-  .grafico-item {
-    padding: 5px;
-  }
+.graficos-fila-grandes-administrador {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 150px;
 }
+
 </style>
-
