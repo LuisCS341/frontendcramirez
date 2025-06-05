@@ -85,7 +85,7 @@ export default {
 
 .graficos-container-operador {
   display: grid;
-  gap: 5px;
+  gap: 6px;
   width: 90vw;
   max-width: 1400px;
   margin: 50px auto 0 auto;
