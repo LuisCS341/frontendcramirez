@@ -1,0 +1,32 @@
+export const proyectos = [
+    {id: 1, nombre: 'SAN ANDRÉS'},
+    {id: 2, nombre: 'LA CALERA'},
+    {id:3, nombre: 'PLANICIE DE HUARAL 1'},
+    {id:4, nombre: 'CIUDAD DIAGONAL'},
+    {id:5, nombre: 'PRAGA VILLAGE'},
+    {id: 6,nombre: 'LAGOON VILLAGE'},
+    {id: 7,nombre: 'LA RESERVA DE HUARAL'},
+    {id: 8,nombre: 'LACHAY VIEW'},
+    {id:9, nombre: 'GREEN VIEW'},
+    {id: 10,nombre: 'LUGO'},
+    {id: 11,nombre: 'ORENSE'},
+    {id: 12,nombre: 'URBAN RESIDENCIAL'},
+    {id: 13, nombre: 'VILLA PORTON'},
+    {id:14, nombre: 'LAGOON CENTER'},
+    {id: 15, nombre: 'JUMEIRAH LAKE'},
+    {id: 16, nombre: 'LAGOON VIEW'},
+    {id: 17, nombre: 'EL CABO'},
+    {id: 18, nombre: 'EL POBLADO'},
+    {id: 19, nombre: 'VIÑA DEL MAR'},
+    {id: 20, nombre: 'GROCIO PRADO'},
+    {id: 21, nombre: 'CAMTABRIA LAGOONS'},
+    {id: 22, nombre: 'MARIADRAGO'},
+    {id: 23, nombre: 'FINCA MONTECARLO'},
+    {id: 24, nombre: 'FORESTA'},
+    {id: 25, nombre: 'PONTEVEDRA'},
+    {id: 26, nombre: 'EL OLIVAR'},
+    {id: 27, nombre: 'PRADERAS DE HUARAL'},
+    {id: 28, nombre: 'RINCONADA DEL LAGO'}
+];
+
+export const proyectosT3Ids = [18, 7, 21, 5, 3, 27, 26]; // ✅ Correcto
