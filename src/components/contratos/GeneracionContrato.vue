@@ -3,8 +3,6 @@
     <div class="secundary-container">
       <div class="items">
         <input class="buscador" type="text" v-model="busquedaGlobal" placeholder="Buscar cliente..."/>
-
-        <button @click="exportarClientesXLSX" class="btn-accion btn-exportar">Exportar Clientes</button>
       </div>
 
       <div class="table-container">
@@ -190,17 +188,9 @@ export default {
       ubicaciones: [],
       busquedaGlobal: "",
       filtros: {
+        idCliente: "",
         nombresApellidos: "",
-        direccion: "",
-        correoElectronico: "",
-        celularCliente: "",
-        documentoIdentificacion: "",
-        numeroIdentificacion: "",
-        estadoCivil: "",
-        ocupacion: "",
-        residencia: "",
-        prefijoPais: "",
-        idTipoContrato: "",
+        numeroIdentificacion: ""
       },
     };
   },
@@ -253,9 +243,6 @@ export default {
       return Array.isArray(cliente.copropietarios) ? cliente.copropietarios[0] || {} : {};
     },
 
-    editarCliente(idCliente) {
-      this.$router.push({ name: "EditarCliente", params: { id: idCliente } });
-    },
 
     descargarWordPorTipo(cliente) {
       const lote = this.getLote(cliente);
@@ -391,43 +378,242 @@ export default {
       }
     },
 
-
-    descargarWordT2(cliente, lote) {
+    async descargarWordT2(cliente, lote) {
       try {
-        console.log("Descargando Word T2 para:", cliente.cliente.nombresApellidos, lote);
+        const response = await axios.get("/plantillas/plantilla_T2.docx", {
+          responseType: "arraybuffer",
+        });
 
-        // Aquí deberías cargar y procesar tu plantilla (igual que lo haces en T1)
-        const out = this.descargarArchivo("plantilla_T2.docx");
+        const zip = new PizZip(response.data);
+        const doc = new Docxtemplater(zip, {
+          paragraphLoop: true,
+          linebreaks: true,
+        });
 
-        // Guardar con nombre personalizado
+        const fecha = new Date();
+        const dia = fecha.getDate().toString().padStart(2, '0');
+        const mes = fecha.toLocaleString('es-ES', { month: 'long' }).toUpperCase();
+        const anio = fecha.getFullYear();
+
+        const diaTexto = numeroATexto(fecha.getDate()).toUpperCase();
+        const anioTexto = numeroATexto(anio).toUpperCase();
+
+        const datos = {
+          idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
+          documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
+          numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
+          correoElectronico: cliente.cliente.correoElectronico ?? '-' ,
+          nombresApellidos: (cliente.cliente.nombresApellidos ?? '-').replace(/\s+/g, ' ') .replace(/\r?\n|\r/g, ' ') .toUpperCase().trim(),
+          nacionalidad: (cliente.cliente.nacionalidad ?? '-').toUpperCase(),
+          estadoCivil: (cliente.cliente.estadoCivil ?? '-').toUpperCase(),
+          direccion: (cliente.cliente.direccion ?? '-').toUpperCase(),
+          ocupacion: (cliente.cliente.ocupacion ?? '-').toUpperCase(),
+          distrito: (cliente.cliente.distrito ?? '-').toUpperCase(),
+          provincia: (cliente.cliente.provincia ?? '-').toUpperCase(),
+          departamento: (cliente.cliente.departamento ?? '-').toUpperCase(),
+          idLote: this.getLote(cliente)?.idLote ?? '-',
+          contrato: (this.getLote(cliente)?.contrato ?? '-').toUpperCase(),
+          tipoProyecto: (this.getLote(cliente).tipoProyecto ?? '-').toUpperCase(),
+          manzana: (this.getLote(cliente)?.manzana ?? '-').toUpperCase(),
+          representanteLegal: (this.getLote(cliente).representanteLegalVendedor ?? '-').toUpperCase(),
+          empresaVende: (this.getLote(cliente).empresaVende ?? '-').toUpperCase(),
+          rucVendedor: this.getLote(cliente).rucVendedor ?? '-',
+          numCuenta: this.getLote(cliente).numCuenta ?? '-',
+          cci: this.getLote(cliente).cci ?? '-',
+          mantenimientoMensual: this.getLote(cliente).mantenimientoMensual ?? '-',
+          mantenimientoMensualLetras: (this.getLote(cliente).mantenimientoMensualLetras ?? '-').toUpperCase(),
+          cantidadCuotas: this.getLote(cliente).cantidadCuotas ?? '-',
+          montoCuotas: this.getLote(cliente).montoCuotas ?? '-',
+          pagoInicial: this.getLote(cliente).pagoInicial ?? '-',
+          dniVendedor: this.getLote(cliente).dniVendedor ?? '-',
+          fechaSale: this.getLote(cliente).fechaSale ?? '-',
+          costoLote: this.getLote(cliente).costoLote ?? '-',
+          montoLetras: (this.getLote(cliente).montoLetras ?? '-' ).toUpperCase() ,
+          areaLote: this.getLote(cliente)?.areaLote ?? '-',
+          areaLoteLetras: (this.getLote(cliente)?.areaLoteLetras ?? '-' ).toUpperCase() ,
+          provinciaMatriz: (this.getLote(cliente)?.provinciaMatriz ?? '-' ).toUpperCase() ,
+          numeroPartidaPoderVendedor: this.getLote(cliente).numeroPartidaPoderVendedor ?? '-',
+          direccionVendedor: (this.getLote(cliente).direccionVendedor ?? '-').toUpperCase(),
+          alicuota: this.getMatriz(this.getLote(cliente))?.alicuota ?? '-',
+          alicuotaLetras: (this.getMatriz(this.getLote(cliente))?.alicuotaLetras ?? '-').toUpperCase(),
+          unidadCatastral: (this.getMatriz(this.getLote(cliente))?.unidadCatastral ?? '-' ).toUpperCase(),
+          urbanizacionMatriz: (this.getMatriz(this.getLote(cliente))?.urbanizacionMatriz ?? '-' ).toUpperCase(),
+          provinciamatriz: (this.getMatriz(this.getLote(cliente))?.provincia ?? '-' ).toUpperCase(),
+          distritoMatriz: (this.getMatriz(this.getLote(cliente))?.distrito ?? '-' ).toUpperCase(),
+          departamentoMatriz: (this.getMatriz(this.getLote(cliente))?.departamento ?? '-' ).toUpperCase(),
+          areaMatrizHas:this.getMatriz(this.getLote(cliente))?.areaMatrizHas ?? '-' ,
+          partidaMatriz:this.getMatriz(this.getLote(cliente))?.partidaMatriz ?? '-' ,
+          compraventaMatriz:(this.getMatriz(this.getLote(cliente))?.compraventaMatriz ?? '-').toUpperCase() ,
+          situacionLegal:(this.getMatriz(this.getLote(cliente))?.situacionLegal ?? '-' ).toUpperCase() ,
+          ubicacion: (this.getMatriz(this.getLote(cliente))?.ubicacion ?? '-').toUpperCase(),
+          fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
+          idClienteConyuge: this.getConyuge(cliente.cliente).idClienteConyuge ?? '-' ,
+          nombresApellidosConyuge: (this.getConyuge(cliente.cliente).nombresApellidosConyuge ?? '-').toUpperCase() ,
+          documentoIdentificacionConyuge: (this.getConyuge(cliente.cliente).documentoIdentificacionConyuge ?? '-').toUpperCase() ,
+          numeroIdentificacionConyuge: this.getConyuge(cliente.cliente).numeroIdentificacionConyuge ?? '-' ,
+          ocupacionConyuge: (this.getConyuge(cliente.cliente).ocupacionConyuge ?? '-').toUpperCase() ,
+          direccionConyuge: (this.getConyuge(cliente.cliente).direccionConyuge ?? '-').toUpperCase() ,
+          distritoConyuge: (this.getConyuge(cliente.cliente).distritoConyuge ?? '-' ).toUpperCase(),
+          provinciaConyuge: (this.getConyuge(cliente.cliente).provinciaConyuge ?? '-' ).toUpperCase(),
+          departamentoConyuge: (this.getConyuge(cliente.cliente).departamentoConyuge ?? '-').toUpperCase() ,
+          idClienteCopropietarios: this.getCopropietario(cliente.cliente).idClienteCopropietarios ?? '-' ,
+          nombresApellidosCopropietarios: (this.getCopropietario(cliente.cliente).nombresApellidosCopropietarios ?? '-').toUpperCase() ,
+          numeroIdentificacionCopropietarios: (this.getCopropietario(cliente.cliente).numeroIdentificacionCopropietarios ?? '-').toUpperCase() ,
+          ocupacionCopropietarios: (this.getCopropietario(cliente.cliente).ocupacionCopropietarios ?? '-').toUpperCase() ,
+          documentoIdentificacionCopropietarios: (this.getCopropietario(cliente.cliente).documentoIdentificacionCopropietarios ?? '-').toUpperCase() ,
+          direccionCopropietarios: (this.getCopropietario(cliente.cliente).direccionCopropietarios ?? '-').toUpperCase() ,
+          distritoCopropietarios: (this.getCopropietario(cliente.cliente).distritoCopropietarios ?? '-').toUpperCase() ,
+          provinciaCopropietarios: (this.getCopropietario(cliente.cliente).provinciaCopropietarios ?? '-').toUpperCase() ,
+          departamentoCopropietarios: (this.getCopropietario(cliente.cliente).departamentoCopropietarios ?? '-').toUpperCase() ,
+          estadoCivilCopropietarios: (this.getCopropietario(cliente.cliente).estadoCivilCopropietarios ?? '-').toUpperCase() ,
+          porElFrente: this.getLindero(this.getLote(cliente))?.porElFrente ?? '-' ,
+          porLaDerecha: this.getLindero(this.getLote(cliente))?.porLaDerecha ?? '-' ,
+          porLaIzquierda: this.getLindero(this.getLote(cliente))?.porLaIzquierda ?? '-' ,
+          porElFondo: this.getLindero(this.getLote(cliente))?.porElFondo ?? '-' ,
+          cantidadCuotaExtraordinaria: this.getCuotaExtraordinaria(this.getLote(cliente))?.cantidadCuotaExtraordinaria ?? '-' ,
+          montoCuotaExtraordinaria: this.getCuotaExtraordinaria(this.getLote(cliente))?.montoCuotaExtraordinaria ?? '-' ,
+        };
+
+        doc.setData(datos);
+
+        try {
+          doc.render();
+        } catch (error) {
+          console.error("Error al renderizar el documento:", error);
+          alert("Error al generar el documento Word");
+          return;
+        }
+
+        const out = doc.getZip().generate({
+          type: "blob",
+          mimeType:
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        });
+
         saveAs(out, `Contrato_T2_${cliente.cliente.nombresApellidos}.docx`);
       } catch (error) {
-        console.error("Error al descargar plantilla T2:", error);
-        alert("No se pudo descargar o procesar la plantilla T2");
+        console.error("Error al descargar plantilla:", error);
+        alert("No se pudo descargar o procesar la plantilla");
       }
     },
 
-    descargarWordT3(cliente, lote) {
+    async descargarWordT3(cliente, lote) {
       try {
-        console.log("Descargando Word T3 para:", cliente.cliente.nombresApellidos, lote);
+        const response = await axios.get("/plantillas/plantilla_T3.docx", {
+          responseType: "arraybuffer",
+        });
 
-        // Aquí deberías cargar y procesar tu plantilla (igual que lo haces en T1)
-        const out = this.descargarArchivo("plantilla_T3.docx");
+        const zip = new PizZip(response.data);
+        const doc = new Docxtemplater(zip, {
+          paragraphLoop: true,
+          linebreaks: true,
+        });
 
-        // Guardar con nombre personalizado
+        const fecha = new Date();
+        const dia = fecha.getDate().toString().padStart(2, '0');
+        const mes = fecha.toLocaleString('es-ES', { month: 'long' }).toUpperCase();
+        const anio = fecha.getFullYear();
+
+        const diaTexto = numeroATexto(fecha.getDate()).toUpperCase();
+        const anioTexto = numeroATexto(anio).toUpperCase();
+
+        const datos = {
+          idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
+          documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
+          numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
+          correoElectronico: cliente.cliente.correoElectronico ?? '-' ,
+          nombresApellidos: (cliente.cliente.nombresApellidos ?? '-').replace(/\s+/g, ' ') .replace(/\r?\n|\r/g, ' ') .toUpperCase().trim(),
+          nacionalidad: (cliente.cliente.nacionalidad ?? '-').toUpperCase(),
+          estadoCivil: (cliente.cliente.estadoCivil ?? '-').toUpperCase(),
+          direccion: (cliente.cliente.direccion ?? '-').toUpperCase(),
+          ocupacion: (cliente.cliente.ocupacion ?? '-').toUpperCase(),
+          distrito: (cliente.cliente.distrito ?? '-').toUpperCase(),
+          provincia: (cliente.cliente.provincia ?? '-').toUpperCase(),
+          departamento: (cliente.cliente.departamento ?? '-').toUpperCase(),
+          idLote: this.getLote(cliente)?.idLote ?? '-',
+          contrato: (this.getLote(cliente)?.contrato ?? '-').toUpperCase(),
+          tipoProyecto: (this.getLote(cliente).tipoProyecto ?? '-').toUpperCase(),
+          manzana: (this.getLote(cliente)?.manzana ?? '-').toUpperCase(),
+          representanteLegal: (this.getLote(cliente).representanteLegalVendedor ?? '-').toUpperCase(),
+          empresaVende: (this.getLote(cliente).empresaVende ?? '-').toUpperCase(),
+          rucVendedor: this.getLote(cliente).rucVendedor ?? '-',
+          numCuenta: this.getLote(cliente).numCuenta ?? '-',
+          cci: this.getLote(cliente).cci ?? '-',
+          mantenimientoMensual: this.getLote(cliente).mantenimientoMensual ?? '-',
+          mantenimientoMensualLetras: (this.getLote(cliente).mantenimientoMensualLetras ?? '-').toUpperCase(),
+          cantidadCuotas: this.getLote(cliente).cantidadCuotas ?? '-',
+          montoCuotas: this.getLote(cliente).montoCuotas ?? '-',
+          pagoInicial: this.getLote(cliente).pagoInicial ?? '-',
+          dniVendedor: this.getLote(cliente).dniVendedor ?? '-',
+          fechaSale: this.getLote(cliente).fechaSale ?? '-',
+          costoLote: this.getLote(cliente).costoLote ?? '-',
+          montoLetras: (this.getLote(cliente).montoLetras ?? '-' ).toUpperCase() ,
+          areaLote: this.getLote(cliente)?.areaLote ?? '-',
+          areaLoteLetras: (this.getLote(cliente)?.areaLoteLetras ?? '-' ).toUpperCase() ,
+          provinciaMatriz: (this.getLote(cliente)?.provinciaMatriz ?? '-' ).toUpperCase() ,
+          numeroPartidaPoderVendedor: this.getLote(cliente).numeroPartidaPoderVendedor ?? '-',
+          direccionVendedor: (this.getLote(cliente).direccionVendedor ?? '-').toUpperCase(),
+          alicuota: this.getMatriz(this.getLote(cliente))?.alicuota ?? '-',
+          alicuotaLetras: (this.getMatriz(this.getLote(cliente))?.alicuotaLetras ?? '-').toUpperCase(),
+          unidadCatastral: (this.getMatriz(this.getLote(cliente))?.unidadCatastral ?? '-' ).toUpperCase(),
+          urbanizacionMatriz: (this.getMatriz(this.getLote(cliente))?.urbanizacionMatriz ?? '-' ).toUpperCase(),
+          provinciamatriz: (this.getMatriz(this.getLote(cliente))?.provincia ?? '-' ).toUpperCase(),
+          distritoMatriz: (this.getMatriz(this.getLote(cliente))?.distrito ?? '-' ).toUpperCase(),
+          departamentoMatriz: (this.getMatriz(this.getLote(cliente))?.departamento ?? '-' ).toUpperCase(),
+          areaMatrizHas:this.getMatriz(this.getLote(cliente))?.areaMatrizHas ?? '-' ,
+          partidaMatriz:this.getMatriz(this.getLote(cliente))?.partidaMatriz ?? '-' ,
+          compraventaMatriz:(this.getMatriz(this.getLote(cliente))?.compraventaMatriz ?? '-').toUpperCase() ,
+          situacionLegal:(this.getMatriz(this.getLote(cliente))?.situacionLegal ?? '-' ).toUpperCase() ,
+          ubicacion: (this.getMatriz(this.getLote(cliente))?.ubicacion ?? '-').toUpperCase(),
+          fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
+          idClienteConyuge: this.getConyuge(cliente.cliente).idClienteConyuge ?? '-' ,
+          nombresApellidosConyuge: (this.getConyuge(cliente.cliente).nombresApellidosConyuge ?? '-').toUpperCase() ,
+          documentoIdentificacionConyuge: (this.getConyuge(cliente.cliente).documentoIdentificacionConyuge ?? '-').toUpperCase() ,
+          numeroIdentificacionConyuge: this.getConyuge(cliente.cliente).numeroIdentificacionConyuge ?? '-' ,
+          ocupacionConyuge: (this.getConyuge(cliente.cliente).ocupacionConyuge ?? '-').toUpperCase() ,
+          direccionConyuge: (this.getConyuge(cliente.cliente).direccionConyuge ?? '-').toUpperCase() ,
+          distritoConyuge: (this.getConyuge(cliente.cliente).distritoConyuge ?? '-' ).toUpperCase(),
+          provinciaConyuge: (this.getConyuge(cliente.cliente).provinciaConyuge ?? '-' ).toUpperCase(),
+          departamentoConyuge: (this.getConyuge(cliente.cliente).departamentoConyuge ?? '-').toUpperCase() ,
+          idClienteCopropietarios: this.getCopropietario(cliente.cliente).idClienteCopropietarios ?? '-' ,
+          nombresApellidosCopropietarios: (this.getCopropietario(cliente.cliente).nombresApellidosCopropietarios ?? '-').toUpperCase() ,
+          numeroIdentificacionCopropietarios: (this.getCopropietario(cliente.cliente).numeroIdentificacionCopropietarios ?? '-').toUpperCase() ,
+          ocupacionCopropietarios: (this.getCopropietario(cliente.cliente).ocupacionCopropietarios ?? '-').toUpperCase() ,
+          documentoIdentificacionCopropietarios: (this.getCopropietario(cliente.cliente).documentoIdentificacionCopropietarios ?? '-').toUpperCase() ,
+          direccionCopropietarios: (this.getCopropietario(cliente.cliente).direccionCopropietarios ?? '-').toUpperCase() ,
+          distritoCopropietarios: (this.getCopropietario(cliente.cliente).distritoCopropietarios ?? '-').toUpperCase() ,
+          provinciaCopropietarios: (this.getCopropietario(cliente.cliente).provinciaCopropietarios ?? '-').toUpperCase() ,
+          departamentoCopropietarios: (this.getCopropietario(cliente.cliente).departamentoCopropietarios ?? '-').toUpperCase() ,
+          estadoCivilCopropietarios: (this.getCopropietario(cliente.cliente).estadoCivilCopropietarios ?? '-').toUpperCase() ,
+          porElFrente: this.getLindero(this.getLote(cliente))?.porElFrente ?? '-' ,
+          porLaDerecha: this.getLindero(this.getLote(cliente))?.porLaDerecha ?? '-' ,
+          porLaIzquierda: this.getLindero(this.getLote(cliente))?.porLaIzquierda ?? '-' ,
+          porElFondo: this.getLindero(this.getLote(cliente))?.porElFondo ?? '-' ,
+          cantidadCuotaExtraordinaria: this.getCuotaExtraordinaria(this.getLote(cliente))?.cantidadCuotaExtraordinaria ?? '-' ,
+          montoCuotaExtraordinaria: this.getCuotaExtraordinaria(this.getLote(cliente))?.montoCuotaExtraordinaria ?? '-' ,
+        };
+
+        doc.setData(datos);
+
+        try {
+          doc.render();
+        } catch (error) {
+          console.error("Error al renderizar el documento:", error);
+          alert("Error al generar el documento Word");
+          return;
+        }
+
+        const out = doc.getZip().generate({
+          type: "blob",
+          mimeType:
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        });
+
         saveAs(out, `Contrato_T3_${cliente.cliente.nombresApellidos}.docx`);
       } catch (error) {
-        console.error("Error al descargar plantilla T3:", error);
-        alert("No se pudo descargar o procesar la plantilla T3");
+        console.error("Error al descargar plantilla:", error);
+        alert("No se pudo descargar o procesar la plantilla");
       }
-    },
-
-    descargarArchivo(nombreArchivo) {
-      // Función simple para descargar archivo estático desde public o url
-      const link = document.createElement("a");
-      link.href = `/plantillas/${nombreArchivo}`; // Debes tener los archivos en /public/plantillas/
-      link.download = nombreArchivo;
-      link.click();
     },
 
   },
