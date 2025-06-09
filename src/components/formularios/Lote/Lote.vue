@@ -321,16 +321,10 @@
     <input
         v-model="lote.montoCuotaLetras"
         type="text"
-<<<<<<< HEAD
         required
         readonly
 
-=======
-    readonly
->>>>>>> 4c5dfb8722c5af270ce5f5ace717a6c6b7e05c52
     />
-
-
 
     <div>
       <label><strong>¿Tiene cuota extraordinaria?</strong></label>
