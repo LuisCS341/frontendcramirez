@@ -138,11 +138,11 @@ export default {
 
         if (tipoDocumento === "DNI") {
           // Si es peruano, consulta Reniec
-          fetch(`http://localhost:8080/api/buscarCliente/${documento}`)
+          fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`)
               .then((response) => response.json())
               .then((data) => {
                 if (data && data.nombres) {
-                  fetch(`http://localhost:8080/api/clientes/existe?numeroIdentificacion=${documento}`)
+                  fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
                       .then((response) => response.json())
                       .then((existe) => {
                         this.cliente = {
@@ -164,7 +164,7 @@ export default {
                         }
                         if (existe) {
 
-                          fetch(`http://localhost:8080/api/clientes/buscar?numeroIdentificacion=${documento}`)
+                          fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`)
                               .then((response) => response.json())
                               .then((clienteBD) => {
                                 this.form.ocupacionCliente = clienteBD.ocupacion || '';
@@ -210,7 +210,7 @@ export default {
               });
         } else {
 
-          fetch(`http://localhost:8080/api/clientes/existe?numeroIdentificacion=${documento}`)
+          fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
               .then((response) => response.json())
               .then((existe) => {
                 this.estadoCliente = existe
@@ -223,7 +223,7 @@ export default {
                 this.cliente = {};
 
                 if (existe) {
-                  fetch(`http://localhost:8080/api/clientes/buscar?numeroIdentificacion=${documento}`)
+                  fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`)
                       .then((response) => response.json())
                       .then((clienteBD) => {
                         this.form.nombreCliente = clienteBD.nombresApellidos || '';
