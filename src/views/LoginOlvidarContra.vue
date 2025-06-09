@@ -54,7 +54,7 @@ const sendVerificationCode = async () => {
 
   try {
     const response = await axios.post(
-        "http://localhost:8080/api/authEmail/send-code",
+        "https://backendcramirez.onrender.com/api/authEmail/send-code",
         new URLSearchParams({ usuario: username.value, email: email.value }),
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -81,7 +81,7 @@ const resetPassword = async () => {
 
   try {
     const response = await axios.post(
-        "http://localhost:8080/api/authEmail/reset-password",
+        "https://backendcramirez.onrender.com/api/authEmail/reset-password",
         new URLSearchParams({
           usuario: username.value,
           email: email.value,
