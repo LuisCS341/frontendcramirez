@@ -356,7 +356,7 @@ export function numeroATexto(num) {
         return mil + (resto !== 0 ? " " + numeroATexto(resto) : "");
     }
 
-    return num.toString(); // Para números mayores a 9999, si lo necesitas
+    return num.toString();
 }
 
 export function numeroALetras(numero) {

@@ -1,6 +1,6 @@
 <template>
   <td>
-    <template v-if="columna.editable && cliente.editando && campoEditable">
+    <template v-if="cliente.editando && campoEditable">
       <select v-if="columna.tipo === 'select'" v-model="modelo">
         <option disabled value="">Seleccione una opción</option>
         <option v-for="opt in tiposContrato" :key="opt.id" :value="opt.id">

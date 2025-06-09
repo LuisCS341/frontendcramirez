@@ -8,6 +8,7 @@
       <input
           type="number"
           v-model="lote.cuotaextraordinaria.cantidadCuotaExtraordinaria"
+          placeholder="Ingrese Cantidad de Cuota Extraordinaria"
           required
 
       />
@@ -26,15 +27,15 @@
     <label>Mantenimiento Mensual:</label>
     <input
         type="text"
-        v-model="lote.mantenimientoMensual"
+        v-model="lote.cuotaextraordinaria.mantenimientoMensual"
         required
         placeholder="Ingrese su Estado de Cuenta"
-        @input="lote.mantenimientoMensualLetras=numeroLetrasConNumerosDolares(lote.mantenimientoMensual);"
+        @input="lote.cuotaextraordinaria.mantenimientoMensualLetras=numeroLetrasConNumerosDolares(lote.cuotaextraordinaria.mantenimientoMensual);"
     />
 
     <label>Mantenimiento Mensual en Letras:</label>
     <input
-        v-model="lote.mantenimientoMensualLetras"
+        v-model="lote.cuotaextraordinaria.mantenimientoMensualLetras"
         type="text"
         readonly
     />
@@ -66,6 +67,7 @@
       <input
           type="number"
           v-model="lote.cuotaextraordinaria.cuotaPendientePago"
+          placeholder="Ingrese Cuotas Pendientes de Pago"
           required
       />
     </div>
@@ -77,6 +79,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.letrasPendientePago"
+          placeholder="Ingrese Letras Pendiente de Pago"
           required
       />
     </div>
@@ -87,6 +90,9 @@
           type="text"
           v-model="lote.cuotaextraordinaria.fechaEntrega"
           required
+          @input="formatearFecha($event, 'inicio')"
+          placeholder="dd/mm/aaaa"
+          maxlength="10"
       />
     </div>
 
@@ -95,6 +101,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.cartaNoAdeudo"
+          placeholder="Ingrese arta de No Adeudo"
           required
       />
     </div>
@@ -105,6 +112,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.certificadoLote"
+          placeholder="Ingrese Certificado de Lote"
           required
       />
     </div>
@@ -114,6 +122,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.mediosPago"
+          placeholder="Ingrese  Medios de Pago"
           required
       />
     </div>
@@ -123,6 +132,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.plano1"
+          placeholder="Ingrese Planos 1"
           required
       />
     </div>
@@ -132,6 +142,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.plano2"
+          placeholder="Ingrese Planos 2"
           required
       />
     </div>
@@ -142,6 +153,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.envioMinuta"
+          placeholder="Ingrese Envio de Minuta"
           required
       />
     </div>
@@ -151,6 +163,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.fechaCita"
+          placeholder="Ingrese Fecha de Cita"
           required
       />
     </div>
@@ -159,6 +172,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.horaCita"
+          placeholder="Ingrese Hora de Cita"
           required
       />
     </div>
@@ -167,6 +181,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.modificarMinuta"
+          placeholder="Ingrese Modif. Minuta"
           required
       />
     </div>
@@ -175,6 +190,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.minutaEscaneada"
+          placeholder="Ingrese Minuta Escaneada"
           required
       />
     </div>
@@ -184,6 +200,7 @@
       <input
           type="text"
           v-model="lote.cuotaextraordinaria.expNotaria"
+          placeholder="Ingrese Exp Notaria"
           required
       />
     </div>
@@ -193,11 +210,32 @@
 
 <script setup>
 import {numeroLetrasConNumeros, numeroLetrasConNumerosDolares} from "@/data/numeroLetrasConNumeros.js";
+import {ref} from "vue";
+
+const fechaInicioContrato = ref('');
+const fechaCancelacionContrato = ref('');
 
 defineProps({
   cuotaextraordinaria: {type: Object,},
   lote: {type: Object, required: true},
   index: {type: Number, required: true}
 });
+
+function formatearFecha(event, tipo) {
+
+  let input = event.target.value;
+  input = input.replace(/[^0-9]/g, '');
+
+  if (input.length > 2) input = input.slice(0, 2) + '/' + input.slice(2);
+  if (input.length > 5) input = input.slice(0, 5) + '/' + input.slice(5);
+  if (input.length > 10) input = input.slice(0, 10);
+
+  event.target.value = input;
+  if (tipo === 'inicio') {
+    fechaInicioContrato.value = input;
+  } else if (tipo === 'cancelacion') {
+    fechaCancelacionContrato.value = input;
+  }
+}
 
 </script>
