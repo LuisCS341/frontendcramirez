@@ -282,7 +282,6 @@
     <input
         v-model="lote.montoCuotaLetras"
         type="text"
-        readonly
     />
 
 
