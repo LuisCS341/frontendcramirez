@@ -3,116 +3,60 @@
     <BarraLateralDashboard />
     <div class="main-content">
       <BarraSuperiorDashboard />
-      <div class="content-container form-verificacion">
-        <div class="registro-container">
-          <span :class="{ active: !isEmpresa }">PERSONA</span>
-          <input type="checkbox" v-model="isEmpresa" />
-          <span :class="{ active: isEmpresa }">Empresa</span>
+      <div class="form-verificacion">
+        <div class="switch-container">
+          <div class="switch-option" :class="{ active: !isEmpresa }">
+            <img src="@/assets/iconos/persona-sencilla.png" alt="Persona" />
+            <span>PERSONA</span>
+          </div>
+
+          <label class="switch">
+            <input type="checkbox" v-model="isEmpresa" />
+            <span class="slider"></span>
+          </label>
+
+          <div class="switch-option" :class="{ active: isEmpresa }">
+            <img src="@/assets/iconos/edificio.png" alt="Empresa" />
+            <span>EMPRESA</span>
+          </div>
         </div>
 
-        <div class="content">
+
+        <div class="content-formulario">
           <div class="formulario">
             <h2>{{ isEmpresa ? 'REGISTRO EMPRESA' : 'REGISTRO CLIENTE' }}</h2>
 
             <!-- EMPRESA -->
-            <template v-if="isEmpresa">
-              <input
-                  type="text"
-                  v-model="ruc"
-                  @input="buscarEmpresa"
-                  placeholder="INGRESAR RUC (11 DÍGITOS)"
-                  maxlength="11"
-                  class="input"
-              />
-              <div v-if="empresa && empresa.razonSocial" class="datos-cliente">
-                <h2>🏢 Datos de la Empresa</h2>
-                <ul>
-                  <li><strong>Razón Social:</strong> {{ empresa.razonSocial }}</li>
-                  <li><strong>RUC:</strong> {{ empresa.numeroDocumento }}</li>
-                  <li><strong>Estado:</strong> {{ empresa.estado }}</li>
-                  <li><strong>Condición:</strong> {{ empresa.condicion }}</li>
-                  <li><strong>Dirección:</strong> {{ empresa.direccion }}</li>
-                  <li><strong>Departamento:</strong> {{ empresa.departamento }}</li>
-                  <li><strong>Provincia:</strong> {{ empresa.provincia }}</li>
-                  <li><strong>Distrito:</strong> {{ empresa.distrito }}</li>
-                  <li><strong>¿Agente de Retención?:</strong> {{ empresa.EsAgenteRetencion ? 'Sí' : 'No' }}</li>
-                </ul>
-              </div>
-            </template>
+            <RegistroEmpresa
+                v-if="isEmpresa"
+                :nacionalidad="nacionalidad"
+                :dni="dni"
+                :carnetExtranjeria="carnetExtranjeria"
+                :estadoCliente="estadoCliente"
+                :cliente="cliente"
+                :form="form"
+                @update:dni="dni = $event"
+                @update:carnetExtranjeria="carnetExtranjeria = $event"
+                @buscar-cliente="buscarCliente"
+                @cambiar-nacionalidad="(valor) => { nacionalidad = valor; limpiarDatos() }"
+                @continuar="irFormulario"
+            />
 
             <!-- CLIENTE -->
-            <template v-else>
-              <h1 class="title">Registro de Cliente</h1>
-
-              <div class="input-container">
-                <label>¿Es peruano o extranjero?</label>
-                <div class="nacionalidad-toggle">
-                  <button :class="{ active: nacionalidad === 'peruano' }" @click="nacionalidad = 'peruano'; limpiarDatos()">🇵🇪 Peruano</button>
-                  <button :class="{ active: nacionalidad === 'extranjero' }" @click="nacionalidad = 'extranjero'; limpiarDatos()">🌍 Extranjero</button>
-                </div>
-              </div>
-
-              <div class="input-container" v-if="nacionalidad === 'peruano'">
-                <input
-                    type="text"
-                    v-model="dni"
-                    placeholder="Ingresar DNI (8 dígitos)"
-                    maxlength="8"
-                    @input="buscarCliente"
-                />
-              </div>
-
-              <div class="input-container" v-if="nacionalidad === 'extranjero'">
-                <input
-                    type="text"
-                    v-model="carnetExtranjeria"
-                    placeholder="Ingresar Carnet de Extranjería (12 dígitos)"
-                    maxlength="12"
-                    @input="buscarCliente"
-                />
-              </div>
-
-              <div v-if="estadoCliente === 'Cliente nuevo'" class="alerta-nuevo">
-                <p>⚠️ Cliente no encontrado en el sistema. Puedes continuar para registrar sus datos.</p>
-                <button class="btn" @click="irFormulario">Continuar</button>
-              </div>
-
-              <div v-if="estadoCliente === 'Cliente registrado - ya existe en el sistema'" class="alerta-registrado">
-                <p>✅ Cliente ya fue registrado en el sistema</p>
-                <button class="btn" @click="irFormulario">Continuar</button>
-              </div>
-
-              <div v-if="cliente && cliente.nombreCompleto" class="datos-cliente">
-                <h2>🧾 Datos del Cliente</h2>
-                <ul>
-                  <li><strong>Nombres:</strong> {{ cliente.nombres }}</li>
-                  <li><strong>Apellido Paterno:</strong> {{ cliente.apellidoPaterno }}</li>
-                  <li><strong>Apellido Materno:</strong> {{ cliente.apellidoMaterno }}</li>
-                  <li><strong>Nombre Completo:</strong> {{ cliente.nombreCompleto }}</li>
-                  <li><strong>Tipo de Documento:</strong> {{ cliente.tipoDocumento }}</li>
-                  <li><strong>Número de Documento:</strong> {{ cliente.numeroDocumento }}</li>
-                  <li><strong>Dígito Verificador:</strong> {{ cliente.digitoVerificador }}</li>
-                </ul>
-              </div>
-
-              <div v-if="estadoCliente === 'Cliente registrado - ya existe en el sistema'" class="resumen-cliente-registrado">
-                <h2>📋 Resumen del Cliente Registrado</h2>
-                <ul>
-                  <li><strong>Nombres y Apellidos:</strong> {{ form.nombreCliente || cliente.nombreCompleto }}</li>
-                  <li><strong>Ocupación:</strong> {{ form.ocupacionCliente }}</li>
-                  <li><strong>Tipo de Identificación:</strong> {{ form.tipoIdentificacion }}</li>
-                  <li><strong>País de Origen:</strong> {{ form.paisOrigen }}</li>
-                  <li><strong>País de Residencia:</strong> {{ form.paisdeResidencia }}</li>
-                  <li><strong>Departamento:</strong> {{ form.departamento }}</li>
-                  <li><strong>Provincia:</strong> {{ form.provincia }}</li>
-                  <li><strong>Distrito:</strong> {{ form.distrito }}</li>
-                  <li><strong>Dirección:</strong> {{ form.direccion }}</li>
-                  <li><strong>Correo Electrónico:</strong> {{ form.correoUsuario }}</li>
-                  <li><strong>Celular:</strong> {{ form.prefijoTelefonico }} {{ form.numTelefonico }}</li>
-                  <li><strong>Estado Civil:</strong> {{ form.estadoCivil }}</li>
-                </ul>
-              </div>
-            </template>
+            <RegistroCliente
+                v-else
+                :nacionalidad="nacionalidad"
+                :dni="dni"
+                :carnetExtranjeria="carnetExtranjeria"
+                :estadoCliente="estadoCliente"
+                :cliente="cliente"
+                :form="form"
+                @update:dni="dni = $event"
+                @update:carnetExtranjeria="carnetExtranjeria = $event"
+                @buscar-cliente="buscarCliente"
+                @cambiar-nacionalidad="(valor) => { nacionalidad = valor; limpiarDatos() }"
+                @continuar="irFormulario"
+            />
           </div>
         </div>
       </div>
@@ -120,12 +64,17 @@
   </div>
 </template>
 <script>
+
 import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
 import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
 import "@/components/formularios/Verificacion/Verificacion.css";
+import RegistroEmpresa from "@/components/formularios/Verificacion/RegistroEmpresa.vue";
+import RegistroCliente from "@/components/formularios/Verificacion/RegistroCliente.vue";
 
 export default {
   components: {
+    RegistroCliente,
+    RegistroEmpresa,
     BarraLateralDashboard,
     BarraSuperiorDashboard,
   },
@@ -166,7 +115,6 @@ export default {
       localStorage.removeItem("clienteCompleto");
     },
     buscarEmpresa(){
-
 },
     buscarCliente() {
 
@@ -181,7 +129,7 @@ export default {
 
         if (
             (tipoDocumento === "DNI" && documento.length !== 8) ||
-            (tipoDocumento === "CE" && documento.length !== 12)
+            (tipoDocumento === "CE" && documento.length !== 11)
         ) {
           this.cliente = {};
           this.estadoCliente = "";
@@ -190,11 +138,11 @@ export default {
 
         if (tipoDocumento === "DNI") {
           // Si es peruano, consulta Reniec
-          fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`)
+          fetch(`http://localhost:8080/api/buscarCliente/${documento}`)
               .then((response) => response.json())
               .then((data) => {
                 if (data && data.nombres) {
-                  fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
+                  fetch(`http://localhost:8080/api/clientes/existe?numeroIdentificacion=${documento}`)
                       .then((response) => response.json())
                       .then((existe) => {
                         this.cliente = {
@@ -216,7 +164,7 @@ export default {
                         }
                         if (existe) {
 
-                          fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`)
+                          fetch(`http://localhost:8080/api/clientes/buscar?numeroIdentificacion=${documento}`)
                               .then((response) => response.json())
                               .then((clienteBD) => {
                                 this.form.ocupacionCliente = clienteBD.ocupacion || '';
@@ -262,7 +210,7 @@ export default {
               });
         } else {
 
-          fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`)
+          fetch(`http://localhost:8080/api/clientes/existe?numeroIdentificacion=${documento}`)
               .then((response) => response.json())
               .then((existe) => {
                 this.estadoCliente = existe
@@ -275,7 +223,7 @@ export default {
                 this.cliente = {};
 
                 if (existe) {
-                  fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`)
+                  fetch(`http://localhost:8080/api/clientes/buscar?numeroIdentificacion=${documento}`)
                       .then((response) => response.json())
                       .then((clienteBD) => {
                         this.form.nombreCliente = clienteBD.nombresApellidos || '';
@@ -305,7 +253,7 @@ export default {
                 this.cliente = {};
               });
         }
-      }, 600); // tiempo en milisegundos (ajústalo según lo necesites)
+      }, 600);
     },
 
     irFormulario() {
