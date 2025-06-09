@@ -194,5 +194,6 @@ export const provincias = [
     {id :193,nombre:'CORONEL PORTILLO',departamentoId:25},
     {id :194,nombre:'ATALAYA',departamentoId:25},
     {id :195,nombre:'PADRE ABAD',departamentoId:25},
-    {id :196,nombre:'PURÚS',departamentoId:25}
+    {id :196,nombre:'PURÚS',departamentoId:25},
+    {id :197,nombre:'-',departamentoId:26}
 ];

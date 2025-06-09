@@ -23,5 +23,6 @@ export const departamentos = [
     { id: 22, nombre: 'SAN MARTIN' },
     { id: 23, nombre: 'TACNA' },
     { id: 24, nombre: 'TUMBES' },
-    { id: 25, nombre: 'UCAYALI' }
+    { id: 25, nombre: 'UCAYALI' },
+    { id: 26, nombre: '-' }
 ];
