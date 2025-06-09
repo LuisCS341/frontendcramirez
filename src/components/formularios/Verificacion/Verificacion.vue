@@ -14,7 +14,7 @@
           <div class="formulario">
             <h2>{{ isEmpresa ? 'REGISTRO EMPRESA' : 'REGISTRO CLIENTE' }}</h2>
 
-            <!-- BLOQUE DE RUC -->
+            <!-- EMPRESA -->
             <template v-if="isEmpresa">
               <input
                   type="text"
@@ -24,7 +24,6 @@
                   maxlength="11"
                   class="input"
               />
-
               <div v-if="empresa && empresa.razonSocial" class="datos-cliente">
                 <h2>🏢 Datos de la Empresa</h2>
                 <ul>
@@ -41,7 +40,7 @@
               </div>
             </template>
 
-            <!-- BLOQUE DE CLIENTE -->
+            <!-- CLIENTE -->
             <template v-else>
               <h1 class="title">Registro de Cliente</h1>
 
