@@ -90,7 +90,8 @@ const valorMostrado = computed(() => {
       getConyuge(props.cliente)?.[props.columna.key] ??
       getCopropietario(props.cliente)?.[props.columna.key] ??
       getCuotaExtraordinaria(lote)?.[props.columna.key] ??
-      lote?.[props.columna.key] ?? '-';
+      lote?.[props.columna.key] ??
+      props.cliente?.[props.columna.key];
 });
 
 
@@ -103,7 +104,8 @@ const campoEditable = computed(() => {
       getConyuge(props.cliente)?.[props.columna.key] ??
       getCopropietario(props.cliente)?.[props.columna.key] ??
       getCuotaExtraordinaria(lote)?.[props.columna.key] ??
-      lote?.[props.columna.key];
+      lote?.[props.columna.key] ??
+      props.cliente?.[props.columna.key];
 
   return valor !== null && valor !== undefined && valor !== '' && valor !== '-';
 });

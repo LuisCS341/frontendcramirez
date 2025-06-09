@@ -96,7 +96,7 @@
       </div>
 
 
-      <label>Manzana:</label>
+      <label>Manzana(MZ):</label>
       <input
           v-model="lote.manzanalote"
           type="text"
@@ -104,7 +104,7 @@
           placeholder="Ingrese su Manzana"
       />
 
-      <label>Número de Lote:</label>
+      <label>Lote(LT):</label>
       <input
           v-model="lote.numerolote"
           type="text"
@@ -117,6 +117,26 @@
       <select v-model="lote.tipoContratolote">
         <option v-for="tipo in tiposContrato" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
       </select>
+
+    <label>Fecha de Inicio de Contrato:</label>
+    <input
+        type="text"
+        v-model="lote.fechaInicioContrato"
+        @input="formatearFecha($event, 'inicio')"
+        placeholder="dd/mm/aaaa"
+        maxlength="10"
+    />
+
+
+    <label>Fecha de Cancelación de Contrato:</label>
+    <input
+        v-model="lote.fechaCancelacionContrato"
+        @input="formatearFecha($event, 'cancelacion')"
+        type="text"
+        placeholder="dd/mm/aaaa"
+        maxlength="10"
+        required
+    />
 
       <label>Área del Lote m2:</label>
       <input
@@ -150,83 +170,122 @@
     "
     />
 
-    <label>Monto en Letras:</label>
+    <label>Costo del Lote en Letra:</label>
     <input
         v-model="lote.montoLetras"
         type="text"
         readonly
     />
 
-
-    <label>Pago Inicial:</label>
-      <input
-          v-model="lote.pagoInicial"
-          type="number"
-          required
-          placeholder="Ingrese su Pago Inicial"
-      />
-
-      <label>Separacion:</label>
-      <input
-          v-model="lote.separacion"
-          type="text"
-          required
-          placeholder="Ingrese su Separacion"
-      />
-
-      <label>Monto en Cuotas:</label>
-      <input
-          v-model="lote.montoCuotas"
-          type="number"
-          required
-          placeholder="Ingrese su Monto en Cuotas"
-          step="any"
-      />
-
-      <label>Cantidad de Cuotas:</label>
-      <input
-          v-model="lote.cantidadCuotas"
-          type="number"
-          required
-          placeholder="Ingrese su Cantidad de Cuotas"
-      />
-
-
-    <label>Mantenimiento Mensual:</label>
+    <label>Precio por MT2:</label>
     <input
-        type="text"
-        v-model="lote.mantenimientoMensual"
-        required
-        placeholder="Ingrese su Estado de Cuenta"
-        @input="lote.mantenimientoMensualLetras=numeroLetrasConNumerosDolares(lote.mantenimientoMensual);"
-    />
-
-    <label>Mantenimiento Mensual en Letras:</label>
-    <input
-        v-model="lote.mantenimientoMensualLetras"
+        v-model="lote.precioMetroCuadrado"
         type="text"
         readonly
     />
 
-    <label>Fecha de Inicio de Contrato:</label>
+    <label>Precio por MT2 en Letras:</label>
     <input
+        v-model="lote.precioMetroCuadradoLetras"
         type="text"
-        v-model="lote.fechaInicioContrato"
-        @input="formatearFecha($event, 'inicio')"
-        placeholder="dd/mm/aaaa"
-        maxlength="10"
+        readonly
+    />
+
+    <label>Cuota Inicial Incluye Separación:</label>
+    <input
+        v-model="lote.cuotaInicialIncluyeSeparacion"
+        type="text"
+        readonly
+    />
+
+    <label>Cuota Inicial Incluye Separación en Letras:</label>
+    <input
+        v-model="lote.CuotaInicialIncluyeSeparacionLetras"
+        type="text"
+        readonly
+    />
+
+    <label>Fecha de Pago:</label>
+    <input
+        v-model="lote.FechaPago"
+        type="text"
+        readonly
+    />
+
+    <label>Cuenta Recaudadora:</label>
+    <input
+        v-model="lote.cuentaRecaudadora"
+        type="text"
+        readonly
+    />
+
+    <label>Cuota Inicial - Banco:</label>
+    <input
+        v-model="lote.cuotaInicialBanco"
+        type="text"
+        readonly
+    />
+
+    <label>Saldo del Lote:</label>
+    <input
+        v-model="lote.saldoLote"
+        type="text"
+        readonly
+    />
+
+    <label>Saldo de Lote en Letras:</label>
+    <input
+        v-model="lote.saldoLoteLetras"
+        type="text"
+        readonly
+    />
+
+    <label>Cantidad de Cuotas:</label>
+    <input
+        v-model="lote.cantidadCuotas"
+        type="text"
+        readonly
+    />
+
+    <label>Cantidad de Cuotas en Letras:</label>
+    <input
+        v-model="lote.cantidadCuotaLetras"
+        type="text"
+        readonly
+    />
+
+    <label>Cantidad de Cuotas Cuenta Recaudadora:</label>
+    <input
+        v-model="lote.cantidadCuotaCuentaRecaudadora"
+        type="text"
+        readonly
+    />
+
+    <label>Cantidad de Cuotas - Banco:</label>
+    <input
+        v-model="lote.cantidadCuotaBanco"
+        type="text"
+        readonly
     />
 
 
-    <label>Fecha de Cancelación de Contrato:</label>
+    <label>Monto de Cuotas:</label>
     <input
-        v-model="lote.fechaCancelacionContrato"
-        @input="formatearFecha($event, 'cancelacion')"
-        type="text"
-        placeholder="dd/mm/aaaa"
-        maxlength="10"
+        v-model="lote.montoCuotas"
+        type="number"
         required
+        placeholder="Ingrese su Monto en Cuotas"
+        step="any"
     />
+
+    <label>Monto De Cuota en Letras:</label>
+    <input
+        v-model="lote.montoCuotaLetras"
+        type="text"
+        readonly
+    />
+
+
 
     <div>
       <label><strong>¿Tiene cuota extraordinaria?</strong></label>

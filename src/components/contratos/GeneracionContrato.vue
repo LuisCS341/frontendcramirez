@@ -92,7 +92,7 @@
               <button @click="descargarWordPorTipo(cliente)" class="btn-descargar">Descargar</button>
             </td>
             <td>{{ getLote(cliente)?.contrato ?? '-'}}</td>
-            <td>{{ cliente.cliente.idCliente.toString().padStart(5, '0') }}</td>
+            <td>{{ getLote(cliente)?.codigoLoteCliente ?? '-'}}</td>
             <td>{{ getLote(cliente)?.idLote ?? '-'}}</td>
             <td>{{ getLote(cliente).tipoProyecto ?? '-' }}</td>
             <td>{{ getLote(cliente).empresaVende ?? '-' }}</td>
