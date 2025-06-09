@@ -2,7 +2,7 @@ import {getLote,getMatriz,getLindero,getCuotaExtraordinaria,getConyuge,getCoprop
 
 export const columnasClientes = [
     { key: 'contrato', label: 'TIPO DE CONTRATO', editable: true, tipo: 'select', options: 'tiposContrato', model: 'tipoContratolote', nested: true },
-    { key: 'idCliente', label: 'CLIENTE Nº', format: cliente => cliente.idCliente.toString().padStart(5, '0') + '-01' },
+    { key: 'codigoLoteCliente', label: 'CLIENTE Nº',  nested: 'lote' },
     { key: 'idLote', label: 'CONTRATO Nº', nested: true ,format: cliente => getLote(cliente)?.idLote ?? '-' },
     { key: 'tipoProyecto', label: 'PROYECTO', nested: 'lote' },
     { key: 'empresaVende', label: 'EMPRESA QUE VENDE', editable: true, nested: 'lote' },
