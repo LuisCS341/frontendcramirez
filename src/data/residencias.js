@@ -21,4 +21,5 @@ export const residencias = [
     { id: 20, nombre: '🇨🇳 China' },
     { id: 21, nombre: '🇯🇵 Japón' },
     { id: 22, nombre: '🇰🇷 Corea del Sur' },
+    { id: 23, nombre: '-' },
 ]

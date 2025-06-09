@@ -23,4 +23,5 @@ export const nacionalidad = [
     { id: 21, nombre: 'Chino' },
     { id: 22, nombre: 'Japonés' },
     { id: 23, nombre: 'Surcoreano' },
+    { id: 24, nombre: '-' },
 ];
