@@ -14,8 +14,8 @@ Chart.register(PieController, ArcElement, Tooltip, Legend);
 
 // Obtener el mes actual en español
 const monthNames = [
-  'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-  'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+  'ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO',
+  'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'
 ];
 const now = new Date();
 const currentMonth = ref(monthNames[now.getMonth()]);
