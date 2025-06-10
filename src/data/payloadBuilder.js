@@ -104,7 +104,7 @@ export function buildLotePayload(idCliente, lote) {
         areaLote: lote.areaLote,
         areaLoteLetras: lote.areaLoteLetras,
         costoLote: lote.costoLote,
-        montoLetras: lote.montoLetras,
+        costoLoteLetras: lote.costoLoteLetras,
         precioMetroCuadrado: lote.precioMetroCuadrado,
         precioMetroCuadradoLetras: lote.precioMetroCuadradoLetras,
         cuotaInicialIncluyeSeparacion: lote.cuotaInicialIncluyeSeparacion,

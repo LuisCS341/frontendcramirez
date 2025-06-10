@@ -74,7 +74,7 @@
     <label>Correo Electrónico:</label>
     <input
         v-model="form.correoUsuario"
-        type="email"
+        type="text"
         required
         placeholder="usuario@dominio.com"
     />

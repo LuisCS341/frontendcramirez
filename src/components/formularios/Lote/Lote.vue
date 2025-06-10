@@ -167,13 +167,13 @@
         placeholder="Ingrese su Costo de Lote"
         @input="
       lote.costoLote = lote.costoLote.toString().replace(/[^0-9.]/g, '');
-      lote.montoLetras = numeroLetrasSinDecimal(parseFloat(lote.costoLote).toFixed(2));
+      lote.costoLoteLetras = numeroLetrasSinDecimal(parseFloat(lote.costoLote).toFixed(2));
     "
     />
 
     <label>Costo del Lote en Letra:</label>
     <input
-        v-model="lote.montoLetras"
+        v-model="lote.costoLoteLetras"
         type="text"
         readonly
         required
@@ -326,6 +326,8 @@
 
     />
 
+
+
     <div>
       <label><strong>¿Tiene cuota extraordinaria?</strong></label>
       <div class="contenedor-radio-tarjetas">
@@ -422,72 +424,6 @@ function formatearFecha(event, tipo) {
     fechaCancelacionContrato.value = input;
   }
 }
-watch(() => lote.montoCuotas, (nuevoValor) => {
-  const valor = parseFloat(nuevoValor);
-  if (!isNaN(valor)) {
-    lote.montoCuotaLetras = numeroLetrasSinDecimal(valor.toFixed(2));
-  } else {
-    lote.montoCuotaLetras = '';
-  }
-});
-// Área del lote -> Letras
-watch(() => lote.areaLote, (nuevoValor) => {
-  const valor = parseFloat(nuevoValor);
-  if (!isNaN(valor)) {
-    lote.areaLoteLetras = numeroLetrasAreaLote(valor);
-  } else {
-    lote.areaLoteLetras = '';
-  }
-});
 
-// Costo del lote -> Letras
-watch(() => lote.costoLote, (nuevoValor) => {
-  const valor = parseFloat(nuevoValor);
-  if (!isNaN(valor)) {
-    lote.montoLetras = numeroLetrasSinDecimal(valor.toFixed(2));
-  } else {
-    lote.montoLetras = '';
-  }
-});
-
-// Precio por metro cuadrado -> Letras
-watch(() => lote.precioMetroCuadrado, (nuevoValor) => {
-  const valor = parseFloat(nuevoValor);
-  if (!isNaN(valor)) {
-    lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(valor.toFixed(2));
-  } else {
-    lote.precioMetroCuadradoLetras = '';
-  }
-});
-
-// Cuota inicial incluye separación -> Letras
-watch(() => lote.cuotaInicialIncluyeSeparacion, (nuevoValor) => {
-  const valor = parseFloat(nuevoValor);
-  if (!isNaN(valor)) {
-    lote.CuotaInicialIncluyeSeparacionLetras = numeroLetrasSinDecimal(valor.toFixed(2));
-  } else {
-    lote.CuotaInicialIncluyeSeparacionLetras = '';
-  }
-});
-
-// Saldo del lote -> Letras
-watch(() => lote.saldoLote, (nuevoValor) => {
-  const valor = parseFloat(nuevoValor);
-  if (!isNaN(valor)) {
-    lote.saldoLoteLetras = numeroLetrasSinDecimal(valor.toFixed(2));
-  } else {
-    lote.saldoLoteLetras = '';
-  }
-});
-
-// Cantidad de cuotas -> Letras
-watch(() => lote.cantidadCuotas, (nuevoValor) => {
-  const valor = parseInt(nuevoValor);
-  if (!isNaN(valor)) {
-    lote.cantidadCuotaLetras = numeroALetras(valor);
-  } else {
-    lote.cantidadCuotaLetras = '';
-  }
-});
 
 </script>

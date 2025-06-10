@@ -264,7 +264,7 @@ watch(() => form.value.numLotes, (newVal) => {
     areaLote: '',
     areaLoteLetras: '',
     costoLote: '',
-    montoLetras: '',
+    costoLoteLetras: '',
     precioMetroCuadrado: '',
     precioMetroCuadradoLetras: '',
     cuotaInicialIncluyeSeparacion: '',

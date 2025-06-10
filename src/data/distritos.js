@@ -1893,4 +1893,5 @@ export const distritos = [
     {id :1891,nombre:'SANTA MARIA',provinciaId:128},
     {id :1892,nombre:'SAN ANDRES',provinciaId:103},
     {id :1893,nombre:'SALAS GUADALUPE',provinciaId:99},
+    {id :1893,nombre:'-',provinciaId:197},
 ];

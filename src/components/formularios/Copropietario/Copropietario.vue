@@ -71,7 +71,7 @@
     <label>Correo Electrónico:</label>
     <input
         v-model="copropietario.correoUsuarioCopropietarios"
-        type="email"
+        type="text"
         placeholder="usuario@dominio.com"
     />
 
