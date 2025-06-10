@@ -3,5 +3,6 @@ export const tipoIdentificacion = [
     { id: 2, nombre: 'RUC' },
     { id: 3, nombre: 'C.E' },
     { id: 4, nombre: 'PASAPORTE' },
-    { id: 5, nombre: '-' }
+    { id: 5, nombre: 'CPP' },
+    { id: 6, nombre: '-' }
 ];
