@@ -86,6 +86,7 @@ export function buildLotePayload(idCliente, lote) {
         empresaVende: lote.empresaVendedora,
         rucVendedor: lote.ruc,
         direccionVendedor: lote.direccion,
+        tipoRepresentante: lote.tipoRepresentante,
         representanteLegalVendedor: lote.representanteLegal,
         dniVendedor: lote.dniVendedor,
         numeroPartidaPoderVendedor: lote.partidaPoder,

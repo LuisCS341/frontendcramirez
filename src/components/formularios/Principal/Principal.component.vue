@@ -237,6 +237,7 @@ watch(() => form.value.numLotes, (newVal) => {
     empresaVendedora:'',
     ruc:'',
     direccion:'',
+    tipoRepresentante:'',
     representanteLegal:'',
     dniVendedor:'',
     partidaPoder:'',
@@ -691,6 +692,7 @@ watch(() => form.value.lotes, (lotes) => {
           lote.empresaVendedora = ubicacion.EmpresaVende;
           lote.ruc = ubicacion.RUCVendedor;
           lote.direccion = ubicacion.DireccionVendedor;
+          lote.tipoRepresentante=ubicacion.TipoRepresentante;
           lote.representanteLegal = ubicacion.RepresentanteLegalVendedor;
           lote.dniVendedor = ubicacion.DNIVendedor;
           lote.partidaPoder = ubicacion.NPartidaPoderVendedor;
