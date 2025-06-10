@@ -123,10 +123,6 @@ const obtenerDatosCombinados = async () => {
 const activarEdicion = (cliente) => {
   if (cliente) {
     cliente.editando = true;
-    const lote = getLote(cliente);
-    if (!lote.tipoContratolote) {
-      lote.tipoContratolote = lote.contratoId || tiposContrato?.[0]?.id || null;
-    }
   }
 };
 
@@ -135,9 +131,15 @@ const guardarEdicion = async (cliente) => {
   if (cliente) {
     const { editando, ...clienteLimpio } = cliente;
 
+
     const payload = {
       cliente: clienteLimpio,
-      lotes: cliente.lotes || [],
+      lotes: cliente.lotes.map(lote => ({
+        ...lote,
+        matriz: lote.matriz || [{}],
+        lindero: lote.lindero || {},
+        cuotasExtraordinarias: lote.cuotasExtraordinarias || [{}]
+      })),
     };
 
     console.log("Payload a enviar:", payload);

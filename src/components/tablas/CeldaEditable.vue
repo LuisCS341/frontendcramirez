@@ -1,14 +1,7 @@
 <template>
   <td>
     <template v-if="cliente.editando && campoEditable">
-      <select v-if="columna.tipo === 'select'" v-model="modelo">
-        <option disabled value="">Seleccione una opción</option>
-        <option v-for="opt in tiposContrato" :key="opt.id" :value="opt.id">
-          {{ opt.nombre }}
-        </option>
-      </select>
-
-      <input v-else v-model="modelo" type="text" />
+      <input v-model="modelo" type="text" />
     </template>
 
     <template v-else>
@@ -41,7 +34,7 @@ const modelo = computed({
         lote[props.columna.key]  ??
         props.cliente?.[props.columna.key];
 
-    return valor === undefined || valor === null || valor === '-' ? '' : valor;
+    return valor === undefined || valor === null ? "-" : valor;
   },
   set(value) {
     const lote = getLote(props.cliente);
@@ -73,6 +66,9 @@ const modelo = computed({
           props.cliente[props.columna.key] = value;
           break;
       }
+    } else {
+      // Si no está anidado, modificamos directamente el cliente
+      props.cliente[props.columna.key] = value;
     }
   }
 });
@@ -107,7 +103,7 @@ const campoEditable = computed(() => {
       lote?.[props.columna.key] ??
       props.cliente?.[props.columna.key];
 
-  return valor !== null && valor !== undefined && valor !== '' && valor !== '-';
+  return valor !== null && valor !== undefined && valor !== "-" && props.columna.editable;
 });
 
 </script>
