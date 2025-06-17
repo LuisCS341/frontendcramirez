@@ -20,7 +20,7 @@
     />
 
     <label>Tipo de Identificación:</label>
-    <select v-model="form.tipoIdentificacion">
+    <select v-model="form.tipoIdentificacion" required>
       <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
     </select>
 
@@ -34,31 +34,31 @@
     />
 
     <label for="paisOrigen">País de Origen:</label>
-    <select v-model="form.nacionalidad">
+    <select v-model="form.nacionalidad" required>
       <option disabled value="">Seleccione un país</option>
       <option v-for="pais in nacionalidad" :key="pais.id" :value="pais.id">{{ pais.nombre }}</option>
     </select>
 
     <label for="paisResidencia">País de Residencia:</label>
-    <select v-model="form.paisdeResidencia">
+    <select v-model="form.paisdeResidencia" required>
       <option disabled value="">Seleccione un país</option>
       <option v-for="residencia in residencias" :key="residencia.id" :value="residencia.id">{{ residencia.nombre }}</option>
     </select>
 
     <label for="departamento">Departamento:</label>
-    <select v-model="form.departamento">
+    <select v-model="form.departamento" required>
       <option disabled value="">Selecciona un departamento</option>
       <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
     </select>
 
     <label>Provincia:</label>
-    <select v-model="form.provincia">
+    <select v-model="form.provincia" required>
       <option disabled value="">Seleccione una provincia</option>
       <option v-for="provincia in provinciasFiltradas" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
     </select>
 
     <label>Distrito:</label>
-    <select v-model="form.distrito">
+    <select v-model="form.distrito" required>
       <option disabled value="">Seleccione un distrito</option>
       <option v-for="distrito in distritosFiltrados" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
     </select>
@@ -81,7 +81,7 @@
 
     <label for="prefijoTelefonico">Número Telefónico:</label>
     <div class="prefijo-cliente">
-      <select v-model="form.prefijoTelefonico">
+      <select v-model="form.prefijoTelefonico" required>
         <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
       </select>
       <input
@@ -94,9 +94,17 @@
     </div>
 
     <label for="estadoCivil">Estado Civil:</label>
-    <select v-model="form.estadoCivil">
+    <select v-model="form.estadoCivil" required>
       <option v-for="estado in estadoCivil" :key="estado.id" :value="estado.id">{{ estado.nombre }}</option>
     </select>
+
+    <label>Descripcion de Estado Civil:</label>
+    <input
+        v-model="form.descripcionEstadoCivil"
+        type="text"
+        required
+        placeholder="Ingrese la Descripcion de Estado Civil"
+    />
   </div>
 </template>
 

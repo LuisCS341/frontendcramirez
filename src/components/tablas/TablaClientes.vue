@@ -18,18 +18,20 @@
 
           </thead>
           <tbody>
-          <tr v-for="(cliente,index) in clientes" :key="cliente.idCliente">
+          <tr v-for="cliente in clientes" :key="cliente.idCliente ">
 
             <CeldaEditable
                 v-for="col in columnasClientes"
                 :key="col.key"
                 :cliente="cliente"
                 :columna="col"
+                :fila="cliente"
                 :tiposContrato="tiposContrato"
             />
 
             <td>
               <select
+                  v-if="cliente.esPrimeroGrupo"
                   :value="selectedTemporal[cliente.idCliente]"
                   @change="onCambioOperario($event, cliente)"
               >
@@ -59,10 +61,9 @@ import axios from "axios";
 import * as XLSX from "xlsx";
 import {operarios} from "@/data/operarios.js";
 import {tiposContrato} from "@/data/tiposContrato.js";
-import {onMounted, reactive, ref} from "vue";
+import {computed, onMounted, reactive, ref} from "vue";
 import {columnasClientes} from "@/data/columnasClientes.js";
 import CeldaEditable from "@/components/tablas/CeldaEditable.vue";
-import {getLote} from "@/data/funcionesGetTablaClientes.js";
 
 
 const clientes = ref([]);
@@ -101,16 +102,30 @@ const obtenerDatosCombinados = async () => {
 
     console.log("Respuesta del backend:", response.data);
 
-    clientes.value = response.data.map((cliente) => {
+    clientes.value = response.data.map((clienteLote) => {
+      const cliente = clienteLote.cliente;
+      const lote = clienteLote.lote;
       selectedTemporal[cliente.idCliente] = cliente.operario || "";
 
       return {
         ...cliente,
         ...cliente.cliente,
+        lote: lote,
         editando: false,
       };
     });
 
+    const gruposVistos = new Set();
+    clientes.value.forEach((cliente) => {
+      if (!gruposVistos.has(cliente.idCliente)) {
+        cliente.esPrimeroGrupo = true;
+        gruposVistos.add(cliente.idCliente);
+      } else {
+        cliente.esPrimeroGrupo = false;
+      }
+    });
+
+    console.log("Clientes luego de mapear:", clientes.value);
 
   } catch (error) {
     console.error("Error al obtener datos combinados:", error);
@@ -126,40 +141,38 @@ const activarEdicion = (cliente) => {
   }
 };
 
-
 const guardarEdicion = async (cliente) => {
-  if (cliente) {
-    const { editando, ...clienteLimpio } = cliente;
+  if (!cliente || !cliente.lote) return;
 
+  const clienteLimpio = { ...cliente };
+  delete clienteLimpio.editando;
 
-    const payload = {
-      cliente: clienteLimpio,
-      lotes: cliente.lotes.map(lote => ({
-        ...lote,
-        matriz: lote.matriz || [{}],
-        lindero: lote.lindero || {},
-        cuotasExtraordinarias: lote.cuotasExtraordinarias || [{}]
-      })),
-    };
+  const loteLimpio = { ...cliente.lote };
+  delete loteLimpio.editando;
 
-    console.log("Payload a enviar:", payload);
+  const payload = {
+    cliente: clienteLimpio,
+    lote: loteLimpio,
+  };
 
-    try {
-      const response = await axios.put("https://backendcramirez.onrender.com/api/clientes/editar", payload);
-      console.log("Cliente actualizado:", response.data);
+  console.log("Payload a enviar:", payload);
 
-      // Actualizar el cliente local con la respuesta
-      Object.assign(cliente, response.data.cliente);
-      cliente.editando = false;
-    } catch (error) {
-      console.error("Error al actualizar cliente:", error.response?.data || error.message);
-      alert("Hubo un error al guardar los cambios.");
+  try {
+    const response = await axios.put("https://backendcramirez.onrender.com/api/clientes/editar", payload);
+    console.log("Cliente y lote actualizados:", response.data);
+
+    Object.assign(cliente, response.data.cliente || {});
+    Object.assign(cliente.lote, response.data.lote || {});
+
+    cliente.editando = false;
+    if (cliente.lote) {
+      cliente.lote.editando = false;
     }
+  } catch (error) {
+    console.error("Error al actualizar cliente y lote:", error.response?.data || error.message);
+    alert("Hubo un error al guardar los cambios.");
   }
 };
-
-
-
 
 
 const formatearFecha = (event, tipo) => {
@@ -180,26 +193,23 @@ onMounted(() => {
 });
 
 const onCambioOperario = async (event, cliente) => {
-  const nuevoUsuario = event.target.value;  // El nuevo usuario seleccionado
+  const nuevoUsuario = event.target.value;
   const idCliente = cliente.idCliente;
 
-  // Guardamos el operario anterior en caso de que se cancele la operación
   const operarioAnterior = selectedTemporal[idCliente];
 
-  // Si no ha habido cambios, no realizamos la operación
   if (nuevoUsuario === operarioAnterior) {
     return;
   }
 
-  // Pedimos confirmación para el cambio
-  const confirmacion = confirm(`¿Estás seguro que quieres cambiar el operario`);
+  const confirmacion = confirm(`¿Estás seguro que quieres cambiar el operario?`);
   if (!confirmacion) {
     selectedTemporal[idCliente] = operarioAnterior; // Restauramos el operario anterior
     return;
   }
 
   try {
-    // Realizamos la solicitud al backend para actualizar el operario
+
     await axios.put(`https://backendcramirez.onrender.com/api/clientes/transferir/${idCliente}`, {
       nuevoUsuarioOperario: nuevoUsuario,
     }, {
@@ -221,7 +231,9 @@ const onCambioOperario = async (event, cliente) => {
 };
 
 
+
 const exportarClientesXLSX = () => {
+  console.log("CLIENTES PARA EXPORTAR:", clientes.value);
   const encabezados = [
     "TIPO DE CONTRATO",
     "CLIENTE Nº",
@@ -334,11 +346,11 @@ const exportarClientesXLSX = () => {
   ];
 
   const filas = clientes.value.map((item) => {
-    const cliente = item.cliente ?? {};
-    const lote = item.lotes?.[0] ?? {};
-    const matriz = lote.matriz?.[0] ?? {};
+    const cliente = item ?? {};
+    const lote = item.lote ?? {};
+    const matriz = lote.matriz?.[0]?? {};
     const lindero = lote.lindero ?? {};
-    const copropietario = cliente.copropietarios?.[0] ?? {};
+    const copropietario = cliente.copropietarios?.[0]?? {};
     const conyuge = cliente.conyuge ?? {};
     const cuotaExtra = lote.cuotasExtraordinarias?.[0] ?? {};
 
@@ -365,10 +377,10 @@ const exportarClientesXLSX = () => {
       matriz.ubicacion ?? '-',
       matriz.unidadCatastral ?? '-',
       matriz.urbanizacionMatriz ?? '-',
-      matriz.distrito ?? '-',
-      matriz.provincia ?? '-',
-      matriz.departamento ?? '-',
-      lote.compraventaMatriz ?? '-',
+      matriz.distritoMatriz ?? '-',
+      matriz.provinciaMatriz ?? '-',
+      matriz.departamentoMatriz ?? '-',
+      matriz.compraventaMatriz ?? '-',
       matriz.situacionLegal ?? '-',
       matriz.constancianoadeudo ?? '-',
       matriz.avanceproyectomatriz ?? '-',
@@ -459,4 +471,5 @@ const exportarClientesXLSX = () => {
   XLSX.utils.book_append_sheet(libro, hoja, "Clientes");
   XLSX.writeFile(libro, "clientes.xlsx");
 };
+
 </script>

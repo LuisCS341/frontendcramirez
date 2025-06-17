@@ -1,32 +1,28 @@
-// Método para obtener el primer lote o un objeto vacío si no existe
-export const getLote = (cliente) => {
-    return Array.isArray(cliente.lotes) ? cliente.lotes[0] || {} : {};
-};
+export const getLote = (fila) => fila.lote || {};
 
-// Método para obtener el primer elemento de la matriz o un objeto vacío
-export const getMatriz = (lote) =>{
-    return Array.isArray(lote.matriz) ? lote.matriz[0] || {} : {};
-};
-// Método para obtener el primer lindero o un objeto vacío
-export const getLindero = (lote) => {
-    return lote.lindero ? lote.lindero : null;
-};
-
-export const getCuotaExtraordinaria = (lote) => {
-    return Array.isArray(lote.cuotasExtraordinarias) && lote.cuotasExtraordinarias.length > 0
-        ? lote.cuotasExtraordinarias[0]
-        : null;
-};
-
-// Método para obtener el cónyuge o un objeto vacío si no existe
-export const getConyuge =(cliente) =>  {
-    return cliente && cliente.conyuge ? cliente.conyuge : {};
-};
-
-export const getCopropietario = (cliente) => {
-    return Array.isArray(cliente.copropietarios) ? cliente.copropietarios[0] || {} : {};
+export const getMatriz = (fila) => {
+    return Array.isArray(fila?.lote?.matriz) && fila?.lote?.matriz.length > 0
+        ? fila.lote.matriz
+        : [{}];
 };
 
 
+export const getLindero = (fila) => {
+    return fila?.lote?.lindero || {}; // nunca null
+};
+
+export const getCuotaExtraordinaria = (fila) => {
+    return Array.isArray(fila?.lote?.cuotasExtraordinarias) && fila?.lote?.cuotasExtraordinarias.length > 0
+        ? fila?.lote?.cuotasExtraordinarias[0]
+        : [{}];
+};
 
 
+export function getConyuge(fila) {
+    return fila?.conyuge || {};
+}
+
+export const getCopropietario = (fila) => {
+    const copro = fila.cliente?.copropietarios;
+    return Array.isArray(copro) && copro.length > 0 ? copro[0] : {};
+};

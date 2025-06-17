@@ -114,7 +114,7 @@
                   :obtenerNombreDistrito="obtenerNombreDistrito"
                   :obtenerNombreProyecto="obtenerNombreProyecto"
               />
-            <button type="button" @click="cerrarResumen">Cerrar</button>
+            <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
           </div>
 
         </div>
@@ -170,6 +170,7 @@ const form = ref({
   prefijoTelefonico: 8,
   numTelefonico: '',
   estadoCivil: 1,
+  descripcionEstadoCivil: '',
   conyuge: {
     nombreClienteConyuge: '',
     ocupacionClienteConyuge: '',
@@ -667,19 +668,36 @@ onMounted(() => {
   }
 
   if (clienteCompleto) {
-    form.value.nombreCliente = clienteCompleto.nombresApellidos || clienteCompleto.ocupacionCliente || '';
-    form.value.ocupacionCliente = clienteCompleto.ocupacion || clienteCompleto.ocupacionCliente || '';
+    form.value.nombreCliente = clienteCompleto.nombresApellidos || '';
+    form.value.ocupacionCliente = clienteCompleto.ocupacion || '';
     form.value.tipoIdentificacion = clienteCompleto.idIdentificacion || '';
-    form.value.paisOrigen = clienteCompleto.idNacionalidad || clienteCompleto.paisOrigen || '';
-    form.value.paisdeResidencia = clienteCompleto.idResidencia || clienteCompleto.paisdeResidencia || '';
-    form.value.departamento = clienteCompleto.idDepartamento || clienteCompleto.departamento || '';
-    form.value.provincia = clienteCompleto.idProvincia || clienteCompleto.provincia || '';
-    form.value.distrito = clienteCompleto.idDistrito || clienteCompleto.distrito || '';
+    form.value.paisOrigen = clienteCompleto.idNacionalidad || '';
+    form.value.paisdeResidencia = clienteCompleto.idResidencia  || '';
+    form.value.departamento = clienteCompleto.idDepartamento || '';
+    form.value.provincia = clienteCompleto.idProvincia || '';
+    form.value.distrito = clienteCompleto.idDistrito || '';
     form.value.direccion = clienteCompleto.direccion || '';
-    form.value.correoUsuario = clienteCompleto.correoElectronico || clienteCompleto.correoUsuario || '';
-    form.value.prefijoTelefonico = clienteCompleto.idPrefijo || clienteCompleto.prefijoTelefonico || '';
-    form.value.numTelefonico = clienteCompleto.celularCliente || clienteCompleto.numTelefonico || '';
+    form.value.correoUsuario = clienteCompleto.correoElectronico  || '';
+    form.value.prefijoTelefonico = clienteCompleto.idPrefijo  || '';
+    form.value.numTelefonico = clienteCompleto.celularCliente  || '';
     form.value.estadoCivil = clienteCompleto.idEstadoCivil || '';
+    form.value.descripcionEstadoCivil = clienteCompleto.descripcionEstadoCivil || '';
+
+    if (clienteCompleto.conyuge) {
+      form.value.conyuge.nombreClienteConyuge = clienteCompleto.conyuge.nombresApellidosConyuge || '';
+      form.value.conyuge.ocupacionClienteConyuge = clienteCompleto.conyuge.ocupacionConyuge || '';
+      form.value.conyuge.tipoIdentificacionClienteConyuge = clienteCompleto.conyuge.idIdentificacionConyuge || '';
+      form.value.conyuge.numIdentificacionClienteConyuge = clienteCompleto.conyuge.numeroIdentificacionConyuge || '';
+      form.value.conyuge.paisOrigenClienteConyuge = clienteCompleto.conyuge.idNacionalidadConyuge || '';
+      form.value.conyuge.paisResidenciaClienteConyuge = clienteCompleto.conyuge.idResidenciaConyuge || '';
+      form.value.conyuge.departamentoClienteConyuge = clienteCompleto.conyuge.idDepartamentoConyuge || '';
+      form.value.conyuge.provinciaClienteConyuge = clienteCompleto.conyuge.idProvinciaConyuge || '';
+      form.value.conyuge.distritoClienteConyuge = clienteCompleto.conyuge.idDistritoConyuge || '';
+      form.value.conyuge.direccionClienteConyuge = clienteCompleto.conyuge.direccionConyuge || '';
+      form.value.conyuge.correoUsuarioCliente = clienteCompleto.conyuge.correoElectronicoConyuge || '';
+      form.value.conyuge.prefijoTelefonicoClienteConyuge = clienteCompleto.conyuge.idPrefijoConyuge || '';
+      form.value.conyuge.numTelefonicoClienteConyuge = clienteCompleto.conyuge.celularConyuge || '';
+    }
   }
 });
 

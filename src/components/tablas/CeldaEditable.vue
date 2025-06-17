@@ -1,6 +1,6 @@
 <template>
   <td>
-    <template v-if="cliente.editando && campoEditable">
+    <template v-if="fila.editando && campoEditable">
       <input v-model="modelo" type="text" />
     </template>
 
@@ -17,93 +17,85 @@ import {getConyuge, getCopropietario, getCuotaExtraordinaria, getLote, getMatriz
 
 const props = defineProps({
   cliente: Object,
+  fila: Object,
   columna: Object,
   tiposContrato: Array
 })
 
 const modelo = computed({
   get() {
-    const lote = getLote(props.cliente);
-
-    const valor =
-        getLindero(lote)?.[props.columna.key] ??
-        getMatriz(lote)?.[props.columna.key] ??
-        getConyuge(props.cliente)?.[props.columna.key] ??
-        getCopropietario(props.cliente)?.[props.columna.key] ??
-        getCuotaExtraordinaria(lote)?.[props.columna.key] ??
-        lote[props.columna.key]  ??
-        props.cliente?.[props.columna.key];
-
-    return valor === undefined || valor === null ? "-" : valor;
+    const valor = obtenerValor(props.columna.key);
+    return valor == null ? "-" : valor;
   },
-  set(value) {
-    const lote = getLote(props.cliente);
 
+  set(value) {
     if (props.columna.nested) {
       switch (props.columna.nested) {
         case 'matriz':
-          getMatriz(lote)[props.columna.key] = value;
+          getMatriz(props.fila)[props.columna.key] = value;
           break;
         case 'lindero':
-          getLindero(lote)[props.columna.key] = value;
+          getLindero(props.fila)[props.columna.key] = value;
           break;
         case 'copropietario':
-          getCopropietario(props.cliente)[props.columna.key] = value;
+          getCopropietario(props.fila)[props.columna.key] = value;
           break;
         case 'conyuge':
-          getConyuge(props.cliente)[props.columna.key] = value;
+          getConyuge(props.fila)[props.columna.key] = value;
           break;
         case 'cuotaextraordinaria':
-          getCuotaExtraordinaria(lote)[props.columna.key] = value;
+          getCuotaExtraordinaria(props.fila)[props.columna.key] = value;
           break;
         case 'lote':
-            lote[props.columna.key] = value;
+          props.fila.lote[props.columna.key] = value;
           break;
         case 'cliente':
-          props.cliente[props.columna.key] = value;
-            break;
+          props.fila[props.columna.key] = value;
+          break;
         default:
-          props.cliente[props.columna.key] = value;
+          props.fila[props.columna.key] = value;
           break;
       }
     } else {
-      // Si no está anidado, modificamos directamente el cliente
-      props.cliente[props.columna.key] = value;
+      props.fila.cliente[props.columna.key] = value;
     }
   }
 });
 
 
 const valorMostrado = computed(() => {
-  const lote = getLote(props.cliente);
-
-  if (props.columna.format) {
-    return props.columna.format(props.cliente);
-  }
-
-  return getMatriz(lote)?.[props.columna.key] ??
-      getLindero(lote)?.[props.columna.key] ??
-      getConyuge(props.cliente)?.[props.columna.key] ??
-      getCopropietario(props.cliente)?.[props.columna.key] ??
-      getCuotaExtraordinaria(lote)?.[props.columna.key] ??
-      lote?.[props.columna.key] ??
-      props.cliente?.[props.columna.key];
+  return getMatriz(props.fila)?.[0]?.[props.columna.key] ??
+      getLindero(props.fila)?.[props.columna.key] ??
+      getConyuge(props.fila)?.[props.columna.key] ??
+      getCopropietario(props.fila)?.[props.columna.key] ??
+      getCuotaExtraordinaria(props.fila)?.[props.columna.key] ??
+      props.fila.lote?.[props.columna.key] ??
+      props.fila?.[props.columna.key] ?? '';
 });
 
 
 const campoEditable = computed(() => {
-  let valor;
-  const lote = getLote(props.cliente);
-
-  valor = getMatriz(lote)?.[props.columna.key] ??
-      getLindero(lote)?.[props.columna.key] ??
-      getConyuge(props.cliente)?.[props.columna.key] ??
-      getCopropietario(props.cliente)?.[props.columna.key] ??
-      getCuotaExtraordinaria(lote)?.[props.columna.key] ??
-      lote?.[props.columna.key] ??
-      props.cliente?.[props.columna.key];
+  const valor =
+      getMatriz(props.fila)?.[0]?.[props.columna.key] ??
+      getLindero(props.fila)?.[props.columna.key] ??
+      getConyuge(props.fila)?.[props.columna.key] ??
+      getCopropietario(props.fila)?.[props.columna.key] ??
+      getCuotaExtraordinaria(props.fila)?.[props.columna.key] ??
+      props.fila.lote?.[props.columna.key] ??
+      props.fila?.[props.columna.key];
 
   return valor !== null && valor !== undefined && valor !== "-" && props.columna.editable;
 });
+
+
+const obtenerValor = (key) =>
+    getMatriz(props.fila)?.[0]?.[key] ??
+    getLindero(props.fila)?.[key] ??
+    getConyuge(props.fila)?.[key] ??
+    getCopropietario(props.fila)?.[key] ??
+    getCuotaExtraordinaria(props.fila)?.[key] ??
+    props.fila.lote?.[key] ??
+    props.fila?.[key];
+
 
 </script>

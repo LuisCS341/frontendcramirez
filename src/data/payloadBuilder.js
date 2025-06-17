@@ -15,7 +15,8 @@ export function buildClientePayload(form) {
         correoElectronico: form.correoUsuario,
         idPrefijo: form.prefijoTelefonico,
         celularCliente: form.numTelefonico,
-        idEstadoCivil: form.estadoCivil
+        idEstadoCivil: form.estadoCivil,
+        descripcionEstadoCivil: form.descripcionEstadoCivil
     };
 }
 

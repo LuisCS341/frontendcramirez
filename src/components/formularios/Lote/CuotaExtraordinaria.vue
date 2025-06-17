@@ -19,6 +19,7 @@
       <input
           type="number"
           v-model="lote.cuotaextraordinaria.montoCuotaExtraordinaria"
+          placeholder="Ingrese el Monto de Cuota Extraordinaria"
           required
 
       />
