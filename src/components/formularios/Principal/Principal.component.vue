@@ -5,7 +5,7 @@
       <BarraSuperiorDashboard />
       <div class="container">
 
-        <h2 class="tituloformulario">Formulario de Registro</h2>
+        <h2 class="tituloformulario">FORMULARIO DE CLIENTES</h2>
 
         <div class="formulario-all">
 

@@ -2,6 +2,21 @@
   <div v-if="form">
     <h3>Datos Personales</h3>
 
+    <label>Tipo de Identificación:</label>
+
+    <select v-model="form.tipoIdentificacion" required>
+      <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
+    </select>
+
+    <label>Número de Identificación:</label>
+    <input
+        v-model="form.numIdentificacionUsuario"
+        type="text"
+        required
+        maxlength="8"
+        @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"
+    />
+
     <label>Apellido y Nombre:</label>
     <input
         v-model="form.nombreCliente"
@@ -19,19 +34,6 @@
         @input="form.ocupacionCliente = form.ocupacionCliente.replace(/[0-9]/g, '')"
     />
 
-    <label>Tipo de Identificación:</label>
-    <select v-model="form.tipoIdentificacion" required>
-      <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
-    </select>
-
-    <label>Número de Identificación:</label>
-    <input
-        v-model="form.numIdentificacionUsuario"
-        type="text"
-        required
-        maxlength="8"
-        @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"
-    />
 
     <label for="paisOrigen">País de Origen:</label>
     <select v-model="form.nacionalidad" required>
