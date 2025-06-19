@@ -13,12 +13,6 @@
     box-sizing: border-box;
     overflow-y: auto; /* Permite desplazarse si hay mucho contenido */
 }
-@media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-        min-height: auto;
-    }
-}
 .nav-buttons button {
     margin: 5px;
     padding: 8px 12px;
