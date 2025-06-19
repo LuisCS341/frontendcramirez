@@ -1,13 +1,10 @@
 .container {
-    background-color: rgba(247, 244, 241, 1);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 125vw;
-    height: 100vh;
+    background-color: #f7f4f1;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1rem;
 }
 
 .nav-buttons button {
@@ -42,60 +39,95 @@
 
 
 /*STYLE FORMULARIO 1*/
-.formulario-all{
+.formulario-all {
     background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 500px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-height: 80vh; /* Altura máxima para evitar que sobresalga */
-    overflow-y: auto;
-}
-
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-input, select {
+    border: 1px solid #000000;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 800px;
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
+
+/* Título */
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+/* Formulario en rejilla adaptable */
+form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.2rem;
+}
+
+/* Etiquetas */
+label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #000;
+    display: block;
+}
+
+/* Inputs y selects */
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    background: #E8E8E8;
+    border: 1px solid #000;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Email input especial */
 .email-input {
-    width: 90%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
     font-size: 16px;
 }
 
+/* Prefijo telefónico + número */
+.prefijo-cliente {
+    display: flex;
+    gap: 0.5rem;
+}
 
+.prefijo-cliente select {
+    max-width: 100px;
+}
 
+/* Contenedor del botón */
+.button-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
 button {
-    background-color: #007bff;
+    background-color: #FF8D00;
     color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
+    font-size: 20px;
+    padding: 15px 50px;
+    border: 1px solid #000;
+    border-radius: 30px;
     cursor: pointer;
-}
-h3{
-    text-align: center;
+    transition: background 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
 }
 
+button:hover {
+    background-color: #e07700;
+}
 
 /* FORMULARIO 2  */
 .overlay {
