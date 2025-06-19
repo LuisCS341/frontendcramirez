@@ -3,13 +3,22 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 125vw;
-    height: 100vh;
+    width: 100%;
+    max-width: 1200px; /* Ancho máximo para evitar que se estire demasiado en pantallas grandes */
+    margin: 0 auto; /* Centra horizontalmente */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-y: auto; /* Permite desplazarse si hay mucho contenido */
 }
-
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        min-height: auto;
+    }
+}
 .nav-buttons button {
     margin: 5px;
     padding: 8px 12px;
