@@ -181,6 +181,11 @@
     <input
         v-model="lote.precioMetroCuadrado"
         type="text"
+        step="any"
+        required
+        placeholder="Ingrese precio por MT2"
+        @input="lote.precioMetroCuadrado = lote.precioMetroCuadrado.toString().replace(/[^0-9.]/g, '');
+       lote.precioMetroCuadradoLetras=numeroLetrasSinDecimal(parseFloat((lote.precioMetroCuadrado).toFixed(2)));"
 
     />
 
@@ -325,7 +330,12 @@
 <script setup>
 import {proyectos} from '@/data/proyectos.js';
 import { tiposContrato } from '@/data/tiposContrato.js';
-import {numeroLetrasConNumerosDolares,numeroLetrasAreaLote,numeroLetrasSinDecimal} from '@/data/numeroLetrasConNumeros.js';
+import {
+  numeroLetrasConNumerosDolares,
+  numeroLetrasAreaLote,
+  numeroLetrasSinDecimal,
+  numeroLetrasConDecimal
+} from '@/data/numeroLetrasConNumeros.js';
 import {ref, watch} from "vue";
 
 const fechaInicioContrato = ref('');
