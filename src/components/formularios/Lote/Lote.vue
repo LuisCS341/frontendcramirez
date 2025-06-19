@@ -180,11 +180,11 @@
     <label>Precio por MT2:</label>
     <input
         v-model="lote.precioMetroCuadrado"
-        type="text"
         step="any"
         required
         placeholder="Ingrese precio por MT2"
-        @input="lote.precioMetroCuadrado = lote.precioMetroCuadrado.toString().replace(/[^0-9.]/g, '');
+        @input="
+       lote.precioMetroCuadrado = lote.precioMetroCuadrado.toString().replace(/[^0-9.]/g, '');
        lote.precioMetroCuadradoLetras=numeroLetrasSinDecimal(parseFloat((lote.precioMetroCuadrado).toFixed(2)));"
 
     />
