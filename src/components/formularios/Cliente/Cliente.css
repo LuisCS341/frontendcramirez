@@ -1,12 +1,12 @@
 .container {
-        background-color: #f7f4f1;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        padding: 2rem 1rem;
-        overflow-x: hidden; /* Previene scroll horizontal */
-    }
+    background-color: #f7f4f1;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+}
+
 .nav-buttons button {
     margin: 5px;
     padding: 8px 12px;
@@ -20,6 +20,7 @@
     background-color: #0056b3;
 }
 
+
 .user-icon img {
     height: 40px;
     width: 40px;
@@ -28,15 +29,13 @@
 .logo img {
     height: 50px;
 }
-/* Responsive texto encabezado */
-.tituloformulario {
+.tituloformulario{
     font-size: 24px;
     font-weight: bold;
     margin-top: 20px;
     text-align: center;
-    color: black;
+    color:black;
 }
-
 
 
 /*STYLE FORMULARIO 1*/
@@ -75,8 +74,8 @@ label {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     font-size: 15px;
-    color: #000;
     margin-bottom: 5px;
+    color: #000;
     display: block;
 }
 
@@ -112,24 +111,20 @@ select {
     grid-column: 1 / -1;
     display: flex;
     justify-content: center;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
-.button-container button {
+button {
     background-color: #FF8D00;
     color: white;
-    font-size: 18px;
-    padding: 12px 30px;
+    font-size: 20px;
+    padding: 15px 50px;
     border: 1px solid #000;
     border-radius: 30px;
     cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    max-width: 300px;
-    width: 100%;
     transition: background 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
 }
-.button-container button:hover {
-    background-color: #e07700;
-}
+
 button:hover {
     background-color: #e07700;
 }
