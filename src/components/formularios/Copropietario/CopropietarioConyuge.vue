@@ -2,6 +2,19 @@
   <div>
     <h3 class="titulodatoslotes">Datos del Cónyuge del Copropietario {{ index + 1 }}</h3>
 
+    <label>Tipo de Identificación:</label>
+    <select v-model="copropietario.conyuge.tipoIdentificacionCopropietariosConyuge" id="tipoIdentificacion">
+      <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
+    </select>
+
+    <label>Número de Identificación:</label>
+    <input
+        v-model="copropietario.conyuge.numeroIdentificacionCopropietariosConyuge"
+        type="text"
+        maxlength="8"
+        placeholder="Ingrese su Número de Identificación"
+    />
+
     <label>Nombre y Apellido:</label>
     <input
         v-model="copropietario.conyuge.nombreCopropietariosConyuge"
@@ -17,19 +30,6 @@
         placeholder="Ingrese su Ocupación"
         @input="copropietario.conyuge.ocupacionCopropietarioConyuge = copropietario.conyuge.ocupacionCopropietarioConyuge.replace(/[0-9]/g, '')"
     >
-
-    <label>Tipo de Identificación:</label>
-    <select v-model="copropietario.conyuge.tipoIdentificacionCopropietariosConyuge" id="tipoIdentificacion">
-      <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
-    </select>
-
-    <label>Número de Identificación:</label>
-    <input
-        v-model="copropietario.conyuge.numeroIdentificacionCopropietariosConyuge"
-        type="text"
-        maxlength="8"
-        placeholder="Ingrese su Número de Identificación"
-    />
 
     <label>País de Origen:</label>
     <select v-model="copropietario.conyuge.paisOrigenCopropietariosConyuge" id="paisOrigen">

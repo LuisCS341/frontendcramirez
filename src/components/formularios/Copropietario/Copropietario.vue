@@ -2,6 +2,19 @@
   <div>
     <h3>Copropietario {{ index + 1 }}</h3>
 
+    <label>Tipo de Identificación:</label>
+    <select v-model="copropietario.tipoIdentificacionCopropietarios">
+      <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
+    </select>
+
+    <label>Número de Identificación:</label>
+    <input
+        v-model="copropietario.numeroIdentificacionCopropietarios"
+        type="text"
+        maxlength="8"
+        placeholder="Ingrese su Número de Identificación"
+    />
+
     <label>Nombre y Apellido:</label>
     <input
         v-model="copropietario.nombreCopropietarios"
@@ -16,19 +29,6 @@
         v-model="copropietario.ocupacionCopropietario"
         placeholder="Ingrese su Ocupación"
         @input="copropietario.ocupacionCopropietario = copropietario.ocupacionCopropietario.replace(/[0-9]/g, '')"
-    />
-
-    <label>Tipo de Identificación:</label>
-    <select v-model="copropietario.tipoIdentificacionCopropietarios">
-      <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
-    </select>
-
-    <label>Número de Identificación:</label>
-    <input
-        v-model="copropietario.numeroIdentificacionCopropietarios"
-        type="text"
-        maxlength="8"
-        placeholder="Ingrese su Número de Identificación"
     />
 
     <label>País de Origen:</label>
