@@ -19,7 +19,6 @@ const props = defineProps({
   cliente: Object,
   fila: Object,
   columna: Object,
-  tiposContrato: Array
 })
 
 const modelo = computed({
