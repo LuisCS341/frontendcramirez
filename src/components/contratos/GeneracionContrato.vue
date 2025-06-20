@@ -226,11 +226,12 @@ const descargarWordPorTipo = (cliente) => {
 };
 
 
+
 const descargarWordT1 = async (cliente) => {
   try {
     const response = await axios.get("/plantillas/plantilla_T1.docx", {
-    responseType: "arraybuffer",
-  });
+      responseType: "arraybuffer",
+    });
 
     const zip = new PizZip(response.data);
     const doc = new Docxtemplater(zip, {
