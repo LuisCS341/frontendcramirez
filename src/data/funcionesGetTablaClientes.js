@@ -11,8 +11,8 @@ export const getLindero = (fila) => {
 };
 
 export const getCuotaExtraordinaria = (fila) => {
-    return Array.isArray(fila?.lotes?.cuotasExtraordinarias) && fila.lotes.cuotasExtraordinarias.length > 0
-        ? fila.lotes.cuotasExtraordinarias[0]
+    return Array.isArray(fila?.lote?.cuotasExtraordinarias) && fila.lote.cuotasExtraordinarias.length > 0
+        ? fila.lote.cuotasExtraordinarias[0]
         : {};
 };
 
