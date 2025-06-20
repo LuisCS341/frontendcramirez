@@ -106,29 +106,29 @@
             <td>{{ getLote(cliente).cci ?? '-' }}</td>
             <td>{{ getLote(cliente).fechaSale ?? '-' }}</td>
             <td>{{ getLote(cliente).fechaFirmaContratoDefinitivo ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.areaMatrizHas ?? '-'  }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.registrosDE ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.partidaMatriz ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.ubicacion ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.unidadCatastral ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.urbanizacionMatriz ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.distrito ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.provincia ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.departamento ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.compraventaMatriz ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.situacionLegal ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.areaMatrizHas ?? '-'  }}</td>
+            <td>{{ getMatriz(cliente)?.registrosDE ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.partidaMatriz ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.ubicacion ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.unidadCatastral ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.urbanizacionMatriz ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.distrito ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.provincia ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.departamento ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.compraventaMatriz ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.situacionLegal ?? '-' }}</td>
             <td>{{ getLote(cliente)?.fechaInicioContrato ?? '-' }}</td>
             <td>{{ getLote(cliente)?.fechaCancelacionContrato ?? '-' }}</td>
             <td>{{ getLote(cliente)?.manzana ?? '-' }}</td>
             <td>{{ getLote(cliente)?.numeroLote ?? '-' }}</td>
             <td>{{ getLote(cliente)?.areaLoteLetras ?? '-' }}</td>
             <td>{{ getLote(cliente)?.areaLote ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.alicuotaLetras ?? '-' }}</td>
-            <td>{{ getMatriz(getLote(cliente))?.alicuota ?? '-' }}</td>
-            <td>{{ getLindero(getLote(cliente))?.porElFrente ?? '-'}}</td>
-            <td>{{ getLindero(getLote(cliente))?.porLaDerecha ?? '-' }}</td>
-            <td>{{ getLindero(getLote(cliente))?.porLaIzquierda ?? '-' }}</td>
-            <td>{{ getLindero(getLote(cliente))?.porElFondo ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.alicuotaLetras ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.alicuota ?? '-' }}</td>
+            <td>{{ getLindero(cliente)?.porElFrente ?? '-'}}</td>
+            <td>{{ getLindero(cliente)?.porLaDerecha ?? '-' }}</td>
+            <td>{{ getLindero(cliente)?.porLaIzquierda ?? '-' }}</td>
+            <td>{{ getLindero(cliente)?.porElFondo ?? '-' }}</td>
             <td>{{ cliente.cliente.numeroIdentificacion ?? '-'}}</td>
             <td>{{ cliente.cliente.documentoIdentificacion ?? '-'}}</td>
             <td>{{ cliente.cliente.nombresApellidos ?? '-'}}</td>
@@ -154,13 +154,13 @@
             <td>{{ getLote(cliente).separacion ?? '-' }}</td>
             <td>{{ getLote(cliente).cantidadCuotas ?? '-' }}</td>
             <td>{{ getLote(cliente).montoCuotas ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.cantidadCuotaExtraordinaria ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.montoCuotaExtraordinaria ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.mantenimientoMensual ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.mantenimientoMensualLetras ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.estadoCuenta ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.montoDeudaLetra ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(getLote(cliente))?.cuotaPendientePago ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(cliente)?.cantidadCuotaExtraordinaria ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(cliente)?.montoCuotaExtraordinaria ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(cliente)?.mantenimientoMensual ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(cliente)?.mantenimientoMensualLetras ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(cliente)?.estadoCuenta ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(cliente)?.montoDeudaLetra ?? '-' }}</td>
+            <td>{{ getCuotaExtraordinaria(cliente)?.cuotaPendientePago ?? '-' }}</td>
             <td>{{ cliente.cliente.diaPagoNumero ?? '-' }} </td>
             <td>{{ cliente.cliente.correoElectronico ?? '-' }}</td>
             <td>{{ cliente.cliente.celularCliente ?? '-' }}</td>
@@ -203,7 +203,7 @@ getCopropietario,
 
 const obtenerDatosCombinados = async () => {
   try {
-    const response = await axios.get("https://backendcramirez.onrender.com/api/clientes/conlotes", {
+    const response = await axios.get("http://localhost:8080/api/clientes/conlotes", {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
