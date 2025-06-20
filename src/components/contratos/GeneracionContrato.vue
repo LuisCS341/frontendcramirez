@@ -69,8 +69,6 @@
             <th>DEPARTAMENTO (CONYUGE)</th>
             <th>COSTO DEL LOTE (CLIENTE) EN NUM</th>
             <th>COSTO DEL LOTE (CLIENTE) EN LETRAS</th>
-            <th>PAGO INICIAL (CLIENTE) INCLUIDO SEPARACION</th>
-            <th>SEPARACIÓN (CLIENTE)</th>
             <th>CANTIDAD DE CUOTAS (CLIENTE)</th>
             <th>MONTO DE CUOTAS (CLIENTE)</th>
             <th>CANTIDAD CUOTA EXTRAORDINARIA (CLIENTE)</th>
@@ -80,7 +78,6 @@
             <th>ESTADO DE CUENTA (CLIENTE) (DE TENER DEUDA PONER MONTO)</th>
             <th>MONTO DE DEUDA EN LETRAS (CLIENTE)</th>
             <th>CUOTAS PENDIENTES DE PAGO</th>
-            <th>DIA DE PAGO EN NUMERO Y LETRAS</th>
             <th>CORREO ELECTRONICO (CLIENTE)</th>
             <th>CELULAR (CLIENTE)</th>
             <th></th>
@@ -149,9 +146,7 @@
             <td>{{ getConyuge(cliente.cliente).provinciaConyuge ?? '-' }}</td>
             <td>{{ getConyuge(cliente.cliente).departamentoConyuge ?? '-' }}</td>
             <td>{{ getLote(cliente).costoLote ?? '-' }}</td>
-            <td>{{ getLote(cliente).montoLetras ?? '-' }}</td>
-            <td>{{ getLote(cliente).pagoInicial ?? '-' }}</td>
-            <td>{{ getLote(cliente).separacion ?? '-' }}</td>
+            <td>{{ getLote(cliente).costoLoteLetras ?? '-' }}</td>
             <td>{{ getLote(cliente).cantidadCuotas ?? '-' }}</td>
             <td>{{ getLote(cliente).montoCuotas ?? '-' }}</td>
             <td>{{ getCuotaExtraordinaria(cliente)?.cantidadCuotaExtraordinaria ?? '-' }}</td>
@@ -161,7 +156,6 @@
             <td>{{ getCuotaExtraordinaria(cliente)?.estadoCuenta ?? '-' }}</td>
             <td>{{ getCuotaExtraordinaria(cliente)?.montoDeudaLetra ?? '-' }}</td>
             <td>{{ getCuotaExtraordinaria(cliente)?.cuotaPendientePago ?? '-' }}</td>
-            <td>{{ cliente.cliente.diaPagoNumero ?? '-' }} </td>
             <td>{{ cliente.cliente.correoElectronico ?? '-' }}</td>
             <td>{{ cliente.cliente.celularCliente ?? '-' }}</td>
           </tr>
@@ -181,23 +175,23 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 import { numeroATexto } from "@/data/numeroLetrasConNumeros.js";
 import {
-getLote,
-getMatriz,
-getLindero,
-getCuotaExtraordinaria,
-getConyuge,
-getCopropietario,
+  getLote,
+  getMatriz,
+  getLindero,
+  getCuotaExtraordinaria,
+  getConyuge,
+  getCopropietario,
 } from "@/data/funcionesGetTablaClientes.js";
 
-  const clientes = ref([]);
-  const busquedaGlobal = ref("");
-  const filtros = ref({
+const clientes = ref([]);
+const busquedaGlobal = ref("");
+const filtros = ref({
   idCliente: "",
   nombresApellidos: "",
   numeroIdentificacion: "",
 });
 
-  onMounted(async () => {
+onMounted(async () => {
   await obtenerDatosCombinados();
 });
 
