@@ -13,12 +13,13 @@
 <script setup>
 import { computed } from 'vue'
 import {tiposContrato} from "@/data/tiposContrato.js";
-import {getConyuge, getCopropietario, getCuotaExtraordinaria, getLote, getMatriz, getLindero} from "@/data/funcionesGetTablaClientes.js";
+import {getConyugeCliente, getCopropietario, getCuotaExtraordinaria, getLote, getMatriz, getLindero} from "@/data/funcionesGetTablaClientes.js";
 
 const props = defineProps({
   cliente: Object,
   fila: Object,
   columna: Object,
+  tiposContrato: Array
 })
 
 const modelo = computed({
@@ -40,7 +41,7 @@ const modelo = computed({
           getCopropietario(props.fila)[props.columna.key] = value;
           break;
         case 'conyuge':
-          getConyuge(props.fila)[props.columna.key] = value;
+          getConyugeCliente(props.fila)[props.columna.key] = value;
           break;
         case 'cuotaextraordinaria':
           getCuotaExtraordinaria(props.fila)[props.columna.key] = value;
