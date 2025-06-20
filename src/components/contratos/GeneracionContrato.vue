@@ -252,11 +252,11 @@ const descargarWordT1 = async (cliente) => {
     const anioTexto = numeroATexto(anio).toUpperCase();
 
     const lote = getLote(cliente);
-    const matriz = getMatriz(lote);
+    const matriz = getMatriz(cliente);
     const conyuge = getConyuge(cliente.cliente);
     const copropietario = getCopropietario(cliente.cliente);
-    const lindero = getLindero(lote);
-    const cuotaExtra = getCuotaExtraordinaria(lote);
+    const lindero = getLindero(cliente);
+    const cuotaExtra = getCuotaExtraordinaria(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
@@ -377,11 +377,11 @@ const descargarWordT2 = async (cliente) => {
     const anioTexto = numeroATexto(anio).toUpperCase();
 
     const lote = getLote(cliente);
-    const matriz = getMatriz(lote);
+    const matriz = getMatriz(cliente);
     const conyuge = getConyuge(cliente.cliente);
     const copropietario = getCopropietario(cliente.cliente);
-    const lindero = getLindero(lote);
-    const cuotaExtra = getCuotaExtraordinaria(lote);
+    const lindero = getLindero(cliente);
+    const cuotaExtra = getCuotaExtraordinaria(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
@@ -502,11 +502,11 @@ const descargarWordT3 = async (cliente) => {
     const anioTexto = numeroATexto(anio).toUpperCase();
 
     const lote = getLote(cliente);
-    const matriz = getMatriz(lote);
+    const matriz = getMatriz(cliente);
     const conyuge = getConyuge(cliente.cliente);
     const copropietario = getCopropietario(cliente.cliente);
-    const lindero = getLindero(lote);
-    const cuotaExtra = getCuotaExtraordinaria(lote);
+    const lindero = getLindero(cliente);
+    const cuotaExtra = getCuotaExtraordinaria(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
