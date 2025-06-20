@@ -203,7 +203,7 @@ getCopropietario,
 
 const obtenerDatosCombinados = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/api/clientes/conlotes", {
+    const response = await axios.get("https://backendcramirez.onrender.com/api/clientes/conlotes", {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
