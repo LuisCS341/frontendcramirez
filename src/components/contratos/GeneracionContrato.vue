@@ -175,23 +175,23 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 import { numeroATexto } from "@/data/numeroLetrasConNumeros.js";
 import {
-  getLote,
-  getMatriz,
-  getLindero,
-  getCuotaExtraordinaria,
-  getConyuge,
-  getCopropietario,
+getLote,
+getMatriz,
+getLindero,
+getCuotaExtraordinaria,
+getConyuge,
+getCopropietario,
 } from "@/data/funcionesGetTablaClientes.js";
 
-const clientes = ref([]);
-const busquedaGlobal = ref("");
-const filtros = ref({
+  const clientes = ref([]);
+  const busquedaGlobal = ref("");
+  const filtros = ref({
   idCliente: "",
   nombresApellidos: "",
   numeroIdentificacion: "",
 });
 
-onMounted(async () => {
+  onMounted(async () => {
   await obtenerDatosCombinados();
 });
 
