@@ -3,7 +3,7 @@ export const getLote = (fila) => fila.lote || {};
 export const getMatriz = (fila) => {
     return Array.isArray(fila?.lote?.matriz) && fila.lote.matriz.length > 0
         ? fila.lote.matriz[0]
-        : {};
+        : [{}];
 };
 
 export const getLindero = (fila) => {
@@ -18,7 +18,7 @@ export const getCuotaExtraordinaria = (fila) => {
 
 
 
-export function getConyuge(fila) {
+export function getConyugeCliente(fila) {
     return fila?.conyuge || {};
 }
 
