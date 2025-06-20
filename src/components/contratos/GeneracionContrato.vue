@@ -112,9 +112,9 @@
             <td>{{ getMatriz(cliente)?.ubicacion ?? '-' }}</td>
             <td>{{ getMatriz(cliente)?.unidadCatastral ?? '-' }}</td>
             <td>{{ getMatriz(cliente)?.urbanizacionMatriz ?? '-' }}</td>
-            <td>{{ getMatriz(cliente)?.distrito ?? '-' }}</td>
-            <td>{{ getMatriz(cliente)?.provincia ?? '-' }}</td>
-            <td>{{ getMatriz(cliente)?.departamento ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.distritoMatriz ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.provinciaMatriz ?? '-' }}</td>
+            <td>{{ getMatriz(cliente)?.departamentoMatriz ?? '-' }}</td>
             <td>{{ getMatriz(cliente)?.compraventaMatriz ?? '-' }}</td>
             <td>{{ getMatriz(cliente)?.situacionLegal ?? '-' }}</td>
             <td>{{ getLote(cliente)?.fechaInicioContrato ?? '-' }}</td>
@@ -203,7 +203,7 @@ getCopropietario,
 
 const obtenerDatosCombinados = async () => {
   try {
-    const response = await axios.get("https://backendcramirez.onrender.com/api/clientes/conlotes", {
+    const response = await axios.get("http://localhost:8080/api/clientes/conlotes", {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
