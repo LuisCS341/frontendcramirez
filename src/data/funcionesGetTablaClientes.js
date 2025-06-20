@@ -17,8 +17,7 @@ export const getCuotaExtraordinaria = (fila) => {
 };
 
 
-
-export function getConyugeCliente(fila) {
+export function getConyuge(fila) {
     return fila?.conyuge || {};
 }
 

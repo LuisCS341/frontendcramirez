@@ -13,7 +13,7 @@
 <script setup>
 import { computed } from 'vue'
 import {tiposContrato} from "@/data/tiposContrato.js";
-import {getConyugeCliente, getCopropietario, getCuotaExtraordinaria, getLote, getMatriz, getLindero} from "@/data/funcionesGetTablaClientes.js";
+import {getConyuge, getCopropietario, getCuotaExtraordinaria, getLote, getMatriz, getLindero} from "@/data/funcionesGetTablaClientes.js";
 
 const props = defineProps({
   cliente: Object,
@@ -41,7 +41,7 @@ const modelo = computed({
           getCopropietario(props.fila)[props.columna.key] = value;
           break;
         case 'conyuge':
-          getConyugeCliente(props.fila)[props.columna.key] = value;
+          getConyuge(props.fila)[props.columna.key] = value;
           break;
         case 'cuotaextraordinaria':
           getCuotaExtraordinaria(props.fila)[props.columna.key] = value;
@@ -66,7 +66,7 @@ const modelo = computed({
 const valorMostrado = computed(() => {
   return getMatriz(props.fila)?.[0]?.[props.columna.key] ??
       getLindero(props.fila)?.[props.columna.key] ??
-      getConyugeCliente(props.fila)?.[props.columna.key] ??
+      getConyuge(props.fila)?.[props.columna.key] ??
       getCopropietario(props.fila)?.[props.columna.key] ??
       getCuotaExtraordinaria(props.fila)?.[props.columna.key] ??
       props.fila.lote?.[props.columna.key] ??
@@ -78,7 +78,7 @@ const campoEditable = computed(() => {
   const valor =
       getMatriz(props.fila)?.[0]?.[props.columna.key] ??
       getLindero(props.fila)?.[props.columna.key] ??
-      getConyugeCliente(props.fila)?.[props.columna.key] ??
+      getConyuge(props.fila)?.[props.columna.key] ??
       getCopropietario(props.fila)?.[props.columna.key] ??
       getCuotaExtraordinaria(props.fila)?.[props.columna.key] ??
       props.fila.lote?.[props.columna.key] ??
@@ -91,7 +91,7 @@ const campoEditable = computed(() => {
 const obtenerValor = (key) =>
     getMatriz(props.fila)?.[0]?.[key] ??
     getLindero(props.fila)?.[key] ??
-    getConyugeCliente(props.fila)?.[key] ??
+    getConyuge(props.fila)?.[key] ??
     getCopropietario(props.fila)?.[key] ??
     getCuotaExtraordinaria(props.fila)?.[key] ??
     props.fila.lote?.[key] ??
