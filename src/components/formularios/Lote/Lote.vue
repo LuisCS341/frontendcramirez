@@ -174,7 +174,7 @@
     <input
         v-model="lote.montoLetras"
         type="text"
-
+        readonly
     />
 
     <label>Precio por MT2:</label>
@@ -183,31 +183,25 @@
         step="any"
         required
         placeholder="Ingrese precio por MT2"
-        @input="
-       lote.precioMetroCuadrado = lote.precioMetroCuadrado.toString().replace(/[^0-9.]/g, '');
-       lote.precioMetroCuadradoLetras=numeroLetrasSinDecimal(parseFloat((lote.precioMetroCuadrado).toFixed(2)));"
-
     />
 
     <label>Precio por MT2 en Letras:</label>
     <input
         v-model="lote.precioMetroCuadradoLetras"
         type="text"
-
     />
 
     <label>Cuota Inicial Incluye Separación:</label>
     <input
         v-model="lote.cuotaInicialIncluyeSeparacion"
-        type="text"
-
+        step="any"
+        required
     />
 
     <label>Cuota Inicial Incluye Separación en Letras:</label>
     <input
         v-model="lote.CuotaInicialIncluyeSeparacionLetras"
         type="text"
-
     />
 
     <label>Fecha de Pago:</label>
@@ -242,7 +236,6 @@
     <input
         v-model="lote.saldoLoteLetras"
         type="text"
-
     />
 
     <label>Cantidad de Cuotas:</label>
@@ -256,7 +249,6 @@
     <input
         v-model="lote.cantidadCuotaLetras"
         type="text"
-
     />
 
     <label>Cantidad de Cuotas Cuenta Recaudadora:</label>
@@ -287,7 +279,6 @@
     <input
         v-model="lote.montoCuotaLetras"
         type="text"
-    readonly
     />
 
 
@@ -388,6 +379,7 @@ function formatearFecha(event, tipo) {
     fechaCancelacionContrato.value = input;
   }
 }
+
 watch(() => lote.montoCuotas, (nuevoValor) => {
   const valor = parseFloat(nuevoValor);
   if (!isNaN(valor)) {
@@ -455,5 +447,5 @@ watch(() => lote.cantidadCuotas, (nuevoValor) => {
     lote.cantidadCuotaLetras = '';
   }
 });
-
 </script>
+
