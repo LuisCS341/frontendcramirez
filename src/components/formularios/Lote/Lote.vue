@@ -1,17 +1,18 @@
 <template>
   <div>
+
     <h4>Lote {{ index + 1 }}</h4>
 
     <label>Proyecto:</label>
-    <select v-model.number="lote.proyectolote">
-      <option disabled value="">Selecciona el proyecto</option>
+    <select v-model="lote.proyectolote" >
+      <option disabled value=""  >Selecciona el proyecto</option>
       <option v-for="proyecto in proyectos" :key="proyecto.id" :value="proyecto.id">{{ proyecto.nombre }}</option>
     </select>
 
     <label>Ubicacion de Lote:</label>
-    <select v-model.number="lote.ubicacionLote">
-      <option disabled value="">Selecciona la Ubicacion</option>
-      <option v-for="ubicacion in getUbicacionesFiltradas(lote.proyectolote)" :key="ubicacion.id" :value="ubicacion.id">{{ ubicacion.UbicacionLote }}</option>
+    <select v-model="lote.ubicacionLote">
+      <option disabled value="" >Selecciona la Ubicacion</option>
+      <option v-for="ubicacion in getUbicacionesFiltradas(lote.proyectolote)" :key="ubicacion.id" :value="ubicacion.id">{{ ubicacion.UbicacionLote}}</option>
     </select>
 
     <button type="button" class="mostrar detalles" @click="mostrarFormulario[index] = !mostrarFormulario[index]">
@@ -19,7 +20,7 @@
     </button>
 
     <div v-if="mostrarFormulario[index] && lote.ubicacionLote" class="mini-formulario">
-      <!-- Campos readonly de datos del lote -->
+
       <div class="section">Información General</div>
       <label>Empresa:</label>
       <input v-model="lote.empresa" type="text" readonly />
@@ -94,96 +95,234 @@
       <input v-model="lote.situacionLegalMatriz" type="text" readonly />
     </div>
 
-    <!-- Campos editables -->
+
     <label>Manzana(MZ):</label>
-    <input v-model="lote.manzanalote" type="text" required placeholder="Ingrese su Manzana" />
+    <input
+        v-model="lote.manzanalote"
+        type="text"
+        required
+        placeholder="Ingrese su Manzana"
+    />
 
     <label>Lote(LT):</label>
-    <input v-model="lote.numerolote" type="text" required placeholder="Ingrese su Número de Lote" @input="lote.numerolote = lote.numerolote.replace(/[^0-9]/g, '')" />
+    <input
+        v-model="lote.numerolote"
+        type="text"
+        required
+        placeholder="Ingrese su Número de Lote"
+        @input="lote.numerolote = lote.numerolote.replace(/[^0-9]/g, '')"
+    />
 
     <label>Tipo de Contrato:</label>
-    <select v-model.number="lote.tipoContratolote">
+    <select v-model="lote.tipoContratolote">
       <option v-for="tipo in tiposContrato" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
     </select>
 
     <label>Fecha de Inicio de Contrato:</label>
-    <input type="text" v-model="lote.fechaInicioContrato" @input="formatearFecha($event, 'inicio')" placeholder="dd/mm/aaaa" maxlength="10" />
+    <input
+        type="text"
+        v-model="lote.fechaInicioContrato"
+        @input="formatearFecha($event, 'inicio')"
+        placeholder="dd/mm/aaaa"
+        maxlength="10"
+    />
+
 
     <label>Fecha de Cancelación de Contrato:</label>
-    <input v-model="lote.fechaCancelacionContrato" @input="formatearFecha($event, 'cancelacion')" type="text" placeholder="dd/mm/aaaa" maxlength="10" required />
+    <input
+        v-model="lote.fechaCancelacionContrato"
+        @input="formatearFecha($event, 'cancelacion')"
+        type="text"
+        placeholder="dd/mm/aaaa"
+        maxlength="10"
+        required
+    />
 
     <label>Área del Lote m2:</label>
-    <input v-model.number="lote.areaLote" type="number" step="any" required placeholder="Ingrese su Área del Lote" />
+    <input
+        v-model="lote.areaLote"
+        type="text"
+        step="any"
+        required
+        placeholder="Ingrese su Área del Lote"
+        @input="
+          lote.areaLote = lote.areaLote.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')
+          lote.areaLoteLetras = numeroLetrasAreaLote(lote.areaLote);
+          "
+    />
 
     <label>Área del Lote en Letras:</label>
-    <input v-model="lote.areaLoteLetras" type="text" readonly />
+    <input
+        v-model="lote.areaLoteLetras"
+        type="text"
+        readonly
+    />
 
     <label>Costo de Lote:</label>
-    <input v-model.number="lote.costoLote" step="any" required placeholder="Ingrese su Costo de Lote" />
+    <input
+        v-model="lote.costoLote"
+        step="any"
+        required
+        placeholder="Ingrese su Costo de Lote"
+        @input="
+      lote.costoLote = lote.costoLote.toString().replace(/[^0-9.]/g, '');
+      lote.montoLetras = numeroLetrasSinDecimal(parseFloat(lote.costoLote).toFixed(2));
+    "
+    />
 
     <label>Costo del Lote en Letra:</label>
-    <input v-model="lote.montoLetras" type="text" readonly />
+    <input
+        v-model="lote.montoLetras"
+        type="text"
+        readonly
+    />
 
     <label>Precio por MT2:</label>
-    <input v-model.number="lote.precioMetroCuadrado" step="any" required placeholder="Ingrese precio por MT2" />
+    <input
+        v-model="lote.precioMetroCuadrado"
+        step="any"
+        required
+        placeholder="Ingrese precio por MT2"
+    />
 
     <label>Precio por MT2 en Letras:</label>
-    <input v-model="lote.precioMetroCuadradoLetras" type="text" readonly />
+    <input
+        v-model="lote.precioMetroCuadradoLetras"
+        type="text"
+        readonly
+    />
 
     <label>Cuota Inicial Incluye Separación:</label>
-    <input v-model.number="lote.cuotaInicialIncluyeSeparacion" step="any" required />
+    <input
+        v-model="lote.cuotaInicialIncluyeSeparacion"
+        step="any"
+        required
+    />
 
     <label>Cuota Inicial Incluye Separación en Letras:</label>
-    <input v-model="lote.CuotaInicialIncluyeSeparacionLetras" type="text" readonly />
+    <input
+        v-model="lote.CuotaInicialIncluyeSeparacionLetras"
+        type="text"
+        readonly
+    />
 
     <label>Fecha de Pago:</label>
-    <input v-model="lote.FechaPago" type="text" />
+    <input
+        v-model="lote.FechaPago"
+        type="text"
+
+    />
 
     <label>Cuenta Recaudadora:</label>
-    <input v-model="lote.cuentaRecaudadora" type="text" />
+    <input
+        v-model="lote.cuentaRecaudadora"
+        type="text"
+
+    />
 
     <label>Cuota Inicial - Banco:</label>
-    <input v-model="lote.cuotaInicialBanco" type="text" />
+    <input
+        v-model="lote.cuotaInicialBanco"
+        type="text"
+
+    />
 
     <label>Saldo del Lote:</label>
-    <input v-model.number="lote.saldoLote" type="number" />
+    <input
+        v-model="lote.saldoLote"
+        type="text"
+
+    />
 
     <label>Saldo de Lote en Letras:</label>
-    <input v-model="lote.saldoLoteLetras" type="text" readonly />
+    <input
+        v-model="lote.saldoLoteLetras"
+        type="text"
+        readonly
+    />
 
     <label>Cantidad de Cuotas:</label>
-    <input v-model.number="lote.cantidadCuotas" type="number" />
+    <input
+        v-model="lote.cantidadCuotas"
+        type="text"
+
+    />
 
     <label>Cantidad de Cuotas en Letras:</label>
-    <input v-model="lote.cantidadCuotaLetras" type="text" readonly />
+    <input
+        v-model="lote.cantidadCuotaLetras"
+        type="text"
+        readonly
+    />
 
     <label>Cantidad de Cuotas Cuenta Recaudadora:</label>
-    <input v-model.number="lote.cantidadCuotaCuentaRecaudadora" type="number" />
+    <input
+        v-model="lote.cantidadCuotaCuentaRecaudadora"
+        type="text"
+
+    />
 
     <label>Cantidad de Cuotas - Banco:</label>
-    <input v-model.number="lote.cantidadCuotaBanco" type="number" />
+    <input
+        v-model="lote.cantidadCuotaBanco"
+        type="text"
+
+    />
+
 
     <label>Monto de Cuotas:</label>
-    <input v-model.number="lote.montoCuotas" type="number" required placeholder="Ingrese su Monto en Cuotas" step="any" />
+    <input
+        v-model="lote.montoCuotas"
+        type="number"
+        required
+        placeholder="Ingrese su Monto en Cuotas"
+        step="any"
+    />
 
     <label>Monto De Cuota en Letras:</label>
-    <input v-model="lote.montoCuotaLetras" type="text" readonly />
+    <input
+        v-model="lote.montoCuotaLetras"
+        type="text"
+    readonly
+    />
+
+
 
     <div>
       <label><strong>¿Tiene cuota extraordinaria?</strong></label>
       <div class="contenedor-radio-tarjetas">
         <label class="tarjeta-radio">
-          <input type="radio" :id="'si-' + index" :name="'cuotaExtraordinaria-' + index" value="si" v-model="lote.tieneCuotaExtraordinaria" @change="inicializarCuotaExtraordinaria(lote)" required />
+          <input
+              type="radio"
+              :id="'si-' + index"
+              :name="'cuotaExtraordinaria-' + index"
+              value="si"
+              v-model="lote.tieneCuotaExtraordinaria"
+              @change="inicializarCuotaExtraordinaria(lote)"
+              required
+          />
           <span>Sí</span>
         </label>
         <label class="tarjeta-radio">
-          <input type="radio" :id="'no-' + index" :name="'cuotaExtraordinaria-' + index" value="no" v-model="lote.tieneCuotaExtraordinaria" @change="limpiarCuotaExtraordinaria(lote)" required />
+          <input
+              type="radio"
+              :id="'no-' + index"
+              :name="'cuotaExtraordinaria-' + index"
+              value="no"
+              v-model="lote.tieneCuotaExtraordinaria"
+              @change="limpiarCuotaExtraordinaria(lote)"
+              required
+          />
           <span>No</span>
         </label>
       </div>
     </div>
+
+
   </div>
+
 </template>
+
 <script setup>
 import {proyectos} from '@/data/proyectos.js';
 import { tiposContrato } from '@/data/tiposContrato.js';
