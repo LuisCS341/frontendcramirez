@@ -1,4 +1,4 @@
-export const getLote = (fila) => fila.lotes || {};
+export const getLote = (fila) => fila.lote || {};
 
 export const getMatriz = (fila) => {
     return Array.isArray(fila?.lotes?.matriz) && fila.lotes.matriz.length > 0
@@ -15,8 +15,6 @@ export const getCuotaExtraordinaria = (fila) => {
         ? fila.lotes.cuotasExtraordinarias[0]
         : {};
 };
-
-
 
 export function getConyuge(fila) {
     return fila?.conyuge || {};
