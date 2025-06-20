@@ -1,5 +1,5 @@
 .container {
-    background-image: url("@/assets/imagenes/FondoDashboard.jpg");
+    background-color: rgba(247, 244, 241, 1);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -91,9 +91,6 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-h3{
-    text-align: center;
 }
 
 

@@ -2,6 +2,21 @@
   <div v-if="form">
     <h3 class="titulodatoslotes">Datos del Cónyuge</h3>
 
+    <label for="tipoIdentificacion">Tipo de Identificación:</label>
+    <select v-model="form.conyuge.tipoIdentificacionClienteConyuge" id="tipoIdentificacion">
+      <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
+    </select>
+
+    <label>Número de Identificación:</label>
+    <input
+        v-model="form.conyuge.numIdentificacionClienteConyuge"
+        type="text"
+        required
+        maxlength="8"
+        placeholder="Ingrese su Número de Identificación"
+        @input="form.conyuge.numIdentificacionClienteConyuge = form.conyuge.numIdentificacionClienteConyuge.replace(/[^0-9]/g, '')"
+    />
+
     <label>Nombre y Apellido:</label>
     <input
         v-model="form.conyuge.nombreClienteConyuge"
@@ -18,22 +33,6 @@
         placeholder="Ingrese su Ocupación"
         @input="form.conyuge.ocupacionClienteConyuge = form.conyuge.ocupacionClienteConyuge.replace(/[0-9]/g, '')"
     />
-
-    <label for="tipoIdentificacion">Tipo de Identificación:</label>
-    <select v-model="form.conyuge.tipoIdentificacionClienteConyuge" id="tipoIdentificacion">
-      <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
-    </select>
-
-    <label>Número de Identificación:</label>
-    <input
-        v-model="form.conyuge.numIdentificacionClienteConyuge"
-        type="text"
-        required
-        maxlength="8"
-        placeholder="Ingrese su Número de Identificación"
-        @input="form.conyuge.numIdentificacionClienteConyuge = form.conyuge.numIdentificacionClienteConyuge.replace(/[^0-9]/g, '')"
-    />
-
     <label for="paisOrigen">País de Origen:</label>
     <select v-model="form.conyuge.paisOrigenClienteConyuge" id="paisOrigen">
       <option disabled value="">Seleccione un país</option>
