@@ -1,7 +1,7 @@
 import {getLote,getMatriz,getLindero,getCuotaExtraordinaria,getConyuge,getCopropietario} from "@/data/funcionesGetTablaClientes.js";
 
 export const columnasClientes = [
-    { key: 'contrato', label: 'TIPO DE CONTRATO', editable: false , nested: 'general' },
+    { key: 'contrato', label: 'TIPO DE CONTRATO', editable: false , nested: 'lote' },
     { key: 'codigoLoteCliente', label: 'CLIENTE Nº', editable: false, nested: 'lote' },
     { key: 'idLote', label: 'CONTRATO Nº', editable: false,nested: 'lote' },
     { key: 'tipoProyecto', label: 'PROYECTO',editable: false, nested: 'lote' },
