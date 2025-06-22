@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import  { ref, onMounted ,computed} from "vue";
+import  { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoContratos from "@/components/graficos/GraficoContratos.vue";
