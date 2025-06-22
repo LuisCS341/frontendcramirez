@@ -76,11 +76,11 @@ export default {
 .graficos-container-operador {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 24px 12px 32px 12px;
+  padding: 18px 8px 24px 8px;
   background: #f4f4f4;
   min-height: 100vh;
   box-sizing: border-box;
@@ -97,7 +97,7 @@ export default {
 .graficos-fila-grandes,
 .graficos-fila-grandes-administrador {
   display: flex;
-  gap: 24px;
+  gap: 18px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
@@ -112,14 +112,14 @@ export default {
 
 .grafico-item {
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 18px 14px 18px 14px;
-  margin: 0 auto;
-  min-width: 220px;
-  max-width: 350px;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 14px 10px 14px 10px;
+  margin: 0;
+  min-width: 180px;
+  max-width: 320px;
   width: 100%;
-  min-height: 180px;
+  min-height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -127,34 +127,46 @@ export default {
   animation: fadeInUp 0.7s;
 }
 .grafico-item:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
-  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+  transform: translateY(-4px) scale(1.02);
 }
 
-@media (max-width: 1100px) {
+/* RESPONSIVE TABLET */
+@media (max-width: 900px) {
+  .graficos-container,
+  .graficos-container-operador {
+    max-width: 98vw;
+    padding: 8px 2vw 16px 2vw;
+  }
   .graficos-fila,
   .graficos-fila-grandes,
   .graficos-fila-grandes-administrador {
     flex-direction: column;
-    gap: 18px;
-    align-items: stretch;
+    gap: 14px;
+    align-items: center;
   }
   .grafico-item {
-    max-width: 98vw;
+    max-width: 95vw;
     min-width: 0;
+    font-size: 15px;
+    padding: 10px 4px;
   }
 }
 
-@media (max-width: 700px) {
+/* RESPONSIVE MÓVIL */
+@media (max-width: 600px) {
   .graficos-container,
   .graficos-container-operador {
-    padding: 10px 2vw 20px 2vw;
-    gap: 14px;
+    max-width: 100vw;
+    padding: 4px 0 10px 0;
+    gap: 10px;
   }
   .grafico-item {
-    padding: 10px 4px;
-    min-height: 120px;
+    max-width: 99vw;
+    min-width: 0;
     font-size: 14px;
+    padding: 8px 2px;
+    min-height: 90px;
   }
 }
 </style>
