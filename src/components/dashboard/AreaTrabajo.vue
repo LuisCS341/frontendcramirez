@@ -117,8 +117,8 @@ export default {
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   padding: 8px 4px;         /* Menos espacio interno */
   margin: 0;
-  min-width: 120px;         /* Más pequeño */
   max-width: 180px;         /* Más pequeño */
+  min-width: 120px;         /* Más pequeño */
   width: 100%;
   min-height: 80px;         /* Más bajo */
   display: flex;
