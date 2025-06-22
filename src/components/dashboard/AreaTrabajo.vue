@@ -89,7 +89,8 @@ export default {
   max-width: 1400px;
   margin: 50px auto 0 auto;
   margin-left: 250px;
-   padding: 32px 24px 32px 24px;
+   padding:40px 32px 40px 32px;
+  height: 800px;
   box-sizing: border-box;
   position: relative;
   z-index: 10;
