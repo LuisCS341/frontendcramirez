@@ -2,29 +2,32 @@
   <div v-if="userRole === 3" class="graficos-container">
     <!-- 📌 Solo visible para Operador (Rol 3) -->
     <div v-if="userRole === 3" class="graficos-fila-grandes-administrador">
-      <GraficoRendimientoMes class="grafico-item" />
-      <GraficoContratos class="grafico-item" />
-    </div>
+      <GraficoRendimientoMes />
+      <GraficoContratos />
+    </div>Add commentMore actions
   </div>
 
   <div v-if="userRole <= 2"  class="graficos-container-operador">
     <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
     <div v-if="userRole <= 2" class="graficos-fila">
-      <ClientesRegistrados class="grafico-item" />
-      <ContratosGenerados class="grafico-item" />
-      <TiempoCliente class="grafico-item" />
-      <MetaDia class="grafico-item" />
+      <ClientesRegistrados />
+      <ContratosGenerados />
+      <TiempoCliente />
+      <MetaDia />
     </div>
 
     <div v-if="userRole <= 2" class="graficos-fila-grandes">
-      <GraficoRendimientoMes class="grafico-item" />
-      <GraficoContratos class="grafico-item" />
+      <GraficoRendimientoMes />
+      <GraficoContratos />
     </div>
+
   </div>
+
+
 </template>
 
 <script>
-import  { ref, onMounted } from "vue";
+import  { ref, onMounted ,computed} from "vue";
 import { useRouter } from "vue-router";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoContratos from "@/components/graficos/GraficoContratos.vue";
@@ -43,7 +46,7 @@ export default {
     ClientesRegistrados,
   },
   setup() {
-    const userRole = ref(null);
+    const userRole = ref(null); // 📌 Valor por defecto (Operador)
     const router = useRouter();
 
     onMounted(() => {
@@ -51,7 +54,7 @@ export default {
         const userData = JSON.parse(localStorage.getItem("user"));
         const storedUserRole = userData?.rol;
         if (storedUserRole) {
-          userRole.value = parseInt(storedUserRole, 10);
+          userRole.value = parseInt(storedUserRole, 10); // 🔥 Asegurarse de que sea un número
           console.log("🎭 Rol detectado:", userRole.value);
         } else {
           console.warn("⚠️ No se detectó un rol, redirigiendo a la página de login.");
@@ -105,6 +108,7 @@ export default {
   max-width: 500px;
 }
 
+
 .graficos-fila {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
@@ -124,4 +128,5 @@ export default {
   padding: 10px;
   margin-top: 150px;
 }
+
 </style>
