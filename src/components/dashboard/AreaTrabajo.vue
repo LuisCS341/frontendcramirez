@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import  { ref, onMounted ,computed} from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoContratos from "@/components/graficos/GraficoContratos.vue";
@@ -72,78 +72,28 @@ export default {
 </script>
 
 <style scoped>
-.graficos-container,
+.graficos-container {
+  display: grid;
+  width: 1400px;
+  height: 800px;
+  margin-top: 50px;
+  margin-left: 255px;
+  background-color: #dcdcdc;
+}
+
 .graficos-container-operador {
   display: grid;
-  gap: 10px;
-  width: 100vw;
+  gap: 5px;
+  width: 90vw;
   max-width: 1400px;
-  margin: 60px auto 0 auto;
+  margin: 50px auto 0 auto;
+  margin-left: 250px;
   padding: 10px;
   box-sizing: border-box;
   position: relative;
   z-index: 10;
   overflow-y: auto;
   background-color: #dcdcdc;
-}
-
-@media (max-width: 1200px) {
-  .graficos-container,
-  .graficos-container-operador {
-    margin-left: 0;
-    width: 98vw;
-    padding: 6px;
-  }
-}
-
-.graficos-fila {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  padding: 10px;
-}
-.graficos-fila-grandes,
-.graficos-fila-grandes-administrador {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  padding: 10px;
-  margin-top: 40px;
-}
-
-@media (max-width: 900px) {
-  .graficos-fila {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .graficos-fila-grandes,
-  .graficos-fila-grandes-administrador {
-    grid-template-columns: 1fr;
-    margin-top: 20px;
-    gap: 12px;
-  }
-}
-
-@media (max-width: 600px) {
-  .graficos-container,
-  .graficos-container-operador {
-    width: 100vw;
-    min-width: 0;
-    margin: 10px 0 0 0;
-    padding: 2px;
-  }
-  .graficos-fila {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 4px;
-  }
-  .graficos-fila-grandes,
-  .graficos-fila-grandes-administrador {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 4px;
-    margin-top: 10px;
-  }
 }
 
 .grafico-item {
@@ -153,9 +103,28 @@ export default {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   justify-content: center;
   align-items: center;
-  height: 320px;
+  height: 370px;
   width: 100%;
   max-width: 500px;
-  margin: 0 auto;
+}
+
+.graficos-fila {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  row-gap: 1px;
+  padding: 10px;
+}
+.graficos-fila-grandes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 75px;
+}
+
+.graficos-fila-grandes-administrador {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 150px;
 }
 </style>
