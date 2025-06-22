@@ -72,50 +72,98 @@ export default {
 </script>
 
 <style scoped>
-.graficos-container {
-  display: grid;
-  width: 1400px;
-  height: 800px;
-  margin-top: 50px;
-  margin-left: 255px;
-  background-color: #dcdcdc;
-}
-
+.graficos-container,
 .graficos-container-operador {
-  display: grid;
-  gap: 5px;
-  width: 90vw;
-  max-width: 1400px;
-  margin: 50px auto 0 auto;
-  margin-left: 250px;
-  padding: 10px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 12px 32px 12px;
+  background: #f4f4f4;
+  min-height: 100vh;
   box-sizing: border-box;
-  position: relative;
-  z-index: 10;
-  overflow-y: auto;
-  background-color: #dcdcdc;
+  transition: background 0.3s;
 }
 
-
-
+/* Fila de 4 columnas en PC, 2 en tablet, 1 en móvil */
 .graficos-fila {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
-  row-gap: 1px;
-  padding: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding: 10px 0;
 }
-.graficos-fila-grandes {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 10px;
-  margin-top: 75px;
-}
-
+.graficos-fila-grandes,
 .graficos-fila-grandes-administrador {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  padding: 10px;
-  margin-top: 150px;
+  gap: 18px;
+  padding: 10px 0;
+  margin-top: 40px;
 }
 
+/* Tarjetas internas: aplica a los hijos directos de las filas */
+.graficos-fila > * ,
+.graficos-fila-grandes > *,
+.graficos-fila-grandes-administrador > * {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 16px 10px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.graficos-fila > *:hover,
+.graficos-fila-grandes > *:hover,
+.graficos-fila-grandes-administrador > *:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* RESPONSIVE TABLET */
+@media (max-width: 1100px) {
+  .graficos-container,
+  .graficos-container-operador {
+    max-width: 98vw;
+    padding: 8px 2vw 16px 2vw;
+  }
+  .graficos-fila {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .graficos-fila-grandes,
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 24px;
+  }
+}
+
+/* RESPONSIVE MÓVIL */
+@media (max-width: 700px) {
+  .graficos-container,
+  .graficos-container-operador {
+    max-width: 100vw;
+    padding: 4px 0 10px 0;
+    gap: 10px;
+  }
+  .graficos-fila {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .graficos-fila-grandes,
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .graficos-fila > *,
+  .graficos-fila-grandes > *,
+  .graficos-fila-grandes-administrador > * {
+    padding: 8px 2px;
+    min-height: 90px;
+    font-size: 14px;
+  }
+}
 </style>
