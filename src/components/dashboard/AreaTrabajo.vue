@@ -146,7 +146,7 @@ export default {
   }
 }
 
- {
+.grafico-item {
   background-color: white;
   padding: 10px;
   border-radius: 8px;
