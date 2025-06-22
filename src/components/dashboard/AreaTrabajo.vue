@@ -74,51 +74,64 @@ export default {
 <style scoped>
 .graficos-container,
 .graficos-container-operador {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 24px 12px 32px 12px;
+  padding: 32px 24px 32px 24px;
   background: #f4f4f4;
   min-height: 100vh;
   box-sizing: border-box;
-  transition: background 0.3s;
+  animation: fadeIn 0.7s;
 }
 
-/* Fila de 4 columnas en PC, 2 en tablet, 1 en móvil */
-.graficos-fila {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  padding: 10px 0;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 1; transform: translateY(0);}
 }
+
+.graficos-fila,
 .graficos-fila-grandes,
 .graficos-fila-grandes-administrador {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  padding: 10px 0;
-  margin-top: 40px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  animation: fadeInUp 0.7s;
 }
 
-/* Tarjetas internas: aplica a los hijos directos de las filas */
-.graficos-fila > * ,
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.graficos-fila > *,
 .graficos-fila-grandes > *,
 .graficos-fila-grandes-administrador > * {
   background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  padding: 16px 10px;
-  min-height: 160px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 20px 18px;
+  margin: 0;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
 }
 .graficos-fila > *:hover,
 .graficos-fila-grandes > *:hover,
 .graficos-fila-grandes-administrador > *:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
-  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
 }
 
 /* RESPONSIVE TABLET */
@@ -126,17 +139,22 @@ export default {
   .graficos-container,
   .graficos-container-operador {
     max-width: 98vw;
-    padding: 8px 2vw 16px 2vw;
+    padding: 16px 2vw 16px 2vw;
   }
-  .graficos-fila {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-  }
+  .graficos-fila,
   .graficos-fila-grandes,
   .graficos-fila-grandes-administrador {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    margin-top: 24px;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+  .graficos-fila > *,
+  .graficos-fila-grandes > *,
+  .graficos-fila-grandes-administrador > * {
+    max-width: 95vw;
+    min-width: 0;
+    font-size: 15px;
+    padding: 14px 6px;
   }
 }
 
@@ -145,25 +163,17 @@ export default {
   .graficos-container,
   .graficos-container-operador {
     max-width: 100vw;
-    padding: 4px 0 10px 0;
+    padding: 8px 0 8px 0;
     gap: 10px;
-  }
-  .graficos-fila {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  .graficos-fila-grandes,
-  .graficos-fila-grandes-administrador {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 14px;
   }
   .graficos-fila > *,
   .graficos-fila-grandes > *,
   .graficos-fila-grandes-administrador > * {
+    max-width: 99vw;
+    min-width: 0;
+    font-size: 14px;
     padding: 8px 2px;
     min-height: 90px;
-    font-size: 14px;
   }
 }
 </style>
