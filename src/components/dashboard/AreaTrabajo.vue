@@ -1,32 +1,33 @@
 <template>
-  <div class="dashboard-container">
-    <!-- 📌 Contenido para Operador (Rol 3) -->
-    <div v-if="userRole === 3" class="operator-view">
-      <div class="graficos-fila-grandes-administrador">
-        <GraficoRendimientoMes />
-        <GraficoContratos />
-      </div>
-    </div>
-
-    <!-- 📌 Contenido para Supervisor (Rol 2) y Jefe (Rol 1) -->
-    <div v-if="userRole <= 2" class="supervisor-view">
-      <div class="graficos-fila">
-        <ClientesRegistrados />
-        <ContratosGenerados />
-        <TiempoCliente />
-        <MetaDia />
-      </div>
-
-      <div class="graficos-fila-grandes">
-        <GraficoRendimientoMes />
-        <GraficoContratos />
-      </div>
-    </div>
+  <div v-if="userRole === 3" class="graficos-container">
+    <!-- 📌 Solo visible para Operador (Rol 3) -->
+    <div v-if="userRole === 3" class="graficos-fila-grandes-administrador">
+      <GraficoRendimientoMes />
+      <GraficoContratos />
+    </div>Add commentMore actions
   </div>
+
+  <div v-if="userRole <= 2"  class="graficos-container-operador">
+    <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
+    <div v-if="userRole <= 2" class="graficos-fila">
+      <ClientesRegistrados />
+      <ContratosGenerados />
+      <TiempoCliente />
+      <MetaDia />
+    </div>
+
+    <div v-if="userRole <= 2" class="graficos-fila-grandes">
+      <GraficoRendimientoMes />
+      <GraficoContratos />
+    </div>
+
+  </div>
+
+
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import  { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoContratos from "@/components/graficos/GraficoContratos.vue";
@@ -45,7 +46,7 @@ export default {
     ClientesRegistrados,
   },
   setup() {
-    const userRole = ref(null);
+    const userRole = ref(null); // 📌 Valor por defecto (Operador)
     const router = useRouter();
 
     onMounted(() => {
@@ -53,7 +54,7 @@ export default {
         const userData = JSON.parse(localStorage.getItem("user"));
         const storedUserRole = userData?.rol;
         if (storedUserRole) {
-          userRole.value = parseInt(storedUserRole, 10);
+          userRole.value = parseInt(storedUserRole, 10); // 🔥 Asegurarse de que sea un número
           console.log("🎭 Rol detectado:", userRole.value);
         } else {
           console.warn("⚠️ No se detectó un rol, redirigiendo a la página de login.");
@@ -71,89 +72,51 @@ export default {
 </script>
 
 <style scoped>
-.dashboard-container {
-  width: 100%;
-  min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
+.graficos-container {
+  display: grid;
+  width: 1400px;
+  height: 800px;
+  margin-top: 50px;
+  margin-left: 255px;
   background-color: #dcdcdc;
-  margin-left: 250px; /* <-- Ajusta esto al ancho real de tu sidebar */
+    padding: 32px 24px 32px 24px;
 }
-/* Estilos para la vista de Operador */
-.operator-view {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 40px);
+
+.graficos-container-operador {
+  display: grid;
+  gap: 5px;
+  width: 90vw;
+  max-width: 1400px;
+  margin: 50px auto 0 auto;
+  margin-left: 250px;
+   padding: 32px 24px 32px 24px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+  overflow-y: auto;
+  background-color: #dcdcdc;
+}
+
+
+
+.graficos-fila {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  row-gap: 1px;
+  padding: 10px;
+}
+.graficos-fila-grandes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 75px;
 }
 
 .graficos-fila-grandes-administrador {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 10px;
+  margin-top: 150px;
 }
 
-/* Estilos para la vista de Supervisor/Jefe */
-.supervisor-view {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.graficos-fila {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 15px;
-  width: 100%;
-}
-
-.graficos-fila-grandes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-  gap: 20px;
-  width: 100%;
-  margin-top: 20px;
-}
-
-/* Media Queries para ajustes responsivos */
-@media (max-width: 1400px) {
-  .graficos-fila-grandes-administrador,
-  .graficos-fila-grandes {
-    grid-template-columns: 1fr;
-  }
-  
-  .graficos-fila-grandes-administrador {
-    margin-top: 50px;
-  }
-}
-
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 10px;
-  }
-  
-  .graficos-fila {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 600px) {
-  .graficos-fila {
-    grid-template-columns: 1fr;
-  }
-  
-  .graficos-fila-grandes,
-  .graficos-fila-grandes-administrador {
-    gap: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .dashboard-container {
-    padding: 5px;
-  }
-}
 </style>
