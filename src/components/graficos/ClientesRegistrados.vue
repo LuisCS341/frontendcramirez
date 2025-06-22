@@ -1,5 +1,5 @@
 <template>
-   <div class="chart-container-clientes-registrados grafico-item">    
+  <div class="summary-card">
     <div class="icon-text">
       <span class="icon">👥</span>
       <div class="text">
@@ -22,11 +22,15 @@ const clientesHoy = ref(8);
 
 <style scoped>
 .summary-card {
-  width: 100%;
-  min-width: unset;
-  max-width: unset;
-  min-height: unset;
-  box-sizing: border-box;
+  width: 150px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: sans-serif;
 }
 
 .icon-text {

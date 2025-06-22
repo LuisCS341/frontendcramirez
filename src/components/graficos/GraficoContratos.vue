@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-container-grafico-contratos grafico-item">
+  <div class="chart-container-grafico-contratos">
     <h2>📄 Contratos - {{ currentMonth }}</h2>
     <canvas ref="chartCanvas"></canvas>
   </div>
