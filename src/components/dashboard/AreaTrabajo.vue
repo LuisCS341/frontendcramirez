@@ -72,59 +72,89 @@ export default {
 </script>
 
 <style scoped>
-.graficos-container {
-  display: grid;
-  width: 1400px;
-  height: 800px;
-  margin-top: 50px;
-  margin-left: 255px;
-  background-color: #dcdcdc;
+.graficos-container,
+.graficos-container-operador {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 12px 32px 12px;
+  background: #f4f4f4;
+  min-height: 100vh;
+  box-sizing: border-box;
+  transition: background 0.3s;
+  animation: fadeIn 0.7s;
 }
 
-.graficos-container-operador {
-  display: grid;
-  gap: 5px;
-  width: 90vw;
-  max-width: 1400px;
-  margin: 50px auto 0 auto;
-  margin-left: 250px;
-  padding: 10px;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 10;
-  overflow-y: auto;
-  background-color: #dcdcdc;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.graficos-fila,
+.graficos-fila-grandes,
+.graficos-fila-grandes-administrador {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  animation: fadeInUp 0.7s;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 
 .grafico-item {
-  background-color: white;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  justify-content: center;
-  align-items: center;
-  height: 370px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 18px 14px 18px 14px;
+  margin: 0 auto;
+  min-width: 220px;
+  max-width: 350px;
   width: 100%;
-  max-width: 500px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
+}
+.grafico-item:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
 }
 
-.graficos-fila {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
-  row-gap: 1px;
-  padding: 10px;
-}
-.graficos-fila-grandes {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 10px;
-  margin-top: 75px;
+@media (max-width: 1100px) {
+  .graficos-fila,
+  .graficos-fila-grandes,
+  .graficos-fila-grandes-administrador {
+    flex-direction: column;
+    gap: 18px;
+    align-items: stretch;
+  }
+  .grafico-item {
+    max-width: 98vw;
+    min-width: 0;
+  }
 }
 
-.graficos-fila-grandes-administrador {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 10px;
-  margin-top: 0;
+@media (max-width: 700px) {
+  .graficos-container,
+  .graficos-container-operador {
+    padding: 10px 2vw 20px 2vw;
+    gap: 14px;
+  }
+  .grafico-item {
+    padding: 10px 4px;
+    min-height: 120px;
+    font-size: 14px;
+  }
 }
 </style>
