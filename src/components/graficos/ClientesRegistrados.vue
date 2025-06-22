@@ -22,7 +22,7 @@ const clientesHoy = ref(8);
 
 <style scoped>
 .summary-card {
-  width: 150px;
+  width: 15px;
   padding: 16px;
   border-radius: 12px;
   background: #fff;
