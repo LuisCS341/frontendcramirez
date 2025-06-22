@@ -1,0 +1,224 @@
+* Contenedor principal para operador y supervisor/jefe */
+.graficos-container,
+.graficos-container-operador {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px 32px 24px;
+  background: #dcdcdc;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Fila de tarjetas pequeñas */
+.graficos-fila {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  padding: 10px 0;
+}
+
+/* Fila de tarjetas grandes para supervisor/jefe */
+.graficos-fila-grandes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 18px;
+  padding: 10px 0;
+  margin-top: 40px;
+}
+
+/* Fila de tarjetas grandes para administrador */
+.graficos-fila-grandes-administrador {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  padding: 10px 0;
+  margin-top: 150px;
+}
+
+/* Tarjetas generales (puedes usar esta clase en tus componentes) */
+.summary-card {
+  min-width: 150px;
+  max-width: 220px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0 auto;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.summary-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+  transform: translateY(-4px) scale(1.02);
+}
+.icon-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon {
+  font-size: 24px;
+}
+.title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.count {
+  margin-top: 12px;
+  text-align: left;
+}
+.number {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111;
+}
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin-top: -4px;
+}
+
+/* Contenedor para Clientes Registrados */
+.chart-container-clientes-registrados {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 20px 18px;
+  margin: 0;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
+}
+.chart-container-clientes-registrados:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
+}
+
+/* Contenedor para Contratos Generados */
+.chart-container-contratos-generados {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 20px 18px;
+  margin: 0;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
+}
+.chart-container-contratos-generados:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
+}
+
+/* Contenedor para Gráfico de Contratos */
+.chart-container-grafico-contratos {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 20px 18px;
+  margin: 0;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
+}
+.chart-container-grafico-contratos:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
+}
+.chart-container-grafico-contratos h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* Contenedor para Gráfico de Rendimiento del Mes */
+.chart-container-grafico-rendimiento-mes {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 20px 18px;
+  margin: 0;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
+}
+.chart-container-grafico-rendimiento-mes:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
+}
+
+/* RESPONSIVE TABLET */
+@media (max-width: 1100px) {
+  .graficos-container,
+  .graficos-container-operador {
+    max-width: 98vw;
+    padding: 16px 2vw 16px 2vw;
+  }
+  .graficos-fila,
+  .graficos-fila-grandes,
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+}
+
+/* RESPONSIVE MÓVIL */
+@media (max-width: 700px) {
+  .graficos-container,
+  .graficos-container-operador {
+    max-width: 100vw;
+    padding: 8px 0 8px 0;
+    gap: 10px;
+  }
+  .graficos-fila,
+  .graficos-fila-grandes,
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 6px 0;
+    margin-top: 14px;
+  }
+  .summary-card {
+    max-width: 99vw;
+    min-width: 0;
+    font-size: 14px;
+    padding: 8px 2px;
+  }
+}
