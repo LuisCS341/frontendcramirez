@@ -126,7 +126,65 @@ body, html {
     background-color: #c4c4c4;
 }
 
+/* 3. Área de trabajo y tarjetas */
+.cards-dashboard, .graficos-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .cards-dashboard, .graficos-dashboard {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card-dashboard, .grafico-dashboard {
+    width: 100% !important;
+    min-width: 0;
+  }
+}
+
+/* 4. General: Ajusta el área de contenido */
+@media (max-width: 900px) {
+  .contenido {
+    flex-direction: column;
+    padding: 8px !important;
+    min-width: 0;
+    width: 100vw !important;
+  }
+}
+
 /* ========= RESPONSIVE ========= */
+@media (max-width: 900px) {
+  .barra-superior {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 10px 10px;
+  }
+  .usuario {
+    margin-right: 0;
+    margin-top: 10px;
+    align-self: flex-end;
+  }
+  .contenido {
+    padding: 10px;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .barra-superior {
+    padding: 6px 4px;
+  }
+  .logo {
+    height: 40px;
+  }
+  .usuario {
+    gap: 6px;
+  }
+}
+
 @media (max-width: 768px) {
     .barra-superior {
         flex-direction: column;
