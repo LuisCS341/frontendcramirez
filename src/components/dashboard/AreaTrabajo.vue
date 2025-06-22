@@ -72,95 +72,59 @@ export default {
 </script>
 
 <style scoped>
-.graficos-container,
+.graficos-container {
+  display: grid;
+  width: 1400px;
+  height: 800px;
+  margin-top: 50px;
+  margin-left: 255px;
+  background-color: #dcdcdc;
+}
+
 .graficos-container-operador {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  max-width: 1050px; /* Más compacto para PC */
-  margin: 0 auto;
-  padding: 18px 8px 24px 8px;
-  background: #f4f4f4;
-  min-height: 100vh;
+  display: grid;
+  gap: 5px;
+  width: 90vw;
+  max-width: 1400px;
+  margin: 50px auto 0 auto;
+  margin-left: 250px;
+  padding: 10px;
   box-sizing: border-box;
-  transition: background 0.3s;
-  animation: fadeIn 0.7s;
-  overflow-x: hidden;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px);}
-  to { opacity: 1; transform: translateY(0);}
-}
-
-.graficos-fila,
-.graficos-fila-grandes,
-.graficos-fila-grandes-administrador {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch;
-  width: 100%;
-  animation: fadeInUp 0.7s;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px);}
-  to { opacity: 1; transform: translateY(0);}
+  position: relative;
+  z-index: 10;
+  overflow-y: auto;
+  background-color: #dcdcdc;
 }
 
 .grafico-item {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  padding: 8px 4px;         /* Menos espacio interno */
-  margin: 0;
-  max-width: 180px;         /* Más pequeño */
-  min-width: 120px;         /* Más pequeño */
-  width: 100%;
-  min-height: 80px;         /* Más bajo */
-  display: flex;
-  flex-direction: column;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  justify-content: center;
   align-items: center;
-  transition: box-shadow 0.3s, transform 0.3s;
-  animation: fadeInUp 0.7s;
-}
-.grafico-item:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
-  transform: translateY(-4px) scale(1.02);
+  height: 370px;
+  width: 100%;
+  max-width: 500px;
 }
 
-/* RESPONSIVE TABLET */
-@media (max-width: 1100px) {
-  .graficos-container,
-  .graficos-container-operador {
-    max-width: 98vw;
-    padding: 8px 2vw 16px 2vw;
-  }
-  .grafico-item {
-    max-width: 95vw;
-    min-width: 0;
-    font-size: 15px;
-    padding: 10px 4px;
-  }
+.graficos-fila {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  row-gap: 1px;
+  padding: 10px;
+}
+.graficos-fila-grandes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 75px;
 }
 
-/* RESPONSIVE MÓVIL */
-@media (max-width: 700px) {
-  .graficos-container,
-  .graficos-container-operador {
-    max-width: 100vw;
-    padding: 4px 0 10px 0;
-    gap: 10px;
-  }
-  .grafico-item {
-    max-width: 99vw;
-    min-width: 0;
-    font-size: 14px;
-    padding: 8px 2px;
-    min-height: 90px;
-  }
+.graficos-fila-grandes-administrador {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 0;
 }
 </style>
