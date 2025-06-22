@@ -10,15 +10,15 @@
   <div v-if="userRole <= 2"  class="graficos-container-operador">
     <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
     <div v-if="userRole <= 2" class="graficos-fila">
-      <ClientesRegistrados />
-      <ContratosGenerados />
-      <TiempoCliente />
-      <MetaDia />
+      <ClientesRegistrados class="grafico-item" />
+      <ContratosGenerados class="grafico-item" />
+      <TiempoCliente class="grafico-item" />
+      <MetaDia class="grafico-item" />
     </div>
 
     <div v-if="userRole <= 2" class="graficos-fila-grandes">
-      <GraficoRendimientoMes />
-      <GraficoContratos />
+      <GraficoRendimientoMes class="grafico-item" />
+      <GraficoContratos class="grafico-item" />
     </div>
 
   </div>
