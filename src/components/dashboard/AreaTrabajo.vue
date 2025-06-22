@@ -77,20 +77,21 @@ export default {
   margin-top: 50px;
   margin-left: 255px;
   background-color: #dcdcdc;
-    padding: 32px 24px 32px 24px;
+  padding: 32px 24px 32px 24px;
   width: 100%;           
   box-sizing: border-box;  
 }
 
+
 .graficos-container-operador {
   display: grid;
-  gap: 5px;
-  width: 90vw;
+  gap: 16px;
+  width: 100%;
   max-width: 1400px;
   margin: 50px auto 0 auto;
   margin-left: 250px;
-   padding:40px 32px 40px 32px;
-  height: 800px;
+  padding: 32px 24px 32px 24px;
+  min-height: 600px;
   box-sizing: border-box;
   position: relative;
   z-index: 10;
@@ -99,18 +100,18 @@ export default {
 }
 
 
-
 .graficos-fila {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
-  row-gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
   padding: 10px;
 }
 .graficos-fila-grandes {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 18px;
   padding: 10px;
-  margin-top: 75px;
+  margin-top: 40px;
 }
 
 .graficos-fila-grandes-administrador {
