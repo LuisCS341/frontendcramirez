@@ -78,7 +78,7 @@ export default {
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1050px; /* Más compacto para PC */
   margin: 0 auto;
   padding: 18px 8px 24px 8px;
   background: #f4f4f4;
@@ -86,6 +86,7 @@ export default {
   box-sizing: border-box;
   transition: background 0.3s;
   animation: fadeIn 0.7s;
+  overflow-x: hidden;
 }
 
 @keyframes fadeIn {
@@ -97,7 +98,7 @@ export default {
 .graficos-fila-grandes,
 .graficos-fila-grandes-administrador {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
@@ -112,14 +113,14 @@ export default {
 
 .grafico-item {
   background: #fff;
-  border-radius: 14px;
+  border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  padding: 14px 10px 14px 10px;
+  padding: 12px 8px 12px 8px;
   margin: 0;
   min-width: 180px;
-  max-width: 320px;
+  max-width: 260px; /* Más pequeño para PC */
   width: 100%;
-  min-height: 140px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,18 +133,11 @@ export default {
 }
 
 /* RESPONSIVE TABLET */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .graficos-container,
   .graficos-container-operador {
     max-width: 98vw;
     padding: 8px 2vw 16px 2vw;
-  }
-  .graficos-fila,
-  .graficos-fila-grandes,
-  .graficos-fila-grandes-administrador {
-    flex-direction: column;
-    gap: 14px;
-    align-items: center;
   }
   .grafico-item {
     max-width: 95vw;
@@ -154,7 +148,7 @@ export default {
 }
 
 /* RESPONSIVE MÓVIL */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .graficos-container,
   .graficos-container-operador {
     max-width: 100vw;
