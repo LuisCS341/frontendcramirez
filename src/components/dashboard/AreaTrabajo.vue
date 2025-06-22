@@ -74,12 +74,12 @@ export default {
 <style scoped>
 .graficos-container {
   display: grid;
-  width: 1400px;
-  height: 800px;
   margin-top: 50px;
   margin-left: 255px;
   background-color: #dcdcdc;
     padding: 32px 24px 32px 24px;
+  width: 100%;           
+  box-sizing: border-box;  
 }
 
 .graficos-container-operador {
