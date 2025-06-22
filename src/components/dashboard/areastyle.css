@@ -1,62 +1,57 @@
 /* Contenedor principal para operador */
 .graficos-container {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 32px 24px 32px 24px;
-  background: #dcdcdc;
-  min-height: 100vh;
-  box-sizing: border-box;
+  display: grid;
+  width: 1400px;
+  height: 800px;
+  margin-top: 50px;
+  margin-left: 255px;
+  background-color: #dcdcdc;
 }
 
 /* Contenedor principal para supervisor/jefe */
 .graficos-container-operador {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
+  display: grid;
+  gap: 5px;
+  width: 90vw;
   max-width: 1400px;
-  margin: 0 auto;
-  padding: 32px 24px 32px 24px;
-  background: #dcdcdc;
-  min-height: 100vh;
+  margin: 50px auto 0 auto;
+  margin-left: 250px;
+  padding: 10px;
   box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+  overflow-y: auto;
+  background-color: #dcdcdc;
 }
 
 /* Fila de tarjetas pequeñas */
 .graficos-fila {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
-  padding: 10px 0;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  row-gap: 1px;
+  padding: 10px;
 }
 
 /* Fila de tarjetas grandes para supervisor/jefe */
 .graficos-fila-grandes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 18px;
-  padding: 10px 0;
-  margin-top: 40px;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 75px;
 }
 
 /* Fila de tarjetas grandes para administrador */
 .graficos-fila-grandes-administrador {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 18px;
-  padding: 10px 0;
-  margin-top: 100px;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 150px;
 }
 
 /* Tarjeta general */
 .summary-card {
-  min-width: 180px;
-  max-width: 320px;
-  width: 100%;
+  min-width: 150px;
+  max-width: 220px;
   padding: 18px;
   border-radius: 14px;
   background: #fff;
@@ -199,29 +194,55 @@
 
 /* RESPONSIVE TABLET */
 @media (max-width: 1100px) {
-  .graficos-container,
+  .graficos-container {
+    max-width: 98vw;
+    padding: 16px 2vw 16px 2vw;
+  }
   .graficos-container-operador {
     max-width: 98vw;
     padding: 16px 2vw 16px 2vw;
   }
-  .graficos-fila,
-  .graficos-fila-grandes,
-  .graficos-fila-grandes-administrador {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  .graficos-fila {
+    grid-template-columns: 1fr;
     gap: 14px;
+    align-items: center;
+  }
+  .graficos-fila-grandes {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: center;
   }
 }
 
 /* RESPONSIVE MÓVIL */
 @media (max-width: 700px) {
-  .graficos-container,
+  .graficos-container {
+    max-width: 100vw;
+    padding: 8px 0 8px 0;
+    gap: 10px;
+  }
   .graficos-container-operador {
     max-width: 100vw;
     padding: 8px 0 8px 0;
     gap: 10px;
   }
-  .graficos-fila,
-  .graficos-fila-grandes,
+  .graficos-fila {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 6px 0;
+    margin-top: 14px;
+  }
+  .graficos-fila-grandes {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 6px 0;
+    margin-top: 14px;
+  }
   .graficos-fila-grandes-administrador {
     grid-template-columns: 1fr;
     gap: 10px;
