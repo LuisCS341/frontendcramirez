@@ -1,14 +1,14 @@
 <template>
   <div v-if="userRole === 3" class="graficos-container">
-    <!-- 📌 Solo visible para Operador (Rol 3) -->
+    <!-- Solo visible para Operador (Rol 3) -->
     <div v-if="userRole === 3" class="graficos-fila-grandes-administrador">
-      <GraficoRendimientoMes />
-      <GraficoContratos />
+      <GraficoRendimientoMes class="grafico-item" />
+      <GraficoContratos class="grafico-item" />
     </div>
   </div>
 
-  <div v-if="userRole <= 2"  class="graficos-container-operador">
-    <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
+  <div v-if="userRole <= 2" class="graficos-container-operador">
+    <!-- Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
     <div v-if="userRole <= 2" class="graficos-fila">
       <ClientesRegistrados class="grafico-item" />
       <ContratosGenerados class="grafico-item" />
@@ -20,10 +20,7 @@
       <GraficoRendimientoMes class="grafico-item" />
       <GraficoContratos class="grafico-item" />
     </div>
-
   </div>
-
-
 </template>
 
 <script>
@@ -46,7 +43,7 @@ export default {
     ClientesRegistrados,
   },
   setup() {
-    const userRole = ref(null); // 📌 Valor por defecto (Operador)
+    const userRole = ref(null);
     const router = useRouter();
 
     onMounted(() => {
@@ -54,14 +51,11 @@ export default {
         const userData = JSON.parse(localStorage.getItem("user"));
         const storedUserRole = userData?.rol;
         if (storedUserRole) {
-          userRole.value = parseInt(storedUserRole, 10); // 🔥 Asegurarse de que sea un número
-          console.log("🎭 Rol detectado:", userRole.value);
+          userRole.value = parseInt(storedUserRole, 10);
         } else {
-          console.warn("⚠️ No se detectó un rol, redirigiendo a la página de login.");
           router.push("/");
         }
       } catch (error) {
-        console.error("❌ Error al intentar obtener el rol del usuario:", error);
         router.push("/login");
       }
     });
