@@ -77,8 +77,8 @@ export default {
   padding: 20px;
   box-sizing: border-box;
   background-color: #dcdcdc;
+  margin-left: 250px; /* <-- Ajusta esto al ancho real de tu sidebar */
 }
-
 /* Estilos para la vista de Operador */
 .operator-view {
   display: flex;
