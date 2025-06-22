@@ -115,12 +115,12 @@ export default {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  padding: 12px 8px 12px 8px;
+  padding: 8px 4px;         /* Menos espacio interno */
   margin: 0;
-  min-width: 180px;
-  max-width: 260px; /* Más pequeño para PC */
+  min-width: 120px;         /* Más pequeño */
+  max-width: 180px;         /* Más pequeño */
   width: 100%;
-  min-height: 120px;
+  min-height: 80px;         /* Más bajo */
   display: flex;
   flex-direction: column;
   align-items: center;
