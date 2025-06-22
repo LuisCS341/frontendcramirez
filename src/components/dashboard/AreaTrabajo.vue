@@ -72,22 +72,13 @@ export default {
 </script>
 
 <style scoped>
-.graficos-container {
-  display: grid;
-  width: 1400px;
-  height: 800px;
-  margin-top: 50px;
-  margin-left: 255px;
-  background-color: #dcdcdc;
-}
-
+.graficos-container,
 .graficos-container-operador {
   display: grid;
-  gap: 5px;
-  width: 90vw;
+  gap: 10px;
+  width: 100vw;
   max-width: 1400px;
-  margin: 50px auto 0 auto;
-  margin-left: 250px;
+  margin: 60px auto 0 auto;
   padding: 10px;
   box-sizing: border-box;
   position: relative;
@@ -96,37 +87,75 @@ export default {
   background-color: #dcdcdc;
 }
 
-.grafico-item {
+@media (max-width: 1200px) {
+  .graficos-container,
+  .graficos-container-operador {
+    margin-left: 0;
+    width: 98vw;
+    padding: 6px;
+  }
+}
+
+.graficos-fila {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 10px;
+}
+.graficos-fila-grandes,
+.graficos-fila-grandes-administrador {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 10px;
+  margin-top: 40px;
+}
+
+@media (max-width: 900px) {
+  .graficos-fila {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .graficos-fila-grandes,
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .graficos-container,
+  .graficos-container-operador {
+    width: 100vw;
+    min-width: 0;
+    margin: 10px 0 0 0;
+    padding: 2px;
+  }
+  .graficos-fila {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 4px;
+  }
+  .graficos-fila-grandes,
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 4px;
+    margin-top: 10px;
+  }
+}
+
+ {
   background-color: white;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   justify-content: center;
   align-items: center;
-  height: 370px;
+  height: 320px;
   width: 100%;
   max-width: 500px;
+  margin: 0 auto;
 }
-
-
-.graficos-fila {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
-  row-gap: 1px;
-  padding: 10px;
-}
-.graficos-fila-grandes {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 10px;
-  margin-top: 75px;
-}
-
-.graficos-fila-grandes-administrador {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 10px;
-  margin-top: 150px;
-}
-
 </style>
