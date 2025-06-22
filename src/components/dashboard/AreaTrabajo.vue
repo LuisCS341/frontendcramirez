@@ -78,7 +78,7 @@ export default {
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 32px 24px 32px 24px;
   background: #f4f4f4;
