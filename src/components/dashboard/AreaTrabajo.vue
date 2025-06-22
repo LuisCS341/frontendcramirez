@@ -125,6 +125,6 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding: 10px;
-  margin-top: 150px;
+  margin-top: 0;
 }
 </style>
