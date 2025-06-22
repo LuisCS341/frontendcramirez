@@ -1,5 +1,5 @@
 <template>
-  <div class="summary-card">
+   <div class="chart-container-clientes-registrados grafico-item">    
     <div class="icon-text">
       <span class="icon">👥</span>
       <div class="text">

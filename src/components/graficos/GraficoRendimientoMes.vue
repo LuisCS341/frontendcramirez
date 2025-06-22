@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-container-rendimiento-mes">
+  <div class="chart-container-grafico-rendimiento grafico-item">
     <h2>📊 Rendimiento del mes de {{ currentMonth }}</h2>
     <canvas ref="chartCanvas"></canvas>
   </div>
@@ -112,7 +112,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.chart-container-rendimiento-mes {
+.chart-container-grafico-rendimiento {
   background-color: white;
   padding: 10px;
   border-radius: 8px;
