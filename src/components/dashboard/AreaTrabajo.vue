@@ -74,13 +74,14 @@ export default {
 <style scoped>
 .graficos-container {
   display: grid;
-  width: 100%;
-  box-sizing: border-box;
   margin-top: 50px;
   margin-left: 255px;
   background-color: #dcdcdc;
   padding: 32px 24px 32px 24px;
+  width: 100%;           
+  box-sizing: border-box;  
 }
+
 
 .graficos-container-operador {
   display: grid;
@@ -98,14 +99,14 @@ export default {
   background-color: #dcdcdc;
 }
 
+
 .graficos-fila {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 18px;
   padding: 10px;
 }
-.graficos-fila-grandes,
-.graficos-fila-grandes-administrador {
+.graficos-fila-grandes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 18px;
@@ -113,19 +114,45 @@ export default {
   margin-top: 40px;
 }
 
+.graficos-fila-grandes-administrador {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  padding: 10px;
+  margin-top: 150px;
+}
+
+/* Responsive para .graficos-fila-grandes */
 @media (max-width: 900px) {
-  .graficos-container,
-  .graficos-container-operador {
-    padding: 16px 6px;
-    margin-left: 0;
+  .graficos-fila-grandes {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 24px;
   }
 }
+
+/* Responsive para .graficos-fila-grandes-administrador */
+@media (max-width: 900px) {
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 60px;
+  }
+}
+
+/* Responsive para móvil */
 @media (max-width: 600px) {
-  .graficos-fila,
-  .graficos-fila-grandes,
+  .graficos-fila-grandes {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 6px;
+    margin-top: 14px;
+  }
   .graficos-fila-grandes-administrador {
     grid-template-columns: 1fr;
     gap: 10px;
+    padding: 6px;
+    margin-top: 20px;
   }
 }
 </style>
