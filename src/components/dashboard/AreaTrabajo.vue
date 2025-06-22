@@ -1,33 +1,32 @@
 <template>
-  <div v-if="userRole === 3" class="graficos-container">
-    <!-- 📌 Solo visible para Operador (Rol 3) -->
-    <div v-if="userRole === 3" class="graficos-fila-grandes-administrador">
-      <GraficoRendimientoMes />
-      <GraficoContratos />
-    </div>Add commentMore actions
-  </div>
-
-  <div v-if="userRole <= 2"  class="graficos-container-operador">
-    <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
-    <div v-if="userRole <= 2" class="graficos-fila">
-      <ClientesRegistrados />
-      <ContratosGenerados />
-      <TiempoCliente />
-      <MetaDia />
+  <div class="dashboard-container">
+    <!-- 📌 Contenido para Operador (Rol 3) -->
+    <div v-if="userRole === 3" class="operator-view">
+      <div class="graficos-fila-grandes-administrador">
+        <GraficoRendimientoMes />
+        <GraficoContratos />
+      </div>
     </div>
 
-    <div v-if="userRole <= 2" class="graficos-fila-grandes">
-      <GraficoRendimientoMes />
-      <GraficoContratos />
+    <!-- 📌 Contenido para Supervisor (Rol 2) y Jefe (Rol 1) -->
+    <div v-if="userRole <= 2" class="supervisor-view">
+      <div class="graficos-fila">
+        <ClientesRegistrados />
+        <ContratosGenerados />
+        <TiempoCliente />
+        <MetaDia />
+      </div>
+
+      <div class="graficos-fila-grandes">
+        <GraficoRendimientoMes />
+        <GraficoContratos />
+      </div>
     </div>
-
   </div>
-
-
 </template>
 
 <script>
-import  { ref, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoContratos from "@/components/graficos/GraficoContratos.vue";
@@ -46,7 +45,7 @@ export default {
     ClientesRegistrados,
   },
   setup() {
-    const userRole = ref(null); // 📌 Valor por defecto (Operador)
+    const userRole = ref(null);
     const router = useRouter();
 
     onMounted(() => {
@@ -54,7 +53,7 @@ export default {
         const userData = JSON.parse(localStorage.getItem("user"));
         const storedUserRole = userData?.rol;
         if (storedUserRole) {
-          userRole.value = parseInt(storedUserRole, 10); // 🔥 Asegurarse de que sea un número
+          userRole.value = parseInt(storedUserRole, 10);
           console.log("🎭 Rol detectado:", userRole.value);
         } else {
           console.warn("⚠️ No se detectó un rol, redirigiendo a la página de login.");
@@ -72,108 +71,89 @@ export default {
 </script>
 
 <style scoped>
-.graficos-container,
-.graficos-container-operador {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+.dashboard-container {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px 32px 24px;
-  background: #f4f4f4;
   min-height: 100vh;
+  padding: 20px;
   box-sizing: border-box;
-  animation: fadeIn 0.7s;
+  background-color: #dcdcdc;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px);}
-  to { opacity: 1; transform: translateY(0);}
-}
-
-.graficos-fila,
-.graficos-fila-grandes,
-.graficos-fila-grandes-administrador {
+/* Estilos para la vista de Operador */
+.operator-view {
   display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
   justify-content: center;
-  align-items: stretch;
-  width: 100%;
-  animation: fadeInUp 0.7s;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px);}
-  to { opacity: 1; transform: translateY(0);}
-}
-
-.graficos-fila > *,
-.graficos-fila-grandes > *,
-.graficos-fila-grandes-administrador > * {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 20px 18px;
-  margin: 0;
-  min-width: 220px;
-  max-width: 340px;
-  width: 100%;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  transition: box-shadow 0.3s, transform 0.3s;
-  animation: fadeInUp 0.7s;
-}
-.graficos-fila > *:hover,
-.graficos-fila-grandes > *:hover,
-.graficos-fila-grandes-administrador > *:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
-  transform: translateY(-6px) scale(1.03);
+  min-height: calc(100vh - 40px);
 }
 
-/* RESPONSIVE TABLET */
-@media (max-width: 1100px) {
-  .graficos-container,
-  .graficos-container-operador {
-    max-width: 98vw;
-    padding: 16px 2vw 16px 2vw;
+.graficos-fila-grandes-administrador {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Estilos para la vista de Supervisor/Jefe */
+.supervisor-view {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.graficos-fila {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  width: 100%;
+}
+
+.graficos-fila-grandes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Media Queries para ajustes responsivos */
+@media (max-width: 1400px) {
+  .graficos-fila-grandes-administrador,
+  .graficos-fila-grandes {
+    grid-template-columns: 1fr;
   }
-  .graficos-fila,
+  
+  .graficos-fila-grandes-administrador {
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+  
+  .graficos-fila {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .graficos-fila {
+    grid-template-columns: 1fr;
+  }
+  
   .graficos-fila-grandes,
   .graficos-fila-grandes-administrador {
-    flex-direction: column;
-    gap: 18px;
-    align-items: center;
-  }
-  .graficos-fila > *,
-  .graficos-fila-grandes > *,
-  .graficos-fila-grandes-administrador > * {
-    max-width: 95vw;
-    min-width: 0;
-    font-size: 15px;
-    padding: 14px 6px;
+    gap: 10px;
   }
 }
 
-/* RESPONSIVE MÓVIL */
-@media (max-width: 700px) {
-  .graficos-container,
-  .graficos-container-operador {
-    max-width: 100vw;
-    padding: 8px 0 8px 0;
-    gap: 10px;
-  }
-  .graficos-fila > *,
-  .graficos-fila-grandes > *,
-  .graficos-fila-grandes-administrador > * {
-    max-width: 99vw;
-    min-width: 0;
-    font-size: 14px;
-    padding: 8px 2px;
-    min-height: 90px;
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 5px;
   }
 }
 </style>
