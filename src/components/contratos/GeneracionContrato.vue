@@ -282,6 +282,7 @@ const descargarWordT1 = async (cliente) => {
       fechaSale: lote?.fechaSale ?? '-',
       costoLote: lote?.costoLote ?? '-',
       montoLetras: (lote?.montoLetras ?? '-' ).toUpperCase() ,
+      cuentaRecaudadora: (lote?.cuentaRecaudadora ?? '-' ).toUpperCase() ,
       areaLote: lote?.areaLote ?? '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
       provinciaMatriz: (lote?.provinciaMatriz ?? '-' ).toUpperCase() ,
@@ -329,13 +330,27 @@ const descargarWordT1 = async (cliente) => {
 
     doc.setData(datos);
 
+    console.log("Variables enviadas a la plantilla:", Object.keys(datos));
+
     try {
       doc.render();
     } catch (error) {
-      console.error("Error al renderizar el documento:", error);
-      alert("Error al generar el documento Word");
+      console.error("❌ Error al renderizar el documento:", error);
+
+      if (error.properties && Array.isArray(error.properties.errors)) {
+        console.group("🧩 Detalles del error de plantilla:");
+        error.properties.errors.forEach((e, i) => {
+          console.log(`🔸 Error ${i + 1}:`);
+          console.log("   ➤ Variable:", e.properties?.name || "No definida");
+          console.log("   ➤ Explicación:", e.properties?.explanation || "Sin explicación");
+        });
+        console.groupEnd();
+      }
+
+      alert("Error al generar el documento Word. Revisa la consola para más detalles.");
       return;
     }
+
 
     const out = doc.getZip().generate({
       type: "blob",

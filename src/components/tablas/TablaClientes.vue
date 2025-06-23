@@ -105,7 +105,7 @@ const obtenerDatosCombinados = async () => {
 
     clientes.value = response.data.map((clienteLote) => {
       const cliente = clienteLote.cliente;
-      const lote = clienteLote.lotes;
+      const lote = clienteLote.lote;
       selectedTemporal[cliente.idCliente] = cliente.operario || "";
 
       return {

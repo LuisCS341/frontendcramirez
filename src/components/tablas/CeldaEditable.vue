@@ -64,7 +64,7 @@ const modelo = computed({
 
 
 const valorMostrado = computed(() => {
-  return getMatriz(props.fila)?.[0]?.[props.columna.key] ??
+  return getMatriz(props.fila)?.[props.columna.key] ??
       getLindero(props.fila)?.[props.columna.key] ??
       getConyuge(props.fila)?.[props.columna.key] ??
       getCopropietario(props.fila)?.[props.columna.key] ??
@@ -76,7 +76,7 @@ const valorMostrado = computed(() => {
 
 const campoEditable = computed(() => {
   const valor =
-      getMatriz(props.fila)?.[0]?.[props.columna.key] ??
+      getMatriz(props.fila)?.[props.columna.key] ??
       getLindero(props.fila)?.[props.columna.key] ??
       getConyuge(props.fila)?.[props.columna.key] ??
       getCopropietario(props.fila)?.[props.columna.key] ??
@@ -89,7 +89,7 @@ const campoEditable = computed(() => {
 
 
 const obtenerValor = (key) =>
-    getMatriz(props.fila)?.[0]?.[key] ??
+    getMatriz(props.fila)?.[key] ??
     getLindero(props.fila)?.[key] ??
     getConyuge(props.fila)?.[key] ??
     getCopropietario(props.fila)?.[key] ??
