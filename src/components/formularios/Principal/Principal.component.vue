@@ -9,73 +9,75 @@
 
         <div class="formulario-all">
 
-          <!-- Paso 1: Datos personales -->
+          <!-- Paso 1: Datos personales como modal -->
           <div v-if="formStep === 1">
-            <form @submit.prevent="formularioClientevarios" class="formulario-cliente">
-              <h1>DATOS PERSONALES</h1>
-              <div class="form-grid">
-                <div>
-                  <label class="form-label">Tipo de Identificación</label>
-                  <input class="form-input" v-model="form.tipoIdentificacion" type="text" />
+            <div class="overlay">
+              <form @submit.prevent="formularioClientevarios" class="formulario-cliente">
+                <h1>DATOS PERSONALES</h1>
+                <div class="form-grid">
+                  <div>
+                    <label class="form-label">Tipo de Identificación</label>
+                    <input class="form-input" v-model="form.tipoIdentificacion" type="text" />
+                  </div>
+                  <div>
+                    <label class="form-label">Número de Identificación</label>
+                    <input class="form-input" v-model="form.numIdentificacionUsuario" type="text" />
+                  </div>
+                  <div class="input-full">
+                    <label class="form-label">Apellido y Nombre</label>
+                    <input class="form-input" v-model="form.nombreCliente" type="text" />
+                  </div>
+                  <div class="input-full">
+                    <label class="form-label">Ocupación</label>
+                    <input class="form-input" v-model="form.ocupacionCliente" type="text" />
+                  </div>
+                  <div>
+                    <label class="form-label">País de Origen</label>
+                    <input class="form-input" v-model="form.paisOrigen" type="text" />
+                  </div>
+                  <div>
+                    <label class="form-label">País de Residencia</label>
+                    <input class="form-input" v-model="form.paisdeResidencia" type="text" />
+                  </div>
+                  <div>
+                    <label class="form-label">Departamento</label>
+                    <input class="form-input" v-model="form.departamento" type="text" />
+                  </div>
+                  <div>
+                    <label class="form-label">Provincia</label>
+                    <input class="form-input" v-model="form.provincia" type="text" />
+                  </div>
+                  <div>
+                    <label class="form-label">Distrito</label>
+                    <input class="form-input" v-model="form.distrito" type="text" />
+                  </div>
+                  <div class="input-full">
+                    <label class="form-label">Dirección</label>
+                    <input class="form-input" v-model="form.direccion" type="text" />
+                  </div>
+                  <div>
+                    <label class="form-label">Correo Electrónico</label>
+                    <input class="form-input" v-model="form.correoUsuario" type="email" />
+                  </div>
+                  <div>
+                    <label class="form-label">Prefijo</label>
+                    <input class="form-input" v-model="form.prefijoTelefonico" type="text" />
+                  </div>
+                  <div>
+                    <label class="form-label">Número de Teléfono</label>
+                    <input class="form-input" v-model="form.numTelefonico" type="text" />
+                  </div>
+                  <div>
+                    <label class="form-label">Estado Civil</label>
+                    <input class="form-input" v-model="form.estadoCivil" type="text" />
+                  </div>
                 </div>
-                <div>
-                  <label class="form-label">Número de Identificación</label>
-                  <input class="form-input" v-model="form.numIdentificacionUsuario" type="text" />
+                <div v-if="form.estadoCivil === 2">
+                  <ClienteConyuge :form="form" />
                 </div>
-                <div class="input-full">
-                  <label class="form-label">Apellido y Nombre</label>
-                  <input class="form-input" v-model="form.nombreCliente" type="text" />
-                </div>
-                <div class="input-full">
-                  <label class="form-label">Ocupación</label>
-                  <input class="form-input" v-model="form.ocupacionCliente" type="text" />
-                </div>
-                <div>
-                  <label class="form-label">País de Origen</label>
-                  <input class="form-input" v-model="form.paisOrigen" type="text" />
-                </div>
-                <div>
-                  <label class="form-label">País de Residencia</label>
-                  <input class="form-input" v-model="form.paisdeResidencia" type="text" />
-                </div>
-                <div>
-                  <label class="form-label">Departamento</label>
-                  <input class="form-input" v-model="form.departamento" type="text" />
-                </div>
-                <div>
-                  <label class="form-label">Provincia</label>
-                  <input class="form-input" v-model="form.provincia" type="text" />
-                </div>
-                <div>
-                  <label class="form-label">Distrito</label>
-                  <input class="form-input" v-model="form.distrito" type="text" />
-                </div>
-                <div class="input-full">
-                  <label class="form-label">Dirección</label>
-                  <input class="form-input" v-model="form.direccion" type="text" />
-                </div>
-                <div>
-                  <label class="form-label">Correo Electrónico</label>
-                  <input class="form-input" v-model="form.correoUsuario" type="email" />
-                </div>
-                <div>
-                  <label class="form-label">Prefijo</label>
-                  <input class="form-input" v-model="form.prefijoTelefonico" type="text" />
-                </div>
-                <div>
-                  <label class="form-label">Número de Teléfono</label>
-                  <input class="form-input" v-model="form.numTelefonico" type="text" />
-                </div>
-                <div>
-                  <label class="form-label">Estado Civil</label>
-                  <input class="form-input" v-model="form.estadoCivil" type="text" />
-                </div>
-              </div>
-              <div v-if="form.estadoCivil === 2">
-                <ClienteConyuge :form="form" />
-              </div>
-              <button type="submit" class="btn-naranja">Siguiente</button>
-            </form>
+                <button type="submit" class="btn-naranja">Siguiente</button>
+              </form>
+            </div>
           </div>
 
           <!-- Paso 2: Copropietarios y Lotes -->
@@ -179,17 +181,16 @@ import ClienteConyuge from "@/components/formularios/Cliente/ClienteConyuge.vue"
 import Copropietario from "@/components/formularios/Copropietario/Copropietario.vue";
 import Lindero from "@/components/formularios/Lote/Lindero.vue";
 import Matriz from "@/components/formularios/Lote/Matriz.vue";
-import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
 import Lote from "@/components/formularios/Lote/Lote.vue";
 import ResumenRegistro from "@/components/formularios/Resumen/ResumenRegistro.vue";
 import CuotaExtraordinaria from "@/components/formularios/Lote/CuotaExtraordinaria.vue";
+import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
 
 import "@/components/formularios/Cliente/Cliente.css"
 import {ubicaciones} from "@/data/ubicaciones.js";
 import {distritos} from "@/data/distritos.js";
 import {provincias} from "@/data/provincias.js";
 import {departamentos} from "@/data/departamentos.js";
-import {proyectos, proyectosT3Ids} from "@/data/proyectos.js";
 
 
 const formStep = ref(1);
@@ -516,7 +517,7 @@ const submitForm2 = async () => {
         });
 
         lote.idLote = nuevoLote.idLote;
-        console.log(`Lote guardado con idLote: ${nuevoLote.idLote}`);
+        console.log(`Lote guardado with idLote: ${nuevoLote.idLote}`);
       }
     }
 
