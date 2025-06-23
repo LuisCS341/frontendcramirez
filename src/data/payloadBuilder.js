@@ -97,7 +97,6 @@ export function buildLotePayload(idCliente, lote) {
         fechaSale: lote.fechaSale,
         fechaFirmaContratoDefinitivo: lote.fechaFirma,
         ubicacionLote: lote.ubicacionPredio,
-
         manzana: lote.manzanalote,
         numeroLote: lote.numerolote,
         idTipoContrato: lote.tipoContratolote,

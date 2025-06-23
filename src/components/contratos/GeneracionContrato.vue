@@ -285,6 +285,8 @@ const descargarWordT1 = async (cliente) => {
       cuentaRecaudadora: (lote?.cuentaRecaudadora ?? '-' ).toUpperCase() ,
       areaLote: lote?.areaLote ?? '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
+      precioMetroCuadradoLetras: (lote?.precioMetroCuadradoLetras ?? '-' ).toUpperCase() ,
+      precioMetroCuadrado: (lote?.precioMetroCuadrado ?? '-' ).toUpperCase() ,
       provinciaMatriz: (lote?.provinciaMatriz ?? '-' ).toUpperCase() ,
       numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
       direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
