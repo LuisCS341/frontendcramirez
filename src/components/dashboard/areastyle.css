@@ -370,6 +370,8 @@
 
 /* Contenedor principal */
 .dashboard-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+  url("@/assets/imagenes/FondoDashboard.jpg");
   display: flex;
   min-height: calc(100vh - 64px); /* para dejar espacio al header */
   position: relative;
