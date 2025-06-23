@@ -55,7 +55,7 @@
             <li>
               <div class="nav-link" @click="toggleMenu('contratos')">
                 <i class="icon-file"></i>
-                <span>Contratos</span>
+                <span>CONTRATOS</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'contratos' }">▶</span>
               </div>
               <transition name="submenu-fade">
