@@ -623,8 +623,8 @@
 .dashboard-charts-row {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 60px; /* Aumenta el valor para más separación horizontal */
-  margin-top: 100px; /* Puedes ajustar este valor según lo que necesites */
+  gap: 40px; /* Aumenta el valor para más separación horizontal */
+  margin-top: 80px; /* Puedes ajustar este valor según lo que necesites */
 }
 
 .chart-container-rendimiento-mes,
