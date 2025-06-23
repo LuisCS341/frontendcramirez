@@ -37,21 +37,22 @@
                 <span>Clientes</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'clientes' }">▶</span>
               </div>
-              <!-- Sin <transition> para que no haya animación -->
-              <ul v-show="openMenu === 'clientes'" class="submenu">
-                <li>
-                  <router-link to="/clientes/registrar" class="submenu-link" exact-active-class="active">
-                    <i class="icon-user-plus"></i>
-                    Registrar Cliente
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/clientes/mis-clientes" class="submenu-link" exact-active-class="active">
-                    <i class="icon-list"></i>
-                    Total Clientes
-                  </router-link>
-                </li>
-              </ul>
+              <transition name="submenu-fade">
+                <ul v-show="openMenu === 'clientes'" class="submenu">
+                  <li>
+                    <router-link to="/clientes/registrar" class="submenu-link" exact-active-class="active">
+                      <i class="icon-user-plus"></i>
+                      Registrar Cliente
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link to="/clientes/mis-clientes" class="submenu-link" exact-active-class="active">
+                      <i class="icon-list"></i>
+                      Total Clientes
+                    </router-link>
+                  </li>
+                </ul>
+              </transition>
             </li>
             <li>
               <div class="nav-link" @click="toggleMenu('contratos')">
