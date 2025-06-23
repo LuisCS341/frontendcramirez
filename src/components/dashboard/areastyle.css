@@ -624,7 +624,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 32px;
-  margin-top: 100px; /* Puedes ajustar este valor según lo que necesites */
+  margin-top: 120px; /* Puedes ajustar este valor según lo que necesites */
 }
 
 .chart-container-rendimiento-mes,
@@ -662,7 +662,7 @@
   to { opacity: 1; transform: translateY(0);}
 }
 .fade-slide-enter-active, .fade-slide-leave-active {
-  transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+  transition: all 10s cubic-bezier(0.4,0,0.2,1);
 }
 .fade-slide-enter-from, .fade-slide-leave-to {
   opacity: 0;
@@ -673,14 +673,13 @@
   transform: translateY(0);
 }
 .submenu-fade-enter-active, .submenu-fade-leave-active {
-  transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1), opacity 1s;
+  transition: none;
 }
 .submenu-fade-enter-from, .submenu-fade-leave-to {
-  max-height: 0;
-  opacity: 0;
+  max-height: none;  opacity: 1;
 }
 .submenu-fade-enter-to, .submenu-fade-leave-from {
-  max-height: 200px;
+  max-height: none;
   opacity: 1;
 }
 
