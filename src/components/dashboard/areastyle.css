@@ -434,11 +434,11 @@
 .topbar {
   width: 100vw;
   background: #fff;
-  padding: 0; /* Quita el padding lateral */
+  padding: 0; /* Sin padding lateral */
   box-shadow: 0 2px 4px rgba(0,0,0,0.07);
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Alinea a la izquierda */
+  justify-content: flex-start;
   min-height: 64px;
   position: relative;
   z-index: 2000;
@@ -456,11 +456,11 @@
   display: flex;
   align-items: center;
   margin-left: 0;
-  padding-left: 24px; /* Opcional: un pequeño espacio desde el borde */
+  padding-left: 0; /* Elimina cualquier espacio */
 }
 .logo-img {
   height: 48px;
-  margin: 8px 0;
+  margin: 8px 0 8px 0;
 }
 .page-title {
   font-size: 1.4rem;
@@ -779,11 +779,11 @@
 .topbar {
   width: 100vw;
   background: #fff;
-  padding: 0; /* Quita el padding lateral */
+  padding: 0; /* Sin padding lateral */
   box-shadow: 0 2px 4px rgba(0,0,0,0.07);
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Alinea a la izquierda */
+  justify-content: flex-start;
   min-height: 64px;
   position: relative;
   z-index: 2000;
@@ -801,11 +801,11 @@
   display: flex;
   align-items: center;
   margin-left: 0;
-  padding-left: 24px; /* Opcional: un pequeño espacio desde el borde */
+  padding-left: 0; /* Elimina cualquier espacio */
 }
 .logo-img {
   height: 48px;
-  margin: 8px 0;
+  margin: 8px 0 8px 0;
 }
 .dashboard-container {
   display: flex;
