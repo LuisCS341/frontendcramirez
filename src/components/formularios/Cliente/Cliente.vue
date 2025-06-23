@@ -105,9 +105,9 @@
 
 <script setup>
 import ClienteConyuge from "@/components/formularios/Cliente/ClienteConyuge.vue";
-import Copropietario from "@/components/formularios/Cliente/Copropietario.vue";
-import CopropietarioConyuge from "@/components/formularios/Cliente/CopropietarioConyuge.vue";
-import Lote from "@/components/formularios/Cliente/Lote.vue";
+import Copropietario from "@/components/formularios/Copropietario/Copropietario.vue";
+import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
+import Lote from "@/components/formularios/Lote/Lote.vue";
 import {provincias} from "@/data/provincias.js";
 import {distritos} from "@/data/distritos.js";
 import {computed} from "vue";
