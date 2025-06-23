@@ -104,16 +104,13 @@
 </template>
 
 <script setup>
+import ClienteConyuge from "@/components/formularios/Cliente/ClienteConyuge.vue";
+import Copropietario from "@/components/formularios/Cliente/Copropietario.vue";
+import CopropietarioConyuge from "@/components/formularios/Cliente/CopropietarioConyuge.vue";
+import Lote from "@/components/formularios/Cliente/Lote.vue";
 import {provincias} from "@/data/provincias.js";
 import {distritos} from "@/data/distritos.js";
-import {departamentos} from "@/data/departamentos.js";
-import { nacionalidad } from '@/data/nacionalidad.js';
-import { residencias } from '@/data/residencias.js'
-import {prefijos} from "@/data/prefijos.js";
-import { estadoCivil } from '@/data/estadoCivil.js';
-import { tipoIdentificacion } from '@/data/tipoIdentificacion.js';
-import "@/components/formularios/Cliente/Cliente.css"
-import {computed, watch} from "vue";
+import {computed} from "vue";
 
 const props = defineProps({
   form: Object
