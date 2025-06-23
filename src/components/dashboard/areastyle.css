@@ -623,8 +623,8 @@
 .dashboard-charts-row {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 80px; /* Espaciado horizontal mayor entre los cuadros */
-  margin-top: 120px;
+  gap: 32px;
+  margin-top: 100px; /* Puedes ajustar este valor según lo que necesites */
 }
 
 .chart-container-rendimiento-mes,
@@ -699,7 +699,7 @@
     max-width: 98vw;
     padding: 0 8px 24px 8px;
   }
-  .dashboard-summary_row {
+  .dashboard-summary-row {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
