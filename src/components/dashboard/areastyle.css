@@ -256,3 +256,13 @@
     padding: 8px 2px;
   }
 }
+
+/* Nueva clase para el contenedor principal del dashboard */
+.dashboard-wrapper {
+  width: 90vw;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

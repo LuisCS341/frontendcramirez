@@ -1,29 +1,28 @@
 <template>
-  <div v-if="userRole === 3" class="graficos-container">
-    <!-- 📌 Solo visible para Operador (Rol 3) -->
-    <div v-if="userRole === 3" class="graficos-fila-grandes-administrador">
-      <GraficoRendimientoMes />
-      <GraficoContratos />
-    </div>Add commentMore actions
-  </div>
-
-  <div v-if="userRole <= 2"  class="graficos-container-operador">
-    <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
-    <div v-if="userRole <= 2" class="graficos-fila">
-      <ClientesRegistrados />
-      <ContratosGenerados />
-      <TiempoCliente />
-      <MetaDia />
+  <div class="dashboard-wrapper">
+    <div v-if="userRole === 3" class="graficos-container">
+      <!-- 📌 Solo visible para Operador (Rol 3) -->
+      <div v-if="userRole === 3" class="graficos-fila-grandes-administrador">
+        <GraficoRendimientoMes />
+        <GraficoContratos />
+      </div>
     </div>
 
-    <div v-if="userRole <= 2" class="graficos-fila-grandes">
-      <GraficoRendimientoMes />
-      <GraficoContratos />
+    <div v-if="userRole <= 2" class="graficos-container-operador">
+      <!-- 📌 Visible solo para Supervisor (Rol 2) y Jefe (Rol 1) -->
+      <div v-if="userRole <= 2" class="graficos-fila">
+        <ClientesRegistrados />
+        <ContratosGenerados />
+        <TiempoCliente />
+        <MetaDia />
+      </div>
+
+      <div v-if="userRole <= 2" class="graficos-fila-grandes">
+        <GraficoRendimientoMes />
+        <GraficoContratos />
+      </div>
     </div>
-
   </div>
-
-
 </template>
 <style src="./areastyle.css"></style>
 <script>
