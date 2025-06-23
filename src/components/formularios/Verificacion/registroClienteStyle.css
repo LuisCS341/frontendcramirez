@@ -4,7 +4,6 @@ body, .form-bg {
   min-height: 100vh;
 }
 
-/* Contenedor del formulario centrado */
 .formulario-cliente {
   max-width: 600px;
   margin: 32px auto;

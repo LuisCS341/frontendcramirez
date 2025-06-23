@@ -8,115 +8,87 @@
         <h2 class="tituloformulario">FORMULARIO DE CLIENTES</h2>
 
         <div class="formulario-all">
+          <!-- Paso de verificación -->
+          <RegistroCliente
+            v-if="!mostrarFormulario"
+            :form="form"
+            @continuar="mostrarFormulario = true"
+          />
 
-          <div v-if="formStep === 1">
-            <form @submit.prevent="formularioClientevarios">
-              <Cliente
-                  :form="form"
-              />
-
-              <div v-if="form.estadoCivil === 2">
-                <ClienteConyuge
-                    :form="form"
-                />
-              </div>
-
-              <button type="submit">Siguiente</button>
-            </form>
-          </div>
-
-          <div v-if="formStep === 2">
-            <form @submit.prevent="submitForm2">
-              <h3>Información de Copropietarios</h3>
-
-              <label>Número de Copropietarios:</label>
-              <input v-model.number="form.numCopropietarios" type="number" min="0" max="5"   @input="validateNumCopropietarios"/>
-
-              <div v-for="(copropietario, index) in form.copropietarios" :key="index">
-                <Copropietario
-                    :index="index"
-                    :copropietario="copropietario"
-                />
-
-                <div v-if="copropietario.estadoCivilCopropietarios === 2">
-                  <CopropietarioConyuge
-                      :index="index"
-                      :copropietario="copropietario"
-                  />
+          <!-- Formulario principal solo si mostrarFormulario es true -->
+          <template v-if="mostrarFormulario">
+            <!-- Aquí va TODO tu formulario actual, sin cambios -->
+            <div v-if="formStep === 1">
+              <form @submit.prevent="formularioClientevarios">
+                <Cliente :form="form" />
+                <div v-if="form.estadoCivil === 2">
+                  <ClienteConyuge :form="form" />
                 </div>
-              </div>
-
-              <h3>Datos de Lotes</h3>
-              <label>Número de Lotes Adquiridos:</label>
-              <input v-model.number="form.numLotes" type="number" min="0" @input="validateNumLote"/>
-
-              <div v-for="(lote, index) in form.lotes" :key="index" >
-
-                <Lote
-                    :index="index"
-                    :lote="lote"
-                    :getUbicacionesFiltradas="getUbicacionesFiltradas"
-                />
-
-              </div>
-              <button type="submit">Siguiente</button>
-            </form>
-          </div>
-
-          <div v-if="formStep === 3">
-            <form @submit.prevent="FormCuotaExtraordinaria">
-              <div v-for="(lote, index) in form.lotes" :key="index">
-
-                <CuotaExtraordinaria
+                <button type="submit">Siguiente</button>
+              </form>
+            </div>
+            <div v-if="formStep === 2">
+              <form @submit.prevent="submitForm2">
+                <h3>Información de Copropietarios</h3>
+                <label>Número de Copropietarios:</label>
+                <input v-model.number="form.numCopropietarios" type="number" min="0" max="5" @input="validateNumCopropietarios"/>
+                <div v-for="(copropietario, index) in form.copropietarios" :key="index">
+                  <Copropietario :index="index" :copropietario="copropietario" />
+                  <div v-if="copropietario.estadoCivilCopropietarios === 2">
+                    <CopropietarioConyuge :index="index" :copropietario="copropietario" />
+                  </div>
+                </div>
+                <h3>Datos de Lotes</h3>
+                <label>Número de Lotes Adquiridos:</label>
+                <input v-model.number="form.numLotes" type="number" min="0" @input="validateNumLote"/>
+                <div v-for="(lote, index) in form.lotes" :key="index">
+                  <Lote :index="index" :lote="lote" :getUbicacionesFiltradas="getUbicacionesFiltradas" />
+                </div>
+                <button type="submit">Siguiente</button>
+              </form>
+            </div>
+            <div v-if="formStep === 3">
+              <form @submit.prevent="FormCuotaExtraordinaria">
+                <div v-for="(lote, index) in form.lotes" :key="index">
+                  <CuotaExtraordinaria
                     v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
                     :cuotaextraordinaria="lote.cuotaextraordinaria"
                     :lote="lote"
                     :index="index"
-                />
-
-              </div>
-              <button type="submit">Siguiente</button>
-            </form>
-          </div>
-
-          <div v-if="formStep === 4">
-            <form @submit.prevent="submitLinderos" v-if="form.numLotes > 0">
-              <div v-for="(lote, index) in form.lotes" :key="index">
-                <Lindero
-                    :lote="lote"
-                    :index="index"
-                />
-              </div>
-              <button type="submit">Siguiente</button>
-            </form>
-          </div>
-
-          <div v-if="formStep === 5">
-            <form @submit.prevent="finalizarRegistroMatriz">
-                <div v-for="(matriz, index) in form.lotes" :key="index">
-                    <Matriz
-                        :matriz="matriz"
-                        :index="index"
-                        :numeroALetras="numeroALetras"
-                    />
+                  />
                 </div>
-              <button type="submit" class="btn btn-primary">Siguiente</button>
-            </form>
-          </div>
-
-          <div v-if="formStep === 6">
+                <button type="submit">Siguiente</button>
+              </form>
+            </div>
+            <div v-if="formStep === 4">
+              <form @submit.prevent="submitLinderos" v-if="form.numLotes > 0">
+                <div v-for="(lote, index) in form.lotes" :key="index">
+                  <Lindero :lote="lote" :index="index" />
+                </div>
+                <button type="submit">Siguiente</button>
+              </form>
+            </div>
+            <div v-if="formStep === 5">
+              <form @submit.prevent="finalizarRegistroMatriz">
+                <div v-for="(matriz, index) in form.lotes" :key="index">
+                  <Matriz :matriz="matriz" :index="index" :numeroALetras="numeroALetras" />
+                </div>
+                <button type="submit" class="btn btn-primary">Siguiente</button>
+              </form>
+            </div>
+            <div v-if="formStep === 6">
               <ResumenRegistro
-                  :form="form"
-                  :obtenerNombrePais="obtenerNombrePais"
-                  :obtenerNombreResidencia="obtenerNombreResidencia"
-                  :obtenerNombreDepartamento="obtenerNombreDepartamento"
-                  :obtenerNombreProvincia="obtenerNombreProvincia"
-                  :obtenerNombreDistrito="obtenerNombreDistrito"
-                  :obtenerNombreProyecto="obtenerNombreProyecto"
+                :form="form"
+                :obtenerNombrePais="obtenerNombrePais"
+                :obtenerNombreResidencia="obtenerNombreResidencia"
+                :obtenerNombreDepartamento="obtenerNombreDepartamento"
+                :obtenerNombreProvincia="obtenerNombreProvincia"
+                :obtenerNombreDistrito="obtenerNombreDistrito"
+                :obtenerNombreProyecto="obtenerNombreProyecto"
               />
-            <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
-          </div>
-
+              <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -142,6 +114,8 @@ import CopropietarioConyuge from "@/components/formularios/Copropietario/Copropi
 import Lote from "@/components/formularios/Lote/Lote.vue";
 import ResumenRegistro from "@/components/formularios/Resumen/ResumenRegistro.vue";
 import CuotaExtraordinaria from "@/components/formularios/Lote/CuotaExtraordinaria.vue";
+import RegistroCliente from "@/components/formularios/Verificacion/RegistroCliente.vue";
+import "@/components/formularios/Verificacion/registroClienteStyle.css";
 
 import "@/components/formularios/Cliente/Cliente.css"
 import {ubicaciones} from "@/data/ubicaciones.js";
@@ -191,6 +165,8 @@ const form = ref({
     numLotes: 0,
     lotes: []
 });
+
+const mostrarFormulario = ref(false);
 
 watch(() => form.value.numCopropietarios, (newValue) => {
   if (newValue > 0) {
@@ -475,7 +451,7 @@ const submitForm2 = async () => {
         });
 
         lote.idLote = nuevoLote.idLote;
-        console.log(`Lote guardado con idLote: ${nuevoLote.idLote}`);
+        console.log(`Lote guardado with idLote: ${nuevoLote.idLote}`);
       }
     }
 
@@ -562,7 +538,7 @@ const finalizarRegistroMatriz = async () => {
   }
 };
 
-//calcula la alicuota con un campo del componente lote y matriz
+//calcula la alicuota with un campo del componente lote y matriz
 watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
       if (!lote.matriz) {
         lote.matriz = {};
