@@ -23,34 +23,36 @@
         <div class="sidebar-logo"></div>
         <nav class="sidebar-nav">
           <ul class="nav-menu">
-            <li>
-              <router-link to="/dashboard" class="nav-link" exact-active-class="active">
-                <i class="icon-home"></i>
-                <span>Home</span>
-              </router-link>
-            </li>
-            <li>
-              <div class="menu-toggle" @click="toggleMenu('clientes')">
+         <li>
+          <div class="menu-toggle" @click="toggleMenu('clientes')">
             <img :src="icons['grupo-de-usuario.png']" alt="Clientes" class="icono" />
             <span>Clientes</span>
           </div>
-              <transition name="submenu-fade">   
-                <ul v-show="menuAbierto.clientes">
-                <li>
-                  <router-link to="/formularios/clientes/registrar" class="submenu-link" exact-active-class="active">
-                    <i class="icon-user-plus"></i>
-                    Registrar Cliente
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/dashboard/clientes/mis-clientes" class="submenu-link" exact-active-class="active">
-                    <i class="icon-list"></i>
-                    Total Clientes
-                  </router-link>
-                </li>
-              </ul>
-              </transition>
+          <ul v-show="menuAbierto.clientes">
+            <li>
+              <router-link to="/dashboard/formularios/registro-cliente">
+                <img :src="icons['nueva-cuenta.png']" alt="Registrar Cliente" class="icono" />
+                Registrar Cliente
+              </router-link>
             </li>
+
+            <!-- Mostrar "Mis Clientes" solo si NO eres Jefe -->
+            <li v-if="userRole === 2 || userRole === 3">
+              <router-link to="/dashboard/Clientes">
+                <img :src="icons['simbolo-de-hombre-y-flecha-derecha.png']" alt="Mis Clientes" class="icono" />
+                Mis Clientes
+              </router-link>
+            </li>
+
+            <!-- Mostrar "Total Clientes" solo si ERES Jefe -->
+            <li v-if="userRole === 1 || userRole === 3  ">
+              <router-link to="/dashboard/clientes/mis-clientes">
+                <img :src="icons['simbolo-de-hombre-y-flecha-derecha.png']" alt="Total Clientes" class="icono" />
+                Total Clientes
+              </router-link>
+            </li>
+          </ul>
+        </li>
             <li>
               <div class="nav-link" @click="toggleMenu('contratos')">
                 <i class="icon-file"></i>
