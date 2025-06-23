@@ -357,6 +357,7 @@ button {
     transform: translateY(0);
 }
 
+/* Estilos generales del formulario */
 .formulario-cliente {
   max-width: 700px;
   margin: 32px auto;
@@ -428,6 +429,8 @@ button {
 .btn-naranja:hover {
   background: #fb8c00;
 }
+
+/* Responsive para móviles */
 @media (max-width: 700px) {
   .formulario-cliente {
     max-width: 98vw;
