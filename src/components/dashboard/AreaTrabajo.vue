@@ -7,12 +7,12 @@
     <!-- Sidebar -->
     <aside class="sidebar" :class="{ open: sidebarOpen }">
       <div class="sidebar-logo">
-       <!--<img src="@/assets/logo.svg" alt="Logo App" class="logo-img" />-->
+        <img src="@/assets/logo.svg" alt="Logo App" class="logo-img" />
       </div>
       <nav class="sidebar-nav">
         <ul class="nav-menu">
           <li>
-            <router-link to="/dashboard" class="nav-link" active-class="active">
+            <router-link to="/dashboard" class="nav-link" exact-active-class="active">
               <i class="icon-home"></i>
               <span>Home</span>
             </router-link>
@@ -25,13 +25,13 @@
             </div>
             <ul v-show="openMenu === 'clientes'" class="submenu">
               <li>
-                <router-link to="/clientes/registrar" class="submenu-link" active-class="active">
+                <router-link to="/clientes/registrar" class="submenu-link" exact-active-class="active">
                   <i class="icon-user-plus"></i>
                   Registrar Cliente
                 </router-link>
               </li>
               <li>
-                <router-link to="/clientes/mis-clientes" class="submenu-link" active-class="active">
+                <router-link to="/clientes/mis-clientes" class="submenu-link" exact-active-class="active">
                   <i class="icon-list"></i>
                   Mis Clientes
                 </router-link>
@@ -46,13 +46,13 @@
             </div>
             <ul v-show="openMenu === 'contratos'" class="submenu">
               <li>
-                <router-link to="/contratos/seguimiento" class="submenu-link" active-class="active">
+                <router-link to="/contratos/seguimiento" class="submenu-link" exact-active-class="active">
                   <i class="icon-eye"></i>
                   Seguimiento
                 </router-link>
               </li>
               <li>
-                <router-link to="/contratos/generar" class="submenu-link" active-class="active">
+                <router-link to="/contratos/generar" class="submenu-link" exact-active-class="active">
                   <i class="icon-plus"></i>
                   Generar Contrato
                 </router-link>
@@ -84,6 +84,8 @@
 
 <script setup>
 import { ref } from "vue";
+import './areastyle.css';
+
 const openMenu = ref(null);
 const sidebarOpen = ref(window.innerWidth > 900);
 
@@ -93,8 +95,7 @@ function toggleMenu(menu) {
 
 // Cierra sidebar al cambiar tamaño de pantalla
 window.addEventListener('resize', () => {
-  if (window.innerWidth > 900) sidebarOpen.value = true;
-  else sidebarOpen.value = false;
+  sidebarOpen.value = window.innerWidth > 900;
 });
 </script>
 
@@ -133,7 +134,7 @@ window.addEventListener('resize', () => {
   text-align: center;
   margin-bottom: 24px;
 }
-<!--.logo-img {  width: 120px;}-->
+.logo-img {  width: 120px;}
 .sidebar-nav {
   flex: 1;
 }
