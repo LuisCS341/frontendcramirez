@@ -623,8 +623,8 @@
 .dashboard-charts-row {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 32px;
-  margin-top: 120px; /* Puedes ajustar este valor según lo que necesites */
+  gap: 80px; /* Espaciado horizontal mayor entre los cuadros */
+  margin-top: 120px;
 }
 
 .chart-container-rendimiento-mes,
@@ -673,14 +673,14 @@
   transform: translateY(0);
 }
 .submenu-fade-enter-active, .submenu-fade-leave-active {
-  transition: none , opacity 1s;
+  transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1), opacity 1s;
 }
 .submenu-fade-enter-from, .submenu-fade-leave-to {
-  max-height: none;
+  max-height: 0;
   opacity: 0;
 }
 .submenu-fade-enter-to, .submenu-fade-leave-from {
-  max-height: none;
+  max-height: 200px;
   opacity: 1;
 }
 
@@ -699,7 +699,7 @@
     max-width: 98vw;
     padding: 0 8px 24px 8px;
   }
-  .dashboard-summary-row {
+  .dashboard-summary_row {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
