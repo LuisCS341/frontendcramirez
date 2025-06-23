@@ -141,31 +141,3 @@ nav ul li {
 .icono-flecha.abierto {
     transform: rotate(180deg);
 }
-
-/* RESPONSIVE: Ocultar barra lateral en móviles y mostrar botón hamburguesa */
-@media (max-width: 900px) {
-  .contenido {
-    margin-left: 0 !important;
-    padding: 10px !important;
-    width: 100vw !important;
-  }
-}
-
-/* Botón hamburguesa */
-.menu-hamburguesa {
-  display: none;
-  position: fixed;
-  top: 70px;
-  left: 10px;
-  z-index: 2100;
-  background: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-}
-@media (max-width: 900px) {
-  .menu-hamburguesa {
-    display: block;
-  }
-}
