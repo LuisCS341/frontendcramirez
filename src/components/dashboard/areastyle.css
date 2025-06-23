@@ -30,6 +30,7 @@
   grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
   row-gap: 1px;
   padding: 10px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Fila de tarjetas grandes para supervisor/jefe */
@@ -38,6 +39,7 @@
   grid-template-columns: repeat(2, 1fr);
   padding: 10px;
   margin-top: 75px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Fila de tarjetas grandes para administrador */
@@ -46,6 +48,7 @@
   grid-template-columns: repeat(2, 1fr);
   padding: 10px;
   margin-top: 150px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Tarjeta general */
@@ -61,7 +64,8 @@
   justify-content: space-between;
   font-family: 'Montserrat', sans-serif;
   margin: 0 auto;
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition: box-shadow 0.3s, transform 0.3s, all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.7s;
 }
 .summary-card:hover {
   box-shadow: 0 8px 24px rgba(0,0,0,0.13);
@@ -265,4 +269,54 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Animaciones suaves para tarjetas y grids */
+.graficos-fila {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.graficos-fila-grandes {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.graficos-fila-grandes-administrador {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.summary-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.7s;
+}
+.chart-container-clientes-registrados {
+  animation: fadeInUp 0.7s;
+}
+.chart-container-contratos-generados {
+  animation: fadeInUp 0.7s;
+}
+.chart-container-grafico-contratos {
+  animation: fadeInUp 0.7s;
+}
+.chart-container-grafico-rendimiento-mes {
+  animation: fadeInUp 0.7s;
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ajuste extra para pantallas muy pequeñas */
+@media (max-width: 500px) {
+  .dashboard-wrapper {
+    padding: 0 2vw;
+  }
+  .summary-card {
+    padding: 6px 1px;
+    font-size: 13px;
+  }
 }
