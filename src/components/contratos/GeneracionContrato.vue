@@ -225,8 +225,6 @@ const descargarWordPorTipo = (cliente) => {
   }
 };
 
-
-
 const descargarWordT1 = async (cliente) => {
   try {
     const response = await axios.get("/plantillas/plantilla_T1.docx", {
@@ -350,7 +348,6 @@ const descargarWordT1 = async (cliente) => {
     alert("No se pudo descargar o procesar la plantilla");
   }
 };
-
 
 const descargarWordT2 = async (cliente) => {
   try {
