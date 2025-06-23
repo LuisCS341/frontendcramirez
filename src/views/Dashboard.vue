@@ -1,7 +1,5 @@
 <template>
-  <DashboardLayout>
     <AreaTrabajo />
-  </DashboardLayout>
 </template>
 
 <script>
