@@ -25,7 +25,7 @@
             <transition name="submenu-fade">
               <ul v-show="openMenu === 'clientes'" class="submenu">
                 <li>
-                  <router-link to="/clientes/registrar" class="submenu-link" exact-active-class="active">
+                  <router-link to="formularios/registro-cliente" class="submenu-link" exact-active-class="active">
                     <i class="icon-user-plus"></i>
                     Registrar Cliente
                   </router-link>
