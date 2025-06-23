@@ -329,6 +329,8 @@ const descargarWordT1 = async (cliente) => {
 
     doc.setData(datos);
 
+    console.log("Variables enviadas a la plantilla:", Object.keys(datos));
+
     try {
       doc.render();
     } catch (error) {
