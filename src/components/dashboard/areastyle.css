@@ -630,9 +630,10 @@
 .chart-container-rendimiento-mes,
 .chart-container-grafico-contratos {
   background: #fff;
-  border-radius: 10px;
+  border-radius: 1px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 12px 6px 18px 6px;
+  padding:18px;
+  min-height: 120px;
   max-width: 420px;
   display: flex;
   flex-direction: column;
