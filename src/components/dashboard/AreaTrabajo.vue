@@ -7,7 +7,7 @@
     <!-- Sidebar -->
     <aside class="sidebar" :class="{ open: sidebarOpen }">
       <div class="sidebar-logo">
-        <img src="@/assets/logo.svg" alt="Logo App" class="logo-img" />
+       <!--<img src="@/assets/logo.svg" alt="Logo App" class="logo-img" />-->
       </div>
       <nav class="sidebar-nav">
         <ul class="nav-menu">
