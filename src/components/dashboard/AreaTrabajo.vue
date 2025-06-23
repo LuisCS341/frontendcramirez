@@ -6,7 +6,7 @@
     <aside class="sidebar">
       <!-- Logo de la aplicación -->
       <div class="sidebar-logo">
-        <img src="@/assets/logo.svg" alt="Logo App" class="logo-img">
+        <!--<img src="@/assets/logo.svg" alt="Logo App" class="logo-img"> -->
       </div>
 
       <!-- Menú de navegación -->
