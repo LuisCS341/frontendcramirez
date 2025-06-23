@@ -7,7 +7,6 @@
     <!-- Sidebar -->
     <aside class="sidebar" :class="{ open: sidebarOpen }">
       <div class="sidebar-logo">
-        <img src="@/assets/imagenes/LogoCoram.png" alt="Logo App" class="logo-img" />
       </div>
       <nav class="sidebar-nav">
         <ul class="nav-menu">
@@ -70,21 +69,21 @@
     <!-- Main Content -->
     <div class="main-content">
       <header class="topbar">
-        <h1 class="page-title">Dashboard Grupo CORAM</h1>
+         <img src="@/assets/imagenes/LogoCoram.png" alt="Logo App" class="logo-img" />
         <div class="user-menu">
           <img class="user-avatar" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Usuario" />
           <div class="user-info">
-            <span class="user-name">Rosangela Ramirez</span>
-            <span class="user-role">Jefe</span>
+            <span class="user-name">USUARIO 1</span>
+            <span class="user-role">Colaborador</span>
           </div>
         </div>
       </header>
-      <div class="content-area">
-        <!-- Tarjetas resumen -->
-        <transition-group name="fade-slide" tag="div" class="dashboard-summary-row">
-          <ClientesRegistrados key="clientes" />
-          <ContratosGenerados key="contratos" />
-          <div class="summary-card" key="tiempo">
+      <div class="dashboard-wrapper">
+        <!-- Fila de tarjetas resumen -->
+        <div class="dashboard-summary-row">
+          <ClientesRegistrados />
+          <ContratosGenerados />
+          <div class="summary-card">
             <div class="icon-text">
               <span class="icon">⏱️</span>
               <div class="text">
@@ -96,7 +95,7 @@
               <span class="label">minutos</span>
             </div>
           </div>
-          <div class="summary-card" key="meta">
+          <div class="summary-card">
             <div class="icon-text">
               <span class="icon">📈</span>
               <div class="text">
@@ -110,19 +109,15 @@
               <span class="label"><b>50%</b> completa<br />15 de 30</span>
             </div>
           </div>
-        </transition-group>
-        <!-- Gráficos -->
+        </div>
+        <!-- Fila de gráficos -->
         <div class="dashboard-charts-row">
-          <transition name="fade-slide">
-            <div class="chart-container-rendimiento-mes" key="grafico1">
-              <GraficoRendimientoMes />
-            </div>
-          </transition>
-          <transition name="fade-slide">
-            <div class="chart-container-grafico-contratos" key="grafico2">
-              <GraficoContratos />
-            </div>
-          </transition>
+          <div class="chart-container-rendimiento-mes">
+            <GraficoRendimientoMes />
+          </div>
+          <div class="chart-container-grafico-contratos">
+            <GraficoContratos />
+          </div>
         </div>
       </div>
     </div>

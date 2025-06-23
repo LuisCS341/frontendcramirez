@@ -263,12 +263,13 @@
 
 /* Nueva clase para el contenedor principal del dashboard */
 .dashboard-wrapper {
-  width: 90vw;
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: 32px auto 0 auto;
+  padding: 0 24px 32px 24px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 32px;
 }
 
 /* Animaciones suaves para tarjetas y grids */
@@ -478,11 +479,12 @@
 
 /* Tarjetas resumen */
 .dashboard-summary-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   margin-bottom: 24px;
-  flex-wrap: wrap;
 }
+
 .summary-card {
   min-width: 150px;
   max-width: 220px;
@@ -549,10 +551,11 @@
 
 /* Gráficos */
 .dashboard-charts-row {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
+
 .chart-container-rendimiento-mes,
 .chart-container-grafico-contratos {
   background: #fff;
@@ -862,8 +865,8 @@
 }
 
 .dashboard-charts-row {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
 
