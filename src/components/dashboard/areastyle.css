@@ -662,7 +662,7 @@
   to { opacity: 1; transform: translateY(0);}
 }
 .fade-slide-enter-active, .fade-slide-leave-active {
-  transition: none;
+  transition: all 10s cubic-bezier(0.4,0,0.2,1);
 }
 .fade-slide-enter-from, .fade-slide-leave-to {
   opacity: 0;
