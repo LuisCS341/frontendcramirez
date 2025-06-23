@@ -119,7 +119,7 @@ import {prefijos} from "@/data/prefijos.js";
 import { estadoCivil } from '@/data/estadoCivil.js';
 import { tipoIdentificacion } from '@/data/tipoIdentificacion.js';
 import "@/components/formularios/Cliente/Cliente.css"
-import {computed, watch} from "vue";
+import {computed} from "vue";
 
 const props = defineProps({
   form: Object
