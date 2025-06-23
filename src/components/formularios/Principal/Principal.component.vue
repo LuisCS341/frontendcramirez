@@ -9,71 +9,116 @@
 
         <div class="formulario-all">
 
+          <!-- Paso 1: Datos personales -->
           <div v-if="formStep === 1">
-            <form @submit.prevent="formularioClientevarios">
-              <Cliente
-                  :form="form"
-              />
-
-              <div v-if="form.estadoCivil === 2">
-                <ClienteConyuge
-                    :form="form"
-                />
-              </div>
-
-              <button type="submit">Siguiente</button>
-            </form>
-          </div>
-
-          <div v-if="formStep === 2">
-            <form @submit.prevent="submitForm2">
-              <h3>Información de Copropietarios</h3>
-
-              <label>Número de Copropietarios:</label>
-              <input v-model.number="form.numCopropietarios" type="number" min="0" max="5"   @input="validateNumCopropietarios"/>
-
-              <div v-for="(copropietario, index) in form.copropietarios" :key="index">
-                <Copropietario
-                    :index="index"
-                    :copropietario="copropietario"
-                />
-
-                <div v-if="copropietario.estadoCivilCopropietarios === 2">
-                  <CopropietarioConyuge
-                      :index="index"
-                      :copropietario="copropietario"
-                  />
+            <form @submit.prevent="formularioClientevarios" class="formulario-cliente">
+              <h1>DATOS PERSONALES</h1>
+              <div class="form-grid">
+                <div>
+                  <label class="form-label">Tipo de Identificación</label>
+                  <input class="form-input" v-model="form.tipoIdentificacion" type="text" />
+                </div>
+                <div>
+                  <label class="form-label">Número de Identificación</label>
+                  <input class="form-input" v-model="form.numIdentificacionUsuario" type="text" />
+                </div>
+                <div class="input-full">
+                  <label class="form-label">Apellido y Nombre</label>
+                  <input class="form-input" v-model="form.nombreCliente" type="text" />
+                </div>
+                <div class="input-full">
+                  <label class="form-label">Ocupación</label>
+                  <input class="form-input" v-model="form.ocupacionCliente" type="text" />
+                </div>
+                <div>
+                  <label class="form-label">País de Origen</label>
+                  <input class="form-input" v-model="form.paisOrigen" type="text" />
+                </div>
+                <div>
+                  <label class="form-label">País de Residencia</label>
+                  <input class="form-input" v-model="form.paisdeResidencia" type="text" />
+                </div>
+                <div>
+                  <label class="form-label">Departamento</label>
+                  <input class="form-input" v-model="form.departamento" type="text" />
+                </div>
+                <div>
+                  <label class="form-label">Provincia</label>
+                  <input class="form-input" v-model="form.provincia" type="text" />
+                </div>
+                <div>
+                  <label class="form-label">Distrito</label>
+                  <input class="form-input" v-model="form.distrito" type="text" />
+                </div>
+                <div class="input-full">
+                  <label class="form-label">Dirección</label>
+                  <input class="form-input" v-model="form.direccion" type="text" />
+                </div>
+                <div>
+                  <label class="form-label">Correo Electrónico</label>
+                  <input class="form-input" v-model="form.correoUsuario" type="email" />
+                </div>
+                <div>
+                  <label class="form-label">Prefijo</label>
+                  <input class="form-input" v-model="form.prefijoTelefonico" type="text" />
+                </div>
+                <div>
+                  <label class="form-label">Número de Teléfono</label>
+                  <input class="form-input" v-model="form.numTelefonico" type="text" />
+                </div>
+                <div>
+                  <label class="form-label">Estado Civil</label>
+                  <input class="form-input" v-model="form.estadoCivil" type="text" />
                 </div>
               </div>
-
-              <h3>Datos de Lotes</h3>
-              <label>Número de Lotes Adquiridos:</label>
-              <input v-model.number="form.numLotes" type="number" min="0" @input="validateNumLote"/>
-
-              <div v-for="(lote, index) in form.lotes" :key="index" >
-
-                <Lote
-                    :index="index"
-                    :lote="lote"
-                    :getUbicacionesFiltradas="getUbicacionesFiltradas"
-                />
-
+              <div v-if="form.estadoCivil === 2">
+                <ClienteConyuge :form="form" />
               </div>
-              <button type="submit">Siguiente</button>
+              <button type="submit" class="btn-naranja">Siguiente</button>
             </form>
           </div>
+
+          <!-- Paso 2: Copropietarios y Lotes -->
+          <div v-if="formStep === 2">
+            <form @submit.prevent="submitForm2" class="formulario-cliente">
+              <h3>Información de Copropietarios</h3>
+              <div class="form-grid input-full">
+                <div>
+                  <label class="form-label">Número de Copropietarios</label>
+                  <input class="form-input" v-model.number="form.numCopropietarios" type="number" min="0" max="5" @input="validateNumCopropietarios"/>
+                </div>
+              </div>
+              <div v-for="(copropietario, index) in form.copropietarios" :key="index">
+                <Copropietario :index="index" :copropietario="copropietario" />
+                <div v-if="copropietario.estadoCivilCopropietarios === 2">
+                  <CopropietarioConyuge :index="index" :copropietario="copropietario" />
+                </div>
+              </div>
+              <h3>Datos de Lotes</h3>
+              <div class="form-grid input-full">
+                <div>
+                  <label class="form-label">Número de Lotes Adquiridos</label>
+                  <input class="form-input" v-model.number="form.numLotes" type="number" min="0" @input="validateNumLote"/>
+                </div>
+              </div>
+              <div v-for="(lote, index) in form.lotes" :key="index">
+                <Lote :index="index" :lote="lote" :getUbicacionesFiltradas="getUbicacionesFiltradas" />
+              </div>
+              <button type="submit" class="btn-naranja">Siguiente</button>
+            </form>
+          </div>
+
+          <!-- Los demás pasos los puedes dejar igual, o agregar la clase formulario-cliente si quieres el mismo estilo -->
 
           <div v-if="formStep === 3">
             <form @submit.prevent="FormCuotaExtraordinaria">
               <div v-for="(lote, index) in form.lotes" :key="index">
-
                 <CuotaExtraordinaria
-                    v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
-                    :cuotaextraordinaria="lote.cuotaextraordinaria"
-                    :lote="lote"
-                    :index="index"
+                  v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
+                  :cuotaextraordinaria="lote.cuotaextraordinaria"
+                  :lote="lote"
+                  :index="index"
                 />
-
               </div>
               <button type="submit">Siguiente</button>
             </form>
@@ -82,10 +127,7 @@
           <div v-if="formStep === 4">
             <form @submit.prevent="submitLinderos" v-if="form.numLotes > 0">
               <div v-for="(lote, index) in form.lotes" :key="index">
-                <Lindero
-                    :lote="lote"
-                    :index="index"
-                />
+                <Lindero :lote="lote" :index="index" />
               </div>
               <button type="submit">Siguiente</button>
             </form>
@@ -93,27 +135,27 @@
 
           <div v-if="formStep === 5">
             <form @submit.prevent="finalizarRegistroMatriz">
-                <div v-for="(matriz, index) in form.lotes" :key="index">
-                    <Matriz
-                        :matriz="matriz"
-                        :index="index"
-                        :numeroALetras="numeroALetras"
-                    />
-                </div>
+              <div v-for="(matriz, index) in form.lotes" :key="index">
+                <Matriz
+                  :matriz="matriz"
+                  :index="index"
+                  :numeroALetras="numeroALetras"
+                />
+              </div>
               <button type="submit" class="btn btn-primary">Siguiente</button>
             </form>
           </div>
 
           <div v-if="formStep === 6">
-              <ResumenRegistro
-                  :form="form"
-                  :obtenerNombrePais="obtenerNombrePais"
-                  :obtenerNombreResidencia="obtenerNombreResidencia"
-                  :obtenerNombreDepartamento="obtenerNombreDepartamento"
-                  :obtenerNombreProvincia="obtenerNombreProvincia"
-                  :obtenerNombreDistrito="obtenerNombreDistrito"
-                  :obtenerNombreProyecto="obtenerNombreProyecto"
-              />
+            <ResumenRegistro
+              :form="form"
+              :obtenerNombrePais="obtenerNombrePais"
+              :obtenerNombreResidencia="obtenerNombreResidencia"
+              :obtenerNombreDepartamento="obtenerNombreDepartamento"
+              :obtenerNombreProvincia="obtenerNombreProvincia"
+              :obtenerNombreDistrito="obtenerNombreDistrito"
+              :obtenerNombreProyecto="obtenerNombreProyecto"
+            />
             <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
           </div>
 
@@ -124,7 +166,7 @@
 </template>
 
 <script setup>
-import { ref, watch ,computed,onMounted ,watchEffect } from 'vue';
+import { ref, watch ,onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
@@ -133,7 +175,6 @@ import { numeroALetras } from "@/data/numeroLetrasConNumeros.js";
 
 import { buildClientePayload, buildClienteConyugePayload,buildCopropietarioPayload, buildConyugePayload, buildLotePayload ,buildCuotaExtraordinariaPayload,buildLinderoPayload,buildMatrizLotePayload} from '@/data/payloadBuilder.js'
 import {obtenerNombreResidencia, obtenerNombrePais, obtenerNombreDepartamento, obtenerNombreProvincia, obtenerNombreDistrito, obtenerNombreProyecto} from '@/data/utils.js';
-import Cliente from "@/components/formularios/Cliente/Cliente.vue";
 import ClienteConyuge from "@/components/formularios/Cliente/ClienteConyuge.vue";
 import Copropietario from "@/components/formularios/Copropietario/Copropietario.vue";
 import Lindero from "@/components/formularios/Lote/Lindero.vue";
@@ -562,7 +603,7 @@ const finalizarRegistroMatriz = async () => {
   }
 };
 
-//calcula la alicuota con un campo del componente lote y matriz
+//calcula la alicuota with a field of the lote and matriz component
 watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
       if (!lote.matriz) {
         lote.matriz = {};

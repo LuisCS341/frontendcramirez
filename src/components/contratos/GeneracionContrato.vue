@@ -286,7 +286,7 @@ const descargarWordT1 = async (cliente) => {
       areaLote: lote?.areaLote ?? '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
       precioMetroCuadradoLetras: (lote?.precioMetroCuadradoLetras ?? '-' ).toUpperCase() ,
-      precioMetroCuadrado: (lote?.precioMetroCuadrado ?? '-' ).toUpperCase() ,
+      precioMetroCuadrado: lote?.precioMetroCuadrado ?? '-' ,
       provinciaMatriz: (lote?.provinciaMatriz ?? '-' ).toUpperCase() ,
       numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
       direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
@@ -315,13 +315,13 @@ const descargarWordT1 = async (cliente) => {
       idClienteCopropietarios: copropietario?.idClienteCopropietarios ?? '-' ,
       nombresApellidosCopropietarios: (copropietario?.nombresApellidosCopropietarios ?? '-').toUpperCase() ,
       numeroIdentificacionCopropietarios: (copropietario?.numeroIdentificacionCopropietarios ?? '-').toUpperCase() ,
-      ocupacionCopropietarios: (copropietario?.ocupacionCopropietarios ?? '-').toUpperCase() ,
-      documentoIdentificacionCopropietarios: (copropietario?.documentoIdentificacionCopropietarios ?? '-').toUpperCase() ,
-      direccionCopropietarios: (copropietario?.direccionCopropietarios ?? '-').toUpperCase() ,
-      distritoCopropietarios: (copropietario?.distritoCopropietarios ?? '-').toUpperCase() ,
-      provinciaCopropietarios: (copropietario?.provinciaCopropietarios ?? '-').toUpperCase() ,
-      departamentoCopropietarios: (copropietario?.departamentoCopropietarios ?? '-').toUpperCase() ,
-      estadoCivilCopropietarios: (copropietario?.estadoCivilCopropietarios ?? '-').toUpperCase() ,
+      ocupacionCopropietarios: copropietario?.ocupacionCopropietarios ?? '-' ,
+      documentoIdentificacionCopropietarios: copropietario?.documentoIdentificacionCopropietarios ?? '-',
+      direccionCopropietarios: copropietario?.direccionCopropietarios ?? '-' ,
+      distritoCopropietarios: copropietario?.distritoCopropietarios ?? '-' ,
+      provinciaCopropietarios: copropietario?.provinciaCopropietarios ?? '-' ,
+      departamentoCopropietarios: copropietario?.departamentoCopropietarios ?? '-' ,
+      estadoCivilCopropietarios: copropietario?.estadoCivilCopropietarios ?? '-' ,
       porElFrente: lindero?.porElFrente ?? '-' ,
       porLaDerecha: lindero?.porLaDerecha ?? '-' ,
       porLaIzquierda: lindero?.porLaIzquierda ?? '-' ,
@@ -365,6 +365,7 @@ const descargarWordT1 = async (cliente) => {
     alert("No se pudo descargar o procesar la plantilla");
   }
 };
+
 
 const descargarWordT2 = async (cliente) => {
   try {
@@ -414,8 +415,8 @@ const descargarWordT2 = async (cliente) => {
       rucVendedor: lote?.rucVendedor ?? '-',
       numCuenta: lote?.numCuenta ?? '-',
       cci: lote?.cci ?? '-',
-      mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
-      mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
+      mantenimientoMensual: cuotaExtra?.mantenimientoMensual ?? '-',
+      mantenimientoMensualLetras: (cuotaExtra?.mantenimientoMensualLetras ?? '-').toUpperCase(),
       cantidadCuotas: lote?.cantidadCuotas ?? '-',
       montoCuotas: lote?.montoCuotas ?? '-',
       pagoInicial: lote?.pagoInicial ?? '-',
@@ -423,8 +424,11 @@ const descargarWordT2 = async (cliente) => {
       fechaSale: lote?.fechaSale ?? '-',
       costoLote: lote?.costoLote ?? '-',
       montoLetras: (lote?.montoLetras ?? '-' ).toUpperCase() ,
+      cuentaRecaudadora: (lote?.cuentaRecaudadora ?? '-' ).toUpperCase() ,
       areaLote: lote?.areaLote ?? '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
+      precioMetroCuadradoLetras: (lote?.precioMetroCuadradoLetras ?? '-' ).toUpperCase() ,
+      precioMetroCuadrado: lote?.precioMetroCuadrado ?? '-' ,
       provinciaMatriz: (lote?.provinciaMatriz ?? '-' ).toUpperCase() ,
       numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
       direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
@@ -452,7 +456,7 @@ const descargarWordT2 = async (cliente) => {
       departamentoConyuge: (conyuge?.departamentoConyuge ?? '-').toUpperCase() ,
       idClienteCopropietarios: copropietario?.idClienteCopropietarios ?? '-' ,
       nombresApellidosCopropietarios: (copropietario?.nombresApellidosCopropietarios ?? '-').toUpperCase() ,
-      numeroIdentificacionCopropietarios: (copropietario?.numeroIdentificacionCopropietarios ?? '-').toUpperCase() ,
+      numeroIdentificacionCopropietarios: copropietario?.numeroIdentificacionCopropietarios ?? '-',
       ocupacionCopropietarios: (copropietario?.ocupacionCopropietarios ?? '-').toUpperCase() ,
       documentoIdentificacionCopropietarios: (copropietario?.documentoIdentificacionCopropietarios ?? '-').toUpperCase() ,
       direccionCopropietarios: (copropietario?.direccionCopropietarios ?? '-').toUpperCase() ,
@@ -470,13 +474,28 @@ const descargarWordT2 = async (cliente) => {
 
     doc.setData(datos);
 
+    console.log("Variables enviadas a la plantilla:", Object.keys(datos));
+
     try {
       doc.render();
     } catch (error) {
-      console.error("Error al renderizar el documento:", error);
-      alert("Error al generar el documento Word");
+      console.error("❌ Error al renderizar el documento:", error);
+
+      if (error.properties && Array.isArray(error.properties.errors)) {
+        console.group("🧩 Detalles del error de plantilla:");
+        error.properties.errors.forEach((e, i) => {
+          console.log(`🔸 Error ${i + 1}:`);
+          console.log(`   🔹 Nombre de la variable con error: "${e.properties?.name}"`);
+          console.log(`   🔸 Tipo de error: ${e.properties?.explanation}`);
+          console.log(`   📝 Mensaje interno: ${e.properties?.id}`);
+        });
+        console.groupEnd();
+      }
+
+      alert("Error al generar el documento Word. Revisa la consola para más detalles.");
       return;
     }
+
 
     const out = doc.getZip().generate({
       type: "blob",
@@ -489,7 +508,6 @@ const descargarWordT2 = async (cliente) => {
     alert("No se pudo descargar o procesar la plantilla");
   }
 };
-
 
 const descargarWordT3 = async (cliente) => {
   try {
@@ -548,8 +566,11 @@ const descargarWordT3 = async (cliente) => {
       fechaSale: lote?.fechaSale ?? '-',
       costoLote: lote?.costoLote ?? '-',
       montoLetras: (lote?.montoLetras ?? '-' ).toUpperCase() ,
+      cuentaRecaudadora: (lote?.cuentaRecaudadora ?? '-' ).toUpperCase() ,
       areaLote: lote?.areaLote ?? '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
+      precioMetroCuadradoLetras: (lote?.precioMetroCuadradoLetras ?? '-' ).toUpperCase() ,
+      precioMetroCuadrado: lote?.precioMetroCuadrado ?? '-' ,
       provinciaMatriz: (lote?.provinciaMatriz ?? '-' ).toUpperCase() ,
       numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
       direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
@@ -595,13 +616,28 @@ const descargarWordT3 = async (cliente) => {
 
     doc.setData(datos);
 
+    console.log("Variables enviadas a la plantilla:", Object.keys(datos));
+
     try {
       doc.render();
     } catch (error) {
-      console.error("Error al renderizar el documento:", error);
-      alert("Error al generar el documento Word");
+      console.error("❌ Error al renderizar el documento:", error);
+
+      if (error.properties && Array.isArray(error.properties.errors)) {
+        console.group("🧩 Detalles del error de plantilla:");
+        error.properties.errors.forEach((e, i) => {
+          console.log(`🔸 Error ${i + 1}:`);
+          console.log(`   🔹 Nombre de la variable con error: "${e.properties?.name}"`);
+          console.log(`   🔸 Tipo de error: ${e.properties?.explanation}`);
+          console.log(`   📝 Mensaje interno: ${e.properties?.id}`);
+        });
+        console.groupEnd();
+      }
+
+      alert("Error al generar el documento Word. Revisa la consola para más detalles.");
       return;
     }
+
 
     const out = doc.getZip().generate({
       type: "blob",
