@@ -624,7 +624,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 32px;
-  margin-top: 80px; /* Puedes ajustar este valor según lo que necesites */
+  margin-top: 100px; /* Puedes ajustar este valor según lo que necesites */
 }
 
 .chart-container-rendimiento-mes,
