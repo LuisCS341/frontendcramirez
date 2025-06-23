@@ -133,9 +133,7 @@ window.addEventListener('resize', () => {
   text-align: center;
   margin-bottom: 24px;
 }
-.logo-img {
-  width: 120px;
-}
+<!--.logo-img {  width: 120px;}-->
 .sidebar-nav {
   flex: 1;
 }
