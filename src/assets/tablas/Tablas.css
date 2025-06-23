@@ -20,8 +20,8 @@
     box-sizing: border-box;
     position: relative;
     left: 0;
-    width: calc(100% - 150px);  /* Ajusta el "150px" al ancho de tu barra lateral */
-    margin-right: 0; /* Elimina margen derecho si no es necesario */
+    width: calc(100% - 150px); /* Ajusta el "150px" al ancho de tu barra lateral */
+ /* Elimina margen derecho si no es necesario */
     margin-top: 40px;
 }
 
@@ -267,6 +267,23 @@
   .sidebar, .menu-lateral {
     display: none !important;
   }
+}
+
+.submenu {
+  background: #34495e;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  /* Elimina height: 0 o max-height si existe */
+  /* Elimina overflow: hidden si existe */
+}
+.submenu-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 32px;
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
 
