@@ -673,14 +673,14 @@
   transform: translateY(0);
 }
 .submenu-fade-enter-active, .submenu-fade-leave-active {
-  transition: max-height 10s cubic-bezier(0.4,0,0.2,1), opacity 1s;
+  transition: none , opacity 1s;
 }
 .submenu-fade-enter-from, .submenu-fade-leave-to {
-  max-height: 0;
+  max-height: none;
   opacity: 0;
 }
 .submenu-fade-enter-to, .submenu-fade-leave-from {
-  max-height: 200px;
+  max-height: none;
   opacity: 1;
 }
 
