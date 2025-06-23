@@ -35,6 +35,7 @@
                 <span>Clientes</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'clientes' }">▶</span>
               </div>
+              <transition name="submenu-fade">
               <ul v-show="openMenu === 'clientes'" class="submenu">
                 <li>
                   <router-link to="/dashboard/clientes/registrar" class="submenu-link" exact-active-class="active">
@@ -49,6 +50,7 @@
                   </router-link>
                 </li>
               </ul>
+              </transition>
             </li>
             <li>
               <div class="nav-link" @click="toggleMenu('contratos')">
@@ -56,6 +58,7 @@
                 <span>Contratos</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'contratos' }">▶</span>
               </div>
+                     <transition name="submenu-fade">
               <ul v-show="openMenu === 'contratos'" class="submenu">
                 <li>
                   <router-link to="/dashboard/contratos/seguimientocontrato" class="submenu-link" exact-active-class="active">
@@ -70,6 +73,7 @@
                   </router-link>
                 </li>
               </ul>
+              </transition>
             </li>
           </ul>
         </nav>
