@@ -53,19 +53,20 @@
 
 /* Tarjeta general */
 .summary-card {
-  min-width: 150px;
-  max-width: 220px;
-  padding: 18px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 24px 18px;
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: flex-start;
   font-family: 'Montserrat', sans-serif;
-  margin: 0 auto;
-  transition: box-shadow 0.3s, transform 0.3s, all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+  transition: box-shadow 0.3s, transform 0.3s;
   animation: fadeInUp 0.7s;
+  border: 1.5px solid #e0e0e0;
 }
 .summary-card:hover {
   box-shadow: 0 8px 24px rgba(0,0,0,0.13);
@@ -263,7 +264,7 @@
 
 /* Nueva clase para el contenedor principal del dashboard */
 .dashboard-wrapper {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 32px auto 0 auto;
   padding: 0 24px 32px 24px;
   width: 100%;
@@ -456,7 +457,7 @@
   display: flex;
   align-items: center;
   margin-left: 0;
-  padding-left: 0;
+  padding-left: 0 ; 
 }
 .logo-img {
   height: 48px;
@@ -504,24 +505,25 @@
 .dashboard-summary-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-bottom: 24px;
+  gap: 32px;
+  margin-bottom: 32px;
 }
 
 .summary-card {
-  min-width: 150px;
-  max-width: 220px;
-  padding: 18px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 24px 18px;
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: flex-start;
   font-family: 'Montserrat', sans-serif;
-  margin: 0 auto;
+  margin: 0;
   transition: box-shadow 0.3s, transform 0.3s;
   animation: fadeInUp 0.7s;
+  border: 1.5px solid #e0e0e0;
 }
 .summary-card:hover {
   box-shadow: 0 8px 24px rgba(0,0,0,0.13);
@@ -575,8 +577,8 @@
 /* Gráficos */
 .dashboard-charts-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
 }
 
 .chart-container-rendimiento-mes,
@@ -584,14 +586,14 @@
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 20px 18px;
-  min-width: 320px;
-  max-width: 540px;
+  padding: 32px 24px;
+  min-width: 0;
   width: 100%;
-  min-height: 320px;
+  min-height: 380px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1.5px solid #e0e0e0;
   transition: box-shadow 0.3s, transform 0.3s;
   animation: fadeInUp 0.7s;
 }
@@ -646,6 +648,20 @@
     padding: 12px;
   }
 }
+@media (max-width: 1200px) {
+  .dashboard-wrapper {
+    max-width: 98vw;
+    padding: 0 8px 24px 8px;
+  }
+  .dashboard-summary-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .dashboard-charts-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
 
 /* RESPONSIVE MÓVIL */
 @media (max-width: 900px) {
@@ -681,6 +697,11 @@
     min-width: 0;
     font-size: 14px;
     padding: 8px 2px;
+  }
+  .chart-container-rendimiento-mes,
+  .chart-container-grafico-contratos {
+    padding: 10px 2px;
+    min-height: 220px;
   }
 }
 @media (max-width: 500px) {
