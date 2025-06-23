@@ -30,7 +30,7 @@
               </router-link>
             </li>
             <li>
-              <div class="nav-link" @click="toggleMenu('clientes', '/clientes/registrar')">
+              <div class="nav-link" @click="toggleMenu('clientes')">
                 <i class="icon-users"></i>
                 <span>Clientes</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'clientes' }">▶</span>
@@ -53,7 +53,7 @@
               </transition>
             </li>
             <li>
-              <div class="nav-link" @click="toggleMenu('contratos', '/contratos/seguimiento')">
+              <div class="nav-link" @click="toggleMenu('contratos')">
                 <i class="icon-file"></i>
                 <span>Contratos</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'contratos' }">▶</span>
