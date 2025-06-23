@@ -80,3 +80,7 @@ defineEmits([
   'continuar'
 ])
 </script>
+
+<style>
+@import './registroClienteStyle.css';
+</style>
