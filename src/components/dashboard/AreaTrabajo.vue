@@ -1,9 +1,11 @@
 <template>
   <div>
     <!-- Header de lado a lado -->
-    <header class="topbar">
+   <header class="topbar">
       <div class="header-content">
-        <img src="@/assets/imagenes/LogoCoram.png" alt="Logo App" class="logo-img" />
+        <div class="logo-box">
+          <img src="@/assets/imagenes/LogoCoram.png" alt="Logo App" class="logo-img" />
+        </div>
         <div class="user-menu">
           <img class="user-avatar" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Usuario" />
           <div class="user-info">
@@ -35,22 +37,21 @@
                 <span>Clientes</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'clientes' }">▶</span>
               </div>
-              <transition name="submenu-fade">
-                <ul v-show="openMenu === 'clientes'" class="submenu">
-                  <li>
-                    <router-link to="/clientes/registrar" class="submenu-link" exact-active-class="active">
-                      <i class="icon-user-plus"></i>
-                      Registrar Cliente
-                    </router-link>
-                  </li>
-                  <li>
-                    <router-link to="/clientes/mis-clientes" class="submenu-link" exact-active-class="active">
-                      <i class="icon-list"></i>
-                      Total Clientes
-                    </router-link>
-                  </li>
-                </ul>
-              </transition>
+              <!-- Sin <transition> para que no haya animación -->
+              <ul v-show="openMenu === 'clientes'" class="submenu">
+                <li>
+                  <router-link to="/clientes/registrar" class="submenu-link" exact-active-class="active">
+                    <i class="icon-user-plus"></i>
+                    Registrar Cliente
+                  </router-link>
+                </li>
+                <li>
+                  <router-link to="/clientes/mis-clientes" class="submenu-link" exact-active-class="active">
+                    <i class="icon-list"></i>
+                    Total Clientes
+                  </router-link>
+                </li>
+              </ul>
             </li>
             <li>
               <div class="nav-link" @click="toggleMenu('contratos')">
