@@ -1,4 +1,3 @@
-
 <template>
   <div class="layout">
     <nav class="barra-lateral">
