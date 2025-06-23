@@ -378,23 +378,24 @@
 /* Botón hamburguesa para móvil */
 .sidebar-toggle {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 18px;
   left: 18px;
-  z-index: 2001;
-  background: #ff9800;
+  z-index: 3001;
+  background: #222;
   color: #fff;
   border: none;
   font-size: 2rem;
-  border-radius: 6px;
-  padding: 4px 12px;
+  border-radius: 8px;
+  width: 48px;
+  height: 48px;
   cursor: pointer;
 }
 
 /* Sidebar */
 .sidebar {
   width: 220px;
-  background: #2c3e50;
+  background: #222;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -451,18 +452,19 @@
   transform: rotate(90deg);
 }
 .submenu {
-  background: #34495e;
-  padding: 0;
+  background: #292929;
+  padding-left: 0;
   margin: 0;
   list-style: none;
+  overflow: hidden;
 }
 .submenu-link {
   display: flex;
   align-items: center;
-  padding: 12px 32px;
-  color: #ecf0f1;
+  padding: 10px 36px;
+  color: #fff;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.97rem;
   border-left: 4px solid transparent;
   transition: background 0.2s, border-color 0.2s;
 }
@@ -710,15 +712,15 @@
 @media (max-width: 900px) {
   .sidebar {
     position: fixed;
-    left: 0;
+    left: -240px;
     top: 0;
     height: 100vh;
-    z-index: 2000;
-    transform: translateX(-100%);
-    transition: transform 0.3s;
+    width: 220px;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    transition: left 0.3s;
   }
   .sidebar.open {
-    transform: translateX(0);
+    left: 0;
   }
   .sidebar-toggle {
     display: block;
