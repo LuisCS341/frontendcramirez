@@ -147,6 +147,21 @@ nav ul li {
   }
 }
 
+/* Asegura que el contenido principal no quede debajo de la barra lateral */
+@media (min-width: 901px) {
+  .contenido-principal {
+    margin-left: 200px; /* igual al ancho de .barra-lateral */
+    transition: margin-left 0.3s;
+  }
+}
+@media (max-width: 900px) {
+  .contenido-principal {
+    margin-left: 0 !important;
+    width: 100vw !important;
+    transition: margin-left 0.3s;
+  }
+}
+
 /* Botón hamburguesa */
 .menu-hamburguesa {
   display: none;
