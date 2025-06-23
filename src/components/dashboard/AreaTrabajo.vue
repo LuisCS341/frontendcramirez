@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Header de lado a lado -->
+    <!-- Header -->
     <header class="topbar">
       <div class="header-content">
         <img src="@/assets/imagenes/LogoCoram.png" alt="Logo App" class="logo-img" />
@@ -77,46 +77,8 @@
       <!-- Main Content -->
       <div class="main-content">
         <div class="dashboard-wrapper">
-          <!-- Fila de tarjetas resumen -->
-          <div class="dashboard-summary-row">
-            <ClientesRegistrados />
-            <ContratosGenerados />
-            <div class="summary-card">
-              <div class="icon-text">
-                <span class="icon">⏱️</span>
-                <div class="text">
-                  <p class="title">Tiempo por<br />Cliente</p>
-                </div>
-              </div>
-              <div class="count">
-                <span class="number">10</span>
-                <span class="label">minutos</span>
-              </div>
-            </div>
-            <div class="summary-card">
-              <div class="icon-text">
-                <span class="icon">📈</span>
-                <div class="text">
-                  <p class="title">Meta del Día</p>
-                </div>
-              </div>
-              <div class="count">
-                <div class="progress-bar">
-                  <div class="progress-bar-fill" :style="{ width: '50%' }"></div>
-                </div>
-                <span class="label"><b>50%</b> completa<br />15 de 30</span>
-              </div>
-            </div>
-          </div>
-          <!-- Fila de gráficos -->
-          <div class="dashboard-charts-row">
-            <div class="chart-container-rendimiento-mes">
-              <GraficoRendimientoMes />
-            </div>
-            <div class="chart-container-grafico-contratos">
-              <GraficoContratos />
-            </div>
-          </div>
+          <!-- Aquí va el contenido principal del dashboard -->
+          <slot />
         </div>
       </div>
     </div>
@@ -125,13 +87,6 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import { useRouter } from "vue-router";
-import ClientesRegistrados from "@/components/graficos/ClientesRegistrados.vue";
-import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
-import GraficoRendimientoMes from "@/components/graficos/GraficoRendimientoMes.vue";
-import GraficoContratos from "@/components/graficos/GraficoContratos.vue";
-import "@/components/dashboard/areastyle.css";
-
 const openMenu = ref(null);
 const sidebarOpen = ref(window.innerWidth > 900);
 
