@@ -26,13 +26,13 @@
             <li>
               <router-link to="/dashboard" class="nav-link" exact-active-class="active">
                 <i class="icon-home"></i>
-                <span>Home</span>
+                <span>HOME</span>
               </router-link>
             </li>
             <li>
               <div class="nav-link" @click="toggleMenu('clientes')">
                 <i class="icon-users"></i>
-                <span>Clientes</span>
+                <span>CLIENTES</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'clientes' }">▶</span>
               </div>
               <transition name="submenu-fade">
@@ -40,13 +40,13 @@
                   <li>
                     <router-link to="formularios/registro-cliente" class="submenu-link" exact-active-class="active">
                       <i class="icon-user-plus"></i>
-                      Registrar Cliente
+                      REGISTRAR CLIENTES
                     </router-link>
                   </li>
                   <li>
                     <router-link to="clientes/mis-clientes" class="submenu-link" exact-active-class="active">
                       <i class="icon-list"></i>
-                      Total Clientes
+                      TOTAL CLIENTES
                     </router-link>
                   </li>
                 </ul>
@@ -63,13 +63,13 @@
                   <li>
                     <router-link to="/contratos/seguimiento" class="submenu-link" exact-active-class="active">
                       <i class="icon-eye"></i>
-                      Seguimiento
+                      SEGUIMIENTO
                     </router-link>
                   </li>
                   <li>
                     <router-link to="/contratos/generar" class="submenu-link" exact-active-class="active">
                       <i class="icon-plus"></i>
-                      Generar Contrato
+                      GENERAR CONTRATO
                     </router-link>
                   </li>
                 </ul>
