@@ -359,13 +359,14 @@ button {
 
 /* Estilos generales del formulario */
 .formulario-cliente {
-  max-width: 700px;
-  margin: 32px auto;
+  max-width: 540px;         /* Más angosto */
+  width: 100%;
+  margin: 40px auto;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.10);
   border: 2px solid #222;
-  padding: 36px 32px 28px 32px;
+  padding: 36px 28px 28px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -390,7 +391,7 @@ button {
   grid-column: 1 / 3;
 }
 .form-label {
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #444;
   margin-bottom: 4px;
@@ -411,33 +412,12 @@ button {
   border: 1.5px solid #ff9800;
   background: #fff;
 }
-.btn-naranja {
-  width: 100%;
-  background: #ff9800;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  padding: 16px 0;
-  font-size: 1.2rem;
-  font-weight: 800;
-  margin-top: 16px;
-  cursor: pointer;
-  transition: background 0.2s;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.08);
-}
-.btn-naranja:hover {
-  background: #fb8c00;
-}
 
-/* Responsive para móviles */
-@media (max-width: 700px) {
+/* Responsive para móvil */
+@media (max-width: 600px) {
   .formulario-cliente {
     max-width: 98vw;
     padding: 18px 4vw;
-  }
-  .formulario-cliente h1, .formulario-cliente h3 {
-    font-size: 1.3rem;
   }
   .form-grid {
     grid-template-columns: 1fr;
