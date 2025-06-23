@@ -1,13 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 /* Contenedor principal para operador */
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* Evitar scroll horizontal */
-  font-family: 'Montserrat', sans-serif;
-}
-
-
 .graficos-container {
   display: grid;
   width: 1400px;
@@ -404,8 +395,7 @@ body, html {
 /* Sidebar */
 .sidebar {
   width: 220px;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-  url("@/assets/imagenes/FondoDashboard.jpg");
+  background: #222;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -640,10 +630,10 @@ body, html {
 .chart-container-rendimiento-mes,
 .chart-container-grafico-contratos {
   background: #fff;
-  border-radius: 1px;
+  border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding:18px;
-  min-height: 120px;
+  padding: 18x ;
+  min-height: 0;
   max-width: 420px;
   display: flex;
   flex-direction: column;
