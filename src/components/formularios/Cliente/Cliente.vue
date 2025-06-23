@@ -1,116 +1,125 @@
 <template>
   <div v-if="form">
-    <h2 class="tituloformulario">FORMULARIO DE CLIENTES</h2>
-    <div class="formulario-all">
-      <div v-if="formStep === 1">
-        <form @submit.prevent="formularioClientevarios" class="formulario-cliente">
-          <h1>DATOS PERSONALES</h1>
-          <div class="form-grid">
-            <div>
-              <label class="form-label">Tipo de Identificación</label>
-              <input class="form-input" v-model="form.tipoIdentificacion" type="text" />
-            </div>
-            <div>
-              <label class="form-label">Número de Identificación</label>
-              <input class="form-input" v-model="form.numIdentificacionUsuario" type="text" />
-            </div>
-            <div class="input-full">
-              <label class="form-label">Apellido y Nombre</label>
-              <input class="form-input" v-model="form.nombreCliente" type="text" />
-            </div>
-            <div class="input-full">
-              <label class="form-label">Ocupación</label>
-              <input class="form-input" v-model="form.ocupacionCliente" type="text" />
-            </div>
-            <div>
-              <label class="form-label">País de Origen</label>
-              <input class="form-input" v-model="form.paisOrigen" type="text" />
-            </div>
-            <div>
-              <label class="form-label">País de Residencia</label>
-              <input class="form-input" v-model="form.paisdeResidencia" type="text" />
-            </div>
-            <div>
-              <label class="form-label">Departamento</label>
-              <input class="form-input" v-model="form.departamento" type="text" />
-            </div>
-            <div>
-              <label class="form-label">Provincia</label>
-              <input class="form-input" v-model="form.provincia" type="text" />
-            </div>
-            <div>
-              <label class="form-label">Distrito</label>
-              <input class="form-input" v-model="form.distrito" type="text" />
-            </div>
-            <div class="input-full">
-              <label class="form-label">Dirección</label>
-              <input class="form-input" v-model="form.direccion" type="text" />
-            </div>
-            <div>
-              <label class="form-label">Correo Electrónico</label>
-              <input class="form-input" v-model="form.correoUsuario" type="email" />
-            </div>
-            <div>
-              <label class="form-label">Prefijo</label>
-              <input class="form-input" v-model="form.prefijoTelefonico" type="text" />
-            </div>
-            <div>
-              <label class="form-label">Número de Teléfono</label>
-              <input class="form-input" v-model="form.numTelefonico" type="text" />
-            </div>
-            <div>
-              <label class="form-label">Estado Civil</label>
-              <input class="form-input" v-model="form.estadoCivil" type="text" />
-            </div>
-          </div>
-          <!-- Si tienes el componente ClienteConyuge, lo puedes dejar aquí -->
-          <div v-if="form.estadoCivil === 2">
-            <ClienteConyuge :form="form" />
-          </div>
-          <button type="submit" class="btn-naranja">Siguiente</button>
-        </form>
-      </div>
+    <h3>Datos Personales</h3>
 
-      <div v-if="formStep === 2">
-        <form @submit.prevent="submitForm2" class="formulario-cliente">
-          <h3>Información de Copropietarios</h3>
-          <div class="form-grid input-full">
-            <div>
-              <label class="form-label">Número de Copropietarios</label>
-              <input class="form-input" v-model.number="form.numCopropietarios" type="number" min="0" max="5" @input="validateNumCopropietarios"/>
-            </div>
-          </div>
-          <div v-for="(copropietario, index) in form.copropietarios" :key="index">
-            <Copropietario :index="index" :copropietario="copropietario" />
-            <div v-if="copropietario.estadoCivilCopropietarios === 2">
-              <CopropietarioConyuge :index="index" :copropietario="copropietario" />
-            </div>
-          </div>
-          <h3>Datos de Lotes</h3>
-          <div class="form-grid input-full">
-            <div>
-              <label class="form-label">Número de Lotes Adquiridos</label>
-              <input class="form-input" v-model.number="form.numLotes" type="number" min="0" @input="validateNumLote"/>
-            </div>
-          </div>
-          <div v-for="(lote, index) in form.lotes" :key="index">
-            <Lote :index="index" :lote="lote" :getUbicacionesFiltradas="getUbicacionesFiltradas" />
-          </div>
-          <button type="submit" class="btn-naranja">Siguiente</button>
-        </form>
-      </div>
+    <label>Tipo de Identificación:</label>
+
+    <select v-model="form.tipoIdentificacion" required>
+      <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
+    </select>
+
+    <label>Número de Identificación:</label>
+    <input
+        v-model="form.numIdentificacionUsuario"
+        type="text"
+        required
+        maxlength="8"
+        @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"
+    />
+    <label>Apellido y Nombre:</label>
+    <input
+        v-model="form.nombreCliente"
+        type="text"
+        required
+        @input="form.nombreCliente = form.nombreCliente.replace(/[0-9]/g, '')"
+    />
+
+    <label>Ocupación:</label>
+    <input
+        v-model="form.ocupacionCliente"
+        type="text"
+        required
+        placeholder="Ingrese su Ocupación"
+        @input="form.ocupacionCliente = form.ocupacionCliente.replace(/[0-9]/g, '')"
+    />
+
+
+    <label for="paisOrigen">País de Origen:</label>
+    <select v-model="form.nacionalidad" required>
+      <option disabled value="">Seleccione un país</option>
+      <option v-for="pais in nacionalidad" :key="pais.id" :value="pais.id">{{ pais.nombre }}</option>
+    </select>
+
+    <label for="paisResidencia">País de Residencia:</label>
+    <select v-model="form.paisdeResidencia" required>
+      <option disabled value="">Seleccione un país</option>
+      <option v-for="residencia in residencias" :key="residencia.id" :value="residencia.id">{{ residencia.nombre }}</option>
+    </select>
+
+    <label for="departamento">Departamento:</label>
+    <select v-model="form.departamento" required>
+      <option disabled value="">Selecciona un departamento</option>
+      <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
+    </select>
+
+    <label>Provincia:</label>
+    <select v-model="form.provincia" required>
+      <option disabled value="">Seleccione una provincia</option>
+      <option v-for="provincia in provinciasFiltradas" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
+    </select>
+
+    <label>Distrito:</label>
+    <select v-model="form.distrito" required>
+      <option disabled value="">Seleccione un distrito</option>
+      <option v-for="distrito in distritosFiltrados" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
+    </select>
+
+    <label>Dirección:</label>
+    <input
+        v-model="form.direccion"
+        type="text"
+        required
+        placeholder="Ingrese su Dirección"
+    />
+
+    <label>Correo Electrónico:</label>
+    <input
+        v-model="form.correoUsuario"
+        type="text"
+        required
+        placeholder="usuario@dominio.com"
+    />
+
+    <label for="prefijoTelefonico">Número Telefónico:</label>
+    <div class="prefijo-cliente">
+      <select v-model="form.prefijoTelefonico" required>
+        <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
+      </select>
+      <input
+          v-model="form.numTelefonico"
+          type="text"
+          placeholder="Ingrese su Número"
+          required
+          @input="form.numTelefonico = form.numTelefonico.replace(/[^0-9]/g, '')"
+      />
     </div>
+
+    <label for="estadoCivil">Estado Civil:</label>
+    <select v-model="form.estadoCivil" required>
+      <option v-for="estado in estadoCivil" :key="estado.id" :value="estado.id">{{ estado.nombre }}</option>
+    </select>
+
+    <label>Descripcion de Estado Civil:</label>
+    <input
+        v-model="form.descripcionEstadoCivil"
+        type="text"
+        required
+        placeholder="Ingrese la Descripcion de Estado Civil"
+    />
   </div>
 </template>
 
 <script setup>
-import ClienteConyuge from "@/components/formularios/Cliente/ClienteConyuge.vue";
-import Copropietario from "@/components/formularios/Copropietario/Copropietario.vue";
-import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
-import Lote from "@/components/formularios/Lote/Lote.vue";
 import {provincias} from "@/data/provincias.js";
 import {distritos} from "@/data/distritos.js";
-import {computed} from "vue";
+import {departamentos} from "@/data/departamentos.js";
+import { nacionalidad } from '@/data/nacionalidad.js';
+import { residencias } from '@/data/residencias.js'
+import {prefijos} from "@/data/prefijos.js";
+import { estadoCivil } from '@/data/estadoCivil.js';
+import { tipoIdentificacion } from '@/data/tipoIdentificacion.js';
+import "@/components/formularios/Cliente/Cliente.css"
+import {computed, watch} from "vue";
 
 const props = defineProps({
   form: Object
