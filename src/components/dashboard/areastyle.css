@@ -287,10 +287,10 @@
 }
 .chart-container-rendimiento-mes,
 .chart-container-grafico-contratos {
-  padding: 16px 8px;
-  min-height: 260px;
-  border-radius: 5px;
-  max-width: 100%;
+  padding: 12px 6px;
+  min-height: 220px;
+  max-width: 420px;
+  border-radius: 10px;
 }
 
 /* Ajusta el tamaño del logo */
@@ -632,10 +632,9 @@
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 32px 24px;
-  min-width: 0;
-  width: 100%;
-  min-height: 380px;
+  padding: 12px 6px;
+  min-height: 220px;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -650,9 +649,9 @@
 }
 .chart-container-rendimiento-mes h2,
 .chart-container-grafico-contratos h2 {
-  font-size: 1.3rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   text-align: center;
 }
 
@@ -699,7 +698,7 @@
     max-width: 98vw;
     padding: 0 8px 24px 8px;
   }
-  .dashboard-summary-row {
+  .dashboard-summary_row {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
