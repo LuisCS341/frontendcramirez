@@ -335,9 +335,17 @@ const descargarWordT1 = async (cliente) => {
       doc.render();
     } catch (error) {
       console.error("Error al renderizar el documento:", error);
-      alert("Error al generar el documento Word");
+
+      if (error.properties && error.properties.errors) {
+        error.properties.errors.forEach((e) => {
+          console.error("❌ Error en plantilla:", e.properties.explanation, "| Variable:", e.properties.name);
+        });
+      }
+
+      alert("Error al generar el documento Word. Revisa la consola.");
       return;
     }
+
 
     const out = doc.getZip().generate({
       type: "blob",
