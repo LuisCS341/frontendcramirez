@@ -12,7 +12,6 @@
 }
 
 
-/* Contenedor general del dashboard */
 .secundary-container {
 
     padding: 16px 16px 16px 0; /* Sin padding izquierdo */
@@ -20,7 +19,7 @@
     box-sizing: border-box;
     position: relative;
     left: 0;
-    width: calc(100% - 150px); /* Ajusta el "150px" al
+    width: calc(100% - 150px);
     margin-top: 40px;
 }
 
@@ -284,14 +283,6 @@
   text-decoration: none;
   font-size: 1rem;
 }
-
-
-
-
-
-
-
-
-
-
-
+.submenu-link:hover {
+  background: #2c3e50;
+}
