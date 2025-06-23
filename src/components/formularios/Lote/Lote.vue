@@ -210,7 +210,6 @@
     <input
         v-model="lote.FechaPago"
         type="text"
-
     />
 
     <label>Cuenta Recaudadora:</label>
