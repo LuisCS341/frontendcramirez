@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 /* Contenedor principal para operador */
+body, html {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .graficos-container {
   display: grid;
   width: 1400px;
