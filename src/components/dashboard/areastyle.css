@@ -264,13 +264,58 @@
 
 /* Nueva clase para el contenedor principal del dashboard */
 .dashboard-wrapper {
-  max-width: 1400px;
-  margin: 32px auto 0 auto;
-  padding: 0 24px 32px 24px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+  max-width: 1100px;
+  margin: 24px auto 0 auto;
+  padding: 0 12px 24px 12px;
+  gap: 20px;
+}
+
+/* Tarjetas resumen más compactas */
+.dashboard-summary-row {
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.summary-card {
+  padding: 14px 10px;
+  border-radius: 10px;
+  font-size: 0.97rem;
+}
+
+/* Gráficos más pequeños y ajustados */
+.dashboard-charts-row {
+  gap: 18px;
+}
+.chart-container-rendimiento-mes,
+.chart-container-grafico-contratos {
+  padding: 16px 8px;
+  min-height: 260px;
+  border-radius: 12px;
+  max-width: 100%;
+}
+
+/* Ajusta el tamaño del logo */
+.logo-img {
+  height: 36px;
+  margin: 4px 0 4px 0;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 900px) {
+  .dashboard-wrapper {
+    max-width: 99vw;
+    padding: 0 4px 12px 4px;
+  }
+  .dashboard-summary-row,
+  .dashboard-charts-row {
+    gap: 8px;
+  }
+  .summary-card,
+  .chart-container-rendimiento-mes,
+  .chart-container-grafico-contratos {
+    padding: 6px 2px;
+    font-size: 0.93rem;
+    min-height: 120px;
+  }
 }
 
 /* Animaciones suaves para tarjetas y grids */
@@ -460,8 +505,8 @@
   padding-left: 0 ; 
 }
 .logo-img {
-  height: 48px;
-  margin: 8px 0 8px 0;
+  height: 36px;
+  margin: 4px 0 4px 0;
 }
 .page-title {
   font-size: 1.4rem;
@@ -825,8 +870,8 @@
   padding-left: 0; /* Elimina cualquier espacio */
 }
 .logo-img {
-  height: 48px;
-  margin: 8px 0 8px 0;
+  height: 36px;
+  margin: 4px 0 4px 0;
 }
 .dashboard-container {
   display: flex;
