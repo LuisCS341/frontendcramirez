@@ -30,7 +30,7 @@
               </router-link>
             </li>
             <li>
-              <div class="nav-link" @click="toggleMenu('clientes')">
+              <div class="nav-link" @click="toggleMenu('clientes', '/clientes/registrar')">
                 <i class="icon-users"></i>
                 <span>Clientes</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'clientes' }">▶</span>
@@ -38,7 +38,7 @@
               <transition name="submenu-fade">
                 <ul v-show="openMenu === 'clientes'" class="submenu">
                   <li>
-                    <router-link to="/clientes/registrar" class="submenu-link" exact-active-class="active">
+<router-link to="/dashboard/clientes/registrar" class="submenu-link" exact-active-class="active">
                       <i class="icon-user-plus"></i>
                       Registrar Cliente
                     </router-link>
@@ -53,7 +53,7 @@
               </transition>
             </li>
             <li>
-              <div class="nav-link" @click="toggleMenu('contratos')">
+              <div class="nav-link" @click="toggleMenu('contratos', '/contratos/seguimiento')">
                 <i class="icon-file"></i>
                 <span>Contratos</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'contratos' }">▶</span>
