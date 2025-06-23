@@ -30,15 +30,14 @@
               </router-link>
             </li>
             <li>
-              <div class="nav-link" @click="toggleMenu('clientes')">
-                <i class="icon-users"></i>
-                <span>Clientes</span>
-                <span class="submenu-arrow" :class="{ rotated: openMenu === 'clientes' }">▶</span>
-              </div>
-              <transition name="submenu-fade">
-              <ul v-show="openMenu === 'clientes'" class="submenu">
+              <div class="menu-toggle" @click="toggleMenu('clientes')">
+            <img :src="icons['grupo-de-usuario.png']" alt="Clientes" class="icono" />
+            <span>Clientes</span>
+          </div>
+              <transition name="submenu-fade">   
+                <ul v-show="menuAbierto.clientes">
                 <li>
-                  <router-link to="/dashboard/clientes/registrar" class="submenu-link" exact-active-class="active">
+                  <router-link to="/formularios/clientes/registrar" class="submenu-link" exact-active-class="active">
                     <i class="icon-user-plus"></i>
                     Registrar Cliente
                   </router-link>
