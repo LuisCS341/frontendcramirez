@@ -51,27 +51,25 @@
               </ul>
             </li>
             <li>
-              <div class="nav-link" @click="toggleMenu('contratos', '/contratos/seguimiento')">
+              <div class="nav-link" @click="toggleMenu('contratos')">
                 <i class="icon-file"></i>
                 <span>Contratos</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'contratos' }">▶</span>
               </div>
-              <transition name="submenu-fade">
-                <ul v-show="openMenu === 'contratos'" class="submenu">
-                  <li>
-                    <router-link to="/contratos/seguimiento" class="submenu-link" exact-active-class="active">
-                      <i class="icon-eye"></i>
-                      Seguimiento
-                    </router-link>
-                  </li>
-                  <li>
-                    <router-link to="/contratos/generar" class="submenu-link" exact-active-class="active">
-                      <i class="icon-plus"></i>
-                      Generar Contrato
-                    </router-link>
-                  </li>
-                </ul>
-              </transition>
+              <ul v-show="openMenu === 'contratos'" class="submenu">
+                <li>
+                  <router-link to="/dashboard/contratos/seguimientocontrato" class="submenu-link" exact-active-class="active">
+                    <i class="icon-eye"></i>
+                    Seguimiento
+                  </router-link>
+                </li>
+                <li>
+                  <router-link to="/dashboard/contratos/generacioncontrato" class="submenu-link" exact-active-class="active">
+                    <i class="icon-plus"></i>
+                    Generar Contrato
+                  </router-link>
+                </li>
+              </ul>
             </li>
           </ul>
         </nav>
@@ -136,13 +134,9 @@ import "@/components/dashboard/areastyle.css";
 
 const openMenu = ref(null);
 const sidebarOpen = ref(window.innerWidth > 900);
-const router = useRouter();
 
-function toggleMenu(menu, route = null) {
+function toggleMenu(menu) {
   openMenu.value = openMenu.value === menu ? null : menu;
-  if (route) {
-    router.push(route);
-  }
 }
 
 function handleResize() {
@@ -157,4 +151,39 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', handleResize);
 });
 </script>
+
+<style>
+/* Asegúrate de tener esto en tu CSS global o areastyle.css */
+.sidebar-toggle {
+  display: none;
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2001;
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+@media (max-width: 900px) {
+  .sidebar-toggle {
+    display: block;
+  }
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 2000;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+</style>
 
