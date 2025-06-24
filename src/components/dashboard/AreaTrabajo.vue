@@ -128,7 +128,6 @@
 
 <script>
 import { ref, computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import ClientesRegistrados from "@/components/graficos/ClientesRegistrados.vue";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
