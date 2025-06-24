@@ -21,102 +21,30 @@ import TablaMisClientes from "@/components/tablas/TablaTotalclientes.vue";
 import GeneracionContrato from "@/components/contratos/GeneracionContrato.vue";
 import SeguimientoContrato from "@/components/contratos/SeguimientoContrato.vue";
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    { 
-      path: "/", 
-      name: "Login",
-      component: Login,
-      meta: { requiresAuth: false }
-    },
-    { 
-      path: "/login-olvidar-contra", 
-      name: "OlvidarContra",
-      component: LoginOlvidarContra,
-      meta: { requiresAuth: false }
-    },
-    { 
-      path: "/403", 
-      name: "Error403",
-      component: Error403,
-      meta: { requiresAuth: false }
-    },
-    {
-      path: "/dashboard",
-      name: "Dashboard",
-      component: Dashboard,
-      meta: { requiresAuth: true },
-      children: [
-        { 
-          path: "", 
-          name: "AreaTrabajo",
-          component: AreaTrabajo,
-          meta: { requiresAuth: true }
-        },
+export default createRouter({
+    history: createWebHistory(),
+    routes: [
+        { path: "/", component: Login },
+        { path: "/login-olvidar-contra", component: LoginOlvidarContra },
+        { path: "/403", component: Error403 },
         {
-          path: "formularios/registro-cliente",
-          name: "RegistroCliente",
-          component: Verificacion,
-          meta: { requiresAuth: true, allowedRoles: [1, 2, 3] }
+            path: "/dashboard",
+            component: Dashboard,
+            children: [
+                { path: "", component: AreaTrabajo },
+                {
+                    path: "formularios/registro-cliente",
+                    component: Verificacion,
+                },
+                {
+                    path: "formularios/detalle-cliente",
+                    component: PrincipalComponent,
+                },
+                { path: "clientes", component: TablaClientes },
+                { path: "clientes/mis-clientes", component: TablaMisClientes },
+                { path: "contratos/generacioncontrato", component: GeneracionContrato },
+                { path: "contratos/seguimientocontrato", component: SeguimientoContrato },
+            ],
         },
-        {
-          path: "formularios/detalle-cliente",
-          name: "DetalleCliente",
-          component: PrincipalComponent,
-          meta: { requiresAuth: true, allowedRoles: [1, 2, 3] }
-        },
-        { 
-          path: "clientes", 
-          name: "Clientes",
-          component: TablaClientes,
-          meta: { requiresAuth: true, allowedRoles: [2, 3] } // Solo colaboradores y admin
-        },
-        { 
-          path: "clientes/mis-clientes", 
-          name: "MisClientes",
-          component: TablaMisClientes,
-          meta: { requiresAuth: true, allowedRoles: [1, 3] } // Solo jefes y admin
-        },
-        { 
-          path: "contratos/generacioncontrato", 
-          name: "GenerarContrato",
-          component: GeneracionContrato,
-          meta: { requiresAuth: true, allowedRoles: [1, 2, 3] }
-        },
-        { 
-          path: "contratos/seguimientocontrato", 
-          name: "SeguimientoContrato",
-          component: SeguimientoContrato,
-          meta: { requiresAuth: true, allowedRoles: [1, 2, 3] }
-        }
-      ]
-    },
-    // Redirección para rutas no encontradas
-    { 
-      path: "/:pathMatch(.*)*", 
-      redirect: "/" 
-    }
-  ]
+    ],
 });
-
-// Guard de navegación
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  const userRole = parseInt(localStorage.getItem('userRole') || 2);
-  
-  // Si la ruta requiere autenticación y el usuario no está autenticado
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/');
-  } 
-  // Si el usuario no tiene el rol requerido
-  else if (to.meta.allowedRoles && !to.meta.allowedRoles.includes(userRole)) {
-    next('/403');
-  } 
-  // Todo está bien, continuar
-  else {
-    next();
-  }
-});
-
-export default router;
