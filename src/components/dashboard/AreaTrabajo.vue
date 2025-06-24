@@ -128,7 +128,7 @@
 
 <script>
 import { ref, computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { useStore } from 'vue';
 import ClientesRegistrados from "@/components/graficos/ClientesRegistrados.vue";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoRendimientoMes from "@/components/graficos/GraficoRendimientoMes.vue";
