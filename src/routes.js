@@ -33,7 +33,7 @@ export default createRouter({
             children: [
                 { path: "", component: AreaTrabajo },
                 {
-                    path: "formularios/registro-cliente",
+                    path: "clientes/registrar",
                     component: Verificacion,
                 },
                 {

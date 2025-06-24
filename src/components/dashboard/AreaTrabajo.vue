@@ -30,28 +30,41 @@
               </router-link>
             </li>
             <li>
+              <!-- Botón que despliega o colapsa el menú -->
               <div class="nav-link" @click="toggleMenu('clientes')">
                 <i class="icon-users"></i>
                 <span>Clientes</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'clientes' }">▶</span>
               </div>
+
               <transition name="submenu-fade">
-              <ul v-show="openMenu === 'clientes'" class="submenu">
-                <li>
-                  <router-link to="/dashboard/clientes/registrar" class="submenu-link" exact-active-class="active">
+                <ul v-show="openMenu === 'clientes'" class="submenu">
+                  <li>
+                    <router-link
+                        to="/dashboard/formularios/registro-cliente"
+                        class="submenu-link"
+                        exact-active-class="active"
+                        @click="openMenu = null"
+                    >
                     <i class="icon-user-plus"></i>
                     Registrar Cliente
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/dashboard/clientes/mis-clientes" class="submenu-link" exact-active-class="active">
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link
+                        to="/dashboard/clientes/mis-clientes"
+                        class="submenu-link"
+                        exact-active-class="active"
+                        @click="openMenu = null"
+                    >
                     <i class="icon-list"></i>
                     Total Clientes
-                  </router-link>
-                </li>
-              </ul>
+                    </router-link>
+                  </li>
+                </ul>
               </transition>
             </li>
+
             <li>
               <div class="nav-link" @click="toggleMenu('contratos')">
                 <i class="icon-file"></i>
