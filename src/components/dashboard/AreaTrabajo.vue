@@ -129,7 +129,6 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import { useRouter } from "vue-router";
 import ClientesRegistrados from "@/components/graficos/ClientesRegistrados.vue";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoRendimientoMes from "@/components/graficos/GraficoRendimientoMes.vue";
