@@ -38,7 +38,7 @@
               <transition name="submenu-fade">
               <ul v-show="openMenu === 'clientes'" class="submenu">
                 <li>
-                  <router-link to="/for/clientes/registrar" class="submenu-link" exact-active-class="active">
+                  <router-link to="/dashboard/clientes/registrar" class="submenu-link" exact-active-class="active">
                     <i class="icon-user-plus"></i>
                     Registrar Cliente
                   </router-link>
@@ -58,7 +58,7 @@
                 <span>Contratos</span>
                 <span class="submenu-arrow" :class="{ rotated: openMenu === 'contratos' }">▶</span>
               </div>
-                     <transition name="submenu-fade">
+              <transition name="submenu-fade">
               <ul v-show="openMenu === 'contratos'" class="submenu">
                 <li>
                   <router-link to="/dashboard/contratos/seguimientocontrato" class="submenu-link" exact-active-class="active">
@@ -129,6 +129,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
 import ClientesRegistrados from "@/components/graficos/ClientesRegistrados.vue";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoRendimientoMes from "@/components/graficos/GraficoRendimientoMes.vue";
