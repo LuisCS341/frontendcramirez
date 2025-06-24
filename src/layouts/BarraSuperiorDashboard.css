@@ -126,71 +126,78 @@ body, html {
     background-color: #c4c4c4;
 }
 
-/* 3. Área de trabajo y tarjetas */
-.cards-dashboard, .graficos-dashboard {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-@media (max-width: 900px) {
-  .cards-dashboard, .graficos-dashboard {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .card-dashboard, .grafico-dashboard {
-    width: 100% !important;
-    min-width: 0;
-  }
-}
-
-/* 4. General: Ajusta el área de contenido */
-@media (max-width: 900px) {
-  .contenido {
-    flex-direction: column;
-    padding: 8px !important;
-    min-width: 0;
-    width: 100vw !important;
-  }
-}
-
 /* ========= RESPONSIVE ========= */
-@media (max-width: 900px) {
-  .barra-superior {
-    flex-direction: column;
-    align-items: flex-start;
-    height: auto;
-    padding: 10px 10px;
-  }
-  .usuario {
-    margin-right: 0;
-    margin-top: 10px;
-    align-self: flex-end;
-  }
-  .contenido {
-    padding: 10px;
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 600px) {
-  .barra-superior {
-    padding: 6px 4px;
-  }
-  .logo {
-    height: 40px;
-  }
-  .usuario {
-    gap: 6px;
-  }
-}
-
 @media (max-width: 768px) {
     .barra-superior {
         flex-direction: column;
-        align-items: flex-start;
-        height: auto;
+        align-items: stretch; /* Mejor alineación en columna */
+        height: 60px;
         padding: 10px 20px;
+    }
+
+    .barra-superior .logo {
+        width: 200px;  /* Limita el ancho máximo relativo al contenedor */
+        height: 100px;    /* Altura automática para mantener proporción */
+        margin: 0;       /* Resetea márgenes */
+        display: block;  /* Evita alineación inline */
+    }
+
+    .usuario {
+        margin-top: 10px;
+        margin-left: 210px;
+    }
+
+
+    .foto-perfil {
+        margin-top: -20px;
+        margin-left: -50px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .menu-desplegable {
+        margin-right: 20px;
+        margin-top:5px;
+        width: 128px;
+        height: 25px;
+    }
+    .menu-desplegable button {
+        width: 128px;
+        height: 40px;
+        margin-top: -5px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .barra-superior {
+        flex-direction: column;
+        align-items: flex-start;
+        height: 60px;
+        padding: 10px 20px;
+    }
+
+    .info-usuario {
+        display: none;
+    }
+
+    .foto-perfil {
+        margin-top: -20px;
+        margin-left: -50px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .menu-desplegable {
+        margin-right: 20px;
+        margin-top: 10px;
+        width: 128px;
+        height: 32px;
+    }
+
+    .menu-desplegable button {
+        text-align: left; /* Para pantallas estrechas, alineación natural */
+        padding-left: 20px;
     }
 
     .usuario {
@@ -205,19 +212,3 @@ body, html {
     }
 }
 
-@media (max-width: 480px) {
-    .info-usuario {
-        display: none; /* Oculta texto de nombre y rol si hay poco espacio */
-    }
-
-    .foto-perfil {
-        width: 32px;
-        height: 32px;
-    }
-
-    .menu-desplegable {
-        right: 0;
-        width: 100vw;
-        border-radius: 0;
-    }
-}

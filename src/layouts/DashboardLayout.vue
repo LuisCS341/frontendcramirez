@@ -44,17 +44,4 @@ export default {
   overflow-y: auto;
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 900px) {
-  .dashboard-container {
-    flex-direction: column;
-    height: auto;
-  }
-  .main-content {
-    height: auto;
-  }
-  .area-trabajo {
-    padding: 10px;
-  }
-}
 </style>

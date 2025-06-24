@@ -31,6 +31,7 @@
         @input="copropietario.conyuge.ocupacionCopropietarioConyuge = copropietario.conyuge.ocupacionCopropietarioConyuge.replace(/[0-9]/g, '')"
     >
 
+
     <label>País de Origen:</label>
     <select v-model="copropietario.conyuge.paisOrigenCopropietariosConyuge" id="paisOrigen">
       <option disabled value="">Seleccione un país</option>

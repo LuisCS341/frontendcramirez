@@ -5,159 +5,103 @@
       <BarraSuperiorDashboard />
       <div class="container">
 
-        <h2 class="tituloformulario">FORMULARIO DE CLIENTES</h2>
-
         <div class="formulario-all">
 
-          <!-- Paso 1: Datos personales como modal -->
-          <div v-if="formStep === 1">
-            <div class="overlay">
-              <form @submit.prevent="formularioClientevarios" class="formulario-cliente">
-                <h1>DATOS PERSONALES</h1>
-                <div class="form-grid">
-                  <div>
-                    <label class="form-label">Tipo de Identificación</label>
-                    <input class="form-input" v-model="form.tipoIdentificacion" type="text" />
-                  </div>
-                  <div>
-                    <label class="form-label">Número de Identificación</label>
-                    <input class="form-input" v-model="form.numIdentificacionUsuario" type="text" />
-                  </div>
-                  <div class="input-full">
-                    <label class="form-label">Apellido y Nombre</label>
-                    <input class="form-input" v-model="form.nombreCliente" type="text" />
-                  </div>
-                  <div class="input-full">
-                    <label class="form-label">Ocupación</label>
-                    <input class="form-input" v-model="form.ocupacionCliente" type="text" />
-                  </div>
-                  <div>
-                    <label class="form-label">País de Origen</label>
-                    <input class="form-input" v-model="form.paisOrigen" type="text" />
-                  </div>
-                  <div>
-                    <label class="form-label">País de Residencia</label>
-                    <input class="form-input" v-model="form.paisdeResidencia" type="text" />
-                  </div>
-                  <div>
-                    <label class="form-label">Departamento</label>
-                    <input class="form-input" v-model="form.departamento" type="text" />
-                  </div>
-                  <div>
-                    <label class="form-label">Provincia</label>
-                    <input class="form-input" v-model="form.provincia" type="text" />
-                  </div>
-                  <div>
-                    <label class="form-label">Distrito</label>
-                    <input class="form-input" v-model="form.distrito" type="text" />
-                  </div>
-                  <div class="input-full">
-                    <label class="form-label">Dirección</label>
-                    <input class="form-input" v-model="form.direccion" type="text" />
-                  </div>
-                  <div>
-                    <label class="form-label">Correo Electrónico</label>
-                    <input class="form-input" v-model="form.correoUsuario" type="email" />
-                  </div>
-                  <div>
-                    <label class="form-label">Prefijo</label>
-                    <input class="form-input" v-model="form.prefijoTelefonico" type="text" />
-                  </div>
-                  <div>
-                    <label class="form-label">Número de Teléfono</label>
-                    <input class="form-input" v-model="form.numTelefonico" type="text" />
-                  </div>
-                  <div>
-                    <label class="form-label">Estado Civil</label>
-                    <input class="form-input" v-model="form.estadoCivil" type="text" />
-                  </div>
-                </div>
-                <div v-if="form.estadoCivil === 2">
-                  <ClienteConyuge :form="form" />
-                </div>
-                <button type="submit" class="btn-naranja">Siguiente</button>
-              </form>
-            </div>
-          </div>
+          <h2 class="tituloformulario">Formulario de Registro</h2>
 
-          <!-- Paso 2: Copropietarios y Lotes -->
-          <div v-if="formStep === 2">
-            <form @submit.prevent="submitForm2" class="formulario-cliente">
-              <h3>Información de Copropietarios</h3>
-              <div class="form-grid input-full">
-                <div>
-                  <label class="form-label">Número de Copropietarios</label>
-                  <input class="form-input" v-model.number="form.numCopropietarios" type="number" min="0" max="5" @input="validateNumCopropietarios"/>
-                </div>
+          <div v-if="formStep === 1">
+            <form @submit.prevent="formularioClientevarios">
+              <Cliente
+                  :form="form"
+              />
+
+              <div v-if="form.estadoCivil === 2">
+                <ClienteConyuge
+                    :form="form"
+                />
               </div>
-              <div v-for="(copropietario, index) in form.copropietarios" :key="index">
-                <Copropietario :index="index" :copropietario="copropietario" />
-                <div v-if="copropietario.estadoCivilCopropietarios === 2">
-                  <CopropietarioConyuge :index="index" :copropietario="copropietario" />
-                </div>
-              </div>
-              <h3>Datos de Lotes</h3>
-              <div class="form-grid input-full">
-                <div>
-                  <label class="form-label">Número de Lotes Adquiridos</label>
-                  <input class="form-input" v-model.number="form.numLotes" type="number" min="0" @input="validateNumLote"/>
-                </div>
-              </div>
-              <div v-for="(lote, index) in form.lotes" :key="index">
-                <Lote :index="index" :lote="lote" :getUbicacionesFiltradas="getUbicacionesFiltradas" />
-              </div>
-              <button type="submit" class="btn-naranja">Siguiente</button>
+
+              <button type="submit">Siguiente</button>
             </form>
           </div>
 
-          <!-- Los demás pasos los puedes dejar igual, o agregar la clase formulario-cliente si quieres el mismo estilo -->
+          <div v-if="formStep === 2">
+            <form @submit.prevent="formularioLote">
+              <h3>Información de Copropietarios</h3>
+
+              <label>Número de Copropietarios:</label>
+              <input v-model.number="form.numCopropietarios" type="number" min="0" max="5"   @input="validateNumCopropietarios"/>
+
+              <div v-for="(copropietario, index) in form.copropietarios" :key="index">
+                <Copropietario
+                    :index="index"
+                    :copropietario="copropietario"
+                />
+
+                <div v-if="copropietario.estadoCivilCopropietarios === 2">
+                  <CopropietarioConyuge
+                      :index="index"
+                      :copropietario="copropietario"
+                  />
+                </div>
+              </div>
+
+              <h3>Datos de Lotes</h3>
+              <label>Número de Lotes Adquiridos:</label>
+              <input v-model.number="form.numLotes" type="number" min="0" @input="validateNumLote"/>
+
+              <div v-for="(lote, index) in form.lotes" :key="index" >
+
+                <Lote
+                    :index="index"
+                    :lote="lote"
+                    :getUbicacionesFiltradas="getUbicacionesFiltradas"
+                />
+
+              </div>
+              <button type="submit">Siguiente</button>
+            </form>
+          </div>
 
           <div v-if="formStep === 3">
-            <form @submit.prevent="FormCuotaExtraordinaria">
+            <form @submit.prevent="formularioCuotaExtraordinaria">
               <div v-for="(lote, index) in form.lotes" :key="index">
+
                 <CuotaExtraordinaria
-                  v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
-                  :cuotaextraordinaria="lote.cuotaextraordinaria"
-                  :lote="lote"
-                  :index="index"
+                    v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
+                    :cuotaextraordinaria="lote.cuotaextraordinaria"
+                    :lote="lote"
+                    :index="index"
                 />
+
               </div>
               <button type="submit">Siguiente</button>
             </form>
           </div>
 
           <div v-if="formStep === 4">
-            <form @submit.prevent="submitLinderos" v-if="form.numLotes > 0">
+            <form @submit.prevent="formularioLinderos" v-if="form.numLotes > 0">
               <div v-for="(lote, index) in form.lotes" :key="index">
-                <Lindero :lote="lote" :index="index" />
+                <Lindero
+                    :lote="lote"
+                    :index="index"
+                />
               </div>
               <button type="submit">Siguiente</button>
             </form>
           </div>
 
-          <div v-if="formStep === 5">
-            <form @submit.prevent="finalizarRegistroMatriz">
-              <div v-for="(matriz, index) in form.lotes" :key="index">
-                <Matriz
-                  :matriz="matriz"
-                  :index="index"
-                  :numeroALetras="numeroALetras"
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">Siguiente</button>
-            </form>
-          </div>
 
-          <div v-if="formStep === 6">
-            <ResumenRegistro
-              :form="form"
-              :obtenerNombrePais="obtenerNombrePais"
-              :obtenerNombreResidencia="obtenerNombreResidencia"
-              :obtenerNombreDepartamento="obtenerNombreDepartamento"
-              :obtenerNombreProvincia="obtenerNombreProvincia"
-              :obtenerNombreDistrito="obtenerNombreDistrito"
-              :obtenerNombreProyecto="obtenerNombreProyecto"
-            />
+          <div v-if="formStep === 5">
+              <ResumenRegistro
+                  :form="form"
+                  :obtenerNombrePais="obtenerNombrePais"
+                  :obtenerNombreResidencia="obtenerNombreResidencia"
+                  :obtenerNombreDepartamento="obtenerNombreDepartamento"
+                  :obtenerNombreProvincia="obtenerNombreProvincia"
+                  :obtenerNombreDistrito="obtenerNombreDistrito"
+                  :obtenerNombreProyecto="obtenerNombreProyecto"
+              />
             <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
           </div>
 
@@ -168,29 +112,24 @@
 </template>
 
 <script setup>
-import { ref, watch ,onMounted } from 'vue';
+import { ref, watch ,onMounted  } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
 import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
-import { numeroALetras } from "@/data/numeroLetrasConNumeros.js";
-
-import { buildClientePayload, buildClienteConyugePayload,buildCopropietarioPayload, buildConyugePayload, buildLotePayload ,buildCuotaExtraordinariaPayload,buildLinderoPayload,buildMatrizLotePayload} from '@/data/payloadBuilder.js'
+import { buildClientePayload, buildClienteConyugePayload,buildCopropietarioPayload, buildConyugePayload, buildLotePayload ,buildCuotaExtraordinariaPayload,buildLinderoPayload} from '@/data/payloadBuilder.js'
 import {obtenerNombreResidencia, obtenerNombrePais, obtenerNombreDepartamento, obtenerNombreProvincia, obtenerNombreDistrito, obtenerNombreProyecto} from '@/data/utils.js';
+import Cliente from "@/components/formularios/Cliente/Cliente.vue";
 import ClienteConyuge from "@/components/formularios/Cliente/ClienteConyuge.vue";
 import Copropietario from "@/components/formularios/Copropietario/Copropietario.vue";
 import Lindero from "@/components/formularios/Lote/Lindero.vue";
-import Matriz from "@/components/formularios/Lote/Matriz.vue";
 import Lote from "@/components/formularios/Lote/Lote.vue";
 import ResumenRegistro from "@/components/formularios/Resumen/ResumenRegistro.vue";
 import CuotaExtraordinaria from "@/components/formularios/Lote/CuotaExtraordinaria.vue";
-import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
-
 import "@/components/formularios/Cliente/Cliente.css"
 import {ubicaciones} from "@/data/ubicaciones.js";
-import {distritos} from "@/data/distritos.js";
-import {provincias} from "@/data/provincias.js";
-import {departamentos} from "@/data/departamentos.js";
+import {proyectos, proyectosT3Ids} from "@/data/proyectos.js";
+import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
 
 
 const formStep = ref(1);
@@ -251,6 +190,7 @@ watch(() => form.value.numCopropietarios, (newValue) => {
       prefijoTelefonicoCopropietarios: 8,
       numTelefonicoCopropietarios: '',
       estadoCivilCopropietarios: 1,
+      descripcionEstadoCivil:"",
       conyuge: {
         nombreCopropietariosConyuge: '',
         ocupacionCopropietarioConyuge: '',
@@ -323,21 +263,12 @@ watch(() => form.value.numLotes, (newVal) => {
     cantidadCuotaBanco: '',
     montoCuotas: '',
     montoCuotaLetras: '',
-    matriz:{
-      departamentoMatriz: '',
-      provinciaMatriz: '',
-      distritoMatriz: '',
-      ubicacionMatriz: '',
-      areaMatrizHas: "",
-      registroDeMatriz: "",
-      partidaMatriz: "",
-      unidadCatastralMatriz: "",
-      urbanizacionMatriz: "",
-      compraventaMatriz: "",
-      situacionLegalMatriz: "",
-      alicuotaMatriz: "",
-      alicuotaLetrasMatriz: "",
-    },
+    fechaEntrega: "",
+    mantenimientoMensual: "",
+    mantenimientoMensualLetras: "",
+    estadoCuenta: "",
+    montoDeudaLetra: "",
+    cuotaPendientePago: "",
     lindero:{
       porLaDerechaLindero: "",
       porLaIzquierdaLindero: "",
@@ -346,26 +277,9 @@ watch(() => form.value.numLotes, (newVal) => {
     },
     tieneCuotaExtraordinaria: null,
     cuotaextraordinaria: {
-      cantidadCuotaExtraordinaria: "",
       montoCuotaExtraordinaria: "",
-      mantenimientoMensual: "",
-      mantenimientoMensualLetras: "",
-      estadoCuenta: "",
-      montoDeudaLetra: "",
-      cuotaPendientePago: "",
-      letrasPendientePago: "",
-      fechaEntrega: "",
-      cartaNoAdeudo: "",
-      certificadoLote: "",
       mediosPago: "",
-      plano1: "",
-      plano2: "",
-      envioMinuta: "",
-      fechaCita: "",
-      horaCita: "",
-      modificarMinuta: "",
-      minutaEscaneada: "",
-      expNotaria: "",
+      cantidadCuotaExtraordinaria: "",
     }
   }));
 });
@@ -446,7 +360,7 @@ const formularioClientevarios = async () => {
   }
 };
 
-const submitForm2 = async () => {
+const formularioLote = async () => {
 
   if (form.value.numLotes <= 0) {
     alert("Debe ingresar al menos un lote para continuar.");
@@ -472,7 +386,6 @@ const submitForm2 = async () => {
       console.error("No se encontró un ID de operario en localStorage.");
       return;
     }
-
 
     const requests = [];
 
@@ -517,7 +430,7 @@ const submitForm2 = async () => {
         });
 
         lote.idLote = nuevoLote.idLote;
-        console.log(`Lote guardado with idLote: ${nuevoLote.idLote}`);
+        console.log(`Lote guardado con idLote: ${nuevoLote.idLote}`);
       }
     }
 
@@ -530,7 +443,7 @@ const submitForm2 = async () => {
   }
 };
 
-const FormCuotaExtraordinaria = async () => {
+const formularioCuotaExtraordinaria = async () => {
 
   if (!form.value?.lotes?.length) {
     console.log('No hay lotes disponibles para registrar CuotaExtraordinaria.');
@@ -558,7 +471,7 @@ const FormCuotaExtraordinaria = async () => {
   }
 };
 
-const submitLinderos = async () => {
+const formularioLinderos = async () => {
   if (!form.value?.lotes?.length) {
     console.warn('No hay lotes disponibles para registrar linderos.');
     return;
@@ -580,51 +493,6 @@ const submitLinderos = async () => {
     console.error('Error al registrar los linderos:', error.response?.data || error.message);
   }
 };
-
-const finalizarRegistroMatriz = async () => {
-  if (!window.confirm("¿Estás seguro de que todos los datos están correctos?")) {
-    return;
-  }
-
-  try {
-    const payloads = form.value.lotes.map(buildMatrizLotePayload);
-    const requests = payloads.map(payload => axios.post('https://backendcramirez.onrender.com/api/matrices', payload));
-
-    await Promise.all(requests);
-
-    alert('Registro completado exitosamente');
-    console.log('Matriz registrada con éxito.');
-
-    formularioActual.value = 3;
-
-    formStep.value++;
-  } catch (error) {
-    console.error('Error en el registro:', error);
-    alert('Ocurrió un error al enviar los detalles del lote.');
-  }
-};
-
-//calcula la alicuota with a field of the lote and matriz component
-watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
-      if (!lote.matriz) {
-        lote.matriz = {};
-      }
-
-      const areaLote = parseFloat(lote.areaLote);
-      const areaMatriz = parseFloat(lote.matriz.areaMatrizHasMatriz);
-
-      if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-        const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
-        lote.matriz.alicuotaMatriz = alicuota.toFixed(4);
-        lote.matriz.alicuotaLetrasMatriz = numeroALetras(parseFloat(lote.matriz.alicuotaMatriz));
-      } else {
-        lote.matriz.alicuotaMatriz = 0;
-        lote.matriz.alicuotaLetrasMatriz = '';
-      }
-    });
-    },
-    { deep: true, immediate: true }
-);
 
 let timeoutIdConyuge;
 
@@ -695,7 +563,6 @@ watch(() => form.value.copropietarios, (copropietarios) => {
 }, { deep: true });
 
 
-//guarda los datos de verificacion y los jala al formulario princilap
 onMounted(() => {
   const nombreGuardado = localStorage.getItem('nombreCompleto');
   const numeroDocumentoGuardado = localStorage.getItem('numeroDocumento');
@@ -773,29 +640,13 @@ watch(() => form.value.lotes, (lotes) => {
           lote.compraventaMatriz = ubicacion.CompraVentaMatriz;
           lote.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
 
-          const departamento = departamentos.find(d => d.nombre === ubicacion.DepartamentoMatriz);
-          const provincia = provincias.find(p => p.nombre === ubicacion.ProvinciaMatriz);
-          const distrito = distritos.find(d => d.nombre === ubicacion.DistritoMatriz);
-          const ubicacionLote = ubicaciones.find(u => u.UbicacionLote === ubicacion.UbicacionLote);
-
-          lote.matriz.departamentoMatriz = departamento ? departamento.id : null;
-          lote.matriz.provinciaMatriz = provincia ? provincia.id : null;
-          lote.matriz.distritoMatriz = distrito ? distrito.id : null;
-          lote.matriz.ubicacionMatriz = ubicacionLote ? ubicacionLote.id:null  ;
-          lote.matriz.areaMatrizHasMatriz = ubicacion.AreaMatrizHas;
-          lote.matriz.registroDeMatriz = ubicacion.RegistroDE;
-          lote.matriz.partidaMatriz = ubicacion.PartidaMatriz;
-          lote.matriz.unidadCatastralMatriz = ubicacion.UnidadCatastralMatriz;
-          lote.matriz.urbanizacionMatriz = ubicacion.UrbanizacionMatriz;
-          lote.matriz.compraventaMatriz = ubicacion.CompraVentaMatriz;
-          lote.matriz.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
         }
       });
     },
     { deep: true }
 );
 
-//filtra la ubicacion de lote en los campos proyecto y ubicacion
+
 const getUbicacionesFiltradas = (proyectoId) => {
   return ubicaciones.filter(u => String(u.proyectoId) === String(proyectoId));
 };

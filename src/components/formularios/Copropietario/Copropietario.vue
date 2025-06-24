@@ -92,6 +92,13 @@
     <select v-model="copropietario.estadoCivilCopropietarios">
       <option v-for="estado in estadoCivil" :key="estado.id" :value="estado.id">{{ estado.nombre }}</option>
     </select>
+
+    <label>Descripción Estado Civil:</label>
+    <input
+        v-model="copropietario.descripcionEstadoCivilCopropietarios"
+        type="text"
+        placeholder="Ingrese su Descripcion de EstadoCivil"
+    />
   </div>
 </template>
 <script setup>

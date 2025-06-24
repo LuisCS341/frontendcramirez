@@ -1896,4 +1896,6 @@ export const distritos = [
     {id :1894,nombre:'-',provinciaId:197},
     {id :1895,nombre:'CONCAHUASI',provinciaId:30},
     {id :1896,nombre:'CAÑETE',provinciaId:128},
+    {id :1897,nombre:'VENTANILLA',provinciaId:128},
+    {id :1898,nombre:'CALLAO',provinciaId:128},
 ];

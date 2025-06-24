@@ -1,11 +1,5 @@
 export const getLote = (fila) => fila.lote || {};
 
-export const getMatriz = (fila) => {
-    return Array.isArray(fila?.lote?.matriz) && fila.lote.matriz.length > 0
-        ? fila.lote.matriz[0]
-        : {};
-};
-
 export const getLindero = (fila) => {
     return fila?.lote?.lindero || {};
 };

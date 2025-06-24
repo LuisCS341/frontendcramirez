@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div>
     <nav class="barra-lateral">
       <ul>
         <li>
@@ -9,7 +9,6 @@
           </router-link>
         </li>
 
-        <!-- Clientes con submenú -->
         <li>
           <div class="menu-toggle" @click="toggleMenu('clientes')">
             <img :src="icons['grupo-de-usuario.png']" alt="Clientes" class="icono" />
@@ -23,7 +22,6 @@
               </router-link>
             </li>
 
-            <!-- Mostrar "Mis Clientes" solo si NO eres Jefe -->
             <li v-if="userRole === 2 || userRole === 3">
               <router-link to="/dashboard/Clientes">
                 <img :src="icons['simbolo-de-hombre-y-flecha-derecha.png']" alt="Mis Clientes" class="icono" />
@@ -31,7 +29,6 @@
               </router-link>
             </li>
 
-            <!-- Mostrar "Total Clientes" solo si ERES Jefe -->
             <li v-if="userRole === 1 || userRole === 3  ">
               <router-link to="/dashboard/clientes/mis-clientes">
                 <img :src="icons['simbolo-de-hombre-y-flecha-derecha.png']" alt="Total Clientes" class="icono" />
@@ -41,19 +38,12 @@
           </ul>
         </li>
 
-        <!-- Contratos con submenú -->
         <li>
           <div class="menu-toggle" @click="toggleMenu('contratos')">
             <img :src="icons['contrato.png']" alt="Contratos" class="icono" />
             <span>Contratos</span>
           </div>
           <ul v-show="menuAbierto.contratos">
-            <li>
-              <router-link to="/dashboard/contratos/seguimientocontrato">
-                <img :src="icons['noticias.png']" alt="Seguimiento Contrato" class="icono" />
-                Seguimiento de Contrato
-              </router-link>
-            </li>
             <li>
               <router-link to="/dashboard/contratos/generacioncontrato">
                 <img :src="icons['acceso.png']" alt="Generar Contrato" class="icono" />
@@ -65,7 +55,6 @@
       </ul>
     </nav>
 
-    <!-- Contenido principal -->
     <div class="contenido-principal">
       <router-view></router-view>
     </div>

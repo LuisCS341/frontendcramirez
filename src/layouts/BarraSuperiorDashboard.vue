@@ -4,7 +4,6 @@
     <header class="barra-superior">
       <img src="../assets/imagenes/LogoCoram.png" alt="Logo" class="logo">
 
-      <!-- Usuario con menú desplegable -->
       <div class="usuario" @click.stop="toggleMenu">
         <img src="../assets/imagenes/ImgUser.png" alt="Foto de perfil" class="foto-perfil">
         <div class="info-usuario">
@@ -23,9 +22,6 @@
     </header>
   </div>
 </template>
-
-
-
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
@@ -80,5 +76,3 @@ onMounted(() => document.addEventListener("click", cerrarSiClickFuera));
 onBeforeUnmount(() => document.removeEventListener("click", cerrarSiClickFuera));
 </script>
 
-<style scoped>
-</style>

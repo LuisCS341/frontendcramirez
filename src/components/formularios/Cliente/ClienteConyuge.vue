@@ -2,6 +2,7 @@
   <div v-if="form">
     <h3 class="titulodatoslotes">Datos del Cónyuge</h3>
 
+
     <label for="tipoIdentificacion">Tipo de Identificación:</label>
     <select v-model="form.conyuge.tipoIdentificacionClienteConyuge" id="tipoIdentificacion">
       <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
@@ -33,6 +34,7 @@
         placeholder="Ingrese su Ocupación"
         @input="form.conyuge.ocupacionClienteConyuge = form.conyuge.ocupacionClienteConyuge.replace(/[0-9]/g, '')"
     />
+
     <label for="paisOrigen">País de Origen:</label>
     <select v-model="form.conyuge.paisOrigenClienteConyuge" id="paisOrigen">
       <option disabled value="">Seleccione un país</option>

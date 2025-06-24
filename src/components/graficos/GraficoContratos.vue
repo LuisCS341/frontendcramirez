@@ -77,7 +77,28 @@ onMounted(() => {
   height: 400px;
   width: 340px;
   margin-top: -90px;
-  margin-left: 90px;
+  margin-left: 30px;
   text-align: center;
+}
+
+
+/* ========= RESPONSIVE MEDIA PANTALLA ========= */
+@media (max-width: 768px) {
+  .chart-container-grafico-contratos {
+    width: 200px;
+    height: 300px;
+    margin-top: 10px;
+    margin-left: 30px;
+  }
+}
+
+/* ========= RESPONSIVE CELULARES PEQUEÑOS ========= */
+@media (max-width: 480px) {
+  .chart-container-grafico-contratos {
+    width: 200px;
+    height: 200px;
+    margin-top: 40px;
+    margin-right: 20px;
+  }
 }
 </style>

@@ -19,7 +19,7 @@ import TablaMisClientes from "@/components/tablas/TablaTotalclientes.vue";
 
 // Contratos
 import GeneracionContrato from "@/components/contratos/GeneracionContrato.vue";
-import SeguimientoContrato from "@/components/contratos/SeguimientoContrato.vue";
+import EdicionCliente from "@/components/formularios/Edicion/EdicionCliente.vue";
 
 export default createRouter({
     history: createWebHistory(),
@@ -33,7 +33,7 @@ export default createRouter({
             children: [
                 { path: "", component: AreaTrabajo },
                 {
-                    path: "clientes/registrar",
+                    path: "formularios/registro-cliente",
                     component: Verificacion,
                 },
                 {
@@ -41,9 +41,9 @@ export default createRouter({
                     component: PrincipalComponent,
                 },
                 { path: "clientes", component: TablaClientes },
+                { path: "formularios/editar-cliente/:idCliente", component: EdicionCliente },
                 { path: "clientes/mis-clientes", component: TablaMisClientes },
                 { path: "contratos/generacioncontrato", component: GeneracionContrato },
-                { path: "contratos/seguimientocontrato", component: SeguimientoContrato },
             ],
         },
     ],

@@ -114,13 +114,35 @@ onMounted(async () => {
 <style scoped>
 .chart-container-rendimiento-mes {
   background-color: white;
-  padding: 10px;
+
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  height: 400px;
-  margin-top: -90px;
-  margin-left: 5px;
-  width: 660px;
+  height: 430px;
+  width: 630px;
+  margin-top: 130px;
+  margin-left: 20px;
   text-align: center;
+}
+
+/* ========= RESPONSIVE MEDIA PANTALLA ========= */
+@media (max-width: 768px) {
+
+  .chart-container-rendimiento-mes {
+    width: 500px;
+    height: 500px;
+    margin-top: 400px;
+    margin-left: -630px;
+  }
+}
+
+/* ========= RESPONSIVE CELULARES PEQUEÑOS ========= */
+@media (max-width: 480px) {
+  .chart-container-rendimiento-mes {
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 </style>

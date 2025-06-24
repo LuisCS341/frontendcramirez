@@ -20,7 +20,7 @@
           <tbody>
           <tr v-for="cliente in clientes" :key="cliente.idCliente">
 
-            <CeldaEditable
+            <MostrarDatosCliente
                 v-for="col in columnasClientes"
                 :key="col.key"
                 :cliente="cliente"
@@ -63,7 +63,7 @@ import {operarios} from "@/data/operarios.js";
 import {tiposContrato} from "@/data/tiposContrato.js";
 import {computed, onMounted, reactive, ref} from "vue";
 import {columnasClientes} from "@/data/columnasClientes.js";
-import CeldaEditable from "@/components/tablas/CeldaEditable.vue";
+import MostrarDatosCliente from "@/components/tablas/MostrarDatosCliente.vue";
 import {exportarClientesXLSX} from "@/data/exportClientes.js";
 
 
@@ -217,6 +217,5 @@ const onCambioOperario = async (event, cliente) => {
 const exportar = () => {
   exportarClientesXLSX(clientes.value);
 };
-
 
 </script>

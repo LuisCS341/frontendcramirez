@@ -56,6 +56,7 @@ export function buildCopropietarioPayload(idCliente, copropietario) {
         idPrefijoCopropietarios: copropietario.prefijoTelefonicoCopropietarios,
         celularCopropietarios: copropietario.numeroTelefonicoCopropietarios,
         idEstadoCivilCopropietarios: copropietario.estadoCivilCopropietarios,
+        descripcionEstadoCivilCopropietarios: copropietario.descripcionEstadoCivilCopropietarios,
     };
 }
 
@@ -108,19 +109,13 @@ export function buildLotePayload(idCliente, lote) {
         costoLoteLetras: lote.costoLoteLetras,
         precioMetroCuadrado: lote.precioMetroCuadrado,
         precioMetroCuadradoLetras: lote.precioMetroCuadradoLetras,
-        cuotaInicialIncluyeSeparacion: lote.cuotaInicialIncluyeSeparacion,
-        cuotaInicialIncluyeSeparacionLetras: lote.cuotaInicialIncluyeSeparacionLetras,
-        fechaPago: lote.fechaPago,
-        cuentaRecaudadora: lote.cuentaRecaudadora,
-        cuotaInicialBanco: lote.cuotaInicialBanco,
-        saldoLote: lote.saldoLote,
-        saldoLoteLetras: lote.saldoLoteLetras,
-        cantidadCuotas: lote.cantidadCuotas,
-        cantidadCuotaLetras: lote.cantidadCuotaLetras,
+        mantenimientoMensual: lote.mantenimientoMensual,
+        mantenimientoMensualLetras: lote.mantenimientoMensualLetras,
+        estadoCuenta: lote.estadoCuenta,
+        montoDeudaLetra: lote.montoDeudaLetra ,
+        cuotaPendientePago: lote.cuotaPendientePago,
+        fechaEntrega: lote.fechaEntrega,
         cantidadCuotaCuentaRecaudadora: lote.cantidadCuotaCuentaRecaudadora,
-        cantidadCuotaBanco: lote.cantidadCuotaBanco,
-        montoCuotas: lote.montoCuotas,
-        montoCuotaLetras: lote.montoCuotaLetras,
     };
 }
 
@@ -128,24 +123,7 @@ export const buildCuotaExtraordinariaPayload = ({ idLote, cuotaextraordinaria })
     idLote,
     cantidadCuotaExtraordinaria: cuotaextraordinaria.cantidadCuotaExtraordinaria,
     montoCuotaExtraordinaria: cuotaextraordinaria.montoCuotaExtraordinaria,
-    mantenimientoMensual: cuotaextraordinaria.mantenimientoMensual,
-    mantenimientoMensualLetras: cuotaextraordinaria.mantenimientoMensualLetras,
-    estadoCuenta: cuotaextraordinaria.estadoCuenta,
-    montoDeudaLetra: cuotaextraordinaria.montoDeudaLetra ,
-    cuotaPendientePago: cuotaextraordinaria.cuotaPendientePago,
-    letrasPendientePago: cuotaextraordinaria.letrasPendientePago,
-    fechaEntrega: cuotaextraordinaria.fechaEntrega,
-    cartaNoAdeudo: cuotaextraordinaria.cartaNoAdeudo,
-    certificadoLote: cuotaextraordinaria.certificadoLote,
     mediosPago: cuotaextraordinaria.mediosPago,
-    plano1: cuotaextraordinaria.plano1,
-    plano2: cuotaextraordinaria.plano2,
-    envioMinuta: cuotaextraordinaria.envioMinuta,
-    fechaCita: cuotaextraordinaria.fechaCita,
-    horaCita: cuotaextraordinaria.horaCita,
-    modificarMinuta: cuotaextraordinaria.modificarMinuta,
-    minutaEscaneada: cuotaextraordinaria.minutaEscaneada,
-    expNotaria: cuotaextraordinaria.expNotaria,
 });
 
 
@@ -157,22 +135,34 @@ export const buildLinderoPayload = ({ idLote, lindero }) => ({
     porElFondo: lindero?.porElFondoLindero ,
 });
 
-export function buildMatrizLotePayload(lote) {
-    return {
-        idLote: lote.idLote,
-        idDistrito: lote.matriz.distritoMatriz,
-        idProvincia: lote.matriz.provinciaMatriz,
-        idDepartamento: lote.matriz.departamentoMatriz,
-        idUbicacion: lote.matriz.ubicacionMatriz,
-        areaMatrizHas: lote.matriz.areaMatrizHasMatriz,
-        registrosDE: lote.matriz.registroDeMatriz,
-        partidaMatriz: lote.matriz.partidaMatriz,
-        unidadCatastral: lote.matriz.unidadCatastralMatriz,
-        urbanizacionMatriz: lote.matriz.urbanizacionMatriz,
-        compraventaMatriz: lote.matriz.compraventaMatriz,
-        situacionLegal: lote.matriz.situacionLegalMatriz,
-        alicuota: lote.matriz.alicuotaMatriz,
-        alicuotaLetras: lote.matriz.alicuotaLetrasMatriz,
-    };
-}
+export const buildDocumentoPayload=({idCuotaExtraordinaria,documento}) => ({
+    idCuotaExtraordinaria,
+    cartaNoAdeudo: documento.cartaNoAdeudo,
+    certificadoLote: documento.certificadoLote,
+    plano1: documento.plano1,
+    plano2: documento.plano2,
+    envioMinuta: documento.envioMinuta,
+    fechaCita: documento.fechaCita,
+    horaCita: documento.horaCita,
+    modificarMinuta: documento.modificarMinuta,
+    minutaEscaneada: documento.minutaEscaneada,
+    expNotaria: documento.expNotaria,
+});
 
+export const buildCuotaPayload=({idLote,cuota}) => ({
+    idLote,
+    letrasPendientePago:cuota.letrasPendientePago,
+    cuentaRecaudadora : cuota.cuentaRecaudadora,
+    cuotaInicialIncluyeSeparacion: cuota.cuotaInicialIncluyeSeparacion,
+    cuotaInicialIncluyeSeparacionLetras: cuota.cuotaInicialIncluyeSeparacionLetras,
+    montoCuotas: cuota.montoCuotas,
+    montoCuotaLetras: cuota.montoCuotaLetras,
+    fechaPago: cuota.fechaPago,
+    cuotaInicialBanco: cuota.cuotaInicialBanco,
+    saldoLote: cuota.saldoLote,
+    saldoLoteLetras: cuota.saldoLoteLetras,
+    cantidadCuotas: cuota.cantidadCuotas,
+    cantidadCuotaLetras: cuota.cantidadCuotaLetras,
+    cantidadCuotaCuentaRecaudadora: cuota.cantidadCuotaCuentaRecaudadora,
+    cantidadCuotaBanco: cuota.cantidadCuotaBanco,
+});

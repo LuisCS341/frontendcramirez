@@ -26,18 +26,13 @@
         <form @submit.prevent="avanzarPaso">
           <h3>Información de Copropietarios</h3>
 
-          <label>Número de Copropietarios:</label>
-          <input v-model.number="form.numCopropietarios" type="number" min="0" max="5"   @input="validateNumCopropietarios"/>
-
-          <div v-for="(copropietario, index) in form.copropietarios" :key="index">
+          <div v-for="(copropietario) in form.copropietarios" >
             <Copropietario
-                :index="index"
                 :copropietario="copropietario"
             />
 
             <div v-if="copropietario.estadoCivilCopropietarios === 2">
               <CopropietarioConyuge
-                  :index="index"
                   :copropietario="copropietario"
               />
             </div>
@@ -80,17 +75,6 @@
       </div>
 
       <div v-if="formStep === 5">
-        <form @submit.prevent="avanzarPaso">
-            <Matriz
-                :matriz="form.lotes"
-                :numeroALetras="numeroALetras"
-            />
-          <button type="button" @click="retrocederPaso">Atrás</button>
-          <button type="submit" class="btn btn-primary">Siguiente</button>
-        </form>
-      </div>
-
-      <div v-if="formStep === 6">
         <ResumenRegistro
             :form="form"
             :obtenerNombrePais="obtenerNombrePais"
@@ -121,7 +105,6 @@ import {
   obtenerNombreProvincia, obtenerNombreProyecto,
   obtenerNombreResidencia
 } from "@/data/utils.js";
-import Matriz from "@/components/formularios/Lote/Matriz.vue";
 import Lote from "@/components/formularios/Lote/Lote.vue";
 import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
 import Lindero from "@/components/formularios/Lote/Lindero.vue";

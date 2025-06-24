@@ -1,4 +1,4 @@
-import {getLote,getMatriz,getLindero,getCuotaExtraordinaria,getConyuge,getCopropietario} from "@/data/funcionesGetTablaClientes.js";
+import {getLote,getLindero,getCuotaExtraordinaria,getConyuge,getCopropietario} from "@/data/funcionesGetTablaClientes.js";
 
 export const columnasClientes = [
     { key: 'contrato', label: 'TIPO DE CONTRATO', editable: false , nested: 'lote' },
@@ -17,20 +17,6 @@ export const columnasClientes = [
     { key: 'cci', label: 'CCI', editable: true, nested: 'lote' },
     { key: 'fechaSale', label: 'FECHA DE ENTREGA DE PROYECTO', editable: true, nested: 'lote' },
     { key: 'fechaFirmaContratoDefinitivo', label: 'FECHA DE FIRMA DE CONTRATO DEFINITIVO', editable: true, nested: 'lote' },
-    { key: 'areaMatrizHas', label: 'ÁREA MATRIZ HAS', editable: true, nested: 'matriz' },
-    { key: 'registrosDE', label: 'REGISTROS DE', editable: true, nested: 'matriz' },
-    { key: 'partidaMatriz', label: 'PARTIDA MATRIZ',editable: true, nested: 'matriz' },
-    { key: 'ubicacion', label: 'UBICACION DEL LOTE (PREDIO MATRIZ)', nested: 'matriz' },
-    { key: 'unidadCatastral', label: 'UNIDAD CATASTRAL MATRIZ', editable: true, nested: 'matriz'},
-    { key: 'urbanizacionMatriz', label: 'URBANIZACION DE MATRIZ', editable: true, nested: 'matriz' },
-    { key: 'distritoMatriz', label: 'DISTRITO MATRIZ',editable: false, nested: 'matriz' },
-    { key: 'provinciaMatriz', label: 'PROVINCIA MATRIZ', editable: false,nested: 'matriz' },
-    { key: 'departamentoMatriz', label: 'DEPARTAMENTO MATRIZ',editable: false, nested: 'matriz' },
-    { key: 'compraventaMatriz', label: 'COMPRAVENTA MATRIZ', editable: true, nested: 'matriz' },
-    { key: 'situacionLegal', label: 'SITUACIÓN LEGAL MATRIZ', editable: true, nested: 'matriz' },
-    { key: 'constancianoadeudo', label: 'CONSTANCIA NO ADEUDO', editable: true, nested: 'matriz' },
-    { key: 'avanceproyectomatriz', label: 'AVANCE DE PROYECTO MATRIZ', editable: true, nested: 'matriz' },
-    { key: 'cronogramamatriz', label: 'CRONOGRAMA MATRIZ', editable: true, nested: 'matriz' },
     { key: 'fechaInicioContrato', label: 'FECHA INICIO CONTRATO', editable: true, nested: 'lote', tipo: 'fecha', evento: 'inicio' },
     { key: 'fechaCancelacionContrato', label: 'FECHA CANCELACIÓN CONTRATO', editable: true, nested: 'lote', tipo: 'fecha', evento: 'cancelacion' },
     { key: 'mzLt', label: 'MZ-LT (CLIENTE)', nested: 'lote', format: cliente => getLote(cliente)?.manzana && getLote(cliente)?.numeroLote ? `MZ ${getLote(cliente).manzana} - LT ${getLote(cliente).numeroLote}` : '-' },
@@ -38,8 +24,6 @@ export const columnasClientes = [
     { key: 'numeroLote', label: 'LT (CLIENTE)', editable: true, nested: 'lote' },
     { key: 'areaLoteLetras', label: 'ÁREA DEL LOTE (LETRAS)', editable: true, nested: 'lote' },
     { key: 'areaLote', label: 'ÁREA DEL LOTE (CLIENTE)', editable: true, nested: 'lote' },
-    { key: 'alicuotaLetras', label: 'CUOTA IDEAL EN LETRAS ', editable: true, nested: 'matriz' },
-    { key: 'alicuota', label: 'CUOTA IDEAL (CLIENTE)', editable: true, nested: 'matriz' },
     { key: 'porElFrente', label: 'POR EL FRENTE', editable: true, nested: 'lindero' },
     { key: 'porLaDerecha', label: 'POR LA DERECHA', editable: true, nested: 'lindero' },
     { key: 'porLaIzquierda', label: 'POR LA IZQUIERDA', editable: true, nested: 'lindero' },
