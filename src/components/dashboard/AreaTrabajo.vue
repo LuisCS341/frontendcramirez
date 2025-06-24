@@ -143,7 +143,6 @@ export default {
     GraficoContratos
   },
   setup() {
-    const router = useRouter();
     const store = useStore();
     
     // Estados del sidebar
