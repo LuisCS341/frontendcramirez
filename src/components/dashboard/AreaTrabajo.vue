@@ -8,8 +8,7 @@
           <img class="user-avatar" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Usuario" />
           <div class="user-info">
             <span class="user-name">USUARIO 1</span>
-            <span class="user-role">{{ roleName }}</span>
-            <style scoped src="@/dashboard/areaStyle.css"></style>
+            <span class="user-role">{{ roleName }}</span>}
           </div>
         </div>
       </div>
