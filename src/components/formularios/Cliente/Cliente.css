@@ -362,136 +362,132 @@ h3{
 
 /*/////////////////////////////////////*/
 /*STYLE FORMULARIO EDICION*/.formulario-all {
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
-  max-width: 480px;
-  margin: 32px auto 0 auto;
-  padding: 26px 18px 16px 18px;
-  min-height: 580px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+    background: #fff;
+    border: 2px solid #bbb;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    max-width: 700px;
+    min-width: 330px;
+    margin: 20px auto;
+    padding: 35px 32px 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .tituloformulario {
-  font-size: 2.4rem;
-  font-weight: 800;
-  color: #000;
-  text-align: center;
-  margin-bottom: 24px;
-  margin-top: 4px;
-  letter-spacing: 0.5px;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+    margin-top: 0;
+    color: #111;
 }
 
-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px 24px; /* filas, columnas */
+    width: 100%;
 }
 
-.form-row {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 0;
-}
-
-.form-row > .form-group {
-  flex: 1;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0;
+.form-grid-full {
+    grid-column: 1/3;
 }
 
 label {
-  font-weight: bold;
-  color: #181818;
-  font-size: 1.04rem;
-  margin-bottom: 4px;
-  letter-spacing: 0.02rem;
+    font-size: 0.93rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #222;
+    letter-spacing: 0.5px;
+    display: block;
 }
 
-input, select {
-  border: 2px solid #999;
-  border-radius: 8px;
-  padding: 7px 12px;
-  font-size: 1.07rem;
-  background: #fff;
-  color: #222;
-  font-family: inherit;
-  margin-bottom: 0;
-  transition: border 0.2s;
+input,
+select {
+    font-size: 0.93rem;
+    padding: 7px 8px;
+    border: 1.5px solid #bbb;
+    border-radius: 7px;
+    background: #f8f8f8;
+    width: 100%;
+    margin-bottom: 0;
+    transition: border 0.18s;
+    box-sizing: border-box;
 }
 
 input:focus, select:focus {
-  outline: none;
-  border-color: #ff9800;
-  background: #fffef7;
+    outline: none;
+    border: 1.5px solid #ff9800;
+    background: #fffef7;
 }
 
-/* Para placeholder visible tipo gris */
-input::placeholder {
-  color: #bdbdbd;
-  opacity: 1;
-  font-size: 1.01rem;
-  letter-spacing: 0.01em;
-}
-
-.btn-siguiente {
-  width: 100%;
-  background: #ff9800;
-  color: #fff;
-  border: none;
-  border-radius: 13px;
-  padding: 18px 0;
-  margin-top: 18px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  cursor: pointer;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 10px rgba(255,152,0,0.07);
-  transition: background 0.16s;
-}
-
-.btn-siguiente:hover {
-  background: #ff7c00;
+.prefijo-cliente {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 10px;
 }
 
 .btn-descripcion {
-  background: #ff9800;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-left: 12px;
-  transition: background 0.16s;
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-size: 0.96rem;
+    font-weight: 600;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    grid-column: 2/3;
+    margin-top: 0;
 }
-
 .btn-descripcion:hover {
-  background: #ff7c00;
+    background: #d37900;
 }
 
-@media (max-width: 600px) {
-  .formulario-all {
-    padding: 12px 2vw 15px 2vw;
-    max-width: 99vw;
-  }
-  .form-row {
-    flex-direction: column;
-    gap: 7px;
-  }
-  .btn-siguiente {
-    font-size: 1.1rem;
-    padding: 14px 0;
-  }
+/* Botón Siguiente */
+.btn-siguiente {
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    padding: 16px 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 20px 0 0 0;
+    width: 100%;
+    transition: background 0.17s;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 12px rgba(255,152,0,0.09);
 }
+.btn-siguiente:hover {
+    background: #d37900;
+}
+
+/* Responsivo */
+@media (max-width: 800px) {
+    .formulario-all {
+        max-width: 99vw;
+        padding: 20px 5vw 15px 5vw;
+    }
+}
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .btn-descripcion {
+        grid-column: 1/2;
+        margin-left: 0;
+    }
+    .formulario-all {
+        padding: 12px 3vw;
+    }
+}
+
     .formulario-all {
   max-width: 480px;
   padding: 20px 12px 12px 12px;
