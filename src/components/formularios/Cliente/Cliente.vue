@@ -1,6 +1,5 @@
 <template>
   <div v-if="form">
-    <h2 class="tituloformulario">FORMULARIO CLIENTE</h2>
 
     <h3 class="subtituloformulario">DATOS PERSONALES</h3>
 
