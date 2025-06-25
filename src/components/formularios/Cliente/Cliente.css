@@ -1,5 +1,5 @@
 .container {
-    background-image: url("@/assets/imagenes/FondoDashboard.jpg");
+    background-color: rgba(247, 244, 241, 1);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -40,18 +40,19 @@
     color:black;
 }
 
-.formulario-all {
-    background-color: #fff;
-    padding: 32px 38px 36px 38px; /* Más padding para un look premium */
-    border-radius: 20px;
-    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.10);
-    width: 480px;
-    margin: 48px auto 0 auto; /* Centrado horizontal y margen superior */
+
+/*STYLE FORMULARIO 1*/
+.formulario-all{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    margin: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    max-height: 88vh; /* Un poco más alto para menos scroll */
+    gap: 15px;
+    max-height: 80vh; /* Altura máxima para evitar que sobresalga */
     overflow-y: auto;
 }
 
@@ -90,9 +91,6 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-h3{
-    text-align: center;
 }
 
 
@@ -359,119 +357,92 @@ h3{
     transform: translateY(0);
 }
 
-
-body {
-    background: #fdf6f2;
-}
-.formulario-contenedor {
+/* Estilos generales del formulario */
+.formulario-cliente {
+  max-width: 700px;
+  margin: 32px auto;
   background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-  width: 500px;
-  margin: 40px auto 0 auto;
-  padding: 28px 35px 32px 35px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  border: 2px solid #222;
+  padding: 36px 32px 28px 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-.tituloformulario {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin-bottom: 15px;
-  text-align: center;
-  color: #222;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 0.5px;
-}
-
-.subtituloformulario {
+.formulario-cliente h1, .formulario-cliente h3 {
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 900;
+  margin-bottom: 24px;
   text-align: center;
-  margin-bottom: 0;
-  color: #222;
-  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+  color: #111;
+  font-family: 'Montserrat', Arial, sans-serif;
 }
-
-.progress-bar-container {
-  width: 85%;
-  background: #f1f1f1;
-  border-radius: 20px;
-  height: 10px;
-  margin: 18px auto 28px auto;
-  overflow: hidden;
+.form-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 18px;
+  margin-bottom: 24px;
 }
-
-.progress-bar {
-  height: 100%;
-  background: #ff9100;
-  border-radius: 20px;
-  transition: width 0.3s;
+.form-grid .input-full {
+  grid-column: 1 / 3;
 }
-
-h3 {
-  font-size: 1.3rem;
-  margin: 22px 0 14px 0;
+.form-label {
+  font-size: 0.92rem;
   font-weight: 600;
+  color: #444;
+  margin-bottom: 4px;
+  display: block;
   letter-spacing: 0.2px;
-  text-align: center;
-  color: #333;
 }
-
-label {
-  font-weight: bold;
-  margin: 8px 0 3px 0;
-  font-size: 1rem;
-  color: #2d2d2d;
-}
-
-input, select {
+.form-input {
   width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #d2d2d2;
-  border-radius: 6px;
-  margin-bottom: 8px;
   font-size: 1rem;
-  transition: border 0.2s;
-  background: #fafbfc;
-}
-
-input:focus, select:focus {
+  padding: 10px 12px;
+  border: 1.5px solid #bbb;
+  border-radius: 7px;
+  background: #fafafa;
   outline: none;
-  border-color: #ff9100;
+  transition: border 0.2s;
 }
-
-button[type="submit"] {
+.form-input:focus {
+  border: 1.5px solid #ff9800;
+  background: #fff;
+}
+.btn-naranja {
   width: 100%;
-  margin-top: 18px;
-  background: #ff9100;
+  background: #ff9800;
   color: #fff;
-  padding: 12px 0;
   border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  border-radius: 20px;
+  padding: 16px 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-top: 16px;
   cursor: pointer;
-  transition: background 0.22s;
+  transition: background 0.2s;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.08);
+}
+.btn-naranja:hover {
+  background: #fb8c00;
 }
 
-button[type="submit"]:hover {
-  background: #ffad33;
-}
-
-.prefijo-cliente {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-}
-
-@media (max-width: 600px) {
-  .formulario-contenedor {
-    width: 96vw;
-    padding: 15px 4vw;
+/* Responsive para móviles */
+@media (max-width: 700px) {
+  .formulario-cliente {
+    max-width: 98vw;
+    padding: 18px 4vw;
   }
-  .progress-bar-container {
-    width: 95%;
+  .formulario-cliente h1, .formulario-cliente h3 {
+    font-size: 1.3rem;
   }
-}
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px 0;
+  }
+  .form-grid .input-full {
+    grid-column: 1 / 2;
+  }}
