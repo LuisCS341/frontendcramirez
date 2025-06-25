@@ -525,3 +525,6 @@ input, select {
   padding: 7px 0;
   border-radius: 8px;
 }
+.formulario-all {
+  font-size: 0.93rem;
+}
