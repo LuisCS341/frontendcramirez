@@ -7,9 +7,7 @@
 
         <div class="formulario-all">
 
-          <h2 class="tituloformulario">Formulario de Registro</h2>
-
-          <div v-if="formStep === 1">
+             <div v-if="formStep === 1">
             <form @submit.prevent="formularioClientevarios">
               <Cliente
                   :form="form"
@@ -20,7 +18,6 @@
                     :form="form"
                 />
               </div>
-
             </form>
           </div>
 
