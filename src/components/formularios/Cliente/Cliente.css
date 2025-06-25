@@ -13,14 +13,14 @@
 .nav-buttons button {
     margin: 5px;
     padding: 8px 12px;
-    background-color: #007bff;
+    background-color: #ff9900;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
 }
 .nav-buttons button:hover {
-    background-color: #0056b3;
+    background-color: #fd730a;
 }
 
 
@@ -86,7 +86,7 @@ input, select {
 
 
 button {
-    background-color: #007bff;
+    background-color: #ff5a07;
     color: white;
     padding: 10px;
     border: none;
@@ -188,7 +188,7 @@ h3{
 }
 
 .modal button[type="submit"]:hover {
-    background: #0056b3;
+    background: #fd8206;
 }
 
 
@@ -308,11 +308,11 @@ h3{
 }
 
 .tarjeta-radio:hover {
-    border-color: #007bff;
+    border-color: #ff6200;
 }
 
 .tarjeta-radio input[type="radio"] {
-    accent-color: #007bff;
+    accent-color: #ff9500;
 }
 
 .btn.btn-primary {
@@ -328,17 +328,17 @@ h3{
 }
 
 .btn.btn-primary:hover {
-    background-color: #0069d9;
+    background-color: #ff8307;
     transform: translateY(-2px);
 }
 
 .btn.btn-primary:active {
-    background-color: #005cbf;
+    background-color: #ff6709;
     transform: translateY(0);
 }
 
 .btn.btn-resumen {
-    background-color: #007bff;
+    background-color: #f76c09;
     color: #fff;
     padding: 12px 24px;
     font-size: 16px;
@@ -351,7 +351,7 @@ h3{
 }
 
 .btn.btn-resumen:hover {
-    background-color: #0069d9;
+    background-color: #f17e0b;
     transform: translateY(-2px);
 }
 
@@ -423,7 +423,7 @@ input:focus, select:focus {
 
 /* Estilo del botón siguiente */
 .btn-siguiente {
-    background-color: #007bff;
+    background-color: #ff6a00;
     color: white;
     border: none;
     padding: 12px 25px;
