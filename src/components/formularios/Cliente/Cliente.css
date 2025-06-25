@@ -366,20 +366,21 @@ h3{
     border: 2px solid #bbb;
     border-radius: 14px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    max-width: 720px;
-    min-width: 320px;
-    margin: 25px auto;
-    padding: 35px 30px 28px 30px;
+    max-width: 700px;
+    min-width: 330px;
+    margin: 20px auto;
+    padding: 35px 32px 24px 32px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
 .tituloformulario {
-    font-size: 2.4rem;
+    font-size: 2.5rem;
     font-weight: 900;
     text-align: center;
-    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
     margin-top: 0;
     color: #111;
 }
@@ -387,7 +388,7 @@ h3{
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 13px 22px;
+    gap: 13px 24px; /* filas, columnas */
     width: 100%;
 }
 
@@ -396,17 +397,17 @@ h3{
 }
 
 label {
-    font-size: 0.98rem;
-    font-weight: 700;
+    font-size: 0.93rem;
+    font-weight: 600;
     margin-bottom: 2px;
     color: #222;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.5px;
     display: block;
 }
 
 input,
 select {
-    font-size: 0.96rem;
+    font-size: 0.93rem;
     padding: 7px 8px;
     border: 1.5px solid #bbb;
     border-radius: 7px;
@@ -423,30 +424,54 @@ input:focus, select:focus {
     background: #fffef7;
 }
 
+.prefijo-cliente {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 10px;
+}
+
+.btn-descripcion {
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-size: 0.96rem;
+    font-weight: 600;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    grid-column: 2/3;
+    margin-top: 0;
+}
+.btn-descripcion:hover {
+    background: #d37900;
+}
+
 /* Botón Siguiente */
 .btn-siguiente {
     background: #ff9800;
     color: #fff;
     border: none;
-    border-radius: 13px;
-    padding: 18px 0;
-    font-size: 1.45rem;
+    border-radius: 15px;
+    padding: 16px 0;
+    font-size: 1.5rem;
     font-weight: 700;
     margin: 20px 0 0 0;
     width: 100%;
     transition: background 0.17s;
     letter-spacing: 1px;
-    box-shadow: 0 2px 12px rgba(255,152,0,0.10);
+    box-shadow: 0 2px 12px rgba(255,152,0,0.09);
 }
 .btn-siguiente:hover {
     background: #d37900;
 }
 
-/* Responsive */
+/* Responsivo */
 @media (max-width: 800px) {
     .formulario-all {
         max-width: 99vw;
-        padding: 20px 3vw 15px 3vw;
+        padding: 20px 5vw 15px 5vw;
     }
 }
 @media (max-width: 600px) {
@@ -454,11 +479,14 @@ input:focus, select:focus {
         grid-template-columns: 1fr;
         gap: 12px;
     }
+    .btn-descripcion {
+        grid-column: 1/2;
+        margin-left: 0;
+    }
     .formulario-all {
-        padding: 12px 2vw;
+        padding: 12px 3vw;
     }
 }
-
 
     .formulario-all {
   max-width: 480px;
