@@ -3,7 +3,7 @@
   <h2 class="tituloformulario">DATOS PERSONALES</h2>
   <form @submit.prevent="handleSubmit">
 
-  <div class="form-grid">
+    <div class="form-row">
       <div class="form-group">
         <label>TIPO DE IDENTIFICACIÓN</label>
         <select v-model="form.tipoIdentificacion" required>
@@ -100,7 +100,9 @@
         </select>
       </div>
       <div class="form-group" style="flex:2;display:flex;align-items:end;">
-         <label>DESCRIPCIÓN ESTADO CIVIL</label>
+        <button type="button" class="btn-descripcion">
+          DESCRIPCION ESTADO CIVIL
+        </button>
       </div>
     </div>
 
