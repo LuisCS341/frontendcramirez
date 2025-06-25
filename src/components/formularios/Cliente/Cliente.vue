@@ -1,6 +1,10 @@
 <template>
   <div v-if="form">
-    <h3>Datos Personales</h3>
+    <h2 class="tituloformulario">FORMULARIO CLIENTE</h2>
+    <div class="progress-bar-container">
+  <div class="progress-bar" :style="{ width: progress + '%' }"></div>
+</div>
+    <h3 class="subtituloformulario">DATOS PERSONALES</h3>
 
     <label>Tipo de Identificación:</label>
     <select v-model="form.tipoIdentificacion" required>
@@ -119,7 +123,11 @@ import {prefijos} from "@/data/prefijos.js";
 import { estadoCivil } from '@/data/estadoCivil.js';
 import { tipoIdentificacion } from '@/data/tipoIdentificacion.js';
 import "@/components/formularios/Cliente/Cliente.css"
-import {computed, watch} from "vue";
+import {computed} from "vue";
+import { ref } from 'vue';
+
+const progress = ref(20); // Por ejemplo, 20% para el primer paso
+
 
 const props = defineProps({
   form: Object
