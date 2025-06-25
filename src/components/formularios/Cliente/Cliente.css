@@ -40,21 +40,19 @@
     color:black;
 }
 
-
-/*STYLE FORMULARIO 1*/
-.formulario-all{
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 500px;
+.formulario-all {
+    background-color: #fff;
+    padding: 32px 38px 36px 38px; /* Más padding para un look premium */
+    border-radius: 20px;
+    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.10);
+    width: 480px;
+    margin: 48px auto 0 auto; /* Centrado horizontal y margen superior */
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-height: 80vh; /* Altura máxima para evitar que sobresalga */
+    align-items: center;
+    gap: 14px;
+    max-height: 88vh; /* Un poco más alto para menos scroll */
     overflow-y: auto;
-    margin-top:75px;
-    margin-left: 550px;
 }
 
 
