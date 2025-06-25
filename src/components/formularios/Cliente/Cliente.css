@@ -1,5 +1,5 @@
 .container {
-    background-color: rgba(247, 244, 241, 1);
+    background-image: url("@/assets/imagenes/FondoDashboard.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -48,12 +48,13 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 500px;
-    margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     max-height: 80vh; /* Altura máxima para evitar que sobresalga */
     overflow-y: auto;
+    margin-top:75px;
+    margin-left: 550px;
 }
 
 
@@ -91,6 +92,9 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+h3{
+    text-align: center;
 }
 
 
@@ -357,92 +361,119 @@ button {
     transform: translateY(0);
 }
 
-/* Estilos generales del formulario */
-.formulario-cliente {
-  max-width: 700px;
-  margin: 32px auto;
+
+body {
+    background: #fdf6f2;
+}
+.formulario-contenedor {
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-  border: 2px solid #222;
-  padding: 36px 32px 28px 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  width: 500px;
+  margin: 40px auto 0 auto;
+  padding: 28px 35px 32px 35px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.formulario-cliente h1, .formulario-cliente h3 {
-  font-size: 2rem;
-  font-weight: 900;
-  margin-bottom: 24px;
+
+.tituloformulario {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
   text-align: center;
-  letter-spacing: 1px;
-  color: #111;
-  font-family: 'Montserrat', Arial, sans-serif;
-}
-.form-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px 18px;
-  margin-bottom: 24px;
-}
-.form-grid .input-full {
-  grid-column: 1 / 3;
-}
-.form-label {
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: #444;
-  margin-bottom: 4px;
-  display: block;
-  letter-spacing: 0.2px;
-}
-.form-input {
-  width: 100%;
-  font-size: 1rem;
-  padding: 10px 12px;
-  border: 1.5px solid #bbb;
-  border-radius: 7px;
-  background: #fafafa;
-  outline: none;
-  transition: border 0.2s;
-}
-.form-input:focus {
-  border: 1.5px solid #ff9800;
-  background: #fff;
-}
-.btn-naranja {
-  width: 100%;
-  background: #ff9800;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  padding: 16px 0;
-  font-size: 1.2rem;
-  font-weight: 800;
-  margin-top: 16px;
-  cursor: pointer;
-  transition: background 0.2s;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.08);
-}
-.btn-naranja:hover {
-  background: #fb8c00;
+  color: #222;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.5px;
 }
 
-/* Responsive para móviles */
-@media (max-width: 700px) {
-  .formulario-cliente {
-    max-width: 98vw;
-    padding: 18px 4vw;
+.subtituloformulario {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0;
+  color: #222;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.progress-bar-container {
+  width: 85%;
+  background: #f1f1f1;
+  border-radius: 20px;
+  height: 10px;
+  margin: 18px auto 28px auto;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #ff9100;
+  border-radius: 20px;
+  transition: width 0.3s;
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin: 22px 0 14px 0;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-align: center;
+  color: #333;
+}
+
+label {
+  font-weight: bold;
+  margin: 8px 0 3px 0;
+  font-size: 1rem;
+  color: #2d2d2d;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d2d2d2;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  transition: border 0.2s;
+  background: #fafbfc;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #ff9100;
+}
+
+button[type="submit"] {
+  width: 100%;
+  margin-top: 18px;
+  background: #ff9100;
+  color: #fff;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.22s;
+}
+
+button[type="submit"]:hover {
+  background: #ffad33;
+}
+
+.prefijo-cliente {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .formulario-contenedor {
+    width: 96vw;
+    padding: 15px 4vw;
   }
-  .formulario-cliente h1, .formulario-cliente h3 {
-    font-size: 1.3rem;
+  .progress-bar-container {
+    width: 95%;
   }
-  .form-grid {
-    grid-template-columns: 1fr;
-    gap: 12px 0;
-  }
-  .form-grid .input-full {
-    grid-column: 1 / 2;
-  }}
+}
