@@ -356,7 +356,7 @@ h3{
 }
 
 .btn.btn-resumen:active {
-    background-color: #005cbf;
+    background-color: #ff6f00;
     transform: translateY(0);
 }
 
@@ -404,7 +404,7 @@ input, select {
 
 input:focus, select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #ff7b00;
 }
 
 /* Estilo para el grupo de prefijo y teléfono */
@@ -436,7 +436,7 @@ input:focus, select:focus {
 }
 
 .btn-siguiente:hover {
-    background-color: #0069d9;
+    background-color: #ff6200;
 }
 
 /* Estilo para la línea divisoria */
