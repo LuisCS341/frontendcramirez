@@ -20,8 +20,6 @@
                     :form="form"
                 />
               </div>
-
-              <button type="submit">Siguiente</button>
             </form>
           </div>
 
