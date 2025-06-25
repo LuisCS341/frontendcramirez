@@ -105,8 +105,6 @@
         </button>
       </div>
     </div>
-
-    <button type="submit" class="btn-siguiente">SIGUIENTE</button>
   </form>
 </div>
 
