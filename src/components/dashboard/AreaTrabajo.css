@@ -178,19 +178,23 @@
 .chart-container-grafico-rendimiento-mes {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 20px 18px;
-  margin: 0;
-  min-width: 220px;
-  max-width: 340px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  padding: 36px 32px 28px 32px;
+  min-width: 440px;
+  max-width: 640px;
   width: 100%;
-  min-height: 180px;
+  min-height: 390px;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   transition: box-shadow 0.3s, transform 0.3s;
   animation: fadeInUp 0.7s;
+  margin: 0 auto; /* Centra en su contenedor */
 }
+
+
 .chart-container-grafico-rendimiento-mes:hover {
   box-shadow: 0 8px 32px rgba(0,0,0,0.16);
   transform: translateY(-6px) scale(1.03);
