@@ -1,10 +1,10 @@
 <template>
-
+  <div class="chart-container-grafico-contratos">
   <div v-if="userRole === 3" class="graficos-container">
       <GraficoContratos />
       <GraficoRendimientoMes />
   </div>
-
+</div>
   <div v-if="userRole <= 2"  class="graficos-container-operador">
     <div v-if="userRole <= 2" class="graficos-fila">
       <ClientesRegistrados />
@@ -13,17 +13,19 @@
       <MetaDia />
     </div>
 
+  <div class="chart-container-grafico-rendimiento-mes">
     <div v-if="userRole <= 2" class="graficos-fila-grandes">
       <GraficoContratos />
       <GraficoRendimientoMes />
     </div>
-  </div>
+    </div>
+      </div>
 
 
 </template>
 
 <script>
-import  { ref, onMounted ,computed} from "vue";
+import  { ref, onMounted} from "vue";
 import { useRouter } from "vue-router";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoContratos from "@/components/graficos/GraficoContratos.vue";
