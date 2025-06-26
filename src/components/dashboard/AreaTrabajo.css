@@ -319,4 +319,43 @@
     padding: 6px 1px;
     font-size: 13px;
   }
+}.graficos-fila-grandes {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.graficos-fila-grandes > div {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  padding: 36px 32px 28px 32px;
+  min-width: 440px;
+  max-width: 640px;
+  width: 100%;
+  min-height: 390px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Para el gráfico de barras */
+.chart-container-grafico-rendimiento-mes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Para el gráfico de torta */
+.chart-container-grafico-contratos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
