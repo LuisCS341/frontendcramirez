@@ -180,8 +180,8 @@
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.10);
   padding: 36px 32px 28px 32px;
-  min-width: 440px;
-  max-width: 640px;
+  min-width: 400px;
+  max-width: 680px;
   width: 100%;
   min-height: 390px;
   flex: 1;
@@ -191,10 +191,8 @@
   justify-content: center;
   transition: box-shadow 0.3s, transform 0.3s;
   animation: fadeInUp 0.7s;
-  margin: 0 auto; /* Centra en su contenedor */
+  margin: 0 auto; /* Centrado */
 }
-
-
 .chart-container-grafico-rendimiento-mes:hover {
   box-shadow: 0 8px 32px rgba(0,0,0,0.16);
   transform: translateY(-6px) scale(1.03);
