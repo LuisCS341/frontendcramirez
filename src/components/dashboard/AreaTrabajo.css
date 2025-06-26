@@ -1,120 +1,157 @@
-
 body {
     background: #fdf6f2;
-}
-
-.graficos-container,
-.graficos-container-operador {
-    width: 100vw;
-    max-width: 100%;
+    font-family: 'Montserrat', Arial, sans-serif;
     margin: 0;
     padding: 0;
+}
+
+.graficos-container {
+    padding: 32px 36px 0 36px;
+    width: 100vw;
+    min-height: 100vh;
     background: none;
     box-sizing: border-box;
 }
 
-/* CARD MÉTRICAS SUPERIORES */
+/* ==== CARD MÉTRICAS SUPERIORES ==== */
 .graficos-fila {
     display: flex;
     gap: 32px;
     justify-content: flex-start;
     align-items: stretch;
-    padding: 0 0 32px 0;
-    background: none;
+    margin-bottom: 24px;
 }
 
-.graficos-fila > div {
+.card-metrica {
     background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    padding: 22px 28px;
-    min-width: 175px;
-    min-height: 95px;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(70,80,100,0.10);
+    padding: 22px 32px 18px 32px;
+    min-width: 170px;
+    min-height: 92px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
+    position: relative;
+    border: 1px solid #f1f1f1;
+    transition: box-shadow 0.2s;
 }
 
-/* GRAFICOS GRANDES */
+.card-metrica:hover {
+    box-shadow: 0 6px 24px rgba(70,80,100,0.13);
+}
+
+.card-metrica .icon-metrica {
+    font-size: 1.7rem;
+    color: #FF9100;
+    margin-bottom: 8px;
+}
+
+.card-metrica .titulo-metrica {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #282828;
+    margin-bottom: 0.5rem;
+    letter-spacing: .01em;
+    text-transform: none;
+}
+
+.card-metrica .valor-metrica {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 2px;
+    line-height: 1.1;
+}
+
+.card-metrica .desc-metrica {
+    font-size: 1.05rem;
+    color: #757575;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+/* ==== Card: Meta del Día ==== */
+.card-meta-dia {
+    border: 2px solid #ffa726;
+    background: #fffbe8;
+    box-shadow: 0 2px 10px rgba(255,152,0,0.06);
+}
+.card-meta-dia .valor-metrica {
+    color: #ff9800;
+}
+.card-meta-dia .desc-metrica {
+    color: #a67c00;
+}
+
+/* ==== Cards de los gráficos grandes ==== */
 .graficos-fila-grandes {
     display: flex;
-    gap: 30px;
+    gap: 32px;
     justify-content: center;
     align-items: flex-start;
 }
-.graficos-fila-grandes > div {
+
+.card-grafico {
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    padding: 28px 32px;
-    min-width: 440px;
-    min-height: 390px;
+    box-shadow: 0 4px 18px rgba(70,80,100,0.09);
+    padding: 30px 34px 18px 34px;
+    min-width: 390px;
+    min-height: 320px;
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    border: 1.5px solid #efefef;
+    transition: box-shadow 0.2s;
+}
+.card-grafico:hover {
+    box-shadow: 0 8px 30px rgba(255,152,0,0.09);
 }
 
-/* SIDEBAR Y HEADER */
-.sidebar {
-    background: #212e3e;
-    min-height: 100vh;
-    padding: 30px 0;
-    color: #fff;
+.card-grafico h3 {
+    margin: 0 0 18px 0;
+    font-size: 1.14rem;
+    font-weight: 700;
+    color: #444;
+    text-align: center;
+    letter-spacing: 0.03em;
 }
 
-.header {
-    width: 100%;
-    background: #fff;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 18px 32px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+/* ==== RESPONSIVE ==== */
+@media (max-width: 1200px) {
+    .graficos-container {
+        padding: 20px 4vw 0 4vw;
+    }
+    .graficos-fila, .graficos-fila-grandes {
+        gap: 18px;
+    }
+    .card-grafico {
+        min-width: 60vw;
+    }
 }
 
-/* AJUSTES DE TIPOGRAFÍA */
-.graficos-fila h3, .graficos-fila-grandes h3, .graficos-fila-grandes h2 {
-    margin: 0 0 8px 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-}
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-    .graficos-fila {
+@media (max-width: 900px) {
+    .graficos-fila, .graficos-fila-grandes {
         flex-direction: column;
-        gap: 16px;
-        padding-bottom: 16px;
+        align-items: stretch;
+        gap: 12px;
     }
-    .graficos-fila-grandes {
-        flex-direction: column;
-        gap: 16px;
-    }
-    .graficos-fila-grandes > div {
-        min-width: 80vw;
-        min-height: 300px;
-        padding: 14px 8px;
-    }
-}
-
-@media (max-width: 700px) {
-    .graficos-fila {
-        flex-direction: column;
-        gap: 8px;
-        padding-bottom: 8px;
-    }
-    .graficos-fila > div,
-    .graficos-fila-grandes > div {
+    .card-grafico, .card-metrica {
         min-width: 98vw;
-        padding: 10px 3vw;
-    }
-    .graficos-fila-grandes {
-        flex-direction: column;
-        gap: 8px;
+        width: 99vw;
+        margin: 0 auto;
     }
 }
+
+@media (max-width: 650px) {
+    .graficos-container {
+        padding: 6px 2vw 0 2vw;
+    }
+    .card-grafico, .card-metrica {
+        padding: 14px 7vw 10px 7vw;
+    }
+}
+
