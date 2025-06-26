@@ -4,7 +4,7 @@
       <GraficoContratos />
       <GraficoRendimientoMes />
   </div>
-</div>
+
   <div v-if="userRole <= 2"  class="graficos-container-operador">
     <div v-if="userRole <= 2" class="graficos-fila">
       <ClientesRegistrados />
@@ -19,13 +19,13 @@
       <GraficoRendimientoMes />
     </div>
     </div>
-      </div>
-
+  </div>
+</div>
 
 </template>
 
 <script>
-import  { ref, onMounted} from "vue";
+import  { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoContratos from "@/components/graficos/GraficoContratos.vue";
