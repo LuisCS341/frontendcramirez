@@ -321,48 +321,4 @@
     padding: 6px 1px;
     font-size: 13px;
   }
-}.graficos-fila-grandes {
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-  justify-content: center;  /* Centra los gráficos en la fila */
-  align-items: stretch;      /* Alinea verticalmente los gráficos */
-  margin-top: 40px;
-  flex-wrap: wrap;           /* Para que en pantallas chicas se acomoden abajo */
-}
-
-.chart-container-grafico-contratos,
-.chart-container-grafico-rendimiento-mes {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
-  padding: 36px 32px 28px 32px;
-  min-width: 360px;
-  max-width: 520px;
-  width: 100%;
-  min-height: 390px;
-  flex: 1 1 420px;           /* Hace que crezcan igual y ocupen el espacio */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  transition: box-shadow 0.3s, transform 0.3s;
-  animation: fadeInUp 0.7s;
-}
-
-/* RESPONSIVE: En pantallas chicas, ponlos uno debajo del otro */
-@media (max-width: 1100px) {
-  .graficos-fila-grandes {
-    flex-direction: column;
-    gap: 24px;
-    align-items: center;
-  }
-  .chart-container-grafico-contratos,
-  .chart-container-grafico-rendimiento-mes {
-    min-width: 0;
-    max-width: 99vw;
-    min-height: 240px;
-    padding: 16px 4vw 16px 4vw;
-  }
 }
