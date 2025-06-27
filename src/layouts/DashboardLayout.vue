@@ -40,8 +40,7 @@ export default {
 .area-trabajo {
   flex-grow: 1;
   padding: 20px;
-  background: url('@/assets/imagenes/FondoDashboard.jpg') center center / cover no-repeat;
-  background-attachment: fixed;
+  background: #f8f9fa;
   overflow-y: auto;
 }
 
