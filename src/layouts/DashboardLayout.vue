@@ -40,7 +40,7 @@ export default {
 .area-trabajo {
   flex-grow: 1;
   padding: 20px;
-  background-color: #E9EEF2; /* Un fondo más profesional y limpio */
+  background: #f8f9fa;
   overflow-y: auto;
 }
 

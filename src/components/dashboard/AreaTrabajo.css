@@ -1,95 +1,308 @@
-/* Reset y estilos base */
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #E9EEF2;
+/* Contenedor principal para operador */
+.graficos-container {
+  display: grid;
+  width: 1400px;
+  height: 800px;
+  margin-top: 50px;
+  margin-left: 255px;
+  background-color: #dcdcdc;
 }
 
-/* Contenedor principal del dashboard */
-.dashboard-content-container {
+/* Contenedor principal para supervisor/jefe */
+.graficos-container-operador {
   display: grid;
-  gap: 24px;
-  padding: 20px;
-  width: 100%;
+  gap: 5px;
+  width: 90vw;
+  max-width: 1400px;
+  margin: 50px auto 0 auto;
+  margin-left: 250px;
+  padding: 10px;
   box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+  overflow-y: auto;
+  background-color: #dcdcdc;
 }
 
-/* Estilos para las filas de gráficos */
-.graficos-fila,
-.graficos-fila-grandes,
+/* Fila de tarjetas pequeñas */
+.graficos-fila {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  row-gap: 1px;
+  padding: 10px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fila de tarjetas grandes para supervisor/jefe */
+.graficos-fila-grandes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 75px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fila de tarjetas grandes para administrador */
 .graficos-fila-grandes-administrador {
   display: grid;
-  gap: 24px;
-  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 10px;
+  margin-top: 150px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Definición de columnas para las diferentes filas */
-.graficos-fila {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-.graficos-fila-grandes,
-.graficos-fila-grandes-administrador {
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
-
-/* Estilo base para todas las tarjetas */
-.card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid #E0E7FF;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Tarjeta general */
+.summary-card {
+  min-width: 150px;
+  max-width: 220px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0 auto;
+  transition: box-shadow 0.3s, transform 0.3s, all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.7s;
+}
+.summary-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+  transform: translateY(-4px) scale(1.02);
+}
+.icon-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon {
+  font-size: 24px;
+}
+.title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.count {
+  margin-top: 12px;
+  text-align: left;
+}
+.number {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111;
+}
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin-top: -4px;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-/*
-  Aseguramos que los componentes hijos (que ahora actuarán como tarjetas)
-  hereden estos estilos base para mantener la consistencia.
-  Cualquier componente como <ClientesRegistrados />, <GraficoContratos />, etc.,
-  que se coloque dentro de las filas del grid, debe tener un contenedor raíz
-  que pueda adoptar estos estilos. Si no lo tienen, se pueden envolver en un <div>
-  con la clase 'card'.
-
-  Para este caso, asumiré que los componentes gráficos ya tienen su propia estructura
-  y solo necesitan el estilo de tarjeta. Por lo tanto, aplicaremos la clase 'card'
-  directamente en el HTML o nos aseguraremos de que los componentes internos
-  la usen.
-
-  Dado que no puedo editar los componentes hijos directamente,
-  voy a aplicar un estilo global a los hijos directos de las filas.
-*/
-
-.graficos-fila > *,
-.graficos-fila-grandes > *,
-.graficos-fila-grandes-administrador > * {
-  background-color: #ffffff;
+/* Contenedor para Clientes Registrados */
+.chart-container-clientes-registrados {
+  background: #fff;
   border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid #E0E7FF;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 20px 18px;
+  margin: 0;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
+}
+.chart-container-clientes-registrados:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
 }
 
-.graficos-fila > *:hover,
-.graficos-fila-grandes > *:hover,
-.graficos-fila-grandes-administrador > *:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+/* Contenedor para Contratos Generados */
+.chart-container-contratos-generados {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 20px 18px;
+  margin: 0;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
+}
+.chart-container-contratos-generados:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
 }
 
-/* Animación sutil para la carga */
+/* Contenedor para Gráfico de Contratos */
+.chart-container-grafico-contratos {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 20px 18px;
+  margin: 0;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
+}
+.chart-container-grafico-contratos:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
+}
+.chart-container-grafico-contratos h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* Contenedor para Gráfico de Rendimiento del Mes */
+.chart-container-grafico-rendimiento-mes {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 20px 18px;
+  margin: 0;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  animation: fadeInUp 0.7s;
+}
+.chart-container-grafico-rendimiento-mes:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  transform: translateY(-6px) scale(1.03);
+}
+
+/* RESPONSIVE TABLET */
+@media (max-width: 1100px) {
+  .graficos-container {
+    max-width: 98vw;
+    padding: 16px 2vw 16px 2vw;
+  }
+  .graficos-container-operador {
+    max-width: 98vw;
+    padding: 16px 2vw 16px 2vw;
+  }
+  .graficos-fila {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+  .graficos-fila-grandes {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+}
+
+/* RESPONSIVE MÓVIL */
+@media (max-width: 700px) {
+  .graficos-container {
+    max-width: 100vw;
+    padding: 8px 0 8px 0;
+    gap: 10px;
+  }
+  .graficos-container-operador {
+    max-width: 100vw;
+    padding: 8px 0 8px 0;
+    gap: 10px;
+  }
+  .graficos-fila {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 6px 0;
+    margin-top: 14px;
+  }
+  .graficos-fila-grandes {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 6px 0;
+    margin-top: 14px;
+  }
+  .graficos-fila-grandes-administrador {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 6px 0;
+    margin-top: 14px;
+  }
+  .summary-card {
+    max-width: 99vw;
+    min-width: 0;
+    font-size: 14px;
+    padding: 8px 2px;
+  }
+}
+
+/* Nueva clase para el contenedor principal del dashboard */
+.dashboard-wrapper {
+  width: 90vw;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Animaciones suaves para tarjetas y grids */
+.graficos-fila {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.graficos-fila-grandes {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.graficos-fila-grandes-administrador {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.summary-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.7s;
+}
+.chart-container-clientes-registrados {
+  animation: fadeInUp 0.7s;
+}
+.chart-container-contratos-generados {
+  animation: fadeInUp 0.7s;
+}
+.chart-container-grafico-contratos {
+  animation: fadeInUp 0.7s;
+}
+.chart-container-grafico-rendimiento-mes {
+  animation: fadeInUp 0.7s;
+}
+
+/* Animación de entrada */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -97,9 +310,13 @@ body {
   }
 }
 
-.card,
-.graficos-fila > *,
-.graficos-fila-grandes > *,
-.graficos-fila-grandes-administrador > * {
-  animation: fadeInUp 0.6s ease-out;
+/* Ajuste extra para pantallas muy pequeñas */
+@media (max-width: 500px) {
+  .dashboard-wrapper {
+    padding: 0 2vw;
+  }
+  .summary-card {
+    padding: 6px 1px;
+    font-size: 13px;
+  }
 }
