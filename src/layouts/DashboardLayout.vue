@@ -3,7 +3,7 @@
     <BarraLateral />
     <div class="main-content">
       <BarraSuperior />
-      <div class="area-trabajo">
+      <div class="area-trabajo" :style="{ backgroundImage: `url(${fondoDashboard})` }">
       </div>
     </div>
   </div>
@@ -13,11 +13,17 @@
 <script>
 import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
 import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
+import FondoDashboard from "@/assets/imagenes/FondoDashboard.webp";
 
 export default {
   components: {
     BarraLateral: BarraLateralDashboard,
     BarraSuperior: BarraSuperiorDashboard
+  },
+  data() {
+    return {
+      fondoDashboard: FondoDashboard
+    };
   }
 };
 
@@ -40,7 +46,9 @@ export default {
 .area-trabajo {
   flex-grow: 1;
   padding: 20px;
-  background: url('@/assets/imagenes/FondoDashboard.webp') center center / cover no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   overflow-y: auto;
 }
