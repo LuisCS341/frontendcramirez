@@ -39,9 +39,11 @@ export default {
 
 .area-trabajo {
   flex-grow: 1;
-  padding: 20px;
-  background: #f8f9fa;
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
   overflow-y: auto;
+  min-height: calc(100vh - 60px);
 }
 
 </style>
