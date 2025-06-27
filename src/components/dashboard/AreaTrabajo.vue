@@ -15,8 +15,9 @@
     </div>
     
     <div class="graficos-fila-grandes">
+          <GraficoRendimientoMes />
       <GraficoContratos />
-      <GraficoRendimientoMes />
+
     </div>
   </div>
 </template>
