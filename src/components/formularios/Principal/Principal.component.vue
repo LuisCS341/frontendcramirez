@@ -103,15 +103,15 @@
 
 
           <div v-if="formStep === 6">
-            <ResumenRegistro
-                :form="form"
-                :obtenerNombrePais="obtenerNombrePais"
-                :obtenerNombreResidencia="obtenerNombreResidencia"
-                :obtenerNombreDepartamento="obtenerNombreDepartamento"
-                :obtenerNombreProvincia="obtenerNombreProvincia"
-                :obtenerNombreDistrito="obtenerNombreDistrito"
-                :obtenerNombreProyecto="obtenerNombreProyecto"
-            />
+              <ResumenRegistro
+                  :form="form"
+                  :obtenerNombrePais="obtenerNombrePais"
+                  :obtenerNombreResidencia="obtenerNombreResidencia"
+                  :obtenerNombreDepartamento="obtenerNombreDepartamento"
+                  :obtenerNombreProvincia="obtenerNombreProvincia"
+                  :obtenerNombreDistrito="obtenerNombreDistrito"
+                  :obtenerNombreProyecto="obtenerNombreProyecto"
+              />
             <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
           </div>
 
@@ -187,10 +187,10 @@ const form = ref({
     prefijoTelefonicoClienteConyuge: 8,
     numTelefonicoClienteConyuge: '',
   },
-  numCopropietarios: 0,
-  copropietarios: [],
-  numLotes: 0,
-  lotes: []
+    numCopropietarios: 0,
+    copropietarios: [],
+    numLotes: 0,
+    lotes: []
 });
 
 watch(() => form.value.numCopropietarios, (newValue) => {

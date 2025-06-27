@@ -1,32 +1,29 @@
 <template>
-  <!-- Vista para el usuario con rol 3 -->
+
   <div v-if="userRole === 3" class="graficos-container">
-    <GraficoContratos />
-    <GraficoRendimientoMes />
+      <GraficoContratos />
+      <GraficoRendimientoMes />
   </div>
 
-  <!-- Vista para usuarios con rol 1 o 2 -->
-  <div v-if="userRole <= 2" class="graficos-container-operador">
-    <div class="graficos-fila">
+  <div v-if="userRole <= 2"  class="graficos-container-operador">
+    <div v-if="userRole <= 2" class="graficos-fila">
       <ClientesRegistrados />
       <ContratosGenerados />
       <TiempoCliente />
       <MetaDia />
     </div>
-    
-     <div class="chart-container-grafico-rendimiento-mes">
-    <div v-if="userRole <= 3" class="graficos-fila-grandes">
-        <GraficoRendimientoMes />
+
+    <div v-if="userRole <= 2" class="graficos-fila-grandes">
       <GraficoContratos />
-       </div>
+      <GraficoRendimientoMes />
     </div>
   </div>
 
+
 </template>
 
-
 <script>
-import  { ref, onMounted } from "vue";
+import  { ref, onMounted ,computed} from "vue";
 import { useRouter } from "vue-router";
 import ContratosGenerados from "@/components/graficos/ContratosGenerados.vue";
 import GraficoContratos from "@/components/graficos/GraficoContratos.vue";

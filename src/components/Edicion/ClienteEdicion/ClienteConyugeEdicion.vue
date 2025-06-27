@@ -1,111 +1,99 @@
 <template>
   <div v-if="form">
-    <h3>Datos Personales</h3>
+    <h3 class="titulodatoslotes">Datos del Cónyuge</h3>
 
-    <label>Tipo de Identificación:</label>
-    <select v-model="form.tipoIdentificacion" required>
+
+    <label for="tipoIdentificacion">Tipo de Identificación:</label>
+    <select v-model="form.conyuge.tipoIdentificacionClienteConyuge" id="tipoIdentificacion">
       <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
     </select>
 
     <label>Número de Identificación:</label>
     <input
-        v-model="form.numIdentificacionUsuario"
+        v-model="form.conyuge.numIdentificacionClienteConyuge"
         type="text"
         required
         maxlength="8"
-        @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"
+        placeholder="Ingrese su Número de Identificación"
+        @input="form.conyuge.numIdentificacionClienteConyuge = form.conyuge.numIdentificacionClienteConyuge.replace(/[^0-9]/g, '')"
     />
 
     <label>Nombre y Apellido:</label>
     <input
-        v-model="form.nombreCliente"
+        v-model="form.conyuge.nombreClienteConyuge"
         type="text"
-        required
-        @input="form.nombreCliente = form.nombreCliente.replace(/[0-9]/g, '')"
+        readonly
+        @input="form.conyuge.nombreClienteConyuge = form.conyuge.nombreClienteConyuge.replace(/[0-9]/g, '')"
     />
 
     <label>Ocupación:</label>
     <input
-        v-model="form.ocupacionCliente"
+        v-model="form.conyuge.ocupacionClienteConyuge"
         type="text"
         required
         placeholder="Ingrese su Ocupación"
-        @input="form.ocupacionCliente = form.ocupacionCliente.replace(/[0-9]/g, '')"
+        @input="form.conyuge.ocupacionClienteConyuge = form.conyuge.ocupacionClienteConyuge.replace(/[0-9]/g, '')"
     />
 
-
     <label for="paisOrigen">País de Origen:</label>
-    <select v-model="form.nacionalidad" required>
+    <select v-model="form.conyuge.paisOrigenClienteConyuge" id="paisOrigen">
       <option disabled value="">Seleccione un país</option>
       <option v-for="pais in nacionalidad" :key="pais.id" :value="pais.id">{{ pais.nombre }}</option>
     </select>
 
     <label for="paisResidencia">País de Residencia:</label>
-    <select v-model="form.paisdeResidencia" required>
+    <select v-model="form.conyuge.paisResidenciaClienteConyuge" id="paisResidencia">
       <option disabled value="">Seleccione un país</option>
       <option v-for="residencia in residencias" :key="residencia.id" :value="residencia.id">{{ residencia.nombre }}</option>
     </select>
 
     <label for="departamento">Departamento:</label>
-    <select v-model="form.departamento" required>
+    <select v-model="form.conyuge.departamentoClienteConyuge" id="departamento">
       <option disabled value="">Selecciona un departamento</option>
       <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
     </select>
 
     <label>Provincia:</label>
-    <select v-model="form.provincia" required>
+    <select v-model="form.conyuge.provinciaClienteConyuge">
       <option disabled value="">Seleccione una provincia</option>
       <option v-for="provincia in provinciasFiltradas" :key="provincia.id" :value="provincia.id">{{ provincia.nombre }}</option>
     </select>
 
     <label>Distrito:</label>
-    <select v-model="form.distrito" required>
+    <select v-model="form.conyuge.distritoClienteConyuge">
       <option disabled value="">Seleccione un distrito</option>
       <option v-for="distrito in distritosFiltrados" :key="distrito.id" :value="distrito.id">{{ distrito.nombre }}</option>
     </select>
 
     <label>Dirección:</label>
     <input
-        v-model="form.direccion"
+        v-model="form.conyuge.direccionClienteConyuge"
         type="text"
-        required
         placeholder="Ingrese su Dirección"
+        required
     />
 
     <label>Correo Electrónico:</label>
     <input
-        v-model="form.correoUsuario"
-        type="text"
-        required
+        v-model="form.conyuge.correoUsuarioCliente"
+        type="email"
         placeholder="usuario@dominio.com"
+        required
     />
 
     <label for="prefijoTelefonico">Número Telefónico:</label>
-    <div class="prefijo-cliente">
-      <select v-model="form.prefijoTelefonico" required>
+    <div style="display: flex; gap: 5px;">
+      <select v-model="form.conyuge.prefijoTelefonicoClienteConyuge" id="prefijoTelefonico">
         <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
       </select>
       <input
-          v-model="form.numTelefonico"
+          v-model="form.conyuge.numTelefonicoClienteConyuge"
           type="text"
-          placeholder="Ingrese su Número"
           required
-          @input="form.numTelefonico = form.numTelefonico.replace(/[^0-9]/g, '')"
+          placeholder="Ingrese su Número Telefónico"
+          @input="form.conyuge.numTelefonicoClienteConyuge = form.conyuge.numTelefonicoClienteConyuge.replace(/[^0-9]/g, '')"
       />
     </div>
-
-    <label for="estadoCivil">Estado Civil:</label>
-    <select v-model="form.estadoCivil" required>
-      <option v-for="estado in estadoCivil" :key="estado.id" :value="estado.id">{{ estado.nombre }}</option>
-    </select>
-
-    <label>Descripcion de Estado Civil:</label>
-    <input
-        v-model="form.descripcionEstadoCivil"
-        type="text"
-        required
-        placeholder="Ingrese la Descripcion de Estado Civil"
-    />
   </div>
 </template>
 
@@ -116,24 +104,28 @@ import {departamentos} from "@/data/departamentos.js";
 import { nacionalidad } from '@/data/nacionalidad.js';
 import { residencias } from '@/data/residencias.js'
 import {prefijos} from "@/data/prefijos.js";
-import { estadoCivil } from '@/data/estadoCivil.js';
 import { tipoIdentificacion } from '@/data/tipoIdentificacion.js';
-import "@/components/formularios/Cliente/Cliente.css"
 import {computed, watch} from "vue";
 
 const props = defineProps({
   form: Object
 });
 
-// ✅ Provincias según departamento
 const provinciasFiltradas = computed(() =>
-    provincias.filter(p => p.departamentoId === props.form.departamento)
+    provincias.filter(p => p.departamentoId === props.form.conyuge.departamentoClienteConyuge)
 );
 
-// ✅ Distritos según provincia
 const distritosFiltrados = computed(() =>
-    distritos.filter(d => d.provinciaId === props.form.provincia)
+    distritos.filter(d => d.provinciaId === props.form.conyuge.provinciaClienteConyuge)
 );
 
+watch(() => props.form.conyuge.departamentoClienteConyuge, () => {
+  props.form.conyuge.provinciaClienteConyuge = "";
+  props.form.conyuge.distritoClienteConyuge = "";
+});
+
+watch(() => props.form.conyuge.provinciaClienteConyuge, () => {
+  props.form.conyuge.distritoClienteConyuge = "";
+});
 
 </script>

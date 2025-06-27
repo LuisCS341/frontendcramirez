@@ -7,12 +7,12 @@
 
       <div v-if="formStep === 1 && form">
         <form @submit.prevent="avanzarPaso">
-          <Cliente
+          <ClienteEdicion
               :form="form"
           />
 
           <div v-if="form.estadoCivil === 2">
-            <ClienteConyuge
+            <ClienteConyugeEdicion
                 :form="form"
             />
           </div>
@@ -27,21 +27,19 @@
           <h3>Información de Copropietarios</h3>
 
           <div v-for="(copropietario) in form.copropietarios" >
-            <Copropietario
+            <CopropietarioEdicion
                 :copropietario="copropietario"
             />
 
             <div v-if="copropietario.estadoCivilCopropietarios === 2">
-              <CopropietarioConyuge
+              <CopropietarioConyugeEdicion
                   :copropietario="copropietario"
               />
             </div>
           </div>
 
-          <h3>Datos de Lotes</h3>
-          <label>Número de Lotes Adquiridos:</label>
-          <Lote
-              :index="0"
+          <h3>Datos de Lote</h3>
+          <LoteEdicion
               :lote="form.lotes"
               :getUbicacionesFiltradas="getUbicacionesFiltradas"
           />
@@ -52,12 +50,10 @@
 
       <div v-if="formStep === 3">
         <form @submit.prevent="avanzarPaso">
-            <CuotaExtraordinaria
-                v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
-                :cuotaextraordinaria="lote.cuotaextraordinaria"
-                :lote="lote"
-                :index="index"
-            />
+          <CuotaExtraordinariaEdicion
+              v-if="form.lotes && form.lotes.length && form.lotes[0]?.cantidadCuotaExtraordinaria != null"
+              :lote="form.lotes"
+          />
           <button type="button" @click="retrocederPaso">Atrás</button>
           <button type="submit">Siguiente</button>
         </form>
@@ -65,29 +61,24 @@
 
       <div v-if="formStep === 4">
         <form @submit.prevent="avanzarPaso">
-
-            <Lindero
-                :lote="form.lotes"
-            />
+          <CuotaEdicion
+              :lote="form.lotes[0]"
+          />
           <button type="button" @click="retrocederPaso">Atrás</button>
           <button type="submit">Siguiente</button>
         </form>
       </div>
 
       <div v-if="formStep === 5">
-        <ResumenRegistro
-            :form="form"
-            :obtenerNombrePais="obtenerNombrePais"
-            :obtenerNombreResidencia="obtenerNombreResidencia"
-            :obtenerNombreDepartamento="obtenerNombreDepartamento"
-            :obtenerNombreProvincia="obtenerNombreProvincia"
-            :obtenerNombreDistrito="obtenerNombreDistrito"
-            :obtenerNombreProyecto="obtenerNombreProyecto"
-        />
-        <button type="button" @click="retrocederPaso">Atrás</button>
-        <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
-      </div>
+        <form @submit.prevent="avanzarPaso">
 
+            <LinderoEdicion
+                :lote="form.lotes[0]"
+            />
+          <button type="button" @click="retrocederPaso">Atrás</button>
+          <button type="submit">Siguiente</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -96,26 +87,16 @@
 import {ref, onMounted, watch} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
-import Cliente from "@/components/formularios/Cliente/Cliente.vue";
-import ClienteConyuge from "@/components/formularios/Cliente/ClienteConyuge.vue";
-import {numeroALetras} from "@/data/numeroLetrasConNumeros.js";
-import {
-  obtenerNombreDepartamento, obtenerNombreDistrito,
-  obtenerNombrePais,
-  obtenerNombreProvincia, obtenerNombreProyecto,
-  obtenerNombreResidencia
-} from "@/data/utils.js";
-import Lote from "@/components/formularios/Lote/Lote.vue";
-import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
-import Lindero from "@/components/formularios/Lote/Lindero.vue";
-import ResumenRegistro from "@/components/formularios/Resumen/ResumenRegistro.vue";
-import CuotaExtraordinaria from "@/components/formularios/Lote/CuotaExtraordinaria.vue";
-import Copropietario from "@/components/formularios/Copropietario/Copropietario.vue";
 import {ubicaciones} from "@/data/ubicaciones.js";
 import {proyectosT3Ids} from "@/data/proyectos.js";
-import {departamentos} from "@/data/departamentos.js";
-import {provincias} from "@/data/provincias.js";
-import {distritos} from "@/data/distritos.js";
+import ClienteEdicion from "@/components/Edicion/ClienteEdicion/ClienteEdicion.vue";
+import ClienteConyugeEdicion from "@/components/Edicion/ClienteEdicion/ClienteConyugeEdicion.vue";
+import CopropietarioEdicion from "@/components/Edicion/CopropietarioEdicion/CopropietarioEdicion.vue";
+import CopropietarioConyugeEdicion from "@/components/Edicion/CopropietarioEdicion/CopropietarioConyugeEdicion.vue";
+import LoteEdicion from "@/components/Edicion/LoteEdicion/LoteEdicion.vue";
+import CuotaExtraordinariaEdicion from "@/components/Edicion/LoteEdicion/CuotaExtraordinariaEdicion.vue";
+import LinderoEdicion from "@/components/Edicion/LoteEdicion/LinderoEdicion.vue";
+import CuotaEdicion from "@/components/Edicion/LoteEdicion/CuotaEdicion.vue";
 
 const router = useRouter();
 const formStep = ref(1);
@@ -161,44 +142,45 @@ const form = ref({
 
 watch(() => form.value.numCopropietarios, (newValue) => {
   if (newValue > 0) {
-    form.value.copropietarios = {
+    form.value.copropietarios = Array.from({ length: newValue }, () => ({
       nombreCopropietarios: '',
       ocupacionCopropietario: '',
-      tipoIdentificacionCopropietarios: '',
+      tipoIdentificacionCopropietarios: 1,
       numIdentificacionCopropietarios: '',
-      paisOrigenCopropietarios: '',
-      paisResidenciaCopropietarios: '',
+      paisOrigenCopropietarios: 8,
+      paisResidenciaCopropietarios: 8,
       departamentoCopropietarios: '',
       provinciaCopropietarios: '',
       distritoCopropietarios: '',
       direccionCopropietariosHogar: '',
       correoUsuarioCopropietarios: '',
-      prefijoTelefonicoCopropietarios: '',
+      prefijoTelefonicoCopropietarios: 8,
       numTelefonicoCopropietarios: '',
-      estadoCivilCopropietarios: '',
+      estadoCivilCopropietarios: 1,
+      descripcionEstadoCivil:"",
       conyuge: {
         nombreCopropietariosConyuge: '',
         ocupacionCopropietarioConyuge: '',
-        tipoIdentificacionCopropietariosConyuge: '',
+        tipoIdentificacionCopropietariosConyuge: 1,
         numIdentificacionCopropietariosConyuge: '',
         distritoCopropietariosConyuge: '',
         provinciaCopropietariosConyuge: '',
         departamentoCopropietariosConyuge: '',
-        paisOrigenCopropietariosConyuge: '',
-        paisResidenciaCopropietariosConyuge: '',
+        paisOrigenCopropietariosConyuge: 8,
+        paisResidenciaCopropietariosConyuge: 8,
         direccionCopropietariosConyuge: '',
         correoUsuarioCopropietariosConyuge: '',
-        prefijoTelefonicoCopropietariosConyuge: '',
+        prefijoTelefonicoCopropietariosConyuge: 8,
         numTelefonicoCopropietariosConyuge: '',
       }
-    };
+    }));
   } else {
     form.value.copropietarios = [];
   }
 }, { immediate: true });
 
 watch(() => form.value.numLotes, (newVal) => {
-  form.value.lotes = {
+  form.value.lotes = Array.from({ length: newVal }, () => ({
     proyectolote:'',
     ubicacionLote: '',
     empresa:'',
@@ -248,52 +230,42 @@ watch(() => form.value.numLotes, (newVal) => {
     cantidadCuotaBanco: '',
     montoCuotas: '',
     montoCuotaLetras: '',
-    matriz:{
-      departamentoMatriz: '',
-      provinciaMatriz: '',
-      distritoMatriz: '',
-      ubicacionMatriz: '',
-      areaMatrizHas: "",
-      registroDeMatriz: "",
-      partidaMatriz: "",
-      unidadCatastralMatriz: "",
-      urbanizacionMatriz: "",
-      compraventaMatriz: "",
-      situacionLegalMatriz: "",
-      alicuotaMatriz: "",
-      alicuotaLetrasMatriz: "",
-    },
+    fechaEntrega: "",
+    mantenimientoMensual: "",
+    mantenimientoMensualLetras: "",
+    estadoCuenta: "",
+    montoDeudaLetra: "",
     lindero:{
       porLaDerechaLindero: "",
       porLaIzquierdaLindero: "",
       porElFrenteLindero: "",
       porElFondoLindero: "",
     },
+    cuota:{
+      letrasPendientePago:"",
+      cuentaRecaudadora:"",
+      cuotaInicialIncluyeSeparacion:"",
+      CuotaInicialIncluyeSeparacionLetras:"",
+      montoCuotas:"",
+      montoCuotaLetras:"",
+      fechaPago:"",
+      cuotaInicialBanco:"",
+      saldoLote:"",
+      saldoLoteLetras:"",
+      cantidadCuotas:"",
+      cantidadCuotaLetras:"",
+      cantidadCuotaCuentaRecaudadora:"",
+      cantidadCuotaBanco:"",
+      cuotaPendientePago: "",
+    },
     tieneCuotaExtraordinaria: null,
     cuotaextraordinaria: {
-      cantidadCuotaExtraordinaria: "",
       montoCuotaExtraordinaria: "",
-      mantenimientoMensual: "",
-      mantenimientoMensualLetras: "",
-      estadoCuenta: "",
-      montoDeudaLetra: "",
-      cuotaPendientePago: "",
-      letrasPendientePago: "",
-      fechaEntrega: "",
-      cartaNoAdeudo: "",
-      certificadoLote: "",
       mediosPago: "",
-      plano1: "",
-      plano2: "",
-      envioMinuta: "",
-      fechaCita: "",
-      horaCita: "",
-      modificarMinuta: "",
-      minutaEscaneada: "",
-      expNotaria: "",
+      cantidadCuotaExtraordinaria: "",
     }
-  };
-}, { immediate: true });
+  }));
+});
 
 onMounted(async () => {
   try {
@@ -333,7 +305,7 @@ const guardarCambios = async () => {
 
     const payload = {
       ...form.value,
-      lotes: [form.value.lotes] // 👈 convertir el objeto a array
+      lotes: [form.value.lotes]
     };
     console.log("Payload que se enviará al backend:", form.value);
     await axios.put(`http://localhost:8080/api/clientes/${idCliente}`, payload);
@@ -346,31 +318,6 @@ const guardarCambios = async () => {
 };
 
 
-watch(form, (newForm) => {
-  if (newForm.lotes && typeof newForm.lotes === 'object') {
-    const lotes = Object.values(newForm.lotes);
-
-    lotes.forEach((lote) => {
-      if (!lote || typeof lote !== 'object') return;
-
-      if (!lote.matriz || typeof lote.matriz !== 'object') {
-        lote.matriz = {};
-      }
-
-      const areaLote = parseFloat(lote.areaLote ?? 0);
-      const areaMatriz = parseFloat(lote.matriz.areaMatrizHasMatriz ?? 0);
-
-      if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-        const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
-        lote.matriz.alicuotaMatriz = alicuota.toFixed(4);
-        lote.matriz.alicuotaLetrasMatriz = numeroALetras(parseFloat(lote.matriz.alicuotaMatriz));
-      } else {
-        lote.matriz.alicuotaMatriz = 0;
-        lote.matriz.alicuotaLetrasMatriz = '';
-      }
-    });
-  }
-}, { deep: true, immediate: true });
 
 let timeoutIdConyuge;
 
@@ -440,62 +387,42 @@ watch(() => form.value.copropietarios, (copropietarios) => {
   }, 600);
 }, { deep: true });
 
-watch(() => form.value.lotes, (lotesObj) => {
-      const lotes = Object.values(lotesObj); // Convertimos el objeto a array
+watch(() => form.value.lotes, (lotes) => {
+  if (!lotes) return;
 
-      lotes.forEach((lote) => {
-        if (!lote || typeof lote !== 'object') return;
+  // Asegurar que sea un array
+  const lotesArray = Array.isArray(lotes) ? lotes : [lotes];
 
-        const ubicacion = ubicaciones.find(u => u.id === lote.ubicacionLote);
-        if (ubicacion) {
-          lote.empresa = ubicacion.nombre;
-          lote.empresaVendedora = ubicacion.EmpresaVende;
-          lote.ruc = ubicacion.RUCVendedor;
-          lote.direccion = ubicacion.DireccionVendedor;
-          lote.tipoRepresentante = ubicacion.TipoRepresentante;
-          lote.representanteLegal = ubicacion.RepresentanteLegalVendedor;
-          lote.dniVendedor = ubicacion.DNIVendedor;
-          lote.partidaPoder = ubicacion.NPartidaPoderVendedor;
-          lote.moneda = ubicacion.Moneda;
-          lote.numCuenta = ubicacion.NumCuenta;
-          lote.cci = ubicacion.CCI;
-          lote.fechaSale = ubicacion.FechaSale;
-          lote.fechaFirma = ubicacion.FechaFirmaContratoDefinitivo;
-          lote.areaMatriz = ubicacion.AreaMatrizHas;
-          lote.registrosDe = ubicacion.RegistroDE;
-          lote.partidaMatriz = ubicacion.PartidaMatriz;
-          lote.ubicacionPredio = ubicacion.UbicacionLote;
-          lote.unidadCatastral = ubicacion.UnidadCatastralMatriz;
-          lote.urbanizacionMatriz = ubicacion.UrbanizacionMatriz;
-          lote.distritoMatriz = ubicacion.DistritoMatriz;
-          lote.provinciaMatriz = ubicacion.ProvinciaMatriz;
-          lote.departamentoMatriz = ubicacion.DepartamentoMatriz;
-          lote.compraventaMatriz = ubicacion.CompraVentaMatriz;
-          lote.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
-
-          if (!lote.matriz) lote.matriz = {};
-
-          const departamento = departamentos.find(d => d.nombre === ubicacion.DepartamentoMatriz);
-          const provincia = provincias.find(p => p.nombre === ubicacion.ProvinciaMatriz);
-          const distrito = distritos.find(d => d.nombre === ubicacion.DistritoMatriz);
-          const ubicacionLote = ubicaciones.find(u => u.UbicacionLote === ubicacion.UbicacionLote);
-
-          lote.matriz.departamentoMatriz = departamento ? departamento.id : null;
-          lote.matriz.provinciaMatriz = provincia ? provincia.id : null;
-          lote.matriz.distritoMatriz = distrito ? distrito.id : null;
-          lote.matriz.ubicacionMatriz = ubicacionLote ? ubicacionLote.id : null;
-          lote.matriz.areaMatrizHasMatriz = ubicacion.AreaMatrizHas;
-          lote.matriz.registroDeMatriz = ubicacion.RegistroDE;
-          lote.matriz.partidaMatriz = ubicacion.PartidaMatriz;
-          lote.matriz.unidadCatastralMatriz = ubicacion.UnidadCatastralMatriz;
-          lote.matriz.urbanizacionMatriz = ubicacion.UrbanizacionMatriz;
-          lote.matriz.compraventaMatriz = ubicacion.CompraVentaMatriz;
-          lote.matriz.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
-        }
-      });
-    },
-    { deep: true }
-);
+  lotesArray.forEach(lote => {
+    const ubicacion = ubicaciones.find(u => u.id === lote.ubicacionLote);
+    if (ubicacion) {
+      lote.empresa = ubicacion.nombre;
+      lote.empresaVendedora = ubicacion.EmpresaVende;
+      lote.ruc = ubicacion.RUCVendedor;
+      lote.direccion = ubicacion.DireccionVendedor;
+      lote.tipoRepresentante = ubicacion.TipoRepresentante;
+      lote.representanteLegal = ubicacion.RepresentanteLegalVendedor;
+      lote.dniVendedor = ubicacion.DNIVendedor;
+      lote.partidaPoder = ubicacion.NPartidaPoderVendedor;
+      lote.moneda = ubicacion.Moneda;
+      lote.numCuenta = ubicacion.NumCuenta;
+      lote.cci = ubicacion.CCI;
+      lote.fechaSale = ubicacion.FechaSale;
+      lote.fechaFirma = ubicacion.FechaFirmaContratoDefinitivo;
+      lote.areaMatriz = ubicacion.AreaMatrizHas;
+      lote.registrosDe = ubicacion.RegistroDE;
+      lote.partidaMatriz = ubicacion.PartidaMatriz;
+      lote.ubicacionPredio = ubicacion.UbicacionLote;
+      lote.unidadCatastral = ubicacion.UnidadCatastralMatriz;
+      lote.urbanizacionMatriz = ubicacion.UrbanizacionMatriz;
+      lote.distritoMatriz = ubicacion.DistritoMatriz;
+      lote.provinciaMatriz = ubicacion.ProvinciaMatriz;
+      lote.departamentoMatriz = ubicacion.DepartamentoMatriz;
+      lote.compraventaMatriz = ubicacion.CompraVentaMatriz;
+      lote.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
+    }
+  });
+}, { deep: true });
 
 
 //filtra la ubicacion de lote en los campos proyecto y ubicacion
@@ -510,23 +437,49 @@ watch(() => form.value.lotes.proyectolote, (newValue, oldValue) => {
   }
 });
 
-const cerrarResumen = () => {
-  router.push("/dashboard/formularios/registro-cliente");
-};
-
 watch(() => form.value.lotes.proyectolote, (idProyecto) => {
   form.value.lotes.tipoContratolote = proyectosT3Ids.includes(idProyecto) ? 3 : 1;
 }, { immediate: true });
 
-const retrocederPaso = () => {
-  if (formStep.value > 1) {
-    formStep.value--;
+function validarPasoActual(paso) {
+  switch (paso) {
+    case 1:
+      return form.value.nombreCliente !== null;
+    case 2:
+      return form.value.copropietarios?.length > 0 || form.value.lotes?.length > 0;
+    case 3:
+      return form.value.lotes?.[0]?.cantidadCuotaExtraordinaria != null;
+    case 4:
+      return form.value.lotes?.[0]?.lindero != null;
+    case 5:
+      return form.value.lotes?.[0]?.cuota != null;
+    default:
+      return true;
   }
-};
+}
 
-const avanzarPaso = () => {
-  formStep.value++;
-};
+
+function retrocederPaso() {
+  let pasoAnterior = formStep.value - 1;
+
+  while (pasoAnterior >= 1 && !validarPasoActual(pasoAnterior)) {
+    pasoAnterior--;
+  }
+
+  formStep.value = pasoAnterior;
+}
+
+
+function avanzarPaso() {
+  let siguientePaso = formStep.value + 1;
+
+  while (siguientePaso <= 5 && !validarPasoActual(siguientePaso)) {
+    siguientePaso++;
+  }
+
+  formStep.value = siguientePaso;
+}
+
 
 
 </script>

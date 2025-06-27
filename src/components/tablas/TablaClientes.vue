@@ -85,53 +85,53 @@ const filtros = reactive({
   idTipoContrato: "",
 });
 
-const obtenerDatosCombinados = async () => {
-  try {
-    const userData = JSON.parse(localStorage.getItem("user"));
-    const idOperario = userData?.idOperario;
+  const obtenerDatosCombinados = async () => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("user"));
+      const idOperario = userData?.idOperario;
 
-    const response = await axios.get(
-        `https://backendcramirez.onrender.com/api/clientes/por-operario/${idOperario}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "X-User-ID": idOperario,
-          },
-          withCredentials: true,
+      const response = await axios.get(
+          `https://backendcramirez.onrender.com/api/clientes/por-operario/${idOperario}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "X-User-ID": idOperario,
+            },
+            withCredentials: true,
+          }
+      );
+
+      console.log("Respuesta del backend:", response.data);
+
+      clientes.value = response.data.map((clienteLote) => {
+        const cliente = clienteLote.cliente;
+        const lote = clienteLote.lote;
+        selectedTemporal[cliente.idCliente] = cliente.operario || "";
+
+        return {
+          ...cliente,
+          lote,
+          editando: false,
+        };
+      });
+
+      const gruposVistos = new Set();
+      clientes.value.forEach((cliente) => {
+        if (!gruposVistos.has(cliente.idCliente)) {
+          cliente.esPrimeroGrupo = true;
+          gruposVistos.add(cliente.idCliente);
+        } else {
+          cliente.esPrimeroGrupo = false;
         }
-    );
+      });
 
-    console.log("Respuesta del backend:", response.data);
+      console.log("Clientes luego de mapear:", clientes.value);
 
-    clientes.value = response.data.map((clienteLote) => {
-      const cliente = clienteLote.cliente;
-      const lote = clienteLote.lote;
-      selectedTemporal[cliente.idCliente] = cliente.operario || "";
-
-      return {
-        ...cliente,
-        lote,
-        editando: false,
-      };
-    });
-
-    const gruposVistos = new Set();
-    clientes.value.forEach((cliente) => {
-      if (!gruposVistos.has(cliente.idCliente)) {
-        cliente.esPrimeroGrupo = true;
-        gruposVistos.add(cliente.idCliente);
-      } else {
-        cliente.esPrimeroGrupo = false;
-      }
-    });
-
-    console.log("Clientes luego de mapear:", clientes.value);
-
-  } catch (error) {
-    console.error("Error al obtener datos combinados:", error);
-    alert("Error al obtener datos de clientes y lotes.");
-  }
-};
+    } catch (error) {
+      console.error("Error al obtener datos combinados:", error);
+      alert("Error al obtener datos de clientes y lotes.");
+    }
+  };
 
 
 const activarEdicion = (cliente) => {
@@ -139,17 +139,17 @@ const activarEdicion = (cliente) => {
     cliente.editando = true;
   }
 };
-/*
+  /*
 const activarEdicion = (cliente) => {
-if (cliente && cliente.idCliente) {
-  router.push({
-    name: 'PlantillaEdicion',
-    params: { idCliente: cliente.idCliente }
-  });
-}
+  if (cliente && cliente.idCliente) {
+    router.push({
+      name: 'PlantillaEdicion',
+      params: { idCliente: cliente.idCliente }
+    });
+  }
 };
 
- */
+   */
 
 const guardarEdicion = async (cliente) => {
   if (!cliente || !cliente.lote) return;
@@ -184,60 +184,60 @@ const guardarEdicion = async (cliente) => {
   }
 };
 
-const formatearFecha = (event, tipo) => {
-  let input = event.target.value;
-  input = input.replace(/[^0-9]/g, '');
+  const formatearFecha = (event, tipo) => {
+    let input = event.target.value;
+    input = input.replace(/[^0-9]/g, '');
 
-  if (input.length > 2) input = input.slice(0, 2) + '/' + input.slice(2);
-  if (input.length > 5) input = input.slice(0, 5) + '/' + input.slice(5);
-  if (input.length > 10) input = input.slice(0, 10);
+    if (input.length > 2) input = input.slice(0, 2) + '/' + input.slice(2);
+    if (input.length > 5) input = input.slice(0, 5) + '/' + input.slice(5);
+    if (input.length > 10) input = input.slice(0, 10);
 
-  event.target.value = input;
+    event.target.value = input;
 
-};
+  };
 
 
-onMounted(() => {
-  obtenerDatosCombinados();
-});
+  onMounted(() => {
+    obtenerDatosCombinados();
+  });
 
-const onCambioOperario = async (event, cliente) => {
-  const nuevoUsuario = event.target.value;
-  const idCliente = cliente.idCliente;
+  const onCambioOperario = async (event, cliente) => {
+    const nuevoUsuario = event.target.value;
+    const idCliente = cliente.idCliente;
 
-  const operarioAnterior = selectedTemporal[idCliente];
+    const operarioAnterior = selectedTemporal[idCliente];
 
-  if (nuevoUsuario === operarioAnterior) {
-    return;
-  }
+    if (nuevoUsuario === operarioAnterior) {
+      return;
+    }
 
-  const confirmacion = confirm(`¿Estás seguro que quieres cambiar el operario?`);
-  if (!confirmacion) {
-    selectedTemporal[idCliente] = operarioAnterior; // Restauramos el operario anterior
-    return;
-  }
+    const confirmacion = confirm(`¿Estás seguro que quieres cambiar el operario?`);
+    if (!confirmacion) {
+      selectedTemporal[idCliente] = operarioAnterior; // Restauramos el operario anterior
+      return;
+    }
 
-  try {
+    try {
 
-    await axios.put(`https://backendcramirez.onrender.com/api/clientes/transferir/${idCliente}`, {
-      nuevoUsuarioOperario: nuevoUsuario,
-    }, {
-      withCredentials: true,
-    });
+      await axios.put(`https://backendcramirez.onrender.com/api/clientes/transferir/${idCliente}`, {
+        nuevoUsuarioOperario: nuevoUsuario,
+      }, {
+        withCredentials: true,
+      });
 
-    alert("Cliente transferido correctamente");
+      alert("Cliente transferido correctamente");
 
-    cliente.operario = nuevoUsuario;  // Actualizamos el operario en el objeto cliente
-    selectedTemporal[idCliente] = nuevoUsuario;  // Actualizamos el operario en el estado temporal
+      cliente.operario = nuevoUsuario;  // Actualizamos el operario en el objeto cliente
+      selectedTemporal[idCliente] = nuevoUsuario;  // Actualizamos el operario en el estado temporal
 
-  } catch (error) {
-    // Si hubo un error, mostramos un mensaje y restauramos el operario anterior
-    console.error("Error detallado:", error);
-    alert("Error al transferir cliente: " + (error.response?.data?.message || error.message));
+    } catch (error) {
+      // Si hubo un error, mostramos un mensaje y restauramos el operario anterior
+      console.error("Error detallado:", error);
+      alert("Error al transferir cliente: " + (error.response?.data?.message || error.message));
 
-    selectedTemporal[idCliente] = operarioAnterior;  // Restauramos el operario anterior
-  }
-};
+      selectedTemporal[idCliente] = operarioAnterior;  // Restauramos el operario anterior
+    }
+  };
 
 const exportar = () => {
   exportarClientesXLSX(clientes.value);

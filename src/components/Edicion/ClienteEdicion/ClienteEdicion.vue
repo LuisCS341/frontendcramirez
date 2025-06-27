@@ -125,12 +125,10 @@ const props = defineProps({
   form: Object
 });
 
-// ✅ Provincias según departamento
 const provinciasFiltradas = computed(() =>
     provincias.filter(p => p.departamentoId === props.form.departamento)
 );
 
-// ✅ Distritos según provincia
 const distritosFiltrados = computed(() =>
     distritos.filter(d => d.provinciaId === props.form.provincia)
 );
