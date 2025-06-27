@@ -198,6 +198,29 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.16);
   transform: translateY(-6px) scale(1.03);
 }
+.chart-container-grafico-rendimiento-mes {
+  width: 100%;
+  max-width: 680px;
+  min-width: 300px; /* Ajuste para pantallas pequeñas */
+  min-height: 300px;
+  padding: 20px;
+  margin: 0 auto; /* Centrado */
+}
+
+@media (max-width: 768px) {
+  .chart-container-grafico-rendimiento-mes {
+    max-width: 100%;
+    padding: 16px;
+    min-height: 250px; /* Ajuste para pantallas más pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container-grafico-rendimiento-mes {
+    padding: 12px;
+    min-height: 200px; /* Ajuste para pantallas muy pequeñas */
+  }
+}
 
 /* RESPONSIVE TABLET */
 @media (max-width: 1100px) {

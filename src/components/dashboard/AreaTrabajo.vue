@@ -1,6 +1,9 @@
 <template>
   <!-- Vista para el usuario con rol 3 -->
-
+  <div v-if="userRole === 3" class="graficos-container">
+    <GraficoContratos />
+    <GraficoRendimientoMes />
+  </div>
 
   <!-- Vista para usuarios con rol 1 o 2 -->
   <div v-if="userRole <= 2" class="graficos-container-operador">
