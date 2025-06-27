@@ -199,6 +199,7 @@
   transform: translateY(-6px) scale(1.03);
 }
 .chart-container-grafico-rendimiento-mes {
+  /* Ajuste para alinear con el gráfico de contratos */
   width: 100%;
   max-width: 680px;
   min-width: 300px; /* Ajuste para pantallas pequeñas */
