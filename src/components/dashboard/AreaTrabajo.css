@@ -192,6 +192,7 @@
   transition: box-shadow 0.3s, transform 0.3s;
   animation: fadeInUp 0.7s;
   margin: 0 auto; /* Centrado */
+  margin-top: 75px; /* Ajuste para alinear con el gráfico de contratos */
 }
 .chart-container-grafico-rendimiento-mes:hover {
   box-shadow: 0 8px 32px rgba(0,0,0,0.16);
