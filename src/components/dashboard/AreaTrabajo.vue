@@ -13,8 +13,8 @@
       <TiempoCliente />
       <MetaDia />
     </div>
-
-    <div v-if="userRole === 2" class="graficos-fila-grandes">
+    
+    <div class="graficos-fila-grandes">
       <GraficoContratos />
       <GraficoRendimientoMes />
     </div>
