@@ -41,7 +41,6 @@ export default createRouter({
                     component: PrincipalComponent,
                 },
                 { path: "clientes", component: TablaClientes },
-                { path: "formularios/editar-cliente/:idCliente", component: EdicionCliente },
                 { path: "clientes/mis-clientes", component: TablaMisClientes },
                 { path: "contratos/generacioncontrato", component: GeneracionContrato },
             ],
