@@ -142,7 +142,7 @@ const guardarEdicion = async (cliente) => {
   console.log("Payload a enviar:", payload);
 
   try {
-    const response = await axios.put("https://backendcramirez.onrender.com/api/clientes/editar", payload);
+    const response = await axios.put(`https://backendcramirez.onrender.com/api/clientes/${cliente.idCliente}`, payload);
     console.log("Cliente y lote actualizados:", response.data);
 
     Object.assign(cliente, response.data.cliente || {});

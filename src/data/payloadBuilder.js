@@ -113,7 +113,6 @@ export function buildLotePayload(idCliente, lote) {
         mantenimientoMensualLetras: lote.mantenimientoMensualLetras,
         estadoCuenta: lote.estadoCuenta,
         montoDeudaLetra: lote.montoDeudaLetra ,
-        cuotaPendientePago: lote.cuotaPendientePago,
         fechaEntrega: lote.fechaEntrega,
         cantidadCuotaCuentaRecaudadora: lote.cantidadCuotaCuentaRecaudadora,
     };
@@ -165,4 +164,5 @@ export const buildCuotaPayload=({idLote,cuota}) => ({
     cantidadCuotaLetras: cuota.cantidadCuotaLetras,
     cantidadCuotaCuentaRecaudadora: cuota.cantidadCuotaCuentaRecaudadora,
     cantidadCuotaBanco: cuota.cantidadCuotaBanco,
+    cuotaPendientePago: cuota.cuotaPendientePago,
 });
