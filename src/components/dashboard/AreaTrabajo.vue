@@ -1,26 +1,27 @@
 <template>
-  <!-- Vista para Administrador (userRole === 3) -->
-  <div v-if="userRole === 3" class="graficos-fila-grandes-administrador">
-    <GraficoContratos />
-    <GraficoRendimientoMes />
+  <div class="chart-container-grafico-contratos">
+  <div v-if="userRole === 3" class="graficos-container">
+      <GraficoContratos />
+      <GraficoRendimientoMes />
   </div>
 
-  <!-- Vista para Supervisor/Operador (userRole <= 2) -->
-  <div v-if="userRole <= 2">
-    <!-- Fila de métricas pequeñas -->
-    <div class="graficos-fila">
+  <div v-if="userRole <= 2"  class="graficos-container-operador">
+    <div v-if="userRole <= 2" class="graficos-fila">
       <ClientesRegistrados />
       <ContratosGenerados />
       <TiempoCliente />
       <MetaDia />
     </div>
 
-    <!-- Fila de gráficos grandes -->
-    <div class="graficos-fila-grandes">
+  <div class="chart-container-grafico-rendimiento-mes">
+    <div v-if="userRole <= 2" class="graficos-fila-grandes">
       <GraficoContratos />
       <GraficoRendimientoMes />
     </div>
+    </div>
   </div>
+</div>
+
 </template>
 
 <script>
