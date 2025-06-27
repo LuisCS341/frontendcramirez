@@ -3,33 +3,41 @@
   display: grid;
   width: 1400px;
   height: 800px;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-left: 255px;
-  background-color: #dcdcdc;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 24px;
 }
 
 /* Contenedor principal para supervisor/jefe */
 .graficos-container-operador {
   display: grid;
-  gap: 5px;
+  gap: 20px;
   width: 90vw;
   max-width: 1400px;
-  margin: 50px auto 0 auto;
+  margin: 20px auto 0 auto;
   margin-left: 250px;
-  padding: 10px;
+  padding: 24px;
   box-sizing: border-box;
   position: relative;
   z-index: 10;
   overflow-y: auto;
-  background-color: #dcdcdc;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* Fila de tarjetas pequeñas */
 .graficos-fila {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
-  row-gap: 1px;
-  padding: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 0;
+  margin-bottom: 20px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -37,8 +45,9 @@
 .graficos-fila-grandes {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  padding: 10px;
-  margin-top: 75px;
+  gap: 20px;
+  padding: 0;
+  margin-top: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -53,23 +62,26 @@
 
 /* Tarjeta general */
 .summary-card {
-  min-width: 150px;
-  max-width: 220px;
-  padding: 18px;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  min-width: 200px;
+  max-width: 280px;
+  padding: 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   font-family: 'Montserrat', sans-serif;
   margin: 0 auto;
-  transition: box-shadow 0.3s, transform 0.3s, all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: fadeInUp 0.7s;
+  backdrop-filter: blur(10px);
 }
 .summary-card:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
-  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  transform: translateY(-8px) scale(1.03);
+  border: 1px solid rgba(102, 126, 234, 0.3);
 }
 .icon-text {
   display: flex;
@@ -104,68 +116,77 @@
 
 /* Contenedor para Clientes Registrados */
 .chart-container-clientes-registrados {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 20px 18px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 28px 24px;
   margin: 0;
   min-width: 220px;
   max-width: 340px;
   width: 100%;
-  min-height: 180px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: fadeInUp 0.7s;
+  backdrop-filter: blur(10px);
 }
 .chart-container-clientes-registrados:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
-  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+  transform: translateY(-8px) scale(1.02);
+  border: 1px solid rgba(102, 126, 234, 0.3);
 }
 
 /* Contenedor para Contratos Generados */
 .chart-container-contratos-generados {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 20px 18px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 28px 24px;
   margin: 0;
   min-width: 220px;
   max-width: 340px;
   width: 100%;
-  min-height: 180px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: fadeInUp 0.7s;
+  backdrop-filter: blur(10px);
 }
 .chart-container-contratos-generados:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
-  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+  transform: translateY(-8px) scale(1.02);
+  border: 1px solid rgba(102, 126, 234, 0.3);
 }
 
 /* Contenedor para Gráfico de Contratos */
 .chart-container-grafico-contratos {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 20px 18px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 32px 28px;
   margin: 0;
-  min-width: 220px;
-  max-width: 340px;
+  min-width: 500px;
+  max-width: 700px;
   width: 100%;
-  min-height: 180px;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: fadeInUp 0.7s;
+  backdrop-filter: blur(10px);
 }
 .chart-container-grafico-contratos:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
-  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+  transform: translateY(-8px) scale(1.01);
+  border: 1px solid rgba(102, 126, 234, 0.3);
 }
 .chart-container-grafico-contratos h2 {
   font-size: 1.3rem;
@@ -176,26 +197,29 @@
 
 /* Contenedor para Gráfico de Rendimiento del Mes */
 .chart-container-grafico-rendimiento-mes {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
-  padding: 36px 32px 28px 32px;
-  min-width: 400px;
-  max-width: 680px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 32px 28px;
+  min-width: 500px;
+  max-width: 700px;
   width: 100%;
-  min-height: 390px;
+  min-height: 400px;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: fadeInUp 0.7s;
-  margin: 0 auto; /* Centrado */
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
 }
 .chart-container-grafico-rendimiento-mes:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
-  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+  transform: translateY(-8px) scale(1.01);
+  border: 1px solid rgba(102, 126, 234, 0.3);
 }
 
 /* RESPONSIVE TABLET */
