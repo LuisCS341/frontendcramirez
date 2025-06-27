@@ -19,7 +19,6 @@ import TablaMisClientes from "@/components/tablas/TablaTotalclientes.vue";
 
 // Contratos
 import GeneracionContrato from "@/components/contratos/GeneracionContrato.vue";
-import EdicionCliente from "@/components/formularios/Edicion/EdicionCliente.vue";
 
 export default createRouter({
     history: createWebHistory(),
