@@ -17,7 +17,7 @@
                 />
               </div>
             </form>
-            <button type="submit" class="btn-siguiente">SIGUIENTE</button>
+   
           </div>
           <div v-if="formStep === 2">
             <form @submit.prevent="formularioLote">
