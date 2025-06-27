@@ -1,6 +1,6 @@
 <template>
   <!-- Vista para el usuario con rol 3 -->
-  <div v-if="userRole === 3" class="graficos-container">
+  <div v-if="userRole === 2" class="graficos-container">
     <GraficoContratos />
     <GraficoRendimientoMes />
   </div>
@@ -14,12 +14,14 @@
       <MetaDia />
     </div>
     
-    <div class="graficos-fila-grandes">
-          <GraficoRendimientoMes />
+     <div class="chart-container-grafico-rendimiento-mes">
+    <div v-if="userRole <= 2" class="graficos-fila-grandes">
       <GraficoContratos />
-
+      <GraficoRendimientoMes />
+    </div>
     </div>
   </div>
+
 </template>
 
 
