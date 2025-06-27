@@ -6,7 +6,6 @@
       <div class="container">
 
         <div class="formulario-all">
-
              <div v-if="formStep === 1">
             <form @submit.prevent="formularioClientevarios">
               <Cliente
@@ -20,20 +19,16 @@
               </div>
             </form>
           </div>
-
           <div v-if="formStep === 2">
             <form @submit.prevent="formularioLote">
               <h3>Información de Copropietarios</h3>
-
               <label>Número de Copropietarios:</label>
               <input v-model.number="form.numCopropietarios" type="number" min="0" max="5"   @input="validateNumCopropietarios"/>
 
               <div v-for="(copropietario, index) in form.copropietarios" :key="index">
                 <Copropietario
                     :index="index"
-                    :copropietario="copropietario"
-                />
-
+                    :copropietario="copropietario"/>
                 <div v-if="copropietario.estadoCivilCopropietarios === 2">
                   <CopropietarioConyuge
                       :index="index"
