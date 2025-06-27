@@ -13,9 +13,10 @@
       <TiempoCliente />
       <MetaDia />
     </div>
+    
     <div class="graficos-fila-grandes">
-      <GraficoContratos />
       <GraficoRendimientoMes />
+      <GraficoContratos />
     </div>
   </div>
 </template>
