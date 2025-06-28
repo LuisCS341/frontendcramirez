@@ -10,7 +10,7 @@ export const operarios = [
     { id: 9, nombre: "Jaime Obando Barja", usuario: "jobando" },
     { id: 10, nombre: "Javier Silva Barrientos", usuario: "javich" },
     { id: 11, nombre: "Alanis Milenne Huaman Contreras", usuario: "analis" },
-    { id: 12, nombre: "Yarmeli", usuario: "yarmeli" },
+    { id: 12, nombre: "Yarmeli Ancco", usuario: "yarmeli" },
     {id:13,nombre:"Julio Francisco Boza Padilla", usuario:"jboza"},
     {id:14, nombre:"Susana Tineo",usuario: "stineo" },
     {id:15,nombre:"Marlene Contreras", usuario:"mcontretas"}
