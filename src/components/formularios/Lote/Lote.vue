@@ -209,7 +209,7 @@
         v-model="lote.mantenimientoMensual"
         required
         placeholder="Ingrese su Estado de Cuenta"
-        @input="lote.mantenimientoMensualLetras=numeroLetrasConNumerosDolares(lote.cuotaextraordinaria.mantenimientoMensual);"
+        @input="lote.mantenimientoMensualLetras=numeroLetrasConNumerosDolares(lote.mantenimientoMensual);"
     />
 
     <label>Mantenimiento Mensual en Letras:</label>
@@ -241,17 +241,6 @@
           readonly
       />
     </div>
-
-    <div>
-      <label>Cuotas Pendientes de Pago:</label>
-      <input
-          type="number"
-          v-model="lote.cuotaPendientePago"
-          placeholder="Ingrese Cuotas Pendientes de Pago"
-          required
-      />
-    </div>
-
 
     <div>
       <label>Fecha de Entrega:</label>
@@ -336,8 +325,6 @@ function limpiarCuotaExtraordinaria(lote) {
 function inicializarCuotaExtraordinaria(lote) {
   lote.cuotaextraordinaria = {
     cuotaExtraordinariaLote: "",
-    mantenimientoMensual: "",
-    mantenimientoMensualLetras: "",
     estadoCuenta: "",
     montoDeudaLetra: "",
     cuotaPendientePago: "",

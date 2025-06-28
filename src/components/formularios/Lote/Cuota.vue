@@ -1,149 +1,151 @@
 <template>
+  <div>
+    <h3>Cuota {{ index + 1 }}</h3>
 
-  <label>Cuota Inicial Incluye Separación:</label>
-  <input
-      v-model="lote.cuota.cuotaInicialIncluyeSeparacion"
-      type="text"
-      required
-      placeholder="Ingrese la Cuota Inicial Incluye Separación"
-      @input="
-      lote.cuota.cuotaInicialIncluyeSeparacion = lote.cuota.cuotaInicialIncluyeSeparacion.toString().replace(/[^0-9.]/g, '');
-      lote.cuota.cuotaInicialIncluyeSeparacionLetras = numeroLetrasSinDecimal(parseFloat(lote.cuota.cuotaInicialIncluyeSeparacion).toFixed(2));
-    "
-  />
+    <div>
+      <label>Letras Pendiente de Pago:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.letrasPendientePago"
+          required
+          placeholder="Letras Pendiente de Pago"
+      />
+    </div>
 
-  <label>Cuota Inicial Incluye Separación en Letras:</label>
-  <input
-      v-model="lote.cuota.cuotaInicialIncluyeSeparacionLetras"
-      type="text"
-      readonly
-      required
-  />
+    <div>
+      <label>Cuenta Recaudadora:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.cuentaRecaudadora"
+          required
+          placeholder="Cuenta Recaudadora"
+      />
+    </div>
 
-  <label>Cuota Inicial Fecha de Pago (agregar a base de datos):</label>
-  <input
-      v-model="lote.cuota.cuotaInicialFechaPago"
-      type="text"
-      readonly
-      required
-  />
+    <div>
+      <label>Cuota Inicial Incluye Separacion:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.cuotaInicialIncluyeSeparacion"
+          required
+          placeholder="Cuota Inicial Incluye Separacion"
+      />
+    </div>
+    <div>
+      <label>Cuota Inicial Incluye Separacion en Letras:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.cuotaInicialIncluyeSeparacionLetras"
+          required
+          placeholder="Cuota Inicial Incluye Separacion"
+      />
+    </div>
+    <div>
+      <label>Monto de Cuotas:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.montoCuotas"
+          required
+          placeholder="Monto de Cuotas"
+      />
+    </div>
+    <div>
+      <label>Monto de Cuota en Letras:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.montoCuotaLetras"
+          required
+          placeholder="Monto de Cuota en Letras"
+      />
+    </div>
+    <div>
+      <label>Fecha Pago:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.fechaPago"
+          required
+          placeholder="Fecha Pago"
+      />
+    </div>
 
-  <label>Cuota Inicial - Banco:</label>
-  <input
-      v-model="lote.cuota.cuotaInicialBanco"
-      type="text"
-      required
-      placeholder="Ingrese la Cuota Inicial - Banco"
-  />
+    <div>
+      <label>Cuota Inicial Banco:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.cuotaInicialBanco"
+          required
+          placeholder="Cuota Inicial Banco"
+      />
+    </div>
+    <div>
+      <label>Saldo de Lote:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.saldoLote"
+          required
+          placeholder="Saldo de Lote"
+      />
+    </div>
+    <div>
+      <label>Saldo de Lote Letras:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.saldoLoteLetras"
+          required
+          placeholder="Saldo de Lote Letras"
+      />
+    </div>
+    <div>
+      <label>Cantidad de Cuotas:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.cantidadCuotas"
+          required
+          placeholder="Cantidad de Cuotas"
+      />
+    </div>
+    <div>
+      <label>Cantidad Cuota Letras:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.cantidadCuotaLetras"
+          required
+          placeholder="Cantidad Cuota Letras"
+      />
+    </div>
+    <div>
+      <label>Cantidad Cuota Cuenta Recaudadora:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.cantidadCuotaCuentaRecaudadora"
+          required
+          placeholder="Cantidad Cuota Cuenta Recaudadora"
+      />
+    </div>
+    <div>
+      <label>Cantidad Cuota Banco:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.cantidadCuotaBanco"
+          required
+          placeholder="Cantidad Cuota Banco"
+      />
+    </div>
+    <div>
+      <label>Cuota Pendiente Pago:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.cuotaPendientePago"
+          required
+          placeholder="Cuota Pendiente Pago"
+      />
+    </div>
 
-  <label>Cuenta Recaudadora:</label>
-  <input
-      v-model="lote.cuota.cuentaRecaudadora"
-      type="text"
-      required
-      placeholder="Ingrese la Cuenta Recaudadora"
-  />
-
-  <label>Fecha de Pago:</label>
-  <input
-      v-model="lote.cuota.fechaPago"
-      type="text"
-      required
-      @input="formatearFecha($event, 'inicio')"
-      placeholder="dd/mm/aaaa"
-      maxlength="10"
-
-  />
-
-
-
-  <label>Saldo del Lote (pendiente a formula):</label>
-  <input
-      v-model="lote.cuota.saldoLote"
-      type="text"
-      required
-      placeholder="Ingrese el Saldo de Lote"
-      @input="
-      lote.cuota.saldoLote = lote.cuota.saldoLote.toString().replace(/[^0-9.]/g, '');
-      lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(parseFloat(lote.cuota.saldoLote).toFixed(2));
-    "
-  />
-
-  <label>Saldo de Lote en Letras:</label>
-  <input
-      v-model="lote.cuota.saldoLoteLetras"
-      type="text"
-      required
-      readonly
-  />
-
-
-  <label>Cantidad de Cuotas:</label>
-  <input
-      v-model="lote.cuota.cantidadCuotas"
-      type="text"
-      required
-      placeholder="Ingrese la Cantidad de Cuotas"
-      @input="
-      lote.cuota.cantidadCuotas = lote.cuota.cantidadCuotas.toString().replace(/[^0-9.]/g, '');
-      lote.cuota.cantidadCuotaLetras = numeroLetrasEntero((lote.cuota.cantidadCuotas));
-    "
-  />
-
-  <label>Cantidad de Cuotas en Letras:</label>
-  <input
-      v-model="lote.cuota.cantidadCuotaLetras"
-      type="text"
-      required
-      readonly
-  />
-
-
-  <label>Cantidad de Cuotas - Banco:</label>
-  <input
-      v-model="lote.cuota.cantidadCuotaBanco"
-      type="text"
-      required
-      placeholder="Ingrese la Cantidad de Cuotas - Banco"
-  />
-
-  <label>Cantidad de Cuotas Cuenta Recaudadora:</label>
-  <input
-      v-model="lote.cuota.cantidadCuotaCuentaRecaudadora"
-      type="text"
-      required
-      placeholder="Ingrese la Cantidad de Cuotas Cuenta Recaudadora"
-  />
-
-
-
-  <label>Monto de Cuotas:</label>
-  <input
-      v-model="lote.cuota.montoCuotas"
-      type="number"
-      required
-      placeholder="Ingrese su Monto en Cuotas"
-      step="any"
-      @input="
-      lote.cuota.montoCuotas = lote.cuota.montoCuotas.toString().replace(/[^0-9.]/g, '');
-      lote.cuota.montoCuotaLetras = numeroLetrasSinDecimal(parseFloat(lote.cuota.montoCuotas).toFixed(2));
-    "
-  />
-
-  <label>Monto De Cuota en Letras:</label>
-  <input
-      v-model="lote.cuota.montoCuotaLetras"
-      type="text"
-      required
-      readonly
-
-  />
+  </div>
 
 </template>
 
 <script setup>
-
-import {numeroLetrasEntero, numeroLetrasSinDecimal} from "@/data/numeroLetrasConNumeros.js";
 
 defineProps({
   lote: {
@@ -153,8 +155,7 @@ defineProps({
   index: {
     type: Number,
     required: true
-  }
+  },
 });
-
 
 </script>

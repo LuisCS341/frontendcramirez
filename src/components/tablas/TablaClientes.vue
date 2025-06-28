@@ -58,6 +58,7 @@
 <script setup>
 import "@/assets/tablas/Tablas.css";
 import axios from "axios";
+import { useRouter } from 'vue-router'
 import {operarios} from "@/data/operarios.js";
 import {tiposContrato} from "@/data/tiposContrato.js";
 import {computed, onMounted, reactive, ref} from "vue";
@@ -66,23 +67,23 @@ import MostrarDatosCliente from "@/components/tablas/MostrarDatosCliente.vue";
 import {exportarClientesXLSX} from "@/data/exportClientes.js";
 
 
-  const clientes = ref([]);
-  const selectedTemporal = reactive({});
-  const busquedaGlobal = ref("");
-
-  const filtros = reactive({
-    nombresApellidos: "",
-    direccion: "",
-    correoElectronico: "",
-    celularCliente: "",
-    documentoIdentificacion: "",
-    numeroIdentificacion: "",
-    estadoCivil: "",
-    ocupacion: "",
-    residencia: "",
-    prefijoPais: "",
-    idTipoContrato: "",
-  });
+const clientes = ref([]);
+const selectedTemporal = reactive({});
+const busquedaGlobal = ref("");
+const router = useRouter()
+const filtros = reactive({
+  nombresApellidos: "",
+  direccion: "",
+  correoElectronico: "",
+  celularCliente: "",
+  documentoIdentificacion: "",
+  numeroIdentificacion: "",
+  estadoCivil: "",
+  ocupacion: "",
+  residencia: "",
+  prefijoPais: "",
+  idTipoContrato: "",
+});
 
   const obtenerDatosCombinados = async () => {
     try {
@@ -133,11 +134,56 @@ import {exportarClientesXLSX} from "@/data/exportClientes.js";
   };
 
 
-  const activarEdicion = (cliente) => {
-    if (cliente) {
-      cliente.editando = true;
-    }
+const activarEdicion = (cliente) => {
+  if (cliente) {
+    cliente.editando = true;
+  }
+};
+  /*
+const activarEdicion = (cliente) => {
+  if (cliente && cliente.idCliente) {
+    router.push({
+      name: 'PlantillaEdicion',
+      params: { idCliente: cliente.idCliente }
+    });
+  }
+};
+
+   */
+
+const guardarEdicion = async (cliente) => {
+  if (!cliente || !cliente.lote) return;
+
+  const clienteLimpio = { ...cliente };
+  delete clienteLimpio.editando;
+
+  const loteLimpio = { ...cliente.lote };
+  delete loteLimpio.editando;
+
+  const payload = {
+    cliente: clienteLimpio,
+    lote: loteLimpio,
   };
+
+  console.log("Payload a enviar:", payload);
+
+  try {
+    const response = await axios.put(`https://backendcramirez.onrender.com/api/clientes/${cliente.idCliente}`, payload);
+    console.log("Cliente y lote actualizados:", response.data);
+
+    Object.assign(cliente, response.data.cliente || {});
+    Object.assign(cliente.lote, response.data.lote || {});
+
+    cliente.editando = false;
+    if (cliente.lote) {
+      cliente.lote.editando = false;
+    }
+  } catch (error) {
+    console.error("Error al actualizar cliente y lote:", error.response?.data || error.message);
+    alert("Hubo un error al guardar los cambios.");
+  }
+};
+
   const formatearFecha = (event, tipo) => {
     let input = event.target.value;
     input = input.replace(/[^0-9]/g, '');

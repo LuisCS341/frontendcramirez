@@ -1234,7 +1234,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 83 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 25
+        proyectoId: 28
     },
     { id: 47,
         nombre: 'RINCONADA DEL LAGO',
@@ -1261,7 +1261,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 83 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 25
+        proyectoId: 28
     },
     { id: 48,
         nombre: 'RINCONADA DEL LAGO',
@@ -1288,6 +1288,6 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 80 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 25
+        proyectoId: 28
     }
 ]

@@ -7,7 +7,7 @@
 
         <div class="formulario-all">
 
-             <div v-if="formStep === 1">
+          <div v-if="formStep === 1">
             <form @submit.prevent="formularioClientevarios">
               <Cliente
                   :form="form"
@@ -18,6 +18,8 @@
                     :form="form"
                 />
               </div>
+
+              <button type="submit">Siguiente</button>
             </form>
           </div>
 
@@ -76,6 +78,18 @@
           </div>
 
           <div v-if="formStep === 4">
+            <form @submit.prevent="formularioCuota" v-if="form.numLotes > 0">
+              <div v-for="(lote, index) in form.lotes" :key="index">
+                <Cuota
+                    :lote="lote"
+                    :index="index"
+                />
+              </div>
+              <button type="submit">Siguiente</button>
+            </form>
+          </div>
+
+          <div v-if="formStep === 5">
             <form @submit.prevent="formularioLinderos" v-if="form.numLotes > 0">
               <div v-for="(lote, index) in form.lotes" :key="index">
                 <Lindero
@@ -88,7 +102,7 @@
           </div>
 
 
-          <div v-if="formStep === 5">
+          <div v-if="formStep === 6">
               <ResumenRegistro
                   :form="form"
                   :obtenerNombrePais="obtenerNombrePais"
@@ -113,7 +127,16 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
 import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
-import { buildClientePayload, buildClienteConyugePayload,buildCopropietarioPayload, buildConyugePayload, buildLotePayload ,buildCuotaExtraordinariaPayload,buildLinderoPayload} from '@/data/payloadBuilder.js'
+import {
+  buildClientePayload,
+  buildClienteConyugePayload,
+  buildCopropietarioPayload,
+  buildConyugePayload,
+  buildLotePayload,
+  buildCuotaExtraordinariaPayload,
+  buildLinderoPayload,
+  buildCuotaPayload
+} from '@/data/payloadBuilder.js'
 import {obtenerNombreResidencia, obtenerNombrePais, obtenerNombreDepartamento, obtenerNombreProvincia, obtenerNombreDistrito, obtenerNombreProyecto} from '@/data/utils.js';
 import Cliente from "@/components/formularios/Cliente/Cliente.vue";
 import ClienteConyuge from "@/components/formularios/Cliente/ClienteConyuge.vue";
@@ -126,6 +149,7 @@ import "@/components/formularios/Cliente/Cliente.css"
 import {ubicaciones} from "@/data/ubicaciones.js";
 import {proyectos, proyectosT3Ids} from "@/data/proyectos.js";
 import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
+import Cuota from "@/components/formularios/Lote/Cuota.vue";
 
 
 const formStep = ref(1);
@@ -264,7 +288,23 @@ watch(() => form.value.numLotes, (newVal) => {
     mantenimientoMensualLetras: "",
     estadoCuenta: "",
     montoDeudaLetra: "",
-    cuotaPendientePago: "",
+    cuota:{
+      letrasPendientePago:"",
+      cuentaRecaudadora:"",
+      cuotaInicialIncluyeSeparacion:"",
+      CuotaInicialIncluyeSeparacionLetras:"",
+      montoCuotas:"",
+      montoCuotaLetras:"",
+      fechaPago:"",
+      cuotaInicialBanco:"",
+      saldoLote:"",
+      saldoLoteLetras:"",
+      cantidadCuotas:"",
+      cantidadCuotaLetras:"",
+      cantidadCuotaCuentaRecaudadora:"",
+      cantidadCuotaBanco:"",
+      cuotaPendientePago: "",
+    },
     lindero:{
       porLaDerechaLindero: "",
       porLaIzquierdaLindero: "",
@@ -464,6 +504,28 @@ const formularioCuotaExtraordinaria = async () => {
     formStep.value++;
   } catch (error) {
     console.error('Error al registrar la CuotaExtraordinaria:', error.response?.data || error.message);
+  }
+};
+
+const formularioCuota = async () => {
+  if (!form.value?.lotes?.length) {
+    console.warn('No hay lotes disponibles para registrar Cuota.');
+    return;
+  }
+
+  try {
+    const requests = form.value.lotes.map(lote => {
+      const payload = buildCuotaPayload(lote);
+      return axios.post('https://backendcramirez.onrender.com/api/cuota', payload);
+    });
+
+    await Promise.all(requests);
+
+    console.log('Cuota registrados con éxito.');
+
+    formStep.value++;
+  } catch (error) {
+    console.error('Error al registrar los Cuota:', error.response?.data || error.message);
   }
 };
 
