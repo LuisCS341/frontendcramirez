@@ -2,15 +2,7 @@
   <div>
     <h3>Cuota {{ index + 1 }}</h3>
 
-    <div>
-      <label>Letras Pendiente de Pago:</label>
-      <input
-          type="text"
-          v-model="lote.cuota.letrasPendientePago"
-          required
-          placeholder="Letras Pendiente de Pago"
-      />
-    </div>
+
 
     <div>
       <label>Cuenta Recaudadora:</label>
@@ -59,7 +51,7 @@
       />
     </div>
     <div>
-      <label>Fecha Pago:</label>
+      <label>Fecha Pago: - NO SE COLOCA</label>
       <input
           type="text"
           v-model="lote.cuota.fechaPago"
@@ -69,7 +61,7 @@
     </div>
 
     <div>
-      <label>Cuota Inicial Banco:</label>
+      <label>Cuota Inicial Banco: - INGRESA DATO BANCO</label>
       <input
           type="text"
           v-model="lote.cuota.cuotaInicialBanco"
@@ -123,7 +115,7 @@
       />
     </div>
     <div>
-      <label>Cantidad Cuota Banco:</label>
+      <label>Cantidad Cuota Banco:- INGRESA DATO BANCO</label>
       <input
           type="text"
           v-model="lote.cuota.cantidadCuotaBanco"
@@ -140,7 +132,15 @@
           placeholder="Cuota Pendiente Pago"
       />
     </div>
-
+    <div>
+      <label>Letras Pendiente de Pago:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.letrasPendientePago"
+          required
+          placeholder="Letras Pendiente de Pago"
+      />
+    </div>
   </div>
 
 </template>
