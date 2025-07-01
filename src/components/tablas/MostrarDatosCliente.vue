@@ -13,7 +13,7 @@
 <script setup>
 import { computed } from 'vue'
 
-import {getConyuge, getCopropietario, getCuotaExtraordinaria, getLote, getLindero} from "@/data/funcionesGetTablaClientes.js";
+import {getConyuge, getCopropietario, getCuotaExtraordinaria, getCuota,getLindero} from "@/data/funcionesGetTablaClientes.js";
 
 const props = defineProps({
   cliente: Object,
@@ -33,6 +33,9 @@ const modelo = computed({
       switch (props.columna.nested) {
         case 'lindero':
           getLindero(props.fila)[props.columna.key] = value;
+          break;
+          case 'cuota':
+            getCuota(props.fila)[props.columna.key] = value;
           break;
         case 'copropietario':
           getCopropietario(props.fila)[props.columna.key] = value;
@@ -63,6 +66,7 @@ const modelo = computed({
 const valorMostrado = computed(() => {
   return getLindero(props.fila)?.[props.columna.key] ??
       getConyuge(props.fila)?.[props.columna.key] ??
+      getCuota(props.fila)?.[props.columna.key] ??
       getCopropietario(props.fila)?.[props.columna.key] ??
       getCuotaExtraordinaria(props.fila)?.[props.columna.key] ??
       props.fila.lote?.[props.columna.key] ??
@@ -74,6 +78,7 @@ const campoEditable = computed(() => {
   const valor =
       getLindero(props.fila)?.[props.columna.key] ??
       getConyuge(props.fila)?.[props.columna.key] ??
+      getCuota(props.fila)?.[props.columna.key] ??
       getCopropietario(props.fila)?.[props.columna.key] ??
       getCuotaExtraordinaria(props.fila)?.[props.columna.key] ??
       props.fila.lote?.[props.columna.key] ??
@@ -86,6 +91,7 @@ const campoEditable = computed(() => {
 const obtenerValor = (key) =>
     getLindero(props.fila)?.[key] ??
     getConyuge(props.fila)?.[key] ??
+    getCuota(props.fila)?.[key] ??
     getCopropietario(props.fila)?.[key] ??
     getCuotaExtraordinaria(props.fila)?.[key] ??
     props.fila.lote?.[key] ??

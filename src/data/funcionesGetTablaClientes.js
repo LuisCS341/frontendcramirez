@@ -4,6 +4,10 @@ export const getLindero = (fila) => {
     return fila?.lote?.lindero || {};
 };
 
+export const getCuota = (fila) => {
+    return fila?.lote?.cuota || {};
+};
+
 export const getCuotaExtraordinaria = (fila) => {
     return Array.isArray(fila?.lote?.cuotasExtraordinarias) && fila.lote.cuotasExtraordinarias.length > 0
         ? fila.lote.cuotasExtraordinarias[0]

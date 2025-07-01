@@ -254,6 +254,24 @@
     </div>
 
     <div>
+      <label>Saldo de Lote:</label>
+      <input
+          type="text"
+          v-model="lote.saldoLote"
+          required
+          placeholder="Saldo de Lote"
+      />
+    </div>
+    <div>
+      <label>Saldo de Lote Letras:</label>
+      <input
+          type="text"
+          v-model="lote.saldoLoteLetras"
+          required
+          placeholder="Saldo de Lote Letras"
+      />
+    </div>
+    <div>
       <label><strong>¿Tiene cuota extraordinaria?</strong></label>
       <div class="contenedor-radio-tarjetas">
         <label class="tarjeta-radio">

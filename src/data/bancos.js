@@ -1,4 +1,4 @@
-export const Bancos = [
+export const bancos = [
     { id: 1, nombre: 'Banco de Crédito del Perú (BCP)' },
     { id: 2, nombre: 'BBVA Perú' },
     { id: 3, nombre: 'Interbank' },

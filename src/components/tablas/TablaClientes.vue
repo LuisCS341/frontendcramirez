@@ -107,7 +107,6 @@ const filtros = reactive({
         const cliente = clienteLote.cliente;
         const lote = clienteLote.lote;
         selectedTemporal[cliente.idCliente] = cliente.operario || "";
-
         return {
           ...cliente,
           lote,

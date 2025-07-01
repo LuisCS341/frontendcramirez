@@ -60,8 +60,8 @@
             <th>MONTO DE CUOTAS (CLIENTE)</th>
             <th>CANTIDAD CUOTA EXTRAORDINARIA (CLIENTE)</th>
             <th>MONTO DE CUOTA EXTRAORDINARIA (CLIENTE)</th>
-            <th>MANT.  MENSUAL EN NUM (CLIENTE)</th>
-            <th>MANT.  MENSUAL EN LETRAS (CLIENTE)</th>
+            <th>MANT. MENSUAL EN NUM (CLIENTE)</th>
+            <th>MANT. MENSUAL EN LETRAS (CLIENTE)</th>
             <th>ESTADO DE CUENTA (CLIENTE) (DE TENER DEUDA PONER MONTO)</th>
             <th>MONTO DE DEUDA EN LETRAS (CLIENTE)</th>
             <th>CUOTAS PENDIENTES DE PAGO</th>
@@ -107,9 +107,9 @@
             <td>{{ fila.cliente.estadoCivil ?? '-'}}</td>
             <td>{{ getCopropietario(fila.cliente).estadoCivilCopropietarios ?? '-'}}</td>
             <td>{{ getCopropietario(fila.cliente).direccionCopropietarios ?? '-'}}</td>
-            <td>{{ getConyuge(fila.cliente).distritoConyuge ?? '-' }}</td>
-            <td>{{ getConyuge(fila.cliente).provinciaConyuge ?? '-'}}</td>
-            <td>{{ getConyuge(fila.cliente).departamentoConyuge ?? '-'}}</td>
+            <td>{{fila.cliente.distrito ?? '-' }}</td>
+            <td>{{ fila.cliente.provincia ?? '-'}}</td>
+            <td>{{ fila.cliente.departamento ?? '-'}}</td>
             <td>{{ fila.cliente.ocupacion ?? '-'}}</td>
             <td>{{ getConyuge(fila.cliente).numeroIdentificacionConyuge ?? '-' }}</td>
             <td>{{ getConyuge(fila.cliente).documentoIdentificacionConyuge ?? '-' }}</td>
@@ -121,15 +121,15 @@
             <td>{{ getConyuge(fila.cliente).departamentoConyuge ?? '-' }}</td>
             <td>{{ getLote(fila).costoLote ?? '-' }}</td>
             <td>{{ getLote(fila).costoLoteLetras ?? '-' }}</td>
-            <td>{{ getLote(fila).cantidadCuotas ?? '-' }}</td>
-            <td>{{ getLote(fila).montoCuotas ?? '-' }}</td>
+            <td>{{ getCuota(fila).cantidadCuotas ?? '-' }}</td>
+            <td>{{ getCuota(fila).montoCuotas ?? '-' }}</td>
             <td>{{ getCuotaExtraordinaria(fila)?.cantidadCuotaExtraordinaria ?? '-' }}</td>
             <td>{{ getCuotaExtraordinaria(fila)?.montoCuotaExtraordinaria ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(fila)?.mantenimientoMensual ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(fila)?.mantenimientoMensualLetras ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(fila)?.estadoCuenta ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(fila)?.montoDeudaLetra ?? '-' }}</td>
-            <td>{{ getCuotaExtraordinaria(fila)?.cuotaPendientePago ?? '-' }}</td>
+            <td>{{ getLote(fila)?.mantenimientoMensual ?? '-' }}</td>
+            <td>{{ getLote(fila)?.mantenimientoMensualLetras ?? '-' }}</td>
+            <td>{{ getLote(fila)?.estadoCuenta ?? '-' }}</td>
+            <td>{{ getLote(fila)?.montoDeudaLetra ?? '-' }}</td>
+            <td>{{ getCuota(fila)?.cuotaPendientePago ?? '-' }}</td>
             <td>{{ fila.cliente.correoElectronico ?? '-' }}</td>
             <td>{{ fila.cliente.celularCliente ?? '-' }}</td>
           </tr>
@@ -153,6 +153,7 @@ import {
   getLindero,
   getCuotaExtraordinaria,
   getConyuge,
+  getCuota,
   getCopropietario,
 } from "@/data/funcionesGetTablaClientes.js";
 
@@ -170,7 +171,7 @@ onMounted(async () => {
 
 const obtenerDatosCombinados = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/api/clientes/conlotes", {
+    const response = await axios.get("https://backendcramirez.onrender.com/api/clientes/conlotes", {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
@@ -247,19 +248,15 @@ const descargarWordT1 = async (cliente) => {
       cci: lote?.cci ?? '-',
       mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
-      cantidadCuotas: lote?.cantidadCuotas ?? '-',
-      montoCuotas: lote?.montoCuotas ?? '-',
+      cantidadCuotas: cuota?.cantidadCuotas ?? '-',
+      montoCuotas: cuota?.montoCuotas ?? '-',
       pagoInicial: lote?.pagoInicial ?? '-',
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
       costoLote: lote?.costoLote ?? '-',
       montoLetras: (lote?.montoLetras ?? '-' ).toUpperCase() ,
-      cuentaRecaudadora: (lote?.cuentaRecaudadora ?? '-' ).toUpperCase() ,
       areaLote: lote?.areaLote ?? '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
-      precioMetroCuadradoLetras: (lote?.precioMetroCuadradoLetras ?? '-' ).toUpperCase() ,
-      precioMetroCuadrado: lote?.precioMetroCuadrado ?? '-' ,
-      provinciaMatriz: (lote?.provinciaMatriz ?? '-' ).toUpperCase() ,
       numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
       direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
       fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
@@ -275,13 +272,13 @@ const descargarWordT1 = async (cliente) => {
       idClienteCopropietarios: copropietario?.idClienteCopropietarios ?? '-' ,
       nombresApellidosCopropietarios: (copropietario?.nombresApellidosCopropietarios ?? '-').toUpperCase() ,
       numeroIdentificacionCopropietarios: (copropietario?.numeroIdentificacionCopropietarios ?? '-').toUpperCase() ,
-      ocupacionCopropietarios: copropietario?.ocupacionCopropietarios ?? '-' ,
-      documentoIdentificacionCopropietarios: copropietario?.documentoIdentificacionCopropietarios ?? '-',
-      direccionCopropietarios: copropietario?.direccionCopropietarios ?? '-' ,
-      distritoCopropietarios: copropietario?.distritoCopropietarios ?? '-' ,
-      provinciaCopropietarios: copropietario?.provinciaCopropietarios ?? '-' ,
-      departamentoCopropietarios: copropietario?.departamentoCopropietarios ?? '-' ,
-      estadoCivilCopropietarios: copropietario?.estadoCivilCopropietarios ?? '-' ,
+      ocupacionCopropietarios: (copropietario?.ocupacionCopropietarios ?? '-').toUpperCase() ,
+      documentoIdentificacionCopropietarios: (copropietario?.documentoIdentificacionCopropietarios ?? '-').toUpperCase() ,
+      direccionCopropietarios: (copropietario?.direccionCopropietarios ?? '-').toUpperCase() ,
+      distritoCopropietarios: (copropietario?.distritoCopropietarios ?? '-').toUpperCase() ,
+      provinciaCopropietarios: (copropietario?.provinciaCopropietarios ?? '-').toUpperCase() ,
+      departamentoCopropietarios: (copropietario?.departamentoCopropietarios ?? '-').toUpperCase() ,
+      estadoCivilCopropietarios: (copropietario?.estadoCivilCopropietarios ?? '-').toUpperCase() ,
       porElFrente: lindero?.porElFrente ?? '-' ,
       porLaDerecha: lindero?.porLaDerecha ?? '-' ,
       porLaIzquierda: lindero?.porLaIzquierda ?? '-' ,
@@ -289,6 +286,7 @@ const descargarWordT1 = async (cliente) => {
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
+
 
     doc.setData(datos);
 
@@ -349,6 +347,7 @@ const descargarWordT2 = async (cliente) => {
     const conyuge = getConyuge(cliente.cliente);
     const copropietario = getCopropietario(cliente.cliente);
     const lindero = getLindero(cliente);
+    const cuota = getCuota(cliente);
     const cuotaExtra = getCuotaExtraordinaria(cliente);
 
     const datos = {
@@ -375,8 +374,8 @@ const descargarWordT2 = async (cliente) => {
       cci: lote?.cci ?? '-',
       mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
-      cantidadCuotas: lote?.cantidadCuotas ?? '-',
-      montoCuotas: lote?.montoCuotas ?? '-',
+      cantidadCuotas: cuota?.cantidadCuotas ?? '-',
+      montoCuotas: cuota?.montoCuotas ?? '-',
       pagoInicial: lote?.pagoInicial ?? '-',
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
@@ -486,8 +485,8 @@ const descargarWordT3 = async (cliente) => {
       cci: lote?.cci ?? '-',
       mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
-      cantidadCuotas: lote?.cantidadCuotas ?? '-',
-      montoCuotas: lote?.montoCuotas ?? '-',
+      cantidadCuotas: cuota?.cantidadCuotas ?? '-',
+      montoCuotas: cuota?.montoCuotas ?? '-',
       pagoInicial: lote?.pagoInicial ?? '-',
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
@@ -524,6 +523,7 @@ const descargarWordT3 = async (cliente) => {
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
+
 
     doc.setData(datos);
 

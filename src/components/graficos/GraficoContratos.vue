@@ -74,9 +74,9 @@ onMounted(() => {
   border-radius: 8px;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 395px;
   width: 340px;
-  margin-top: -90px;
+  margin-top: 130px;
   margin-left: 30px;
   text-align: center;
 }
