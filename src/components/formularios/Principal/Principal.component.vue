@@ -103,15 +103,15 @@
 
 
           <div v-if="formStep === 6">
-              <ResumenRegistro
-                  :form="form"
-                  :obtenerNombrePais="obtenerNombrePais"
-                  :obtenerNombreResidencia="obtenerNombreResidencia"
-                  :obtenerNombreDepartamento="obtenerNombreDepartamento"
-                  :obtenerNombreProvincia="obtenerNombreProvincia"
-                  :obtenerNombreDistrito="obtenerNombreDistrito"
-                  :obtenerNombreProyecto="obtenerNombreProyecto"
-              />
+            <ResumenRegistro
+                :form="form"
+                :obtenerNombrePais="obtenerNombrePais"
+                :obtenerNombreResidencia="obtenerNombreResidencia"
+                :obtenerNombreDepartamento="obtenerNombreDepartamento"
+                :obtenerNombreProvincia="obtenerNombreProvincia"
+                :obtenerNombreDistrito="obtenerNombreDistrito"
+                :obtenerNombreProyecto="obtenerNombreProyecto"
+            />
             <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
           </div>
 
@@ -150,6 +150,7 @@ import {ubicaciones} from "@/data/ubicaciones.js";
 import {proyectos, proyectosT3Ids} from "@/data/proyectos.js";
 import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
 import Cuota from "@/components/formularios/Lote/Cuota.vue";
+import {numeroALetras} from "@/data/numeroLetrasConNumeros.js";
 
 
 const formStep = ref(1);
@@ -187,10 +188,10 @@ const form = ref({
     prefijoTelefonicoClienteConyuge: 8,
     numTelefonicoClienteConyuge: '',
   },
-    numCopropietarios: 0,
-    copropietarios: [],
-    numLotes: 0,
-    lotes: []
+  numCopropietarios: 0,
+  copropietarios: [],
+  numLotes: 0,
+  lotes: []
 });
 
 watch(() => form.value.numCopropietarios, (newValue) => {
@@ -286,6 +287,8 @@ watch(() => form.value.numLotes, (newVal) => {
     montoDeudaLetra: '',
     saldoLote:'',
     saldoLoteLetras:'',
+    alicuota:'',
+    alicuotaLetras:'',
     cuota:{
       letrasPendientePago:'',
       cuentaRecaudadora:'',
@@ -730,5 +733,22 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
     { deep: true }
 );
 
+watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
+
+      const areaLote = parseFloat(lote.areaLote);
+      const areaMatriz = parseFloat(lote.areaMatriz);
+
+      if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+        const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
+        lote.alicuota = alicuota.toFixed(4);
+        lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
+      } else {
+        lote.alicuota= 0;
+        lote.alicuotaLetras = '';
+      }
+    });
+    },
+    { deep: true, immediate: true }
+);
 
 </script>

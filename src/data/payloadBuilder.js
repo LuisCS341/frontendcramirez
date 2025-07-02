@@ -117,6 +117,8 @@ export function buildLotePayload(idCliente, lote) {
         cantidadCuotaCuentaRecaudadora: lote.cantidadCuotaCuentaRecaudadora,
         saldoLote: lote.saldoLote,
         saldoLoteLetras: lote.saldoLoteLetras,
+        alicuota: lote.alicuota,
+        alicuotaLetras: lote.alicuotaLetras,
     };
 }
 
