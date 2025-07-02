@@ -32,17 +32,6 @@
           placeholder="Cantidad Cuota Cuenta Recaudadora"
       />
     </div>
-
-    <div>
-      <label>Cantidad de Cuotas Banco:</label>
-      <input
-          type="text"
-          v-model="lote.cuota.cantidadCuotaBanco"
-          required
-          placeholder="Cantidad de Cuotas Banco"
-      />
-    </div>
-
     <div>
       <label>Monto de Cuotas:</label>
       <input
