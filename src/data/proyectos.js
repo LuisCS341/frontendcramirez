@@ -10,7 +10,7 @@ export const proyectos = [
     {id: 9, nombre: 'GREEN VIEW'},
     {id: 10, nombre: 'JUMEIRAH LAKE'},
     {id: 11, nombre: 'LA CALERA'},
-    {id: 12, nombre: 'LA RESERVA'},
+    {id: 12, nombre: 'LA RESERVA DE HUARAL'},
     {id: 13, nombre: 'LACHAY VIEW'},
     {id: 14, nombre: 'LAGOON CENTER'},
     {id: 15, nombre: 'LAGOON VIEW'},
@@ -27,7 +27,6 @@ export const proyectos = [
     {id: 26, nombre: 'URBAN RESIDENCIAL'},
     {id: 27, nombre: 'VILLA PORTON'},
     {id: 28, nombre: 'VIÑA DEL MAR'}
-
 ];
 
 export const proyectosT3Ids = [18, 7, 21, 5, 3, 27, 26]; // ✅ Correcto

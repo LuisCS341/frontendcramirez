@@ -150,13 +150,14 @@ const activarEdicion = (cliente) => {
 
    */
 
-const guardarEdicion = async (cliente) => {
-  if (!cliente || !cliente.lote) return;
+const guardarEdicion = async (cliente, lote) => {
+  if (!cliente || !lote) return;
 
   const clienteLimpio = { ...cliente };
   delete clienteLimpio.editando;
+  delete clienteLimpio.lote;
 
-  const loteLimpio = { ...cliente.lote };
+  const loteLimpio = { ...lote };
   delete loteLimpio.editando;
 
   const payload = {
@@ -171,17 +172,17 @@ const guardarEdicion = async (cliente) => {
     console.log("Cliente y lote actualizados:", response.data);
 
     Object.assign(cliente, response.data.cliente || {});
-    Object.assign(cliente.lote, response.data.lote || {});
+    Object.assign(lote, response.data.lote || {});
 
     cliente.editando = false;
-    if (cliente.lote) {
-      cliente.lote.editando = false;
-    }
+    lote.editando = false;
+
   } catch (error) {
     console.error("Error al actualizar cliente y lote:", error.response?.data || error.message);
     alert("Hubo un error al guardar los cambios.");
   }
 };
+
 
   const formatearFecha = (event, tipo) => {
     let input = event.target.value;

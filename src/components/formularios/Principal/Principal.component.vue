@@ -62,6 +62,17 @@
           </div>
 
           <div v-if="formStep === 3">
+            <form @submit.prevent="formularioLinderos" v-if="form.numLotes > 0">
+              <div v-for="(lote, index) in form.lotes" :key="index">
+                <Lindero
+                    :lote="lote"
+                    :index="index"
+                />
+              </div>
+              <button type="submit">Siguiente</button>
+            </form>
+          </div>
+          <div v-if="formStep === 4">
             <form @submit.prevent="formularioCuotaExtraordinaria">
               <div v-for="(lote, index) in form.lotes" :key="index">
 
@@ -77,7 +88,7 @@
             </form>
           </div>
 
-          <div v-if="formStep === 4">
+          <div v-if="formStep === 5">
             <form @submit.prevent="formularioCuota" v-if="form.numLotes > 0">
               <div v-for="(lote, index) in form.lotes" :key="index">
                 <Cuota
@@ -89,29 +100,17 @@
             </form>
           </div>
 
-          <div v-if="formStep === 5">
-            <form @submit.prevent="formularioLinderos" v-if="form.numLotes > 0">
-              <div v-for="(lote, index) in form.lotes" :key="index">
-                <Lindero
-                    :lote="lote"
-                    :index="index"
-                />
-              </div>
-              <button type="submit">Siguiente</button>
-            </form>
-          </div>
-
 
           <div v-if="formStep === 6">
-            <ResumenRegistro
-                :form="form"
-                :obtenerNombrePais="obtenerNombrePais"
-                :obtenerNombreResidencia="obtenerNombreResidencia"
-                :obtenerNombreDepartamento="obtenerNombreDepartamento"
-                :obtenerNombreProvincia="obtenerNombreProvincia"
-                :obtenerNombreDistrito="obtenerNombreDistrito"
-                :obtenerNombreProyecto="obtenerNombreProyecto"
-            />
+              <ResumenRegistro
+                  :form="form"
+                  :obtenerNombrePais="obtenerNombrePais"
+                  :obtenerNombreResidencia="obtenerNombreResidencia"
+                  :obtenerNombreDepartamento="obtenerNombreDepartamento"
+                  :obtenerNombreProvincia="obtenerNombreProvincia"
+                  :obtenerNombreDistrito="obtenerNombreDistrito"
+                  :obtenerNombreProyecto="obtenerNombreProyecto"
+              />
             <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
           </div>
 
@@ -188,10 +187,10 @@ const form = ref({
     prefijoTelefonicoClienteConyuge: 8,
     numTelefonicoClienteConyuge: '',
   },
-  numCopropietarios: 0,
-  copropietarios: [],
-  numLotes: 0,
-  lotes: []
+    numCopropietarios: 0,
+    copropietarios: [],
+    numLotes: 0,
+    lotes: []
 });
 
 watch(() => form.value.numCopropietarios, (newValue) => {
@@ -285,8 +284,6 @@ watch(() => form.value.numLotes, (newVal) => {
     mantenimientoMensualLetras: '',
     estadoCuenta: '',
     montoDeudaLetra: '',
-    saldoLote:'',
-    saldoLoteLetras:'',
     alicuota:'',
     alicuotaLetras:'',
     cuota:{
@@ -303,6 +300,8 @@ watch(() => form.value.numLotes, (newVal) => {
       cantidadCuotaCuentaRecaudadora:'',
       cantidadCuotaBanco:'',
       cuotaPendientePago: '',
+      saldoLote:'',
+      saldoLoteLetras:'',
     },
     lindero:{
       porLaDerechaLindero: '',
