@@ -44,13 +44,18 @@
 
     <div>
       <label>Cuota Inicial Banco:</label>
-      <input
-          type="text"
-          v-model="lote.cuota.cuotaInicialBanco"
-          required
-          placeholder="Cuota Inicial Banco"
-      />
+      <select v-model="lote.cuota.cuotaInicialBanco" required>
+        <option disabled value="">Seleccione un banco</option>
+        <option
+            v-for="banco in bancos"
+            :key="banco.id"
+            :value="banco.nombre"
+        >
+          {{ banco.nombre }}
+        </option>
+      </select>
     </div>
+
     <div>
       <label>Saldo de Lote:</label>
       <input
