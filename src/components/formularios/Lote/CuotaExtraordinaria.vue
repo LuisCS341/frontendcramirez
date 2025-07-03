@@ -9,6 +9,7 @@
           type="number"
           v-model="lote.cuotaextraordinaria.cantidadCuotaExtraordinaria"
           placeholder="Ingrese Cantidad de Cuota Extraordinaria"
+          step="any"
           required
 
       />
@@ -20,6 +21,7 @@
           type="number"
           v-model="lote.cuotaextraordinaria.montoCuotaExtraordinaria"
           placeholder="Ingrese el Monto de Cuota Extraordinaria"
+          step="any"
           required
 
       />
