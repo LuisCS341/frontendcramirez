@@ -10,8 +10,11 @@
           v-model="lote.cuota.cantidadCuotas"
           required
           placeholder="Cantidad de Cuotas"
+          @input="lote.cuota.cantidadCuotaLetras=numeroLetrasConNumeros(lote.cuota.cantidadCuotas);"
       />
     </div>
+
+
 
     <div>
       <label>Cantidad Cuota Letras:</label>
@@ -39,6 +42,7 @@
           v-model="lote.cuota.montoCuotas"
           required
           placeholder="Monto de Cuotas"
+          @input="lote.cuota.montoCuotaLetras=numeroLetrasConNumeros(lote.cuota.montoCuotas);"
       />
     </div>
     <div>
@@ -58,6 +62,7 @@
           v-model="lote.cuota.cuotaInicialIncluyeSeparacion"
           required
           placeholder="Cuota Inicial Incluye Separacion"
+          @input="lote.cuota.cuotaInicialIncluyeSeparacionLetras=numeroLetrasConNumeros(lote.cuota.cuotaInicialIncluyeSeparacion);"
       />
     </div>
     <div>
@@ -67,6 +72,7 @@
           v-model="lote.cuota.cuotaInicialIncluyeSeparacionLetras"
           required
           placeholder="Cuota Inicial Incluye Separacion"
+
       />
     </div>
 
@@ -94,13 +100,19 @@
 
     <div>
       <label>Cuota Inicial Banco:</label>
-      <input
-          type="text"
-          v-model="lote.cuota.cuotaInicialBanco"
-          required
-          placeholder="Cuota Inicial Banco"
-      />
+      <select v-model="lote.cuota.cuotaInicialBanco" required>
+        <option disabled value="">Seleccione un banco</option>
+        <option
+            v-for="banco in bancos"
+            :key="banco.id"
+            :value="banco.nombre"
+        >
+          {{ banco.nombre }}
+        </option>
+      </select>
     </div>
+
+
 
 
     <div>
@@ -141,6 +153,7 @@
 
 <script setup>
 import {bancos} from "@/data/bancos.js";
+import {numeroLetrasConNumeros} from "@/data/numeroLetrasConNumeros.js";
 
 defineProps({
   lote: {
