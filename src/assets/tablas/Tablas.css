@@ -1,4 +1,3 @@
-/* Área principal */
 .primary-container {
     position: relative;
     margin: 0;
@@ -11,8 +10,6 @@
     overflow-y: auto; /* Scroll si el contenido sobrepasa */
 }
 
-
-/* Contenedor general del dashboard */
 .secundary-container {
     margin: 0;
     padding: 16px 16px 16px 0; /* Sin padding izquierdo */
@@ -25,7 +22,7 @@
     margin-top: 40px;
 }
 
-/* Filtros de búsqueda */
+
 .items {
     display: flex;
     flex-wrap: wrap;
@@ -131,23 +128,6 @@
     font-size: 14px;
 }
 
-/* Responsive para móviles */
-@media (max-width: 768px) {
-    .items {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .table-container {
-        max-height: 65vh;
-    }
-
-    /* Mantener scroll horizontal en móviles */
-    .table {
-        min-width: 800px;
-    }
-}
-
 .detalle-grid {
     display: flex;
     gap: 12px;
@@ -190,8 +170,8 @@
     gap: 8px;
     font-size: 13px;
     color: #333;
-    white-space: nowrap;           /* No saltar de línea */
-    overflow: hidden;              /* Ocultar el texto excedente */
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -216,13 +196,61 @@
     box-shadow: none;
 }
 
+@media (max-width: 768px) {
 
+    .primary-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+    }
 
+    .secundary-container {
+        font-family: 'Montserrat', sans-serif;
+        box-sizing: border-box;
+        position: relative;
+        width: 740px;
+        margin-left: 45px;
+        margin-top: 40px;
+        border-radius: 10px;
+    }
 
+    .items {
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 10px;
+    }
 
+    .buscador,
+    .filtro {
+        width: 50px;
+        max-width: 50px;
+    }
 
+    .btn-accion {
+        width: 100%;
+    }
 
+    .btn-exportar {
+        height: 30px;
+        width:220px;
+    }
 
+    .table-container {
+        max-height: 65vh;
+        width: 670px;
+        overflow-x: auto;
+    }
 
+    .table {
+        min-width: 600px;
+    }
 
+    .detalle-grid {
+        flex-direction: column;
+    }
 
+    .detalle-grid section {
+        flex: 1 1 100%;
+        min-width: unset;
+    }
+}

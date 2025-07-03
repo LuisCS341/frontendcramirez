@@ -378,4 +378,72 @@ h3{
     margin-top: 75px;
 }
 
+@media (max-width: 760px) {
 
+    /* Ajuste general del contenedor */
+    .container {
+        width: 100vw;
+        height: 510px;
+        margin-top: 50px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: auto;
+        background-size: cover;
+        margin-left: 35px;
+    }
+
+    /* Formularios centrados y adaptados al ancho */
+    .formulario-all,
+    .formulario-edicion,
+    .formulario-all-matriz {
+        width: 90%;
+        margin: 20px auto;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    /* Botones se adaptan al ancho */
+    button,
+    .btn.btn-primary,
+    .btn.btn-resumen {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    /* Inputs y selects adaptados */
+    input,
+    select,
+    .email-input {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    /* Mini formulario adaptado */
+    .mini-formulario input {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Ajuste contenedor de radio tarjetas */
+    .contenedor-radio-tarjetas {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Imágenes reducidas si es necesario */
+    .user-icon img {
+        height: 30px;
+        width: 30px;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .tituloformulario {
+        font-size: 20px;
+    }
+}

@@ -129,20 +129,10 @@ onMounted(async () => {
 
   .chart-container-rendimiento-mes {
     width: 500px;
-    height: 500px;
-    margin-top: 400px;
-    margin-left: -630px;
-  }
-}
-
-/* ========= RESPONSIVE CELULARES PEQUEÑOS ========= */
-@media (max-width: 480px) {
-  .chart-container-rendimiento-mes {
-    width: 100px;
-    height: 100px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    height: 320px;
+    margin-top: 430px;
+    margin-left: -380px;
+    align-items: center;
   }
 }
 </style>
