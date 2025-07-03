@@ -248,11 +248,11 @@
           type="text"
           v-model="lote.fechaEntrega"
           required
+          @input="formatearFecha($event, 'inicio')"
           placeholder="dd/mm/aaaa"
           maxlength="10"
       />
     </div>
-
 
     <div>
       <label>Alicuota:</label>
