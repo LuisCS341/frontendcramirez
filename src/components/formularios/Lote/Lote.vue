@@ -190,7 +190,7 @@
         placeholder="Ingrese el Precio por MT2"
         @input="
       lote.precioMetroCuadrado = lote.precioMetroCuadrado.toString().replace(/[^0-9.]/g, '');
-      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(parseFloat(lote.precioMetroCuadrado).toFixed(2));
+      lote.precioMetroCuadradoLetras = letrasparametroscuadrados(parseFloat(lote.precioMetroCuadrado).toFixed(2));
     "
 
     />
@@ -342,7 +342,7 @@ import {
   numeroLetrasAreaLote,
   numeroLetrasSinDecimal,
   numeroLetrasConNumerosDolares,
-  numeroLetrasEntero, numeroALetras
+  numeroLetrasEntero, numeroALetras, letrasparametroscuadrados
 } from '@/data/numeroLetrasConNumeros.js';
 import {ref, watch} from "vue";
 
