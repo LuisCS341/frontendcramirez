@@ -9,6 +9,10 @@
           v-model="lote.cuota.cuotaInicialIncluyeSeparacion"
           required
           placeholder="Cuota Inicial Incluye Separacion"
+          @input="
+      lote.cuota.cuotaInicialIncluyeSeparacion = lote.cuota.cuotaInicialIncluyeSeparacion.toString().replace(/[^0-9.]/g, '');
+      lote.cuota.cuotaInicialIncluyeSeparacionLetras = numeroLetrasSinDecimal(parseFloat(lote.cuota.cuotaInicialIncluyeSeparacion).toFixed(2));
+    "
       />
     </div>
 
@@ -18,7 +22,7 @@
           type="text"
           v-model="lote.cuota.cuotaInicialIncluyeSeparacionLetras"
           required
-          placeholder="Cuota Inicial Incluye Separacion"
+          readonly
       />
     </div>
 
@@ -85,16 +89,20 @@
           v-model="lote.cuota.cantidadCuotas"
           required
           placeholder="Cantidad de Cuotas"
+          @input="
+      lote.cuota.cantidadCuotas = lote.cuota.cantidadCuotas.toString().replace(/[^0-9.]/g, '');
+      lote.cuota.cantidadCuotaLetras = numeroLetrascuotaletras(parseFloat(lote.cuota.cantidadCuotas).toFixed(2));
+      "
       />
     </div>
 
     <div>
-      <label>Cantidad Cuota Letras:</label>
+      <label>Cantidad de Cuotas en Letras:</label>
       <input
           type="text"
           v-model="lote.cuota.cantidadCuotaLetras"
           required
-          placeholder="Cantidad Cuota Letras"
+          readonly
       />
     </div>
 
@@ -127,6 +135,10 @@
           v-model="lote.cuota.montoCuotas"
           required
           placeholder="Monto de Cuotas"
+          @input="
+      lote.cuota.montoCuotas = lote.cuota.montoCuotas.toString().replace(/[^0-9.]/g, '');
+      lote.cuota.montoCuotaLetras = numeroLetrasSinDecimal(parseFloat(lote.cuota.montoCuotas).toFixed(2));
+      "
       />
     </div>
     <div>
@@ -135,7 +147,7 @@
           type="text"
           v-model="lote.cuota.montoCuotaLetras"
           required
-          placeholder="Monto de Cuota en Letras"
+          readonly
       />
     </div>
     <div>
@@ -162,7 +174,10 @@
 
 <script setup>
 import {bancos} from "@/data/bancos.js";
-import {numeroALetras, numeroLetrasSinDecimal} from "@/data/numeroLetrasConNumeros.js";
+import {
+  numeroLetrasSinDecimal,
+  numeroLetrascuotaletras
+} from "@/data/numeroLetrasConNumeros.js";
 
 defineProps({
   lote: {

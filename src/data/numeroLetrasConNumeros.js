@@ -502,5 +502,65 @@ export function numeroLetrasSinDecimal(valor) {
     return `${textoEntero} CON ${decimal}/100 SOLES`;
 }
 
+export function numeroLetrascuotaletras(valor) {
+    const UNIDADES = [
+        '', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve',
+        'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'
+    ];
 
+    const DECENAS = [
+        '', '', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'
+    ];
 
+    const CENTENAS = [
+        '', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos',
+        'seiscientos', 'setecientos', 'ochocientos', 'novecientos'
+    ];
+
+    function convertirCentenas(num) {
+        if (num === 100) return 'cien';
+        let centenas = Math.floor(num / 100);
+        let decenas = num % 100;
+        let resultado = '';
+        if (centenas > 0) {
+            resultado = CENTENAS[centenas];
+        }
+        if (decenas > 0) {
+            if (decenas < 20) {
+                resultado += (resultado ? ' ' : '') + UNIDADES[decenas];
+            } else {
+                let dec = Math.floor(decenas / 10);
+                let uni = decenas % 10;
+                resultado += (resultado ? ' ' : '') + DECENAS[dec];
+                if (uni > 0) {
+                    resultado += ' y ' + UNIDADES[uni]; // ← "veinte y seis"
+                }
+            }
+        }
+        return resultado;
+    }
+
+    function convertirMiles(num) {
+        if (num === 0) return 'cero';
+        if (num < 1000) return convertirCentenas(num);
+        let miles = Math.floor(num / 1000);
+        let resto = num % 1000;
+        let resultado = '';
+
+        if (miles === 1) {
+            resultado = 'mil';
+        } else {
+            resultado = convertirCentenas(miles) + ' mil';
+        }
+
+        if (resto > 0) {
+            resultado += ' ' + convertirCentenas(resto);
+        }
+        return resultado;
+    }
+
+    valor = parseInt(valor, 10); // Solo entero
+    const textoEntero = convertirMiles(valor).trim();
+
+    return textoEntero;
+}
