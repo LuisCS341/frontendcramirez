@@ -15,10 +15,10 @@ export const getCuotaExtraordinaria = (fila) => {
 };
 
 export const getConyuge = (fila) => {
-    return fila?.cliente?.conyuge || {};
+    return fila?.conyuge || {};
 };
 
 export const getCopropietario = (fila) => {
-    const copro = fila?.cliente?.copropietarios;
+    const copro = fila?.copropietarios;
     return Array.isArray(copro) && copro.length > 0 ? copro[0] : {};
 };

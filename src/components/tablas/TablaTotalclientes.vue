@@ -18,7 +18,7 @@
 
           </thead>
           <tbody>
-          <tr v-for="cliente in clientes" :key="cliente.idCliente">
+          <tr v-for="cliente in clientesFiltrados" :key="cliente.idCliente">
 
             <MostrarDatosCliente
                 v-for="col in columnasClientes"
@@ -72,17 +72,10 @@ const selectedTemporal = reactive({});
 const busquedaGlobal = ref("");
 
 const filtros = reactive({
+  idClienteClone:"",
+  idLote:"",
   nombresApellidos: "",
-  direccion: "",
-  correoElectronico: "",
-  celularCliente: "",
-  documentoIdentificacion: "",
   numeroIdentificacion: "",
-  estadoCivil: "",
-  ocupacion: "",
-  residencia: "",
-  prefijoPais: "",
-  idTipoContrato: "",
 });
 
 const obtenerDatosCombinados = async () => {
@@ -213,6 +206,26 @@ const onCambioOperario = async (event, cliente) => {
     selectedTemporal[idCliente] = operarioAnterior;
   }
 };
+
+const clientesFiltrados = computed(() => {
+  if (!busquedaGlobal.value) return clientes.value;
+
+  const texto = busquedaGlobal.value.toLowerCase();
+
+  return clientes.value.filter((cliente) => {
+    const matchCliente = Object.keys(filtros).some((campo) => {
+      const valor = cliente[campo];
+      return valor && valor.toString().toLowerCase().includes(texto);
+    });
+
+    const matchLote = cliente.lote && Object.entries(cliente.lote).some(([key, value]) => {
+      return value && value.toString().toLowerCase().includes(texto);
+    });
+
+    return matchCliente || matchLote;
+  });
+});
+
 
 const exportar = () => {
   exportarClientesXLSX(clientes.value);

@@ -1,19 +1,18 @@
 <template>
 
   <div v-if="userRole === 3" class="graficos-container">
-      <GraficoContratos />
-      <GraficoRendimientoMes />
+    <GraficoContratos />
+    <GraficoRendimientoMes />
   </div>
 
-  <div v-if="userRole <= 2"  class="graficos-container-operador">
-    <div v-if="userRole <= 2" class="graficos-fila">
-      <ClientesRegistrados />
-      <ContratosGenerados />
-      <TiempoCliente />
-      <MetaDia />
-    </div>
+  <div v-if="userRole === 3"  class="graficos-container-operador">
 
-    <div v-if="userRole <= 2" class="graficos-fila-grandes">
+    <ClientesRegistrados />
+    <ContratosGenerados />
+    <TiempoCliente />
+    <MetaDia />
+
+    <div v-if="userRole === 3" class="graficos-fila-grandes">
       <GraficoContratos />
       <GraficoRendimientoMes />
     </div>

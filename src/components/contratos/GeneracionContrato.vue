@@ -171,7 +171,7 @@ onMounted(async () => {
 
 const obtenerDatosCombinados = async () => {
   try {
-    const response = await axios.get("https://backendcramirez.onrender.com/api/clientes/conlotes", {
+    const response = await axios.get("http://localhost:8080/api/clientes/conlotes", {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
@@ -285,6 +285,9 @@ const descargarWordT1 = async (cliente) => {
       porElFondo: lindero?.porElFondo ?? '-' ,
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
+      alicuota:lote?.alicuota ?? '-' ,
+      alicuotaLetras: lote?.alicuotaLetras ?? '-',
+      descripcionEstadoCivil: cliente.cliente.descripcionEstadoCivil?? '-'
     };
 
 
@@ -411,6 +414,9 @@ const descargarWordT2 = async (cliente) => {
       porElFondo: lindero?.porElFondo ?? '-' ,
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
+      alicuota:lote?.alicuota ?? '-' ,
+      alicuotaLetras: lote?.alicuotaLetras ?? '-',
+      descripcionEstadoCivil: cliente.cliente.descripcionEstadoCivil?? '-'
     };
 
     doc.setData(datos);
@@ -522,8 +528,10 @@ const descargarWordT3 = async (cliente) => {
       porElFondo: lindero?.porElFondo ?? '-' ,
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
+      alicuota:lote?.alicuota ?? '-' ,
+      alicuotaLetras: lote?.alicuotaLetras ?? '-',
+      descripcionEstadoCivil: cliente.cliente.descripcionEstadoCivil?? '-'
     };
-
 
     doc.setData(datos);
 
