@@ -73,27 +73,6 @@
         required
     />
 
-    <label>Correo Electrónico:</label>
-    <input
-        v-model="form.conyuge.correoUsuarioCliente"
-        type="email"
-        placeholder="usuario@dominio.com"
-        required
-    />
-
-    <label for="prefijoTelefonico">Número Telefónico:</label>
-    <div style="display: flex; gap: 5px;">
-      <select v-model="form.conyuge.prefijoTelefonicoClienteConyuge" id="prefijoTelefonico">
-        <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
-      </select>
-      <input
-          v-model="form.conyuge.numTelefonicoClienteConyuge"
-          type="text"
-          required
-          placeholder="Ingrese su Número Telefónico"
-          @input="form.conyuge.numTelefonicoClienteConyuge = form.conyuge.numTelefonicoClienteConyuge.replace(/[^0-9]/g, '')"
-      />
-    </div>
   </div>
 </template>
 

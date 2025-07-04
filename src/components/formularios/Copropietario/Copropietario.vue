@@ -68,26 +68,6 @@
         placeholder="Ingrese su Dirección"
     />
 
-    <label>Correo Electrónico:</label>
-    <input
-        v-model="copropietario.correoUsuarioCopropietarios"
-        type="text"
-        placeholder="usuario@dominio.com"
-    />
-
-    <label>Número Telefónico:</label>
-    <div style="display: flex; gap: 5px;">
-      <select v-model="copropietario.prefijoTelefonicoCopropietarios">
-        <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
-      </select>
-      <input
-          v-model="copropietario.numeroTelefonicoCopropietarios"
-          type="text"
-          placeholder="Ingrese su Número Telefónico"
-          @input="copropietario.numeroTelefonicoCopropietarios = copropietario.numeroTelefonicoCopropietarios.replace(/[^0-9]/g, '')"
-      />
-    </div>
-
     <label>Estado Civil:</label>
     <select v-model="copropietario.estadoCivilCopropietarios">
       <option v-for="estado in estadoCivil" :key="estado.id" :value="estado.id">{{ estado.nombre }}</option>

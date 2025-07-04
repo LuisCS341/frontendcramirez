@@ -183,14 +183,11 @@ const form = ref({
     provinciaClienteConyuge: '',
     distritoClienteConyuge: '',
     direccionClienteConyuge: '',
-    correoUsuarioCliente: '',
-    prefijoTelefonicoClienteConyuge: 8,
-    numTelefonicoClienteConyuge: '',
   },
-    numCopropietarios: 0,
-    copropietarios: [],
-    numLotes: 0,
-    lotes: []
+  numCopropietarios: 0,
+  copropietarios: [],
+  numLotes: 0,
+  lotes: []
 });
 
 watch(() => form.value.numCopropietarios, (newValue) => {
@@ -206,9 +203,6 @@ watch(() => form.value.numCopropietarios, (newValue) => {
       provinciaCopropietarios: '',
       distritoCopropietarios: '',
       direccionCopropietariosHogar: '',
-      correoUsuarioCopropietarios: '',
-      prefijoTelefonicoCopropietarios: 8,
-      numTelefonicoCopropietarios: '',
       estadoCivilCopropietarios: 1,
       descripcionEstadoCivil:"",
       conyuge: {
@@ -222,15 +216,13 @@ watch(() => form.value.numCopropietarios, (newValue) => {
         paisOrigenCopropietariosConyuge: 8,
         paisResidenciaCopropietariosConyuge: 8,
         direccionCopropietariosConyuge: '',
-        correoUsuarioCopropietariosConyuge: '',
-        prefijoTelefonicoCopropietariosConyuge: 8,
-        numTelefonicoCopropietariosConyuge: '',
       }
     }));
   } else {
     form.value.copropietarios = [];
   }
 }, { immediate: true });
+
 
 watch(() => form.value.numLotes, (newVal) => {
   form.value.lotes = Array.from({ length: newVal }, () => ({
