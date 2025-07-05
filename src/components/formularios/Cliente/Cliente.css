@@ -286,7 +286,7 @@ h1 {
 }
 
 .numero {
-    width: 120px; /* Cuadro corto para el número */
+    width:100px; /* Cuadro corto para el número */
     padding: 5px;
     font-size: 14px;
 }
@@ -295,8 +295,8 @@ h1 {
     flex: 1; /* Ocupa el resto del espacio disponible */
     background-color: #f0f0f0;
     color: #555;
-    padding: 5px;
-    font-size: 14px;
+    padding:3px;
+    font-size: 12px;
 }
 .select-readonly {
     pointer-events: none;
