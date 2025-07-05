@@ -283,21 +283,26 @@ h1 {
     display: flex;
     gap: 10px;
     align-items: center;
-    flex-wrap: wrap; /* permite que bajen en pantallas pequeñas */
+    flex-wrap: wrap;
 }
 
-.numero,
-.numero-letras {
-    flex: 1 1 50%;       /* ambas ocupan el 50% del ancho disponible */
-    min-width: 150px;    /* para que no se encojan demasiado */
+.numero {
+    flex: 0 0 100px;       /* Fijo en 100px */
+    max-width: 120px;
+    min-width: 80px;
     padding: 5px;
     font-size: 14px;
     box-sizing: border-box;
 }
 
 .numero-letras {
+    flex: 1 1 auto;        /* Ocupará el resto del espacio disponible */
+    min-width: 200px;
     background-color: #f0f0f0;
     color: #555;
+    padding: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 .select-readonly {
     pointer-events: none;
