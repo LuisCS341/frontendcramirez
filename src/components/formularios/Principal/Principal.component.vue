@@ -742,7 +742,7 @@ watch(form, (newForm) => {
     }
 
     // 2. Calcular precio por metro cuadrado = costo lote / área matriz
-    if (!isNaN(costoLote) && !isNaN(areaLote) && areaMatriz !== 0) {
+    if (!isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0) {
       const precioMetroCuadrado = costoLote / areaLote;
       lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
       lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(lote.precioMetroCuadrado);
