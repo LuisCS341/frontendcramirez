@@ -148,18 +148,19 @@
         step="any"
         required
         placeholder="Ingrese su Área del Lote"
-        @input="
+              @input="
           lote.areaLote = lote.areaLote.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')
           lote.areaLoteLetras = numeroLetrasAreaLote(lote.areaLote);
           "
     />
 
-    <label>Área del Lote en Letras:</label>
+    <label style="font-weight: bold;">Área del Lote en Letras:</label>
     <input
         v-model="lote.areaLoteLetras"
         type="text"
         required
         readonly
+        style="background-color: #f0f0f0; color: #555;"
     />
 
     <label>Costo de Lote:</label>
@@ -174,32 +175,35 @@
     "
     />
 
-    <label>Costo del Lote en Letra:</label>
+    <label style="font-weight: bold;">Costo del Lote en Letra:</label>
     <input
         v-model="lote.costoLoteLetras"
         type="text"
         readonly
         required
+        style="background-color: #f0f0f0; color: #555;"
     />
 
-    <label>Precio por MT2:</label>
+    <label style="font-weight: bold;">Precio por MT2:</label>
     <input
         v-model="lote.precioMetroCuadrado"
         type="text"
         required
         placeholder="Ingrese el Precio por MT2"
+        style="background-color: #f0f0f0; color: #555;"
         @input="
       lote.precioMetroCuadrado = lote.precioMetroCuadrado.toString().replace(/[^0-9.]/g, '');
       lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(parseFloat(lote.precioMetroCuadrado).toFixed(2));
 "
     />
 
-    <label>Precio por MT2 en Letras:</label>
+    <label style="font-weight: bold;">Precio por MT2 en Letras:</label>
     <input
         v-model="lote.precioMetroCuadradoLetras"
         type="text"
         required
         readonly
+        style="background-color: #f0f0f0; color: #555;"
     />
 
     <label>Mantenimiento Mensual:</label>
@@ -211,11 +215,12 @@
         @input="lote.mantenimientoMensualLetras=numeroLetrasConNumerosDolares(lote.mantenimientoMensual);"
     />
 
-    <label>Mantenimiento Mensual en Letras:</label>
+    <label style="font-weight: bold;">Mantenimiento Mensual en Letras:</label>
     <input
         v-model="lote.mantenimientoMensualLetras"
         type="text"
         readonly
+        style="background-color: #f0f0f0; color: #555;"
     />
 
 
@@ -231,13 +236,14 @@
     </div>
 
     <div>
-      <label> Monto de Deuda en Letras:</label>
+      <label style="font-weight: bold;"> Monto de Deuda en Letras:</label>
       <input
           type="text"
           v-model="lote.montoDeudaLetra"
           placeholder="Ingrese su Monto Deuda"
           required
           readonly
+          style="background-color: #f0f0f0; color: #555;"
       />
     </div>
 
@@ -255,11 +261,12 @@
 
 
     <div>
-      <label>Alicuota:</label>
+      <label style="font-weight: bold;">Alicuota:</label>
       <input
           type="text"
           v-model="lote.alicuota"
           required
+          style="background-color: #f0f0f0; color: #555;"
           @input="
       lote.alicuota = lote.alicuota.toString().replace(/[^0-9.]/g, '');
       lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota).toFixed(4));
@@ -267,12 +274,13 @@
       />
     </div>
     <div>
-      <label>Alicuota en Letras:</label>
+      <label style="font-weight: bold;">Alicuota en Letras:</label>
       <input
           type="text"
           v-model="lote.alicuotaLetras"
           required
           readonly
+          style="background-color: #f0f0f0; color: #555;"
       />
     </div>
 
