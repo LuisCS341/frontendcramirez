@@ -24,7 +24,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Donación de la Comunidad Campesina Lomera de Huaral a favor ante Notaria Katiuska Ysabel Otayza Wuchi. Compraventa a favor de Aybar Corp SAC por escritura pública ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos a favor de Aybar Corp Sac.',
-        proyectoId: 1
+        proyectoId: 25
     },
     { id: 2,
         nombre: 'SAN ANDRÉS',
@@ -51,7 +51,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Donación de la Comunidad Campesina Lomera de Huaral a favor ante Notaria Katiuska Ysabel Otayza Wuchi. Compraventa a favor de Aybar Corp SAC por escritura pública ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos a favor de Aybar Corp Sac.',
-        proyectoId: 1
+        proyectoId: 25
     },
     { id: 3,
         nombre: 'SAN ANDRÉS',
@@ -78,7 +78,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Donación de la Comunidad Campesina Lomera de Huaral a favor ante Notaria Katiuska Ysabel Otayza Wuchi. Compraventa a favor de Aybar Corp SAC por escritura pública ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos a favor de Aybar Corp Sac.',
-        proyectoId: 1 },
+        proyectoId: 25 },
     { id: 4,
         nombre: 'SAN ANDRÉS',
         EmpresaVende: 'AYBAR CORP S.A.C',
@@ -104,7 +104,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Donación de la Comunidad Campesina Lomera de Huaral a favor ante Notaria Katiuska Ysabel Otayza Wuchi. Compraventa a favor de Aybar Corp SAC por escritura pública ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos a favor de Aybar Corp Sac.',
-        proyectoId: 1
+        proyectoId: 25
     },
     { id: 5,
         nombre: 'LA CALERA',
@@ -131,7 +131,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Compraventa de predio independizado ante Notaria Ramos Zea.',
         SituacionLegalMatriz: 'El predio esta al 100% pagado he inscrito en registros publicos a nombre de Aybar Corp Sac.',
-        proyectoId: 2
+        proyectoId: 11
     },
     { id: 6,
         nombre: 'LA CALERA',
@@ -158,7 +158,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Compraventa de predio independizado ante Notaria Ramos Zea.',
         SituacionLegalMatriz: 'El predio esta al 100% pagado he inscrito en registros publicos a nombre de Aybar Corp Sac.',
-        proyectoId: 2
+        proyectoId: 11
     },
     { id: 7,
         nombre: 'PLANICIE DE HUARAL 1',
@@ -185,7 +185,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Compraventa de predio independizado ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'El predio esta al 100% pagado he inscrito en registros publicos a nombre de Aybar Corp Sac.',
-        proyectoId: 3
+        proyectoId: 11
     },
     { id: 8,
         nombre: 'CIUDAD DIAGONAL',
@@ -967,7 +967,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'ICA',
         CompraVentaMatriz: 'Compra-Venta inscrita en el Registro Público bajo el Asiento C00001.',
         SituacionLegalMatriz: 'Pagado al 100% con levantamiento de la reserva de propiedad en el Asiento E00001 del Registro de Propiedad.',
-        proyectoId: 21
+        proyectoId: 1
     },
     { id: 37,
         nombre: 'MARIADRAGO',
