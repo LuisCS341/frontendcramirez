@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="titulodatoslotes">DATOS DEL CONYUGE DE COPROPIETARIO {{ index + 1 }}</h1>
-
+    <div class="identificacion">
     <label>Tipo de Identificación:</label>
     <select v-model="copropietario.conyuge.tipoIdentificacionCopropietariosConyuge" id="tipoIdentificacion">
       <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
@@ -14,7 +14,7 @@
         maxlength="8"
         placeholder="Ingrese su Número de Identificación"
     />
-
+    </div>
     <label>Nombre y Apellido:</label>
     <input
         v-model="copropietario.conyuge.nombreCopropietariosConyuge"
