@@ -283,20 +283,21 @@ h1 {
     display: flex;
     gap: 10px;
     align-items: center;
+    flex-wrap: wrap; /* permite que bajen en pantallas pequeñas */
 }
 
-.numero {
-    width:100px; /* Cuadro corto para el número */
+.numero,
+.numero-letras {
+    flex: 1 1 50%;       /* ambas ocupan el 50% del ancho disponible */
+    min-width: 150px;    /* para que no se encojan demasiado */
     padding: 5px;
     font-size: 14px;
+    box-sizing: border-box;
 }
 
 .numero-letras {
-    flex: 1; /* Ocupa el resto del espacio disponible */
     background-color: #f0f0f0;
     color: #555;
-    padding: 5px;
-    font-size: 14px;
 }
 .select-readonly {
     pointer-events: none;
