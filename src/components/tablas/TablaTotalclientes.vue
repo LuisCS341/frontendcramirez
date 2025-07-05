@@ -91,8 +91,8 @@ const obtenerDatosCombinados = async () => {
       selectedTemporal[cliente.idCliente] = cliente.operario || "";
 
       // Asegurar que dniVendedor esté definido
-      if (!loteLimpio.dniVendedor || loteLimpio.dniVendedor.trim() === "") {
-        loteLimpio.dniVendedor = "00000000"; // asigna un valor por defecto
+      if (!lote.dniVendedor) {
+        lote.dniVendedor = "00000000"; // valor por defecto si no viene
       }
 
       return {
