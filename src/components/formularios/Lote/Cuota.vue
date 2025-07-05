@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Cuota {{ index + 1 }}</h3>
-
+<h3> cuota inicial</h3>
     <div>
       <label>Cuota Inicial Incluye Separacion:</label>
       <input
@@ -59,7 +59,7 @@
         </option>
       </select>
     </div>
-
+<h2>--------</h2>
     <div>
       <label>Saldo de Lote:</label>
       <input
@@ -83,6 +83,8 @@
       />
     </div>
     <div>
+
+      <h2> cantidad de cuotas </h2>
       <label>Cantidad de Cuotas:</label>
       <input
           type="text"
@@ -128,6 +130,7 @@
         </option>
       </select>
     </div>
+    <h2> monto de cuotas</h2>
     <div>
       <label>Monto de Cuotas:</label>
       <input
@@ -150,6 +153,8 @@
           readonly
       />
     </div>
+
+    <h2>-------------</h2>
     <div>
       <label>Cuota Pendiente Pago:</label>
       <input
