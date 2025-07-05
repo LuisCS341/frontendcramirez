@@ -742,9 +742,9 @@ watch(form, (newForm) => {
     const costoLote = parseFloat(lote.costoLote);
 
     if (!isNaN(costoLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-      const precioM2 = costoLote / areaMatriz;
-      lote.precioMetroCuadrado = precioM2.toFixed(2);
-      lote.precioMetroCuadradoLetras = numeroALetras(precioM2);
+      const precioMetroCuadrado = costoLote / areaMatriz;
+      lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
+      lote.precioMetroCuadradoLetras = numeroALetras(parseFloat(lote.precioMetroCuadrado));
     } else {
       lote.precioMetroCuadrado = 0;
       lote.precioMetroCuadradoLetras = '';
