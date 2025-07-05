@@ -76,7 +76,6 @@
               <button @click="descargarWordPorTipo(fila)" class="btn-descargar">Descargar</button>
             </td>
             <td>{{ getLote(fila)?.contrato ?? '-'}}</td>
-            <td>{{ getLote(fila)?.codigoLoteCliente ?? '-'}}</td>
             <td>{{ getLote(fila)?.idLote ?? '-'}}</td>
             <td>{{ getLote(fila).tipoProyecto ?? '-' }}</td>
             <td>{{ getLote(fila).empresaVende ?? '-' }}</td>
