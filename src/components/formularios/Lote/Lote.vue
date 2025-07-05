@@ -140,8 +140,8 @@
         maxlength="10"
         required
     />
-<div class="union">
     <label>Área del Lote m2:</label>
+<div class="union">
     <input
         v-model="lote.areaLote"
         type="text"
@@ -153,8 +153,6 @@
           lote.areaLoteLetras = numeroLetrasAreaLote(lote.areaLote);
           "
     />
-
-    <label style="font-weight: bold;">Área del Lote en Letras:</label>
     <input
         v-model="lote.areaLoteLetras"
         type="text"
