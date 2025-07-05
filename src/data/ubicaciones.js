@@ -185,7 +185,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Compraventa de predio independizado ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'El predio esta al 100% pagado he inscrito en registros publicos a nombre de Aybar Corp Sac.',
-        proyectoId: 11
+        proyectoId: 20
     },
     { id: 8,
         nombre: 'CIUDAD DIAGONAL',
@@ -212,7 +212,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 78 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 4
+        proyectoId: 2
     },
     { id: 9,
         nombre: 'EL POBLADO',
@@ -239,7 +239,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'ICA',
         CompraVentaMatriz: 'Escritura Publica de Transferencia de Posesion que Otorga Elena Melisa Hidalgo Chancasanampa a favor de Inmobiliaria Grocio Prado Sac.',
         SituacionLegalMatriz: 'Pagado al 100% con escritura ante Notaria Americo R. Maldonado U. a los 12/12/2022, Revalidado por Romulo Encarnacion Vasquez, Notario de Chincha, adicional el Predio cuenta con posecion pacifica, y delimitado al 100%.',
-        proyectoId: 4
+        proyectoId: 5
     },
     { id: 10,
         nombre: 'FINCA MONTECARLO',
@@ -266,7 +266,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Donación de la Comunidad Campesina Lomera de Huaral con Kardex 15887 ante Notaria Katiuska Ysabel Otayza Wuchi.Compraventa a favor de Pontevedra SAC por escritura pública ante Notaria J. Antonio del Pozo Valdez.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos.',
-        proyectoId: 4
+        proyectoId: 6
     },
     { id: 11,
         nombre: 'FINCA MONTECARLO',
@@ -293,7 +293,8 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Compraventa de la Comunidad Campesina Lomera de Huaral con Kardex 19737 ante Notaria Katiuska Ysabel Otayza Wuchi.Compraventa a favor de Pontevedra SAC por escritura pública ante Notaria J. Antonio del Pozo Valdez.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos.',
-        proyectoId: 4 },
+        proyectoId: 6
+    },
     { id: 12,
         nombre: 'PRAGA VILLAGE',
         EmpresaVende: 'AYBAR CORP S.A.C',
@@ -319,7 +320,8 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Donación de la Comunidad Campesina Lomera de Huaral a favor ante Notaria Katiuska Ysabel Otayza Wuchi.Compraventa a favor de Aybar Corp SAC por escritura pública ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos a favor de Aybar Corp Sac.',
-        proyectoId: 5 },
+        proyectoId: 23
+    },
     { id: 13,
         nombre: 'LAGOON VILLAGE',
         EmpresaVende: 'AYBAR CORP S.A.C',
@@ -345,7 +347,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Compraventa de predio independizado ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'El predio esta al 100% pagado he inscrito en registros publicos a nombre de Aybar Corp Sac.',
-        proyectoId: 6 },
+        proyectoId: 16 },
     { id: 14,
         nombre: 'LA RESERVA DE HUARAL',
         EmpresaVende: 'AYBAR CORP S.A.C',
@@ -371,7 +373,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 25 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de AYBAR CORP SAC.',
-        proyectoId: 7
+        proyectoId: 12
     },
     { id: 15,
         nombre: 'LA RESERVA DE HUARAL',
@@ -398,7 +400,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 26 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de AYBAR CORP SAC.',
-        proyectoId: 7
+        proyectoId: 12
     },
     { id: 16,
         nombre: 'LA RESERVA DE HUARAL',
@@ -425,7 +427,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 27 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de AYBAR CORP SAC.',
-        proyectoId: 7
+        proyectoId: 12
     },
     { id: 17,
         nombre: 'LA RESERVA DE HUARAL',
@@ -452,7 +454,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 28 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de AYBAR CORP SAC.',
-        proyectoId: 7
+        proyectoId: 12
     },
     { id: 18,
         nombre: 'LA RESERVA DE HUARAL',
@@ -479,7 +481,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 29 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de AYBAR CORP SAC.',
-        proyectoId: 7
+        proyectoId: 12
     },
     { id: 19,
         nombre: 'LA RESERVA DE HUARAL',
@@ -506,7 +508,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 73 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de AYBAR CORP SAC.',
-        proyectoId: 7
+        proyectoId: 12
     },
     { id: 20,
         nombre: 'LACHAY VIEW',
@@ -533,7 +535,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Compraventa de predio independizado ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'El predio esta al 100% pagado he inscrito en registros publicos a nombre de Aybar Corp Sac.',
-        proyectoId: 8
+        proyectoId: 15
     },
     { id: 21,
         nombre: 'LACHAY VIEW',
@@ -560,7 +562,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Compraventa de predio independizado ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'El predio esta al 100% pagado he inscrito en registros publicos a nombre de Aybar Corp Sac.',
-        proyectoId: 8
+        proyectoId: 15
     },
     { id: 22,
         nombre: 'LACHAY VIEW',
@@ -587,7 +589,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Compraventa de predio independizado ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'El predio esta al 100% pagado he inscrito en registros publicos a nombre de Aybar Corp Sac.',
-        proyectoId: 8
+        proyectoId: 15
     },
     { id: 23,
         nombre: 'GREEN VIEW',
@@ -614,7 +616,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Donación de la Comunidad Campesina Lomera de Huaral a favor de Angelica Huapaya Diaz por escritura pública de fecha 20/08/2021 ante Notaria Edwin Jacinto Ramos Zea. Compraventa a favor de Aybar Corp SAC por escritura pública de fecha 10/07/2021 ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos a favor de Aybar Corp Sac. Kardex 23845',
-        proyectoId: 9
+        proyectoId: 15
     },
     { id: 24,
         nombre: 'LUGO',
@@ -641,7 +643,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'SUB LOTE 1-A HERRADA del Registro Públicos de Lima y Callao del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'De acuerdo a las adendas modificatorias y aclaratorias del contrato de compraventa, celebradas de forma sucesiva de fechas 10/07/2020 y 16/03/2023, la empresa compradora Aybar Corp SAC es poseedor inmediato del inmueble, sin reserva de propiedad con la obligación de pago del saldo de precio, según el cronograma establecido.',
-        proyectoId: 10
+        proyectoId: 17
     },
     { id: 25,
         nombre: 'ORENSE',
@@ -668,7 +670,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'SUB LOTE 1-A HERRADA del Registro Públicos de Lima y Callao del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'De acuerdo a las adendas modificatorias y aclaratorias del contrato de compraventa, celebradas de forma sucesiva de fechas 10/07/2020 y 16/03/2023, la empresa compradora Aybar Corp SAC es poseedor inmediato del inmueble, sin reserva de propiedad con la obligación de pago del saldo de precio, según el cronograma establecido.',
-        proyectoId: 11
+        proyectoId: 19
     },
     { id: 26,
         nombre: 'URBAN RESIDENCIAL',
@@ -695,7 +697,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Contrato privado de venta de derechos y acciones celebrado con la señora Adelaida Melendez de la Cruz de fecha 23/12/2019',
         SituacionLegalMatriz: 'Pagado al 100% y en tramite de escritura pública para su inscrpción en la SUNARP',
-        proyectoId: 12
+        proyectoId: 26
     },
     { id: 27,
         nombre: 'VILLA PORTON',
@@ -723,7 +725,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'ICA',
         CompraVentaMatriz: 'Escritura Publica de Transferencia de Posesion que Otorga Hacienda el Monasterio Sac a favor de Aybar Sac.',
         SituacionLegalMatriz: 'Pagado al 100% con escritura ante Notaria J. Antonio del Pozo Valdez Con Kardex 152514 y Minuta 529, adicional el Predio cuenta con posecion pacifica, y delimitado al 100%. ',
-        proyectoId: 13
+        proyectoId: 27
     },
     { id: 28,
         nombre: 'LAGOON CENTER',
@@ -777,7 +779,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'ICA',
         CompraVentaMatriz: 'Compraventa a favor de Aybar Corp SAC por escritura pública ante Notaria Zambrano',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Zambrano para que la notaria proceda con la inscripcion ante registros publicos.',
-        proyectoId: 15
+        proyectoId: 10
     },
     { id: 30,
         nombre: 'URBAN RESIDENCIAL',
@@ -804,7 +806,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Donación de la Comunidad Campesina Lomera de Huaral a favor de BARDO HENRY COLAN MAGUIÑO CON KARDEX 16093 de fecha 25/10/2017. Compraventa a favor de Aybar Corp SAC de fecha 20/02/2023, legalizado ante el Notario Alfredo Zambrano Rodriguez',
         SituacionLegalMatriz: 'Pagado al 100% y en tramite de escritura pública para su inscrpción en la SUNARP',
-        proyectoId: 12
+        proyectoId: 26
     },
     { id: 31,
         nombre: 'LAGOON VIEW',
@@ -832,7 +834,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'SAN MARTIN',
         CompraVentaMatriz: 'Transferencia por aporte de capital a favor de Aybar Investment SAC mediante escritura pública No 2053 de fecha 23/04/2021 otorgado por Notario Lucio Zambrano Rodríguez.',
         SituacionLegalMatriz: 'Anotación de demanda en el Asiento D00003, la misma que será levantada en los próximos días en mérito a la Resolución N° 16 del 18/10/2024. Embargo en forma de inscripción en el Asiento D00004, por la suma de S/ 200,000.00 a favor Financiamiento de Procesos SAC.',
-        proyectoId: 16
+        proyectoId: 13
     },
     { id: 32,
         nombre: 'EL CABO',
@@ -859,7 +861,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'ICA',
         CompraVentaMatriz: 'Contrato Privado de Transferencia de Posesion, con firmas legalizadas ante Notario de Chincha Javier Alonzo Ramos Moron',
         SituacionLegalMatriz: 'Pagado al 100%, Inscripcion Predios, Municipalidad de Grocio Prado.',
-        proyectoId: 17
+        proyectoId: 3
     },
     {id:33,
         nombre: 'EL POBLADO',
@@ -886,7 +888,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'ICA',
         CompraVentaMatriz: 'Escritura Publica de Transferencia de Posesion que Otorga Elena Melisa Hidalgo Chancasanampa a favor de Inmobiliaria Grocio Prado Sac.',
         SituacionLegalMatriz: 'Pagado al 100% con escritura ante Notaria Americo R. Maldonado U. a los 12/12/2022, Revalidado por Romulo Encarnacion Vasquez, Notario de Chincha, adicional el Predio cuenta con posecion pacifica, y delimitado al 100%.',
-        proyectoId: 18
+        proyectoId: 5
     },
     { id: 34,
         nombre: 'VIÑA DEL MAR',
@@ -913,7 +915,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'ICA',
         CompraVentaMatriz: 'Contrato Privado de Transferencia de Posesion',
         SituacionLegalMatriz: 'Pagado al 100%, Inscripcion Predios, Municipalidad de Grocio Prado',
-        proyectoId: 19
+        proyectoId: 28
     },
     { id: 35,
         nombre: 'GROCIO PRADO',
@@ -940,7 +942,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'ICA',
         CompraVentaMatriz: 'Compra-Venta inscrita en el Registro Público bajo el Asiento C00001.',
         SituacionLegalMatriz: 'Pagado al 100% con levantamiento de la reserva de propiedad en el Asiento E00001 del Registro de Propiedad.',
-        proyectoId: 20
+        proyectoId: 8
     },
     { id: 36,
         nombre: 'CAMTABRIA LAGOONS',
@@ -994,7 +996,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Escritura Publica de Transferencia de Posesion que Otorga Alexander Kohler Wissar a favor de North invesment Co. Sac.',
         SituacionLegalMatriz: 'Pagado al 100% con escritura ante Carlos Reyes Ugarte - Notaria Publica de Huacho a los 11/04/2022, Con Kardex 51210 y Minuta 949, adicional el Predio cuenta con posecion pacifica, y delimitado al 100%.',
-        proyectoId: 22
+        proyectoId: 18
     },
     { id: 38,
         nombre: 'FINCA MONTECARLO',
@@ -1021,7 +1023,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Donación de la Comunidad Campesina Lomera de Huaral con Kardex 15887 ante Notaria Katiuska Ysabel Otayza Wuchi.Compraventa a favor de Pontevedra SAC por escritura pública ante Notaria J. Antonio del Pozo Valdez.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos.',
-        proyectoId: 23
+        proyectoId: 6
     },
     { id: 39,
         nombre: 'FINCA MONTECARLO',
@@ -1048,7 +1050,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Compraventa de la Comunidad Campesina Lomera de Huaral con Kardex 19737 ante Notaria Katiuska Ysabel Otayza Wuchi.Compraventa a favor de Pontevedra SAC por escritura pública ante Notaria J. Antonio del Pozo Valdez.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos.',
-        proyectoId: 23
+        proyectoId: 6
     },
     { id: 40,
         nombre: 'FORESTA',
@@ -1075,7 +1077,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Contrato Privado de Transferencia de Posesion',
         SituacionLegalMatriz: 'Constancia de Posesion de fecha 25 de noviembre de 2021, otorgada por la gerencia de Desarrollo Urbano de la Municipalidad Distrital de Pachacamac.',
-        proyectoId: 24
+        proyectoId: 7
     },
     { id: 41,
         nombre: 'PONTEVEDRA',
@@ -1102,7 +1104,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Contrato Privado de Transferencia de Posesion',
         SituacionLegalMatriz: 'Constancia de Posesion de fecha 25 de noviembre de 2021, otorgada por la gerencia de Desarrollo Urbano de la Municipalidad Distrital de Pachacamac.',
-        proyectoId: 25
+        proyectoId: 21
     },
     { id: 42,
         nombre: 'EL OLIVAR',
@@ -1128,7 +1130,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 79 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 26
+        proyectoId: 4
     },
     { id: 43,
         nombre: 'EL OLIVAR',
@@ -1154,7 +1156,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 78 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 26
+        proyectoId: 4
     },
     { id: 44,
         nombre: 'PRADERAS DE HUARAL',
@@ -1181,7 +1183,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Donación de la Comunidad Campesina Lomera de Huaral ante Notaria Katiuska Ysabel Otayza Wuchi.Compraventa a favor de Vivanorte SAC por escritura pública ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 27 },
+        proyectoId: 22 },
     { id: 45,
         nombre: 'PRADERAS DE HUARAL',
         EmpresaVende: 'VIVANORTE S.A.C.',
@@ -1207,7 +1209,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Antecedente Donación de la Comunidad Campesina Lomera de Huaral ante Notaria Katiuska Ysabel Otayza Wuchi.Compraventa a favor de Aybar Corp SAC por escritura pública ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos a favor de Aybar Corp Sac.',
-        proyectoId: 27 },
+        proyectoId: 22 },
 
     { id: 46,
         nombre: 'RINCONADA DEL LAGO',
@@ -1234,7 +1236,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 83 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 28
+        proyectoId: 24
     },
     { id: 47,
         nombre: 'RINCONADA DEL LAGO',
@@ -1261,7 +1263,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 83 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 28
+        proyectoId: 24
     },
     { id: 48,
         nombre: 'RINCONADA DEL LAGO',
@@ -1288,6 +1290,6 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'LOTE 80 L, SECTOR DE LUCHIHUASI del Registro Públicos de Huaral del Registro de Propiedad Inmueble de la Zona Registral N° IX – Lima',
         SituacionLegalMatriz: 'Compra-Venta inscrita en el Registro Público a nombre de VIVANORTE SAC.',
-        proyectoId: 28
+        proyectoId: 24
     }
 ]
