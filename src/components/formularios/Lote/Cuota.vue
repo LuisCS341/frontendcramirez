@@ -170,7 +170,7 @@ const showMontoCuotas = ref(false);
 const showPendientes = ref(false);
 </script>
 <style>
-.section-button {
+button.section-button {
   background: #ff9800;
   border: none;
   padding: 8px 12px;
