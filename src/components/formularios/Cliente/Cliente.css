@@ -283,9 +283,9 @@ h1 {
     display: flex;
     gap: 5px;
 }
- .union.numero{width: 100px; /* Ajusta este valor a tu gusto */
-     padding: 5px; /* Opcional: para hacerlo más compacto */
-     font-size: 14px; /* Opcional: para texto más pequeño */
+ .union.numero{  width: 200px;
+     padding: 5px;
+     font-size: 14px;  flex-shrink: 0;
   }
 .select-readonly {
     pointer-events: none;
