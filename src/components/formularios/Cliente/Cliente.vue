@@ -4,9 +4,10 @@
 
     <div class="identificacion">
     <label style="font-weight: bold;">Tipo de Identificación:</label>
-    <select v-model="form.tipoIdentificacion" required>
+    <select
+        style="background-color: #f0f0f0; color: #555;"
+        v-model="form.tipoIdentificacion" required>
       <option
-          style="background-color: #f0f0f0; color: #555;"
           v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
     </select>
 
