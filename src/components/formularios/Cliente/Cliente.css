@@ -283,20 +283,18 @@ h1 {
     display: flex;
     gap: 10px;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* <- Importante: que no salte a otra línea */
 }
 
 .numero {
-    flex: 0 0 100px;       /* Fijo en 100px */
-    max-width: 120px;
-    min-width: 80px;
+    width: 100px;         /* ancho pequeño para números */
     padding: 5px;
     font-size: 14px;
     box-sizing: border-box;
 }
 
 .numero-letras {
-    flex: 1 1 auto;        /* Ocupará el resto del espacio disponible */
+    flex: 1;              /* ocupa el espacio restante */
     min-width: 200px;
     background-color: #f0f0f0;
     color: #555;
