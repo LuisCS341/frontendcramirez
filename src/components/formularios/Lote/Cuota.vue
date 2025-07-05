@@ -23,7 +23,7 @@
 
       <div>
         <label>Cuota Inicial Incluye Separación en Letras:</label>
-        <input type="text" v-model="lote.cuota.cuotaInicialIncluyeSeparacionLetras" readonly />
+        <input type="text" v-model="lote.cuota.cuotaInicialIncluyeSeparacionLetras" readonly  style="background-color: #f0f0f0; color: #555;" />
       </div>
 
       <div>
@@ -57,6 +57,7 @@
         <input
             type="text"
             v-model="lote.cuota.saldoLote"
+            style="background-color: #f0f0f0; color: #555;"
             @input="
             lote.cuota.saldoLote = lote.cuota.saldoLote.toString().replace(/[^0-9.]/g, '');
             lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(parseFloat(lote.cuota.saldoLote).toFixed(2));
@@ -66,7 +67,7 @@
 
       <div>
         <label>Saldo en Letras:</label>
-        <input type="text" v-model="lote.cuota.saldoLoteLetras" readonly />
+        <input type="text" v-model="lote.cuota.saldoLoteLetras" readonly  style="background-color: #f0f0f0; color: #555;" />
       </div>
     </div>
 
@@ -89,7 +90,8 @@
 
       <div>
         <label>Cuotas en Letras:</label>
-        <input type="text" v-model="lote.cuota.cantidadCuotaLetras" readonly />
+        <input type="text" v-model="lote.cuota.cantidadCuotaLetras" readonly  style="background-color: #f0f0f0; color: #555;"/>
+
       </div>
 
       <div>
@@ -127,7 +129,7 @@
 
       <div>
         <label>Monto en Letras:</label>
-        <input type="text" v-model="lote.cuota.montoCuotaLetras" readonly />
+        <input type="text" v-model="lote.cuota.montoCuotaLetras" readonly  style="background-color: #f0f0f0; color: #555;"/>
       </div>
     </div>
 
