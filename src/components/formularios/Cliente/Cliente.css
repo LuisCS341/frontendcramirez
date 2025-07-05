@@ -279,14 +279,25 @@ h1 {
     gap: 5px;
 }
 /* esto ayuda a que no se vea mal los select cuando no puedan selecionar*/
-.union{
+.union {
     display: flex;
-    gap: 5px;
+    gap: 10px;
+    align-items: center;
 }
- .union.numero{  width: 200px;
-     padding: 5px;
-     font-size: 14px;  flex-shrink: 0;
-  }
+
+.numero {
+    width: 120px; /* Cuadro corto para el número */
+    padding: 5px;
+    font-size: 14px;
+}
+
+.numero-letras {
+    flex: 1; /* Ocupa el resto del espacio disponible */
+    background-color: #f0f0f0;
+    color: #555;
+    padding: 5px;
+    font-size: 14px;
+}
 .select-readonly {
     pointer-events: none;
     background-color: white;

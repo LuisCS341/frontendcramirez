@@ -154,6 +154,7 @@
           "
     />
     <input
+        class="numero-letras"
         v-model="lote.areaLoteLetras"
         type="text"
         required
