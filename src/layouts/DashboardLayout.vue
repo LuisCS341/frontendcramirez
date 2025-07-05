@@ -1,26 +1,33 @@
 <template>
   <div class="dashboard-container">
-    <BarraLateral />
+    <!-- Barra Lateral -->
+    <BarraLateral/>
+
+    <!-- Contenido Principal -->
     <div class="main-content">
+      <!-- Barra Superior -->
       <BarraSuperior />
+
+      <!-- Área de Trabajo Dinámica -->
       <div class="area-trabajo">
+        <area-trabajo/>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
 import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
+import AreaTrabajo from "@/components/dashboard/AreaTrabajo.vue";
 
 export default {
   components: {
+    AreaTrabajo,
     BarraLateral: BarraLateralDashboard,
     BarraSuperior: BarraSuperiorDashboard
   }
 };
-
 </script>
 
 <style scoped>
@@ -41,7 +48,7 @@ export default {
   height: 100vh;
 }
 
-/* Área de trabajo con scroll en ejes verticales */
+/* Área de trabajo con scroll vertical */
 .area-trabajo {
   flex-grow: 1;
   padding: 1.25rem;
@@ -50,7 +57,7 @@ export default {
   overflow-x: hidden;
 }
 
-/* Media query para pantallas pequeñas como celulares */
+/* Media query para móviles */
 @media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;
@@ -64,5 +71,6 @@ export default {
   .area-trabajo {
     padding: 1rem;
   }
+
 }
 </style>
