@@ -616,7 +616,7 @@ export const ubicaciones = [
         DepartamentoMatriz: 'LIMA',
         CompraVentaMatriz: 'Donación de la Comunidad Campesina Lomera de Huaral a favor de Angelica Huapaya Diaz por escritura pública de fecha 20/08/2021 ante Notaria Edwin Jacinto Ramos Zea. Compraventa a favor de Aybar Corp SAC por escritura pública de fecha 10/07/2021 ante Notaria Katiuska Ysabel Otayza Wuchi.',
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos a favor de Aybar Corp Sac. Kardex 23845',
-        proyectoId: 15
+        proyectoId: 9
     },
     { id: 24,
         nombre: 'LUGO',
