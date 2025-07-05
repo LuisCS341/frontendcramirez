@@ -171,7 +171,7 @@ const showPendientes = ref(false);
 </script>
 <style>
 .section-button {
-  background: #f4f4f4;
+  background: #ff9800;
   border: none;
   padding: 8px 12px;
   margin: 10px 0;
