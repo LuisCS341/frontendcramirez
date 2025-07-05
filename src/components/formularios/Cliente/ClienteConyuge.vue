@@ -1,6 +1,6 @@
 <template>
   <div v-if="form">
-    <h3 class="titulodatoslotes">Datos del Cónyuge</h3>
+    <h1 class="titulodatoslotes">DATOS DEL CONYUGE</h1>
 
 
     <label for="tipoIdentificacion">Tipo de Identificación:</label>

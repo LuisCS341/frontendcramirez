@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="titulodatoslotes">Datos del Cónyuge del Copropietario {{ index + 1 }}</h3>
+    <h1 class="titulodatoslotes">DATOS DEL CONYUGE DE COPROPIETARIO {{ index + 1 }}</h1>
 
     <label>Tipo de Identificación:</label>
     <select v-model="copropietario.conyuge.tipoIdentificacionCopropietariosConyuge" id="tipoIdentificacion">

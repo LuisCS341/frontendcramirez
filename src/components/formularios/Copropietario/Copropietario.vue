@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Copropietario {{ index + 1 }}</h3>
+    <h1>COPROPIETARIO {{ index + 1 }}</h1>
 
     <label>Tipo de Identificación:</label>
     <select v-model="copropietario.tipoIdentificacionCopropietarios">

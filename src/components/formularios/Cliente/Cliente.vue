@@ -1,6 +1,6 @@
 <template>
   <div v-if="form">
-    <h1>Datos Personales</h1>
+    <h1>DATOS PERSONALES</h1>
 
     <label>Tipo de Identificación:</label>
     <select v-model="form.tipoIdentificacion" required>
