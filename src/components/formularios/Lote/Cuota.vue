@@ -59,7 +59,7 @@
         </option>
       </select>
     </div>
-<h2>--------</h2>
+<h3>--------</h3>
     <div>
       <label>Saldo de Lote:</label>
       <input
@@ -84,7 +84,7 @@
     </div>
     <div>
 
-      <h2> cantidad de cuotas </h2>
+      <h3> cantidad de cuotas </h3>
       <label>Cantidad de Cuotas:</label>
       <input
           type="text"
@@ -130,7 +130,7 @@
         </option>
       </select>
     </div>
-    <h2> monto de cuotas</h2>
+    <h3> monto de cuotas</h3>
     <div>
       <label>Monto de Cuotas:</label>
       <input
@@ -154,7 +154,7 @@
       />
     </div>
 
-    <h2>-------------</h2>
+    <h3>-------------</h3>
     <div>
       <label>Cuota Pendiente Pago:</label>
       <input
