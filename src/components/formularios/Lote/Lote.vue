@@ -140,7 +140,7 @@
         maxlength="10"
         required
     />
-
+<div class="union">
     <label>Área del Lote m2:</label>
     <input
         v-model="lote.areaLote"
@@ -162,7 +162,7 @@
         readonly
         style="background-color: #f0f0f0; color: #555;"
     />
-
+</div>
     <label>Costo de Lote:</label>
     <input
         v-model="lote.costoLote"

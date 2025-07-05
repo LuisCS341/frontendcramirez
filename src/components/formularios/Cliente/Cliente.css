@@ -279,7 +279,10 @@ h1 {
     gap: 5px;
 }
 /* esto ayuda a que no se vea mal los select cuando no puedan selecionar*/
-
+.union{
+    display: flex;
+    gap: 5px;
+}
 .select-readonly {
     pointer-events: none;
     background-color: white;
