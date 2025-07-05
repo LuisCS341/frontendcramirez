@@ -723,23 +723,32 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
     },
     { deep: true }
 );
+watch(form, (newForm) => {
+  newForm.lotes.forEach((lote) => {
+    // 1. Calcular alícuota
+    const areaLote = parseFloat(lote.areaLote);
+    const areaMatriz = parseFloat(lote.areaMatriz);
 
-watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
+    if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+      const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
+      lote.alicuota = alicuota.toFixed(4);
+      lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
+    } else {
+      lote.alicuota = 0;
+      lote.alicuotaLetras = '';
+    }
 
-      const areaLote = parseFloat(lote.areaLote);
-      const areaMatriz = parseFloat(lote.areaMatriz);
+    // 2. Calcular precio por metro cuadrado = costo lote / área matriz
+    const costoLote = parseFloat(lote.costoLote);
 
-      if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-        const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
-        lote.alicuota = alicuota.toFixed(4);
-        lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
-      } else {
-        lote.alicuota= 0;
-        lote.alicuotaLetras = '';
-      }
-    });
-    },
-    { deep: true, immediate: true }
-);
-
+    if (!isNaN(costoLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+      const precioM2 = costoLote / areaMatriz;
+      lote.precioMetroCuadrado = precioM2.toFixed(2);
+      lote.precioMetroCuadradoLetras = numeroALetras(precioM2);
+    } else {
+      lote.precioMetroCuadrado = 0;
+      lote.precioMetroCuadradoLetras = '';
+    }
+  });
+}, { deep: true, immediate: true });
 </script>
