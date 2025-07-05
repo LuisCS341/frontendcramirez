@@ -163,7 +163,9 @@
     />
 </div>
     <label>Costo de Lote:</label>
+    <div class="union">
     <input
+        class="numero"
         v-model="lote.costoLote"
         step="any"
         required
@@ -173,18 +175,20 @@
       lote.costoLoteLetras = numeroLetrasSinDecimal(parseFloat(lote.costoLote).toFixed(2));
     "
     />
-
-    <label style="font-weight: bold;">Costo del Lote en Letra:</label>
     <input
+        class="numero-letras"
         v-model="lote.costoLoteLetras"
         type="text"
         readonly
         required
         style="background-color: #f0f0f0; color: #555;"
     />
+    </div>
 
     <label style="font-weight: bold;">Precio por MT2:</label>
+    <div class="union">
     <input
+        class="numero"
         v-model="lote.precioMetroCuadrado"
         type="text"
         required
@@ -195,18 +199,20 @@
       lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(parseFloat(lote.precioMetroCuadrado).toFixed(2));
 "
     />
-
-    <label style="font-weight: bold;">Precio por MT2 en Letras:</label>
     <input
+        class="numero-letras"
         v-model="lote.precioMetroCuadradoLetras"
         type="text"
         required
         readonly
         style="background-color: #f0f0f0; color: #555;"
     />
+    </div>
 
     <label>Mantenimiento Mensual:</label>
+    <div class="union">
     <input
+        class="numero"
         type="text"
         v-model="lote.mantenimientoMensual"
         required
@@ -214,14 +220,14 @@
         @input="lote.mantenimientoMensualLetras=numeroLetrasConNumerosDolares(lote.mantenimientoMensual);"
     />
 
-    <label style="font-weight: bold;">Mantenimiento Mensual en Letras:</label>
     <input
+        class="numero-letras"
         v-model="lote.mantenimientoMensualLetras"
         type="text"
         readonly
         style="background-color: #f0f0f0; color: #555;"
     />
-
+    </div>
 
     <div>
       <label>Estado de Cuenta:</label>
@@ -258,10 +264,10 @@
       />
     </div>
 
-
+    <label style="font-weight: bold;">Alicuota:</label>
+    <div class="union">
     <div>
-      <label style="font-weight: bold;">Alicuota:</label>
-      <input
+      <input class="numero"
           type="text"
           v-model="lote.alicuota"
           required
@@ -273,8 +279,8 @@
       />
     </div>
     <div>
-      <label style="font-weight: bold;">Alicuota en Letras:</label>
       <input
+          class="numero-letras"
           type="text"
           v-model="lote.alicuotaLetras"
           required
@@ -282,7 +288,7 @@
           style="background-color: #f0f0f0; color: #555;"
       />
     </div>
-
+    </div>
     <div>
       <label><strong>¿Tiene cuota extraordinaria?</strong></label>
       <div class="contenedor-radio-tarjetas">

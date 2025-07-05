@@ -295,8 +295,8 @@ h1 {
     flex: 1; /* Ocupa el resto del espacio disponible */
     background-color: #f0f0f0;
     color: #555;
-    padding:3px;
-    font-size: 12px;
+    padding: 5px;
+    font-size: 14px;
 }
 .select-readonly {
     pointer-events: none;
