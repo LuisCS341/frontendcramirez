@@ -8,7 +8,7 @@
       <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
     </select>
 
-    <label>Número de Identificación:</label>
+    <label style="font-weight: bold;">Número de Identificación:</label>
     <input
         v-model="form.numIdentificacionUsuario"
         type="text"
