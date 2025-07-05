@@ -149,7 +149,7 @@ import {ubicaciones} from "@/data/ubicaciones.js";
 import {proyectos, proyectosT3Ids} from "@/data/proyectos.js";
 import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
 import Cuota from "@/components/formularios/Lote/Cuota.vue";
-import {numeroALetras} from "@/data/numeroLetrasConNumeros.js";
+import {numeroALetras, numeroLetrasSinDecimal} from "@/data/numeroLetrasConNumeros.js";
 
 
 const formStep = ref(1);
@@ -744,7 +744,7 @@ watch(form, (newForm) => {
     if (!isNaN(costoLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
       const precioMetroCuadrado = costoLote / areaMatriz;
       lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
-      lote.precioMetroCuadradoLetras = numeroALetras(parseFloat(lote.precioMetroCuadrado));
+      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(parseFloat(lote.precioMetroCuadrado));
     } else {
       lote.precioMetroCuadrado = 0;
       lote.precioMetroCuadradoLetras = '';
