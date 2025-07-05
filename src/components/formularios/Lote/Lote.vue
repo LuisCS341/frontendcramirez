@@ -142,7 +142,7 @@
     />
     <label>Área del Lote m2:</label>
 <div class="union">
-    <input
+    <input class="numero"
         v-model="lote.areaLote"
         type="text"
         step="any"

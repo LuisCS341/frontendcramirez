@@ -283,6 +283,10 @@ h1 {
     display: flex;
     gap: 5px;
 }
+ .union.numero{width: 100px; /* Ajusta este valor a tu gusto */
+     padding: 5px; /* Opcional: para hacerlo más compacto */
+     font-size: 14px; /* Opcional: para texto más pequeño */
+  }
 .select-readonly {
     pointer-events: none;
     background-color: white;
