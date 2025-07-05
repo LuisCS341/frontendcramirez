@@ -725,10 +725,13 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
 );
 watch(form, (newForm) => {
   newForm.lotes.forEach((lote) => {
-    // 1. Calcular alícuota
+    // Convertir datos comunes
     const areaLote = parseFloat(lote.areaLote);
     const areaMatriz = parseFloat(lote.areaMatriz);
+    const costoLote = parseFloat(lote.costoLote);
+    const cuotaInicial = parseFloat(lote.cuota.cuotaInicialIncluyeSeparacion);
 
+    // 1. Calcular alícuota
     if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
       const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
       lote.alicuota = alicuota.toFixed(4);
@@ -739,8 +742,6 @@ watch(form, (newForm) => {
     }
 
     // 2. Calcular precio por metro cuadrado = costo lote / área matriz
-    const costoLote = parseFloat(lote.costoLote);
-
     if (!isNaN(costoLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
       const precioMetroCuadrado = costoLote / areaMatriz;
       lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
@@ -749,6 +750,17 @@ watch(form, (newForm) => {
       lote.precioMetroCuadrado = 0;
       lote.precioMetroCuadradoLetras = '';
     }
+
+    // 3. Calcular saldo de lote = costo lote - cuota inicial
+    if (!isNaN(costoLote) && !isNaN(cuotaInicial)) {
+      const saldo = costoLote - cuotaInicial;
+      lote.cuota.saldoLote = saldo.toFixed(2);
+      lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(lote.cuota.saldoLote);
+    } else {
+      lote.cuota.saldoLote = '';
+      lote.cuota.saldoLoteLetras = '';
+    }
   });
 }, { deep: true, immediate: true });
+
 </script>
