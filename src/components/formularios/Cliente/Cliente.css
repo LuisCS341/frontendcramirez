@@ -271,12 +271,14 @@ h1 {
     background-color: #45a049;
 }
 
-
 .prefijo-cliente{
     display: flex;
     gap: 5px;
 }
-
+.identificacion{
+    display: flex;
+    gap: 5px;
+}
 /* esto ayuda a que no se vea mal los select cuando no puedan selecionar*/
 
 .select-readonly {
