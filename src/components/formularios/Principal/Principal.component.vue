@@ -744,7 +744,7 @@ watch(form, (newForm) => {
     if (!isNaN(costoLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
       const precioMetroCuadrado = costoLote / areaMatriz;
       lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
-      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(parseFloat(lote.precioMetroCuadrado));
+      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(lote.precioMetroCuadrado);
     } else {
       lote.precioMetroCuadrado = 0;
       lote.precioMetroCuadradoLetras = '';

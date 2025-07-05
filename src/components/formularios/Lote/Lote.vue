@@ -191,8 +191,7 @@
         @input="
       lote.precioMetroCuadrado = lote.precioMetroCuadrado.toString().replace(/[^0-9.]/g, '');
       lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(parseFloat(lote.precioMetroCuadrado).toFixed(2));
-    "
-
+"
     />
 
     <label>Precio por MT2 en Letras:</label>
