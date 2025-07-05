@@ -201,7 +201,7 @@ const descargarWordPorTipo = (cliente) => {
 
 const descargarWordT1 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_T1.docx", {
+    const response = await axios.get("/plantillas/prueba.docx", {
       responseType: "arraybuffer",
     });
 
