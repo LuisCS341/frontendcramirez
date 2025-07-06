@@ -171,9 +171,9 @@ export const buildCuotaPayload=({idLote,cuota}) => ({
 
 export const buildMatrizPayload = ({ idLote, matriz }) => ({
     idLote,
-    departamentoMatriz: matriz.departamentoMatriz,
-    provinciaMatriz: matriz.provinciaMatriz,
-    distritoMatriz: matriz.distritoMatriz,
+    idDepartamentoMatriz: matriz.departamentoMatriz,
+    idProvinciaMatriz: matriz.provinciaMatriz,
+    idDistritoMatriz: matriz.distritoMatriz,
     ubicacionMatriz: matriz.ubicacionMatriz,
     areaMatrizHasMatriz: matriz.areaMatrizHasMatriz,
     registroMatriz: matriz.registroDeMatriz,

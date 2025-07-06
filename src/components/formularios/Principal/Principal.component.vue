@@ -162,6 +162,9 @@ import CopropietarioConyuge from "@/components/formularios/Copropietario/Copropi
 import Cuota from "@/components/formularios/Lote/Cuota.vue";
 import {numeroALetras, numeroLetrasSinDecimal} from "@/data/numeroLetrasConNumeros.js";
 import Matriz from "@/components/formularios/Lote/Matriz.vue";
+import {departamentos} from "@/data/departamentos.js";
+import {provincias} from "@/data/provincias.js";
+import {distritos} from "@/data/distritos.js";
 
 
 const formStep = ref(1);
@@ -737,6 +740,22 @@ watch(() => form.value.lotes, (lotes) => {
           lote.compraventaMatriz = ubicacion.CompraVentaMatriz;
           lote.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
 
+          const departamento = departamentos.find(d => d.nombre === ubicacion.DepartamentoMatriz);
+          const provincia = provincias.find(p => p.nombre === ubicacion.ProvinciaMatriz);
+          const distrito = distritos.find(d => d.nombre === ubicacion.DistritoMatriz);
+          const ubicacionLote = ubicaciones.find(u => u.UbicacionLote === ubicacion.UbicacionLote);
+
+          lote.matriz.departamentoMatriz = departamento ? departamento.id : null;
+          lote.matriz.provinciaMatriz = provincia ? provincia.id : null;
+          lote.matriz.distritoMatriz = distrito ? distrito.id : null;
+          lote.matriz.ubicacionMatriz = ubicacionLote ? ubicacionLote.id:null  ;
+          lote.matriz.areaMatrizHasMatriz = ubicacion.AreaMatrizHas;
+          lote.matriz.registroDeMatriz = ubicacion.RegistroDE;
+          lote.matriz.partidaMatriz = ubicacion.PartidaMatriz;
+          lote.matriz.unidadCatastralMatriz = ubicacion.UnidadCatastralMatriz;
+          lote.matriz.urbanizacionMatriz = ubicacion.UrbanizacionMatriz;
+          lote.matriz.compraventaMatriz = ubicacion.CompraVentaMatriz;
+          lote.matriz.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
         }
       });
     },
