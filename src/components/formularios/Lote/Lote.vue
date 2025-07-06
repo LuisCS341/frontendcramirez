@@ -140,32 +140,30 @@
         maxlength="10"
         required
     />
+
     <label>Área del Lote m2:</label>
-<div class="union">
-    <input class="numero"
+    <input
         v-model="lote.areaLote"
         type="text"
         step="any"
         required
         placeholder="Ingrese su Área del Lote"
-              @input="
+        @input="
           lote.areaLote = lote.areaLote.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')
           lote.areaLoteLetras = numeroLetrasAreaLote(lote.areaLote);
           "
     />
+
+    <label>Área del Lote en Letras:</label>
     <input
-        class="numero-letras"
         v-model="lote.areaLoteLetras"
         type="text"
         required
         readonly
-        style="background-color: #f0f0f0; color: #555;"
     />
-</div>
+
     <label>Costo de Lote:</label>
-    <div class="union">
     <input
-        class="numero"
         v-model="lote.costoLote"
         step="any"
         required
@@ -175,44 +173,38 @@
       lote.costoLoteLetras = numeroLetrasSinDecimal(parseFloat(lote.costoLote).toFixed(2));
     "
     />
+
+    <label>Costo del Lote en Letra:</label>
     <input
-        class="numero-letras"
         v-model="lote.costoLoteLetras"
         type="text"
         readonly
         required
-        style="background-color: #f0f0f0; color: #555;"
     />
-    </div>
 
-    <label style="font-weight: bold;">Precio por MT2:</label>
-    <div class="union">
+    <label>Precio por MT2:</label>
     <input
-        class="numero"
         v-model="lote.precioMetroCuadrado"
         type="text"
         required
         placeholder="Ingrese el Precio por MT2"
-        style="background-color: #f0f0f0; color: #555;"
         @input="
       lote.precioMetroCuadrado = lote.precioMetroCuadrado.toString().replace(/[^0-9.]/g, '');
       lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(parseFloat(lote.precioMetroCuadrado).toFixed(2));
-"
+    "
+
     />
+
+    <label>Precio por MT2 en Letras:</label>
     <input
-        class="numero-letras"
         v-model="lote.precioMetroCuadradoLetras"
         type="text"
         required
         readonly
-        style="background-color: #f0f0f0; color: #555;"
     />
-    </div>
 
     <label>Mantenimiento Mensual:</label>
-    <div class="union">
     <input
-        class="numero"
         type="text"
         v-model="lote.mantenimientoMensual"
         required
@@ -220,14 +212,13 @@
         @input="lote.mantenimientoMensualLetras=numeroLetrasConNumerosDolares(lote.mantenimientoMensual);"
     />
 
+    <label>Mantenimiento Mensual en Letras:</label>
     <input
-        class="numero-letras"
         v-model="lote.mantenimientoMensualLetras"
         type="text"
         readonly
-        style="background-color: #f0f0f0; color: #555;"
     />
-    </div>
+
 
     <div>
       <label>Estado de Cuenta:</label>
@@ -241,14 +232,13 @@
     </div>
 
     <div>
-      <label style="font-weight: bold;"> Monto de Deuda en Letras:</label>
+      <label> Monto de Deuda en Letras:</label>
       <input
           type="text"
           v-model="lote.montoDeudaLetra"
           placeholder="Ingrese su Monto Deuda"
           required
           readonly
-          style="background-color: #f0f0f0; color: #555;"
       />
     </div>
 
@@ -264,14 +254,13 @@
       />
     </div>
 
-    <label style="font-weight: bold;">Alicuota:</label>
-    <div class="union">
+
     <div>
-      <input class="numero"
+      <label>Alicuota:</label>
+      <input
           type="text"
           v-model="lote.alicuota"
           required
-          style="background-color: #f0f0f0; color: #555;"
           @input="
       lote.alicuota = lote.alicuota.toString().replace(/[^0-9.]/g, '');
       lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota).toFixed(4));
@@ -279,47 +268,14 @@
       />
     </div>
     <div>
+      <label>Alicuota en Letras:</label>
       <input
-          class="numero-letras"
           type="text"
           v-model="lote.alicuotaLetras"
           required
           readonly
-          style="background-color: #f0f0f0; color: #555;"
       />
     </div>
-    </div>
-    <div>
-      <label><strong>¿Tiene cuota extraordinaria?</strong></label>
-      <div class="contenedor-radio-tarjetas">
-        <label class="tarjeta-radio">
-          <input
-              type="radio"
-              :id="'si-' + index"
-              :name="'cuotaExtraordinaria-' + index"
-              value="si"
-              v-model="lote.tieneCuotaExtraordinaria"
-              @change="inicializarCuotaExtraordinaria(lote)"
-              required
-          />
-          <span>Sí</span>
-        </label>
-        <label class="tarjeta-radio">
-          <input
-              type="radio"
-              :id="'no-' + index"
-              :name="'cuotaExtraordinaria-' + index"
-              value="no"
-              v-model="lote.tieneCuotaExtraordinaria"
-              @change="limpiarCuotaExtraordinaria(lote)"
-              required
-          />
-          <span>No</span>
-        </label>
-      </div>
-    </div>
-
-
   </div>
 
 </template>
@@ -354,19 +310,6 @@ defineProps({
   numeroLetrasSinDecimal: Function,
   getUbicacionesFiltradas: Function,
 });
-
-function limpiarCuotaExtraordinaria(lote) {
-  delete lote.cuotaextraordinaria;
-}
-
-function inicializarCuotaExtraordinaria(lote) {
-  lote.cuotaextraordinaria = {
-    cuotaExtraordinariaLote: "",
-    estadoCuenta: "",
-    montoDeudaLetra: "",
-    cuotaPendientePago: "",
-  };
-}
 
 function formatearFecha(event, tipo) {
 
