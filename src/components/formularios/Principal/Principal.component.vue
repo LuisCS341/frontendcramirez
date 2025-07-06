@@ -103,7 +103,7 @@
           <div v-if="formStep === 6">
             <form @submit.prevent="formularioMatriz" v-if="form.numLotes > 0">
               <div v-for="(lote, index) in form.lotes" :key="index">
-                <Cuota
+                <Matriz
                     :lote="lote"
                     :index="index"
                 />
@@ -161,6 +161,7 @@ import {proyectos, proyectosT3Ids} from "@/data/proyectos.js";
 import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
 import Cuota from "@/components/formularios/Lote/Cuota.vue";
 import {numeroALetras, numeroLetrasSinDecimal} from "@/data/numeroLetrasConNumeros.js";
+import Matriz from "@/components/formularios/Lote/Matriz.vue";
 
 
 const formStep = ref(1);
@@ -307,17 +308,17 @@ watch(() => form.value.numLotes, (newVal) => {
       saldoLoteLetras:'',
     },
     matriz: {
-      departamentoMatriz,
-      provinciaMatriz,
-      distritoMatriz,
-      ubicacionMatriz,
-      areaMatrizHasMatriz,
-      registroDeMatriz,
-      partidaMatriz,
-      unidadCatastralMatriz,
-      urbanizacionMatriz,
-      compraventaMatriz,
-      situacionLegalMatriz,
+      departamentoMatriz:'',
+      provinciaMatriz:'',
+      distritoMatriz:'',
+      ubicacionMatriz:'',
+      areaMatrizHasMatriz:'',
+      registroDeMatriz:'',
+      partidaMatriz:'',
+      unidadCatastralMatriz:'',
+      urbanizacionMatriz:'',
+      compraventaMatriz:'',
+      situacionLegalMatriz:'',
     },
     lindero:{
       porLaDerechaLindero: '',

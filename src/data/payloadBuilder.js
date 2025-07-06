@@ -176,7 +176,7 @@ export const buildMatrizPayload = ({ idLote, matriz }) => ({
     distritoMatriz: matriz.distritoMatriz,
     ubicacionMatriz: matriz.ubicacionMatriz,
     areaMatrizHasMatriz: matriz.areaMatrizHasMatriz,
-    registroDeMatriz: matriz.registroDeMatriz,
+    registroMatriz: matriz.registroDeMatriz,
     partidaMatriz: matriz.partidaMatriz,
     unidadCatastralMatriz: matriz.unidadCatastralMatriz,
     urbanizacionMatriz: matriz.urbanizacionMatriz,
