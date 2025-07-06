@@ -12,7 +12,7 @@
         <p><strong>Departamento:</strong> {{ obtenerNombreDepartamento(form.departamento, departamentos) }}</p>
         <p><strong>Provincia:</strong> {{ obtenerNombreProvincia(form.provincia, provincias) }}</p>
         <p><strong>Distrito:</strong> {{ obtenerNombreDistrito(form.distrito, distritos) }}</p>
-        <p><strong>Código de Cliente Asignado:</strong> {{ form.idCliente.toString().padStart(5, '0') }}</p>
+        <p><strong>Código de Cliente Asignado:</strong> {{ form.idCliente }}</p>
         <p><strong>Número de Contratos:</strong> {{ form.lotes.length }}</p>
       </div>
 
