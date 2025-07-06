@@ -59,20 +59,21 @@
 import "@/assets/tablas/Tablas.css";
 import axios from "axios";
 import * as XLSX from "xlsx";
-import { operarios } from "@/data/operarios.js";
-import { tiposContrato } from "@/data/tiposContrato.js";
-import { computed, onMounted, reactive, ref } from "vue";
-import { columnasClientes } from "@/data/columnasClientes.js";
+import {operarios} from "@/data/operarios.js";
+import {tiposContrato} from "@/data/tiposContrato.js";
+import {computed, onMounted, reactive, ref} from "vue";
+import {columnasClientes} from "@/data/columnasClientes.js";
 import MostrarDatosCliente from "@/components/tablas/MostrarDatosCliente.vue";
-import { exportarClientesXLSX } from "@/data/exportClientes.js";
+import {exportarClientesXLSX} from "@/data/exportClientes.js";
+
 
 const clientes = ref([]);
 const selectedTemporal = reactive({});
 const busquedaGlobal = ref("");
 
 const filtros = reactive({
-  idClienteClone: "",
-  idLote: "",
+  idClienteClone:"",
+  idLote:"",
   nombresApellidos: "",
   numeroIdentificacion: "",
 });
@@ -80,20 +81,14 @@ const filtros = reactive({
 const obtenerDatosCombinados = async () => {
   try {
     const response = await axios.get("https://backendcramirez.onrender.com/api/clientes/conlotes", {
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
       withCredentials: true,
     });
 
     clientes.value = response.data.map((clienteLote) => {
       const cliente = clienteLote.cliente;
       const lote = clienteLote.lote;
-
       selectedTemporal[cliente.idCliente] = cliente.operario || "";
-
-      // Asegurar que dniVendedor esté definido
-      if (!lote.dniVendedor) {
-        lote.dniVendedor = "00000000"; // valor por defecto si no viene
-      }
 
       return {
         ...cliente,
@@ -123,20 +118,14 @@ const activarEdicion = (cliente) => {
   }
 };
 
-const guardarEdicion = async (cliente) => {
-  if (!cliente || !cliente.lote) return;
+const guardarEdicion = async (cliente, lote) => {
+  if (!cliente || !cliente.lote || !cliente.idCliente) return;
 
   const clienteLimpio = { ...cliente };
   delete clienteLimpio.editando;
 
   const loteLimpio = { ...cliente.lote };
   delete loteLimpio.editando;
-
-  // Validar dniVendedor obligatorio
-  if (!loteLimpio.dniVendedor) {
-    alert("El DNI del vendedor es obligatorio.");
-    return;
-  }
 
   const payload = {
     cliente: clienteLimpio,
@@ -147,7 +136,7 @@ const guardarEdicion = async (cliente) => {
 
   try {
     const response = await axios.put(
-        `https://backendcramirez.onrender.com/api/clientes/${cliente.idCliente}`,
+        `https://backendcramirez.onrender.com/api/clientes/editar/${cliente.idCliente}`,
         payload
     );
 
@@ -155,6 +144,7 @@ const guardarEdicion = async (cliente) => {
 
     Object.assign(cliente, response.data.cliente || {});
     Object.assign(cliente.lote, response.data.lote || {});
+
     cliente.editando = false;
     if (cliente.lote) {
       cliente.lote.editando = false;
@@ -165,6 +155,8 @@ const guardarEdicion = async (cliente) => {
   }
 };
 
+
+
 const formatearFecha = (event, tipo) => {
   let input = event.target.value;
   input = input.replace(/[^0-9]/g, '');
@@ -174,7 +166,9 @@ const formatearFecha = (event, tipo) => {
   if (input.length > 10) input = input.slice(0, 10);
 
   event.target.value = input;
+
 };
+
 
 onMounted(() => {
   obtenerDatosCombinados();
@@ -183,31 +177,37 @@ onMounted(() => {
 const onCambioOperario = async (event, cliente) => {
   const nuevoUsuario = event.target.value;
   const idCliente = cliente.idCliente;
+
   const operarioAnterior = selectedTemporal[idCliente];
 
   if (nuevoUsuario === operarioAnterior) {
     return;
   }
 
-  const confirmacion = confirm("¿Estás seguro que quieres cambiar el operario?");
+  const confirmacion = confirm(`¿Estás seguro que quieres cambiar el operario?`);
   if (!confirmacion) {
     selectedTemporal[idCliente] = operarioAnterior;
     return;
   }
 
   try {
-    await axios.put(
-        `https://backendcramirez.onrender.com/api/clientes/transferir/${idCliente}`,
-        { nuevoUsuarioOperario: nuevoUsuario },
-        { withCredentials: true }
-    );
+
+    await axios.put(`https://backendcramirez.onrender.com/api/clientes/transferir/${idCliente}`, {
+      nuevoUsuarioOperario: nuevoUsuario,
+    }, {
+      withCredentials: true,
+    });
 
     alert("Cliente transferido correctamente");
+
     cliente.operario = nuevoUsuario;
     selectedTemporal[idCliente] = nuevoUsuario;
+
   } catch (error) {
+
     console.error("Error detallado:", error);
     alert("Error al transferir cliente: " + (error.response?.data?.message || error.message));
+
     selectedTemporal[idCliente] = operarioAnterior;
   }
 };
@@ -231,8 +231,9 @@ const clientesFiltrados = computed(() => {
   });
 });
 
+
 const exportar = () => {
   exportarClientesXLSX(clientes.value);
 };
-</script>
 
+</script>

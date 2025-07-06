@@ -107,9 +107,11 @@ const obtenerDatosCombinados = async () => {
       const cliente = clienteLote.cliente;
       const lote = clienteLote.lote;
       selectedTemporal[cliente.idCliente] = cliente.operario || "";
+
       return {
         ...cliente,
-        lote,
+        ...cliente.cliente,
+        lote: lote,
         editando: false,
       };
     });
@@ -132,7 +134,6 @@ const obtenerDatosCombinados = async () => {
   }
 };
 
-
 const activarEdicion = (cliente) => {
   if (cliente) {
     cliente.editando = true;
@@ -151,13 +152,12 @@ if (cliente && cliente.idCliente) {
  */
 
 const guardarEdicion = async (cliente, lote) => {
-  if (!cliente || !lote) return;
+  if (!cliente || !cliente.lote || !cliente.idCliente) return;
 
   const clienteLimpio = { ...cliente };
   delete clienteLimpio.editando;
-  delete clienteLimpio.lote;
 
-  const loteLimpio = { ...lote };
+  const loteLimpio = { ...cliente.lote };
   delete loteLimpio.editando;
 
   const payload = {
@@ -168,20 +168,26 @@ const guardarEdicion = async (cliente, lote) => {
   console.log("Payload a enviar:", payload);
 
   try {
-    const response = await axios.put(`https://backendcramirez.onrender.com/api/clientes/${cliente.idCliente}`, payload);
+    const response = await axios.put(
+        `https://backendcramirez.onrender.com/api/clientes/editar/${cliente.idCliente}`,
+        payload
+    );
+
     console.log("Cliente y lote actualizados:", response.data);
 
     Object.assign(cliente, response.data.cliente || {});
-    Object.assign(lote, response.data.lote || {});
+    Object.assign(cliente.lote, response.data.lote || {});
 
     cliente.editando = false;
-    lote.editando = false;
-
+    if (cliente.lote) {
+      cliente.lote.editando = false;
+    }
   } catch (error) {
     console.error("Error al actualizar cliente y lote:", error.response?.data || error.message);
     alert("Hubo un error al guardar los cambios.");
   }
 };
+
 
 
 const formatearFecha = (event, tipo) => {
