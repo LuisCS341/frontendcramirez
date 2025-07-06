@@ -52,6 +52,9 @@ export function buildCopropietarioPayload(idCliente, copropietario) {
         idProvinciaCopropietarios: copropietario.provinciaCopropietarios,
         idDistritoCopropietarios: copropietario.distritoCopropietarios,
         direccionCopropietarios: copropietario.direccionCopropietariosHogar,
+        correoElectronicoCopropietarios: copropietario.correoUsuarioCopropietarios,
+        idPrefijoCopropietarios: copropietario.prefijoTelefonicoCopropietarios,
+        celularCopropietarios: copropietario.numeroTelefonicoCopropietarios,
         idEstadoCivilCopropietarios: copropietario.estadoCivilCopropietarios,
         descripcionEstadoCivilCopropietarios: copropietario.descripcionEstadoCivilCopropietarios,
     };
@@ -70,7 +73,9 @@ export function buildConyugePayload(idCliente, conyuge) {
         idNacionalidadCopropietarioConyuge: conyuge.paisOrigenCopropietariosConyuge,
         idResidenciaCopropietarioConyuge: conyuge.paisResidenciaCopropietariosConyuge,
         direccionCopropietarioConyuge: conyuge.direccionCopropietariosConyuge,
-
+        correoElectronicoCopropietarioConyuge: conyuge.correoUsuarioCopropietariosConyuge,
+        idPrefijoCopropietarioConyuge: conyuge.prefijoTelefonicoCopropietariosConyuge,
+        celularCopropietarioConyuge: conyuge.numTelefonicoCopropietariosConyuge,
     };
 }
 
@@ -131,7 +136,7 @@ export const buildLinderoPayload = ({ idLote, lindero }) => ({
     porElFondo: lindero?.porElFondoLindero ,
 });
 
-export const buildDocumentoPayload =({idCuotaExtraordinaria,documento}) => ({
+export const buildDocumentoPayload=({idCuotaExtraordinaria,documento}) => ({
     idCuotaExtraordinaria,
     cartaNoAdeudo: documento.cartaNoAdeudo,
     certificadoLote: documento.certificadoLote,
@@ -163,3 +168,19 @@ export const buildCuotaPayload=({idLote,cuota}) => ({
     saldoLote: cuota.saldoLote,
     saldoLoteLetras: cuota.saldoLoteLetras,
 });
+
+export const buildMatrizPayload = ({ idLote, matriz }) => ({
+    idLote,
+    departamentoMatriz: matriz.departamentoMatriz,
+    provinciaMatriz: matriz.provinciaMatriz,
+    distritoMatriz: matriz.distritoMatriz,
+    ubicacionMatriz: matriz.ubicacionMatriz,
+    areaMatrizHasMatriz: matriz.areaMatrizHasMatriz,
+    registroDeMatriz: matriz.registroDeMatriz,
+    partidaMatriz: matriz.partidaMatriz,
+    unidadCatastralMatriz: matriz.unidadCatastralMatriz,
+    urbanizacionMatriz: matriz.urbanizacionMatriz,
+    compraventaMatriz: matriz.compraventaMatriz,
+    situacionLegalMatriz: matriz.situacionLegalMatriz,
+});
+

@@ -101,6 +101,18 @@
           </div>
 
           <div v-if="formStep === 6">
+            <form @submit.prevent="formularioMatriz" v-if="form.numLotes > 0">
+              <div v-for="(lote, index) in form.lotes" :key="index">
+                <Cuota
+                    :lote="lote"
+                    :index="index"
+                />
+              </div>
+              <button type="submit">Siguiente</button>
+            </form>
+          </div>
+
+          <div v-if="formStep === 7">
             <ResumenRegistro
                 :form="form"
                 :obtenerNombrePais="obtenerNombrePais"
@@ -133,7 +145,7 @@ import {
   buildLotePayload,
   buildCuotaExtraordinariaPayload,
   buildLinderoPayload,
-  buildCuotaPayload
+  buildCuotaPayload, buildMatrizPayload
 } from '@/data/payloadBuilder.js'
 import {obtenerNombreResidencia, obtenerNombrePais, obtenerNombreDepartamento, obtenerNombreProvincia, obtenerNombreDistrito, obtenerNombreProyecto} from '@/data/utils.js';
 import Cliente from "@/components/formularios/Cliente/Cliente.vue";
@@ -293,6 +305,19 @@ watch(() => form.value.numLotes, (newVal) => {
       cuotaPendientePago: '',
       saldoLote:'',
       saldoLoteLetras:'',
+    },
+    matriz: {
+      departamentoMatriz,
+      provinciaMatriz,
+      distritoMatriz,
+      ubicacionMatriz,
+      areaMatrizHasMatriz,
+      registroDeMatriz,
+      partidaMatriz,
+      unidadCatastralMatriz,
+      urbanizacionMatriz,
+      compraventaMatriz,
+      situacionLegalMatriz,
     },
     lindero:{
       porLaDerechaLindero: '',
@@ -540,6 +565,30 @@ const formularioLinderos = async () => {
     console.error('Error al registrar los linderos:', error.response?.data || error.message);
   }
 };
+
+const formularioMatriz = async () => {
+  if (!form.value?.lotes?.length) {
+    console.warn('No hay lotes disponibles para registrar matriz.');
+    return;
+  }
+
+  try {
+    const requests = form.value.lotes.map(lote => {
+      const payload = buildMatrizPayload(lote);
+      return axios.post('https://backendcramirez.onrender.com/api/matriz', payload);
+    });
+
+    await Promise.all(requests);
+
+    console.log('Matriz registrados con éxito.');
+    formularioActual.value = 2;
+
+    formStep.value++;
+  } catch (error) {
+    console.error('Error al registrar matriz:', error.response?.data || error.message);
+  }
+};
+
 
 let timeoutIdConyuge;
 
