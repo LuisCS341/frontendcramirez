@@ -72,10 +72,22 @@
               <button type="submit">Siguiente</button>
             </form>
           </div>
+
           <div v-if="formStep === 4">
+            <form @submit.prevent="formularioCuota" v-if="form.numLotes > 0">
+              <div v-for="(lote, index) in form.lotes" :key="index">
+                <Cuota
+                    :lote="lote"
+                    :index="index"
+                />
+              </div>
+              <button type="submit">Siguiente</button>
+            </form>
+          </div>
+
+          <div v-if="formStep === 5">
             <form @submit.prevent="formularioCuotaExtraordinaria">
               <div v-for="(lote, index) in form.lotes" :key="index">
-
                 <CuotaExtraordinaria
                     v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
                     :cuotaextraordinaria="lote.cuotaextraordinaria"
@@ -88,29 +100,16 @@
             </form>
           </div>
 
-          <div v-if="formStep === 5">
-            <form @submit.prevent="formularioCuota" v-if="form.numLotes > 0">
-              <div v-for="(lote, index) in form.lotes" :key="index">
-                <Cuota
-                    :lote="lote"
-                    :index="index"
-                />
-              </div>
-              <button type="submit">Siguiente</button>
-            </form>
-          </div>
-
-
           <div v-if="formStep === 6">
-              <ResumenRegistro
-                  :form="form"
-                  :obtenerNombrePais="obtenerNombrePais"
-                  :obtenerNombreResidencia="obtenerNombreResidencia"
-                  :obtenerNombreDepartamento="obtenerNombreDepartamento"
-                  :obtenerNombreProvincia="obtenerNombreProvincia"
-                  :obtenerNombreDistrito="obtenerNombreDistrito"
-                  :obtenerNombreProyecto="obtenerNombreProyecto"
-              />
+            <ResumenRegistro
+                :form="form"
+                :obtenerNombrePais="obtenerNombrePais"
+                :obtenerNombreResidencia="obtenerNombreResidencia"
+                :obtenerNombreDepartamento="obtenerNombreDepartamento"
+                :obtenerNombreProvincia="obtenerNombreProvincia"
+                :obtenerNombreDistrito="obtenerNombreDistrito"
+                :obtenerNombreProyecto="obtenerNombreProyecto"
+            />
             <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
           </div>
 
