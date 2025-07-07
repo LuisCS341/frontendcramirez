@@ -34,7 +34,7 @@
       <input
           v-model.number="lote.matriz.areaMatrizHasMatriz"
           type="number"
-          step="0.001"
+          step="any"
           required
       />
 
