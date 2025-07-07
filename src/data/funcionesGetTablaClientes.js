@@ -22,3 +22,7 @@ export const getCopropietario = (fila) => {
     const copro = fila?.copropietarios;
     return Array.isArray(copro) && copro.length > 0 ? copro[0] : {};
 };
+
+export const getMatriz = (fila) => {
+    return fila?.lote?.matriz || {};
+};
