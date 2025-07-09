@@ -106,6 +106,4 @@ const distritosFiltrados = computed(() =>
     distritos.filter(d => d.provinciaId === props.lote.matriz?.provinciaMatriz)
 );
 
-
-
 </script>
