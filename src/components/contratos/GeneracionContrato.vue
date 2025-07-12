@@ -223,6 +223,7 @@ const descargarWordT1 = async (cliente) => {
     const lindero = getLindero(cliente);
     const matriz = getMatriz(cliente);
     const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const cuota=getCuota(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
