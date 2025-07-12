@@ -302,7 +302,6 @@ const descargarWordT1 = async (cliente) => {
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
 
-
     };
 
 
@@ -367,6 +366,7 @@ const descargarWordT2 = async (cliente) => {
     const lindero = getLindero(cliente);
     const cuota = getCuota(cliente);
     const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const matriz=getMatriz(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
@@ -444,7 +444,6 @@ const descargarWordT2 = async (cliente) => {
       unidadCatastral:matriz?.unidadCatastral?? '-',
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
-
     };
 
     doc.setData(datos);
@@ -494,6 +493,8 @@ const descargarWordT3 = async (cliente) => {
     const copropietario = getCopropietario(cliente.cliente);
     const lindero = getLindero(cliente);
     const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const cuota=getCuota(cliente);
+    const matriz=getMatriz(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
