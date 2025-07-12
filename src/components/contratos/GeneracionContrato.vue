@@ -301,6 +301,7 @@ const descargarWordT1 = async (cliente) => {
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
 
+
     };
 
 
