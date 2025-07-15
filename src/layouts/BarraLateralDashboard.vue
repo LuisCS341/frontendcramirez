@@ -103,11 +103,11 @@ export default {
 </script>
 <style scoped>
 .contenido-principal{
-  top: 60px; /* altura exacta de la barra superior */
-  width: 100%;/* para que no se monte sobre la barra lateral */
-  height: 100%; /* para que no se monte sobre la barra superior */
+  width: 100%;
+  max-width: 1200px; /* o 100% si no quieres limitarlo */
+  margin: 0 auto; /* centrado automático */
+  padding: 20px;
   box-sizing: border-box;
-  margin-left: -55px;
 }
 
 </style>
