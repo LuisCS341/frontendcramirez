@@ -5,7 +5,6 @@
       <BarraSuperior />
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -16,7 +15,6 @@ export default {
   components: {
     BarraLateral: BarraLateralDashboard,
     BarraSuperior: BarraSuperiorDashboard,
-    AreaTrabajo: AreaTrabajo
   }
 };
 
