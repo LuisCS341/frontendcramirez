@@ -430,6 +430,7 @@ const descargarWordT2 = async (cliente) => {
       porElFondo: lindero?.porElFondo ?? '-' ,
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
+      mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       alicuota:lote?.alicuota ?? '-' ,
       alicuotaLetras: lote?.alicuotaLetras ?? '-',
       descripcionEstadoCivil: cliente.cliente.descripcionEstadoCivil?? '-',
@@ -444,6 +445,7 @@ const descargarWordT2 = async (cliente) => {
       unidadCatastral:matriz?.unidadCatastral?? '-',
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
+
     };
 
     doc.setData(datos);
