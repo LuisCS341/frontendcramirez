@@ -776,7 +776,15 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (newValues, oldValues) =>
   });
 });
 
-const cerrarResumen = () => {
+const cerrarResumen = async () => {
+  try {
+    await axios.post(`http://localhost:8080/api/email/enviar-cliente/${idCliente.value}`);
+    console.log("Correo enviado con éxito");
+  } catch (error) {
+    console.error("Error al enviar el correo:", error);
+    alert("No se pudo enviar el correo al cliente.");
+    return;
+  }
   router.push("/dashboard/formularios/registro-cliente");
 };
 
