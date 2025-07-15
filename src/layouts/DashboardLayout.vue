@@ -1,4 +1,5 @@
 <template>
+  <div class="dashboard">
   <div class="dashboard-container">
     <BarraLateral />
     <div class="main-content">
@@ -7,7 +8,7 @@
       </div>
     </div>
   </div>
-
+  </div>
 </template>
 
 <script>
@@ -24,6 +25,14 @@ export default {
 </script>
 
 <style scoped>
+.dashboard {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+
+}
 .dashboard-container {
   display: flex;
   height: 100vh;
