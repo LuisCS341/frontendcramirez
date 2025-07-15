@@ -13,7 +13,7 @@ export const ubicaciones = [
         CCI: '002-193-00-2153495183-11',
         FechaSale: '31/12/2023',
         FechaFirmaContratoDefinitivo: 'LIMA, A LOS 14 (CATORCE) DÍAS DEL MES DE MARZO DEL AÑO 2025 (DOS MIL VEINTICINCO).',
-        AreaMatrizHas: 15,
+        AreaMatrizHas: 14.999999981734,
         RegistroDE: 'Inscrito en lo Registros Publicos de Huaral - Zona Registral IX - Sede Lima.',
         PartidaMatriz: 20000007,
         UbicacionLote: 'LOTE 2-L, SECTOR LUCHIHUASI',

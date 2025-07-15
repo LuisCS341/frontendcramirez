@@ -1,5 +1,3 @@
-
-
 export function buildClientePayload(form) {
     return {
         nombresApellidos: form.nombreCliente,
@@ -183,4 +181,3 @@ export const buildMatrizPayload = ({ idLote, matriz }) => ({
     compraventaMatriz: matriz.compraventaMatriz,
     situacionLegalMatriz: matriz.situacionLegalMatriz,
 });
-
