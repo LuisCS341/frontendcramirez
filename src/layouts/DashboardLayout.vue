@@ -14,25 +14,20 @@
 <script>
 import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
 import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
+import AreaTrabajo from "@/components/dashboard/AreaTrabajo.vue";
 
 export default {
   components: {
     BarraLateral: BarraLateralDashboard,
-    BarraSuperior: BarraSuperiorDashboard
+    BarraSuperior: BarraSuperiorDashboard,
+    AreaTrabajo: AreaTrabajo
   }
 };
 
 </script>
 
 <style scoped>
-.dashboard {
-  display: grid;
-  grid-auto-columns: 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
 
-}
 .dashboard-container {
   display: flex;
   height: 100vh;
