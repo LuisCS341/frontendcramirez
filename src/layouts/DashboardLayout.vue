@@ -3,7 +3,6 @@
     <BarraLateral />
     <div class="main-content">
       <BarraSuperior />
-      <div class="area-trabajo">
       </div>
     </div>
   </div>
@@ -12,7 +11,6 @@
 <script>
 import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
 import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
-import AreaTrabajo from "@/components/dashboard/AreaTrabajo.vue";
 
 export default {
   components: {
@@ -37,13 +35,6 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-
-.area-trabajo {
-  flex-grow: 1;
-  padding: 20px;
-  background: #f8f9fa;
-  overflow-y: auto;
 }
 
 </style>
