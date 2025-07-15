@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   setTimeout(() => {
     cargando.value = false
-  }, 500) // opcional: delay para transición visual
+  }, 800) // opcional: delay para transición visual
 })
 </script>
 
