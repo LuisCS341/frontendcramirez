@@ -20,7 +20,7 @@ export default {
   components: {
     BarraLateral: BarraLateralDashboard,
     BarraSuperior: BarraSuperiorDashboard,
-    AreaTrabajo: AreaTrabajo;
+    AreaTrabajo: AreaTrabajo,
   }
 };
 
