@@ -50,21 +50,18 @@
           type="text"
           required
       />
-
       <label>Urbanización Matriz:</label>
       <input
           v-model="lote.matriz.urbanizacionMatriz"
           type="text"
           required
       />
-
       <label>Compraventa Matriz:</label>
       <input
           v-model="lote.matriz.compraventaMatriz"
           type="text"
           required
       />
-
       <label>Situación Legal:</label>
       <input
           v-model="lote.matriz.situacionLegalMatriz"
@@ -73,7 +70,6 @@
       />
     </div>
   </div>
-
 </template>
 
 <script setup>
