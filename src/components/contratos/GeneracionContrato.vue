@@ -385,7 +385,6 @@ const descargarWordT2 = async (cliente) => {
     const matriz=getMatriz(cliente);
 
     const datos = {
-
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
       documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
       numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
@@ -400,7 +399,6 @@ const descargarWordT2 = async (cliente) => {
       provincia: (cliente.cliente.provincia ?? '-').toUpperCase(),
       departamento: (cliente.cliente.departamento ?? '-').toUpperCase(),
       descripcionEstadoCivil: cliente.cliente.descripcionEstadoCivil?? '-',
-
       idClienteConyuge: conyuge?.idClienteConyuge ?? '-' ,
       nombresApellidosConyuge: (conyuge?.nombresApellidosConyuge ?? '-').toUpperCase() ,
       documentoIdentificacionConyuge: (conyuge?.documentoIdentificacionConyuge ?? '-').toUpperCase() ,
@@ -410,7 +408,6 @@ const descargarWordT2 = async (cliente) => {
       distritoConyuge: (conyuge?.distritoConyuge ?? '-' ).toUpperCase(),
       provinciaConyuge: (conyuge?.provinciaConyuge ?? '-' ).toUpperCase(),
       departamentoConyuge: (conyuge?.departamentoConyuge ?? '-').toUpperCase() ,
-
       idClienteCopropietarios: copropietario?.idClienteCopropietarios ?? '-' ,
       nombresApellidosCopropietarios: (copropietario?.nombresApellidosCopropietarios ?? '-').toUpperCase() ,
       numeroIdentificacionCopropietarios: (copropietario?.numeroIdentificacionCopropietarios ?? '-').toUpperCase() ,
@@ -421,15 +418,11 @@ const descargarWordT2 = async (cliente) => {
       provinciaCopropietarios: (copropietario?.provinciaCopropietarios ?? '-').toUpperCase() ,
       departamentoCopropietarios: (copropietario?.departamentoCopropietarios ?? '-').toUpperCase() ,
       estadoCivilCopropietarios: (copropietario?.estadoCivilCopropietarios ?? '-').toUpperCase() ,
-
       fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
-
-
       porElFrente: lindero?.porElFrente ?? '-' ,
       porLaDerecha: lindero?.porLaDerecha ?? '-' ,
       porLaIzquierda: lindero?.porLaIzquierda ?? '-' ,
       porElFondo: lindero?.porElFondo ?? '-' ,
-
       idLote: lote?.idLote ?? '-',
       contrato: (lote?.contrato ?? '-').toUpperCase(),
       tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
@@ -445,16 +438,13 @@ const descargarWordT2 = async (cliente) => {
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
       costoLote: lote?.costoLote ?? '-',
-      montoLetras: (lote?.montoLetras ?? '-' ).toUpperCase() ,
+      costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
       areaLote: lote?.areaLote ?? '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
-      precioMetroCuadrado:lote?.precioMetroCuadrado ?? '-',
-      precioMetroCuadradoLetras:lote?.precioMetroCuadradoLetras?? '-',
       alicuota:lote?.alicuota ?? '-' ,
       alicuotaLetras: lote?.alicuotaLetras ?? '-',
       mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
-
 
       departamentoMatriz:matriz?.departamentoMatriz?? '-',
       provinciaMatriz:matriz?.provinciaMatriz?? '-',
@@ -593,13 +583,14 @@ const descargarWordT3 = async (cliente) => {
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
       costoLote: lote?.costoLote ?? '-',
-      montoLetras: (lote?.montoLetras ?? '-' ).toUpperCase() ,
+      costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
       areaLote: lote?.areaLote ?? '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
       alicuota:lote?.alicuota ?? '-' ,
       alicuotaLetras: lote?.alicuotaLetras ?? '-',
       mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
+
       departamentoMatriz:matriz?.departamentoMatriz?? '-',
       provinciaMatriz:matriz?.provinciaMatriz?? '-',
       distritoMatriz:matriz?.distritoMatriz?? '-',
@@ -612,6 +603,7 @@ const descargarWordT3 = async (cliente) => {
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
+
       cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion?? '-',
       cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
       fechaPago: cuota?.cuotaInicialIncluyeSeparacion?? '-',
