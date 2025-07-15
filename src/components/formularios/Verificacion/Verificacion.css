@@ -10,7 +10,7 @@
 .switch-container span {
     display: flex;
     align-items: center;
-    gapf: 0.4rem;
+    gap: 0.4rem;
     color: #555;
     transition: color 0.3s;
 }
