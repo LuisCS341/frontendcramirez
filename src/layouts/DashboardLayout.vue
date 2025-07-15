@@ -1,5 +1,4 @@
 <template>
-  <div class="dashboard">
   <div class="dashboard-container">
     <BarraLateral />
     <div class="main-content">
@@ -7,7 +6,6 @@
       <div class="area-trabajo">
       </div>
     </div>
-  </div>
   </div>
 </template>
 
