@@ -28,11 +28,4 @@ export default {
   overflow: hidden;
 }
 
-.main-content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
 </style>
