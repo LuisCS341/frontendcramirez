@@ -22,10 +22,4 @@ export default {
 
 <style scoped>
 
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
 </style>
