@@ -169,35 +169,7 @@
       />
     </div>
 
-    <div>
-      <label><strong>¿Tiene cuota extraordinaria?</strong></label>
-      <div class="contenedor-radio-tarjetas">
-        <label class="tarjeta-radio">
-          <input
-              type="radio"
-              :id="'si-' + index"
-              :name="'cuotaExtraordinaria-' + index"
-              value="si"
-              v-model="lote.tieneCuotaExtraordinaria"
-              @change="inicializarCuotaExtraordinaria(lote)"
-              required
-          />
-          <span>Sí</span>
-        </label>
-        <label class="tarjeta-radio">
-          <input
-              type="radio"
-              :id="'no-' + index"
-              :name="'cuotaExtraordinaria-' + index"
-              value="no"
-              v-model="lote.tieneCuotaExtraordinaria"
-              @change="limpiarCuotaExtraordinaria(lote)"
-              required
-          />
-          <span>No</span>
-        </label>
-      </div>
-    </div>
+
 
   </div>
 
@@ -221,17 +193,6 @@ defineProps({
   },
 });
 
-function limpiarCuotaExtraordinaria(lote) {
-  delete lote.cuotaextraordinaria;
-}
 
-function inicializarCuotaExtraordinaria(lote) {
-  lote.cuotaextraordinaria = {
-    cuotaExtraordinariaLote: "",
-    estadoCuenta: "",
-    montoDeudaLetra: "",
-    cuotaPendientePago: "",
-  };
-}
 
 </script>
