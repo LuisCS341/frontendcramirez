@@ -11,7 +11,6 @@
           <tr>
             <th></th>
             <th>TIPO DE CONTRATO</th>
-            <th>CLIENTE Nº</th>
             <th>CONTRATO Nº</th>
             <th>PROYECTO</th>
             <th>EMPRESA QUE VENDE</th>
@@ -170,7 +169,7 @@ onMounted(async () => {
 
 const obtenerDatosCombinados = async () => {
   try {
-    const response = await axios.get("https://backendcramirez.onrender.com/api/clientes/conlotes", {
+    const response = await axios.get("http://localhost:8080/api/clientes/conlotes", {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
@@ -287,15 +286,15 @@ const descargarWordT1 = async (cliente) => {
       mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
 
-      departamentoMatriz:matriz?.departamentoMatriz?? '-',
-      provinciaMatriz:matriz?.provinciaMatriz?? '-',
-      distritoMatriz:matriz?.distritoMatriz?? '-',
-      ubicacionMatriz:matriz?.ubicacionMatriz?? '-',
+      txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
+      txtprovinciamatriz:matriz?.txtprovinciamatriz?? '-',
+      txtdistritomatriz:matriz.matriz?.txtdistritomatriz?? '-',
+      txtubicacionmatriz:matriz?.txtubicacionmatriz?? '-',
       areaMatrizHasMatriz:matriz?.areaMatrizHasMatriz?? '-',
       registroDeMatriz:matriz?.registroDeMatriz?? '-',
       registroMatriz:matriz?.registroMatriz?? '-',
       partidaMatriz:matriz?.partidaMatriz?? '-',
-      unidadCatastral:matriz?.unidadCatastral?? '-',
+      unidadCatastralMatriz:matriz?.unidadCatastralMatriz?? '-',
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
@@ -320,10 +319,7 @@ const descargarWordT1 = async (cliente) => {
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
 
-
     doc.setData(datos);
-
-    console.log("Variables enviadas a la plantilla:", Object.keys(datos));
 
     try {
       doc.render();
@@ -343,7 +339,6 @@ const descargarWordT1 = async (cliente) => {
       alert("Error al generar el documento Word. Revisa la consola para más detalles.");
       return;
     }
-
 
     const out = doc.getZip().generate({
       type: "blob",
@@ -382,7 +377,7 @@ const descargarWordT2 = async (cliente) => {
     const lindero = getLindero(cliente);
     const cuota = getCuota(cliente);
     const cuotaExtra = getCuotaExtraordinaria(cliente);
-    const matriz=getMatriz(cliente);
+    const matriz= getMatriz(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
@@ -446,15 +441,15 @@ const descargarWordT2 = async (cliente) => {
       mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
 
-      departamentoMatriz:matriz?.departamentoMatriz?? '-',
-      provinciaMatriz:matriz?.provinciaMatriz?? '-',
-      distritoMatriz:matriz?.distritoMatriz?? '-',
-      ubicacionMatriz:matriz?.ubicacionMatriz?? '-',
+      txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
+      txtprovinciamatriz:matriz?.txtprovinciamatriz?? '-',
+      txtdistritomatriz:matriz.matriz?.txtdistritomatriz?? '-',
+      txtubicacionmatriz:matriz?.txtubicacionmatriz?? '-',
       areaMatrizHasMatriz:matriz?.areaMatrizHasMatriz?? '-',
       registroDeMatriz:matriz?.registroDeMatriz?? '-',
       registroMatriz:matriz?.registroMatriz?? '-',
       partidaMatriz:matriz?.partidaMatriz?? '-',
-      unidadCatastral:matriz?.unidadCatastral?? '-',
+      unidadCatastralMatriz:matriz?.unidadCatastralMatriz?? '-',
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
@@ -591,15 +586,15 @@ const descargarWordT3 = async (cliente) => {
       mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
 
-      departamentoMatriz:matriz?.departamentoMatriz?? '-',
-      provinciaMatriz:matriz?.provinciaMatriz?? '-',
-      distritoMatriz:matriz?.distritoMatriz?? '-',
-      ubicacionMatriz:matriz?.ubicacionMatriz?? '-',
+      txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
+      txtprovinciamatriz:matriz?.txtprovinciamatriz?? '-',
+      txtdistritomatriz:matriz.matriz?.txtdistritomatriz?? '-',
+      txtubicacionmatriz:matriz?.txtubicacionmatriz?? '-',
       areaMatrizHasMatriz:matriz?.areaMatrizHasMatriz?? '-',
       registroDeMatriz:matriz?.registroDeMatriz?? '-',
       registroMatriz:matriz?.registroMatriz?? '-',
       partidaMatriz:matriz?.partidaMatriz?? '-',
-      unidadCatastral:matriz?.unidadCatastral?? '-',
+      unidadCatastralMatriz:matriz?.unidadCatastralMatriz?? '-',
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
