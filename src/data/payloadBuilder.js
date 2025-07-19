@@ -1,3 +1,5 @@
+
+
 export function buildClientePayload(form) {
     return {
         nombresApellidos: form.nombreCliente,
@@ -30,9 +32,6 @@ export function buildClienteConyugePayload(form, idCliente) {
         idProvinciaConyuge: form.conyuge.provinciaClienteConyuge,
         idDistritoConyuge: form.conyuge.distritoClienteConyuge,
         direccionConyuge: form.conyuge.direccionClienteConyuge,
-        correoElectronicoConyuge: form.conyuge.correoUsuarioCliente,
-        idPrefijoConyuge: form.conyuge.prefijoTelefonicoClienteConyuge,
-        celularConyuge: form.conyuge.numTelefonicoClienteConyuge,
         nombresApellidosConyuge: form.conyuge.nombreClienteConyuge
     };
 }
@@ -50,9 +49,6 @@ export function buildCopropietarioPayload(idCliente, copropietario) {
         idProvinciaCopropietarios: copropietario.provinciaCopropietarios,
         idDistritoCopropietarios: copropietario.distritoCopropietarios,
         direccionCopropietarios: copropietario.direccionCopropietariosHogar,
-        correoElectronicoCopropietarios: copropietario.correoUsuarioCopropietarios,
-        idPrefijoCopropietarios: copropietario.prefijoTelefonicoCopropietarios,
-        celularCopropietarios: copropietario.numeroTelefonicoCopropietarios,
         idEstadoCivilCopropietarios: copropietario.estadoCivilCopropietarios,
         descripcionEstadoCivilCopropietarios: copropietario.descripcionEstadoCivilCopropietarios,
     };
@@ -71,9 +67,6 @@ export function buildConyugePayload(idCliente, conyuge) {
         idNacionalidadCopropietarioConyuge: conyuge.paisOrigenCopropietariosConyuge,
         idResidenciaCopropietarioConyuge: conyuge.paisResidenciaCopropietariosConyuge,
         direccionCopropietarioConyuge: conyuge.direccionCopropietariosConyuge,
-        correoElectronicoCopropietarioConyuge: conyuge.correoUsuarioCopropietariosConyuge,
-        idPrefijoCopropietarioConyuge: conyuge.prefijoTelefonicoCopropietariosConyuge,
-        celularCopropietarioConyuge: conyuge.numTelefonicoCopropietariosConyuge,
     };
 }
 
@@ -181,3 +174,4 @@ export const buildMatrizPayload = ({ idLote, matriz }) => ({
     compraventaMatriz: matriz.compraventaMatriz,
     situacionLegalMatriz: matriz.situacionLegalMatriz,
 });
+
