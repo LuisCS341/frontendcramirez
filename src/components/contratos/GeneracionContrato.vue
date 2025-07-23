@@ -226,6 +226,7 @@ const descargarWordT1 = async (cliente) => {
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
+      codigoLoteCliente: cliente.cliente.codigo ?? '-',
       documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
       numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
       idClienteClone: cliente.cliente.idClienteClone ?? '-',
@@ -285,6 +286,8 @@ const descargarWordT1 = async (cliente) => {
       alicuotaLetras: lote?.alicuotaLetras ?? '-',
       mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
+      precioMetroCuadrado:lote?.precioMetroCuadrado ?? '-',
+      precioMetroCuadradoLetras: (lote?.precioMetroCuadradoLetras??'-').toUpperCase(),
 
       txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
       txtprovinciamatriz:matriz?.txtprovinciamatriz?? '-',
