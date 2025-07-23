@@ -226,7 +226,7 @@ const descargarWordT1 = async (cliente) => {
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
-      codigoLoteCliente: cliente.cliente.codigo,toString().padStart(5, '0'),
+      codigoLoteCliente: cliente.cliente.codigo ?? '-',
       documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
       numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
       idClienteClone: cliente.cliente.idClienteClone ?? '-',
