@@ -32,8 +32,9 @@
           type="text"
           v-model="lote.cuota.fechaPago"
           required
-          readonly
-          placeholder="Cuota Inicial Fecha Pago"
+          @input="formatearFecha($event, 'inicio')"
+          placeholder="dd/mm/aaaa"
+          maxlength="10"
       />
     </div>
     <div>
@@ -169,6 +170,37 @@
       />
     </div>
 
+    <div>
+      <label>Medios de Pago:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.mediosPago"
+          placeholder="Ingrese  Medios de Pago"
+          required
+      />
+    </div>
+
+    <div>
+      <label>Estado de Cuenta:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.estadoCuenta"
+          required
+          placeholder="Ingrese su Estado de Cuenta"
+          @input="lote.cuota.montoDeudaLetra=numeroLetrasConNumeros(lote.cuota.estadoCuenta);"
+      />
+    </div>
+
+    <div>
+      <label> Monto de Deuda en Letras:</label>
+      <input
+          type="text"
+          v-model="lote.cuota.montoDeudaLetra"
+          placeholder="Ingrese su Monto Deuda"
+          required
+          readonly
+      />
+    </div>
 
 
   </div>
@@ -179,7 +211,7 @@
 import {bancos} from "@/data/bancos.js";
 import {
   numeroLetrasSinDecimal,
-  numeroLetrascuotaletras
+  numeroLetrascuotaletras, numeroLetrasConNumeros
 } from "@/data/numeroLetrasConNumeros.js";
 
 defineProps({
@@ -193,6 +225,21 @@ defineProps({
   },
 });
 
+function formatearFecha(event, tipo) {
 
+  let input = event.target.value;
+  input = input.replace(/[^0-9]/g, '');
+
+  if (input.length > 2) input = input.slice(0, 2) + '/' + input.slice(2);
+  if (input.length > 5) input = input.slice(0, 5) + '/' + input.slice(5);
+  if (input.length > 10) input = input.slice(0, 10);
+
+  event.target.value = input;
+  if (tipo === 'inicio') {
+    fechaInicioContrato.value = input;
+  } else if (tipo === 'cancelacion') {
+    fechaCancelacionContrato.value = input;
+  }
+}
 
 </script>

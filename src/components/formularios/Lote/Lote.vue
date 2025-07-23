@@ -219,29 +219,6 @@
         readonly
     />
 
-
-    <div>
-      <label>Estado de Cuenta:</label>
-      <input
-          type="text"
-          v-model="lote.estadoCuenta"
-          required
-          placeholder="Ingrese su Estado de Cuenta"
-          @input="lote.montoDeudaLetra=numeroLetrasConNumeros(lote.estadoCuenta);"
-      />
-    </div>
-
-    <div>
-      <label> Monto de Deuda en Letras:</label>
-      <input
-          type="text"
-          v-model="lote.montoDeudaLetra"
-          placeholder="Ingrese su Monto Deuda"
-          required
-          readonly
-      />
-    </div>
-
     <div>
       <label>Fecha de Entrega:</label>
       <input
@@ -307,6 +284,7 @@
       </div>
     </div>
 
+
   </div>
 
 </template>
@@ -342,6 +320,18 @@ defineProps({
   getUbicacionesFiltradas: Function,
 });
 
+function limpiarCuotaExtraordinaria(lote) {
+  delete lote.cuotaextraordinaria;
+}
+
+function inicializarCuotaExtraordinaria(lote) {
+  lote.cuotaextraordinaria = {
+    cuotaExtraordinariaLote: "",
+    cantidadCuotaExtraordinaria: "",
+    montoCuotaExtraordinaria: "",
+  };
+}
+
 function formatearFecha(event, tipo) {
 
   let input = event.target.value;
@@ -357,19 +347,6 @@ function formatearFecha(event, tipo) {
   } else if (tipo === 'cancelacion') {
     fechaCancelacionContrato.value = input;
   }
-}
-
-function limpiarCuotaExtraordinaria(lote) {
-  delete lote.cuotaextraordinaria;
-}
-
-function inicializarCuotaExtraordinaria(lote) {
-  lote.cuotaextraordinaria = {
-    cuotaExtraordinariaLote: "",
-    estadoCuenta: "",
-    montoDeudaLetra: "",
-    cuotaPendientePago: "",
-  };
 }
 
 </script>

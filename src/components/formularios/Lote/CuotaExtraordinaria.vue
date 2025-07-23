@@ -23,24 +23,33 @@
           v-model="lote.cuotaextraordinaria.montoCuotaExtraordinaria"
           placeholder="Ingrese el Monto de Cuota Extraordinaria"
           required
+          @input="
+      lote.cuotaextraordinaria.montoCuotaExtraordinaria = lote.cuotaextraordinaria.montoCuotaExtraordinaria.toString().replace(/[^0-9.]/g, '');
+      lote.cuotaextraordinaria.montoCuotaExtraordinariaLetras = numeroLetrascuotaletras(parseFloat(lote.cuotaextraordinaria.montoCuotaExtraordinaria).toFixed(2));
+      "
 
       />
     </div>
 
     <div>
-      <label>Medios de Pago:</label>
+      <label>Monto de Cuota Extraordinaria en Letras:</label>
       <input
           type="text"
-          v-model="lote.cuotaextraordinaria.mediosPago"
-          placeholder="Ingrese  Medios de Pago"
+          step="any"
+          v-model="lote.cuotaextraordinaria.montoCuotaExtraordinariaLetras"
+          placeholder="Ingrese el Monto de Cuota Extraordinaria"
           required
+
       />
     </div>
+
+
   </div>
 </template>
 
 <script setup>
 import {ref} from "vue";
+import {numeroLetrascuotaletras} from "@/data/numeroLetrasConNumeros.js";
 
 const fechaInicioContrato = ref('');
 const fechaCancelacionContrato = ref('');
