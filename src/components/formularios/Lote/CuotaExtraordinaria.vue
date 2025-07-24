@@ -39,6 +39,7 @@
           v-model="lote.cuotaextraordinaria.montoCuotaExtraordinariaLetras"
           placeholder="Ingrese el Monto de Cuota Extraordinaria"
           required
+          readonly
 
       />
     </div>
