@@ -303,6 +303,8 @@ const descargarWordT1 = async (cliente) => {
       alicuotaLetras: lote?.alicuotaLetras ?? '-',
       mantenimientoMensual: lote?.mantenimientoMensual ? parseFloat(lote.mantenimientoMensual).toFixed(2) : '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
+      precioMetroCuadrado:lote?.precioMetroCuadrado ?? '-',
+      precioMetroCuadradoLetras:(lote?.precioMetroCuadradoLetras?? '-').toUpperCase(),
       txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
       txtprovinciamatriz:matriz?.txtprovinciamatriz?? '-',
       txtdistritomatriz:matriz.matriz?.txtdistritomatriz?? '-',
