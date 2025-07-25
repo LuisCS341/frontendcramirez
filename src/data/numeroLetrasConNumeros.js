@@ -215,7 +215,7 @@ export function numeroLetrasConDecimal(numero) {
     const parteEnteraLetras = convertirEntero(parteEntera);
     const parteDecimalLetras = convertirDecimal(parteDecimal);
 
-    return `${parteEnteraLetras} punto ${parteDecimalLetras}`.toUpperCase();
+    return `${parteEnteraLetras} PUNTO ${parteDecimalLetras}`.toUpperCase();
 }
 
 export function numeroLetrasAreaLote(valor) {
@@ -379,7 +379,7 @@ export function numeroALetras(numero) {
     // Convertimos la parte decimal dígito por dígito
     const parteDecimalLetras = parteDecimalStr.split('').map(d => unidades[parseInt(d)]).join(' ');
 
-    return `${parteEnteraLetras} punto ${parteDecimalLetras}`.trim();
+    return `${parteEnteraLetras} PUNTO ${parteDecimalLetras}`.trim();
 }
 
 export function numeroLetrasEntero(numero) {
