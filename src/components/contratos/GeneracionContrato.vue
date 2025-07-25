@@ -152,7 +152,7 @@ import {
   getCuotaExtraordinaria,
   getConyuge,
   getCuota,
-  getCopropietario, getMatriz,
+  getCopropietario, getMatriz, getCopropietarioLista,
 } from "@/data/funcionesGetTablaClientes.js";
 
 const clientes = ref([]);
@@ -199,9 +199,34 @@ const descargarWordPorTipo = (cliente) => {
 
 const descargarWordT1 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_T1.docx", {
+
+
+    const lote = getLote(cliente);
+    const conyuge = getConyuge(cliente.cliente);
+    const copropietario = getCopropietario(cliente.cliente);
+    const copropietariolista = getCopropietarioLista(cliente.cliente);
+    const lindero = getLindero(cliente);
+    const matriz = getMatriz(cliente);
+    const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const cuota=getCuota(cliente);
+
+    const tieneConyuge = conyuge?.idClienteConyuge != null;
+    const tieneCopropietarioLista = Array.isArray(copropietariolista) && copropietariolista.some(c => c.idCopropietario != null);
+
+    let plantillaPath = "/plantillas/plantilla_T1.docx";
+
+    if (tieneConyuge && tieneCopropietarioLista) {
+      plantillaPath = "/plantillas/plantilla_T1_contodo.docx";
+    } else if (tieneConyuge && !tieneCopropietarioLista) {
+      plantillaPath = "/plantillas/plantilla_T1_sincopropietario.docx";
+    } else if (!tieneConyuge && tieneCopropietarioLista) {
+      plantillaPath = "/plantillas/plantilla_T1_sinconyuge.docx";
+    }
+
+    const response = await axios.get(plantillaPath, {
       responseType: "arraybuffer",
     });
+
 
     const zip = new PizZip(response.data);
     const doc = new Docxtemplater(zip, {
@@ -215,14 +240,6 @@ const descargarWordT1 = async (cliente) => {
     const anio = fecha.getFullYear();
     const diaTexto = numeroATexto(fecha.getDate()).toUpperCase();
     const anioTexto = numeroATexto(anio).toUpperCase();
-
-    const lote = getLote(cliente);
-    const conyuge = getConyuge(cliente.cliente);
-    const copropietario = getCopropietario(cliente.cliente);
-    const lindero = getLindero(cliente);
-    const matriz = getMatriz(cliente);
-    const cuotaExtra = getCuotaExtraordinaria(cliente);
-    const cuota=getCuota(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),

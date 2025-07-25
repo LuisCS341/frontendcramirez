@@ -453,17 +453,20 @@ const formularioLote = async () => {
     const requests = [];
 
     if (form.value.numCopropietarios > 0) {
-      form.value.copropietarios.forEach((copropietario) => {
+      for (const copropietario of form.value.copropietarios) {
         const copropietarioPayload = buildCopropietarioPayload(idCliente.value, copropietario);
-        requests.push(
-            axios.post("https://backendcramirez.onrender.com/api/copropietario", copropietarioPayload, {
-              withCredentials: true,
-              headers: {
-                "Content-Type": "application/json",
-                "X-User-ID": idOperario,
-              },
-            })
-        );
+        const { data: nuevoCopropietario } = await axios.post("https://backendcramirez.onrender.com/api/copropietario", copropietarioPayload, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-ID": idOperario,
+          },
+        });
+
+        copropietario.idCopropietario = nuevoCopropietario.idCopropietario;
+        console.log("Copropietario guardado con id:", nuevoCopropietario.idCopropietario);
+        localStorage.setItem("idCopropietario", nuevoCopropietario.idCopropietario);
+
 
         if (copropietario.estadoCivilCopropietarios === 2 && copropietario.conyuge) {
           const conyugePayload = buildConyugePayload(idCliente.value, copropietario.conyuge);
@@ -477,7 +480,7 @@ const formularioLote = async () => {
               })
           );
         }
-      });
+      }
     }
 
     if (form.value.numLotes > 0) {

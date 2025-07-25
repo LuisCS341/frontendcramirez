@@ -20,6 +20,11 @@ export const getConyuge = (fila) => {
     return fila?.conyuge || {};
 };
 
+export const getCopropietarioLista = (fila) => {
+    return Array.isArray(fila?.copropietarios) ? fila.copropietarios : [];
+};
+
+
 export const getCopropietario = (fila) => {
     const copro = fila?.copropietarios;
     return Array.isArray(copro) && copro.length > 0 ? copro[0] : {};
