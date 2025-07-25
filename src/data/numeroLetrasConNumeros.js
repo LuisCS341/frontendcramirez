@@ -149,14 +149,14 @@ export function numeroLetrasConNumerosDolares(valor) {
 }
 
 export function numeroLetrasConDecimal(numero) {
-    const unidades = ["", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"];
-    const especiales = ["diez", "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve"];
-    const decenas = ["", "", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"];
-    const centenas = ["", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"];
+    const unidades = ["", "UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE"];
+    const especiales = ["DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISÉIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE"];
+    const decenas = ["", "", "VEINTE", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA"];
+    const centenas = ["", "CIENTO", "DOSCIENTOS", "TRESCIENTOS", "CUATROCIENTOS", "QUINIENTOS", "SEISCIENTOS", "SETECIENTOS", "OCHOCIENTOS", "NOVECIENTOS"];
 
     function convertirCientos(n) {
         if (n === 0) return "";
-        if (n === 100) return "cien";
+        if (n === 100) return "CIEN";
 
         let resultado = "";
 
@@ -170,10 +170,10 @@ export function numeroLetrasConDecimal(numero) {
         if (dosDigitos >= 10 && dosDigitos <= 19) {
             resultado += especiales[dosDigitos - 10];
         } else if (dosDigitos >= 21 && dosDigitos <= 29) {
-            resultado += "veinti" + unidades[u];
+            resultado += "VEINTI" + unidades[u];
         } else {
             if (d > 0) resultado += decenas[d];
-            if (d > 2 && u > 0) resultado += " y ";
+            if (d > 2 && u > 0) resultado += " Y ";
             if (d !== 1 && u > 0) resultado += unidades[u];
         }
 
@@ -181,7 +181,7 @@ export function numeroLetrasConDecimal(numero) {
     }
 
     function convertirEntero(n) {
-        if (n === 0) return "cero";
+        if (n === 0) return "CERO";
 
         let miles = Math.floor(n / 1000);
         let resto = n % 1000;
@@ -189,9 +189,9 @@ export function numeroLetrasConDecimal(numero) {
         let texto = "";
 
         if (miles === 1) {
-            texto += "mil";
+            texto += "MIL";
         } else if (miles > 1) {
-            texto += convertirCientos(miles) + " mil";
+            texto += convertirCientos(miles) + " MIL";
         }
 
         if (resto > 0) {
@@ -367,7 +367,7 @@ export function numeroATexto(num) {
 
 
 export function numeroALetras(numero) {
-    const unidades = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve'];
+    const unidades = ['CERO', 'UNO', 'DOS', 'TRES', 'CUATRO', 'CINCO', 'SEIS', 'SIETE', 'OCHO', 'NUEVE'];
 
     // Aseguramos que el número tenga 4 decimales
     const numeroStr = Number(numero).toFixed(4);
@@ -383,14 +383,14 @@ export function numeroALetras(numero) {
 }
 
 export function numeroLetrasEntero(numero) {
-    const unidades = ["", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"];
-    const especiales = ["diez", "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve"];
-    const decenas = ["", "", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"];
-    const centenas = ["", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"];
+    const unidades = ["", "UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE"];
+    const especiales = ["DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISÉIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE"];
+    const decenas = ["", "", "VEINTE", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA"];
+    const centenas = ["", "CIENTO", "DOSCIENTOS", "TRESCIENTOS", "CUATROCIENTOS", "QUINIENTOS", "SEISCIENTOS", "SETECIENTOS", "OCHOCIENTOS", "NOVECIENTOS"];
 
     function convertirCientos(n) {
         if (n === 0) return "";
-        if (n === 100) return "cien";
+        if (n === 100) return "CIEN";
 
         let resultado = "";
 
@@ -404,10 +404,10 @@ export function numeroLetrasEntero(numero) {
         if (dosDigitos >= 10 && dosDigitos <= 19) {
             resultado += especiales[dosDigitos - 10];
         } else if (dosDigitos >= 21 && dosDigitos <= 29) {
-            resultado += "veinti" + unidades[u];
+            resultado += "VEINTI" + unidades[u];
         } else {
             if (d > 0) resultado += decenas[d];
-            if (d > 2 && u > 0) resultado += " y ";
+            if (d > 2 && u > 0) resultado += " Y ";
             if (d !== 1 && u > 0) resultado += unidades[u];
         }
 
@@ -423,9 +423,9 @@ export function numeroLetrasEntero(numero) {
         let texto = "";
 
         if (miles === 1) {
-            texto += "mil";
+            texto += "MIL";
         } else if (miles > 1) {
-            texto += convertirCientos(miles) + " mil";
+            texto += convertirCientos(miles) + " MIL";
         }
 
         if (resto > 0) {
@@ -511,21 +511,21 @@ export function numeroLetrasSinDecimal(valor) {
 
 export function numeroLetrascuotaletras(valor) {
     const UNIDADES = [
-        '', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve',
-        'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'
+        '', 'UNO', 'DOS', 'TRES', 'CUATRO', 'CINCO', 'SEIS', 'SIETE', 'OCHO', 'NUEVE',
+        'DIEZ', 'ONCE', 'DOCE', 'TRECE', 'CATORCE', 'QUINCE', 'DIECISÉIS', 'DIECISIETE', 'DIECIOCHO', 'DIECINUEVE'
     ];
 
     const DECENAS = [
-        '', '', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'
+        '', '', 'VEINTE', 'TREINTA', 'CUARENTA', 'CINCUENTA', 'SESENTA', 'SETENTA', 'OCHENTA', 'NOVENTA'
     ];
 
     const CENTENAS = [
-        '', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos',
-        'seiscientos', 'setecientos', 'ochocientos', 'novecientos'
+        '', 'CIENTO', 'DOSCIENTOS', 'TRESCIENTOS', 'CUATROCIENTOS', 'QUINIENTOS',
+        'SEISCIENTOS', 'SETECIENTOS', 'OCHOCIENTOS', 'NOVECIENTOS'
     ];
 
     function convertirCentenas(num) {
-        if (num === 100) return 'cien';
+        if (num === 100) return 'CIEN';
         let centenas = Math.floor(num / 100);
         let decenas = num % 100;
         let resultado = '';
@@ -540,7 +540,7 @@ export function numeroLetrascuotaletras(valor) {
                 let uni = decenas % 10;
                 resultado += (resultado ? ' ' : '') + DECENAS[dec];
                 if (uni > 0) {
-                    resultado += ' y ' + UNIDADES[uni]; // ← "veinte y seis"
+                    resultado += ' Y ' + UNIDADES[uni]; // ← "veinte y seis"
                 }
             }
         }
@@ -548,16 +548,16 @@ export function numeroLetrascuotaletras(valor) {
     }
 
     function convertirMiles(num) {
-        if (num === 0) return 'cero';
+        if (num === 0) return 'CERO';
         if (num < 1000) return convertirCentenas(num);
         let miles = Math.floor(num / 1000);
         let resto = num % 1000;
         let resultado = '';
 
         if (miles === 1) {
-            resultado = 'mil';
+            resultado = 'MIL';
         } else {
-            resultado = convertirCentenas(miles) + ' mil';
+            resultado = convertirCentenas(miles) + ' MIL';
         }
 
         if (resto > 0) {

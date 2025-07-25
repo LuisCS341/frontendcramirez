@@ -383,6 +383,7 @@ const descargarWordT2 = async (cliente) => {
       documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
       numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
       idClienteClone: cliente.cliente.idClienteClone ?? '-',
+      codigoLoteCliente: lote?.codigoLoteCliente ?? '-',
       correoElectronico: cliente.cliente.correoElectronico ?? '-' ,
       nombresApellidos: (cliente.cliente.nombresApellidos ?? '-').replace(/\s+/g, ' ') .replace(/\r?\n|\r/g, ' ') .toUpperCase().trim(),
       nacionalidad: (cliente.cliente.nacionalidad ?? '-').toUpperCase(),
@@ -526,6 +527,7 @@ const descargarWordT3 = async (cliente) => {
       documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
       numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
       idClienteClone: cliente.cliente.idClienteClone ?? '-',
+      codigoLoteCliente: lote?.codigoLoteCliente ?? '-',
       correoElectronico: cliente.cliente.correoElectronico ?? '-' ,
       nombresApellidos: (cliente.cliente.nombresApellidos ?? '-').replace(/\s+/g, ' ') .replace(/\r?\n|\r/g, ' ') .toUpperCase().trim(),
       nacionalidad: (cliente.cliente.nacionalidad ?? '-').toUpperCase(),
@@ -578,6 +580,8 @@ const descargarWordT3 = async (cliente) => {
       costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
       areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
+      precioMetroCuadrado:lote?.precioMetroCuadrado ?? '-',
+      precioMetroCuadradoLetras:(lote?.precioMetroCuadradoLetras?? '-').toUpperCase(),
       alicuota:lote?.alicuota ?? '-' ,
       alicuotaLetras: lote?.alicuotaLetras ?? '-',
       mantenimientoMensual: lote?.mantenimientoMensual ? parseFloat(lote.mantenimientoMensual).toFixed(2) : '-',
@@ -610,6 +614,7 @@ const descargarWordT3 = async (cliente) => {
       cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
       letrasPendientePago: cuota?.letrasPendientePago?? '-',
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
+
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
