@@ -821,22 +821,42 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
     { deep: true }
 );
 
-watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
+watch(form, (newForm) => {
+  newForm.lotes.forEach((lote) => {
+    const areaLote = parseFloat(lote.areaLote);
+    const areaMatriz = parseFloat(lote.areaMatriz);
+    const costoLote = parseFloat(lote.costoLote);
+    const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
 
-      const areaLote = parseFloat(lote.areaLote);
-      const areaMatriz = parseFloat(lote.areaMatriz);
+    // 1. Alícuota
+    if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+      const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
+      lote.alicuota = alicuota.toFixed(4);
+      lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
+    } else {
+      lote.alicuota = 0;
+      lote.alicuotaLetras = '';
+    }
 
-      if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-        const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
-        lote.alicuota = alicuota.toFixed(4);
-        lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
-      } else {
-        lote.alicuota= 0;
-        lote.alicuotaLetras = '';
-      }
-    });
-    },
-    { deep: true, immediate: true }
-);
+    // 2. Precio por m²
+    if (!isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0) {
+      const precioMetroCuadrado = costoLote / areaLote;
+      lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
+      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(lote.precioMetroCuadrado);
+    } else {
+      lote.precioMetroCuadrado = 0;
+      lote.precioMetroCuadradoLetras = '';
+    }
 
+    // 3. Saldo de lote
+    if (!isNaN(costoLote) && !isNaN(cuotaInicial)) {
+      const saldo = costoLote - cuotaInicial;
+      lote.cuota.saldoLote = saldo.toFixed(2);
+      lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(lote.cuota.saldoLote);
+    } else {
+      lote.cuota.saldoLote = 0;
+      lote.cuota.saldoLoteLetras = '';
+    }
+  });
+});
 </script>
