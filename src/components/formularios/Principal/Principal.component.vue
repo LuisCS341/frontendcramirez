@@ -160,7 +160,7 @@ import {ubicaciones} from "@/data/ubicaciones.js";
 import {proyectos, proyectosT3Ids} from "@/data/proyectos.js";
 import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
 import Cuota from "@/components/formularios/Lote/Cuota.vue";
-import {numeroALetras} from "@/data/numeroLetrasConNumeros.js";
+import {numeroALetras, numeroLetrasSinDecimal} from "@/data/numeroLetrasConNumeros.js";
 import {distritos} from "@/data/distritos.js";
 import {provincias} from "@/data/provincias.js";
 import {departamentos} from "@/data/departamentos.js";
@@ -810,16 +810,10 @@ const cerrarResumen = async () => {
 };
 
 watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
-      nuevosIds.forEach((idProyecto, index) => {
-        if (proyectosT3Ids.includes(idProyecto)) {
-          form.value.lotes[index].tipoContratolote = 3;
-        } else {
-          form.value.lotes[index].tipoContratolote = 1;
-        }
-      });
-    },
-    { deep: true }
-);
+  nuevosIds.forEach((idProyecto, index) => {
+    form.value.lotes[index].tipoContratolote = proyectosT3Ids.includes(idProyecto) ? 3 : 1;
+  });
+}, { deep: true });
 
 watch(form, (newForm) => {
   newForm.lotes.forEach((lote) => {
@@ -842,7 +836,7 @@ watch(form, (newForm) => {
     if (!isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0) {
       const precioMetroCuadrado = costoLote / areaLote;
       lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
-      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(lote.precioMetroCuadrado);
+      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase();
     } else {
       lote.precioMetroCuadrado = 0;
       lote.precioMetroCuadradoLetras = '';
@@ -852,11 +846,12 @@ watch(form, (newForm) => {
     if (!isNaN(costoLote) && !isNaN(cuotaInicial)) {
       const saldo = costoLote - cuotaInicial;
       lote.cuota.saldoLote = saldo.toFixed(2);
-      lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(lote.cuota.saldoLote);
+      lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase();
     } else {
       lote.cuota.saldoLote = 0;
       lote.cuota.saldoLoteLetras = '';
     }
   });
 });
+
 </script>
