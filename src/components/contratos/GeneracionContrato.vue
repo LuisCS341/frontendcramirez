@@ -246,7 +246,10 @@ const descargarWordT1 = async (cliente) => {
       documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
       numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
       idClienteClone: cliente.cliente.idClienteClone ?? '-',
-      codigoLoteCliente: lote?.codigoLoteCliente ?? '-',
+      codigoLoteCliente: lote?.codigoLoteCliente ? (() => {
+        const [parte1, parte2] = lote.codigoLoteCliente.split('-');
+        return `${parte1.padStart(5, '0')}-${parte2}`;
+      })() : '-',
       correoElectronico: cliente.cliente.correoElectronico ?? '-' ,
       nombresApellidos: (cliente.cliente.nombresApellidos ?? '-').replace(/\s+/g, ' ') .replace(/\r?\n|\r/g, ' ') .toUpperCase().trim(),
       nacionalidad: (cliente.cliente.nacionalidad ?? '-').toUpperCase(),
