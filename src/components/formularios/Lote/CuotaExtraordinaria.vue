@@ -11,7 +11,21 @@
           placeholder="Ingrese Cantidad de Cuota Extraordinaria"
           step="any"
           required
+          @input="
+      lote.cuotaextraordinaria.cantidadCuotaExtraordinaria = lote.cuotaextraordinaria.cantidadCuotaExtraordinaria.toString().replace(/[^0-9.]/g, '');
+      lote.cuotaextraordinaria.cantidadCuotaExtraordinariaLetras = numeroLetrascuotaletras(parseFloat(lote.cuotaextraordinaria.cantidadCuotaExtraordinaria).toFixed(2));
+      "
+      />
+    </div>
 
+    <div>
+      <label>Cantidad de Cuota Extraordinaria en Letras:</label>
+      <input
+          type="text"
+          v-model="lote.cuotaextraordinaria.cantidadCuotaExtraordinariaLetras"
+          placeholder="Ingrese Cantidad de Cuota Extraordinaria"
+          required
+          readonly
       />
     </div>
 

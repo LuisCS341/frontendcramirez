@@ -332,6 +332,7 @@ watch(() => form.value.numLotes, (newVal) => {
     tieneCuotaExtraordinaria: null,
     cuotaextraordinaria: {
       cantidadCuotaExtraordinaria: '',
+      cantidadCuotaExtraordinariaLetras: '',
       montoCuotaExtraordinaria: '',
       montoCuotaExtraordinariaLetras: '',
     }

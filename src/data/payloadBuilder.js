@@ -112,7 +112,9 @@ export function buildLotePayload(idCliente, lote) {
 export const buildCuotaExtraordinariaPayload = ({ idLote, cuotaextraordinaria }) => ({
     idLote,
     cantidadCuotaExtraordinaria: cuotaextraordinaria.cantidadCuotaExtraordinaria,
+    cantidadCuotaExtraordinariaLetras: cuotaextraordinaria.cantidadCuotaExtraordinariaLetras,
     montoCuotaExtraordinaria: cuotaextraordinaria.montoCuotaExtraordinaria,
+    montoCuotaExtraordinariaLetras: cuotaextraordinaria.montoCuotaExtraordinariaLetras,
 });
 
 
@@ -174,4 +176,3 @@ export const buildMatrizPayload = ({ idLote, matriz }) => ({
     compraventaMatriz: matriz.compraventaMatriz,
     situacionLegalMatriz: matriz.situacionLegalMatriz,
 });
-
