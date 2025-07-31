@@ -9,8 +9,23 @@
           type="number"
           v-model="lote.cuotaextraordinaria.cantidadCuotaExtraordinaria"
           placeholder="Ingrese Cantidad de Cuota Extraordinaria"
+          step="any"
           required
+          @input="
+      lote.cuotaextraordinaria.cantidadCuotaExtraordinaria = lote.cuotaextraordinaria.cantidadCuotaExtraordinaria.toString().replace(/[^0-9.]/g, '');
+      lote.cuotaextraordinaria.cantidadCuotaExtraordinariaLetras = numeroLetrascuotaletras(parseFloat(lote.cuotaextraordinaria.cantidadCuotaExtraordinaria).toFixed(2));
+      "
+      />
+    </div>
 
+    <div>
+      <label>Cantidad de Cuota Extraordinaria en Letras:</label>
+      <input
+          type="text"
+          v-model="lote.cuotaextraordinaria.cantidadCuotaExtraordinariaLetras"
+          placeholder="Ingrese Cantidad de Cuota Extraordinaria"
+          required
+          readonly
       />
     </div>
 
@@ -18,27 +33,38 @@
       <label>Monto de Cuota Extraordinaria:</label>
       <input
           type="number"
+          step="any"
           v-model="lote.cuotaextraordinaria.montoCuotaExtraordinaria"
           placeholder="Ingrese el Monto de Cuota Extraordinaria"
           required
+          @input="
+      lote.cuotaextraordinaria.montoCuotaExtraordinaria = lote.cuotaextraordinaria.montoCuotaExtraordinaria.toString().replace(/[^0-9.]/g, '');
+      lote.cuotaextraordinaria.montoCuotaExtraordinariaLetras = numeroLetrascuotaletras(parseFloat(lote.cuotaextraordinaria.montoCuotaExtraordinaria).toFixed(2));
+      "
 
       />
     </div>
 
     <div>
-      <label>Medios de Pago:</label>
+      <label>Monto de Cuota Extraordinaria en Letras:</label>
       <input
           type="text"
-          v-model="lote.cuotaextraordinaria.mediosPago"
-          placeholder="Ingrese  Medios de Pago"
+          step="any"
+          v-model="lote.cuotaextraordinaria.montoCuotaExtraordinariaLetras"
+          placeholder="Ingrese el Monto de Cuota Extraordinaria"
           required
+          readonly
+
       />
     </div>
+
+
   </div>
 </template>
 
 <script setup>
 import {ref} from "vue";
+import {numeroLetrascuotaletras} from "@/data/numeroLetrasConNumeros.js";
 
 const fechaInicioContrato = ref('');
 const fechaCancelacionContrato = ref('');

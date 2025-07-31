@@ -28,6 +28,8 @@ export default {
   display: flex;
   height: 100vh;
   overflow: hidden;
+  justify-content: center;  /* centra horizontalmente */
+  align-items: center;      /* centra verticalmente */
 }
 
 .main-content {

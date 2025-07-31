@@ -153,7 +153,7 @@ const goToForgotPassword = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url("@/assets/imagenes/FondoDashboard.webp");
+  background-image: url("@/assets/imagenes/FondoDashboard.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

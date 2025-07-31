@@ -32,9 +32,6 @@ export function buildClienteConyugePayload(form, idCliente) {
         idProvinciaConyuge: form.conyuge.provinciaClienteConyuge,
         idDistritoConyuge: form.conyuge.distritoClienteConyuge,
         direccionConyuge: form.conyuge.direccionClienteConyuge,
-        correoElectronicoConyuge: form.conyuge.correoUsuarioCliente,
-        idPrefijoConyuge: form.conyuge.prefijoTelefonicoClienteConyuge,
-        celularConyuge: form.conyuge.numTelefonicoClienteConyuge,
         nombresApellidosConyuge: form.conyuge.nombreClienteConyuge
     };
 }
@@ -52,30 +49,24 @@ export function buildCopropietarioPayload(idCliente, copropietario) {
         idProvinciaCopropietarios: copropietario.provinciaCopropietarios,
         idDistritoCopropietarios: copropietario.distritoCopropietarios,
         direccionCopropietarios: copropietario.direccionCopropietariosHogar,
-        correoElectronicoCopropietarios: copropietario.correoUsuarioCopropietarios,
-        idPrefijoCopropietarios: copropietario.prefijoTelefonicoCopropietarios,
-        celularCopropietarios: copropietario.numeroTelefonicoCopropietarios,
         idEstadoCivilCopropietarios: copropietario.estadoCivilCopropietarios,
         descripcionEstadoCivilCopropietarios: copropietario.descripcionEstadoCivilCopropietarios,
     };
 }
 
-export function buildConyugePayload(idCliente, conyuge) {
+export function buildConyugePayload(idCliente, conyugecopropietario) {
     return {
         idClienteCopropietarioConyuge: idCliente,
-        nombresApellidosCopropietarioConyuge: conyuge.nombreCopropietariosConyuge,
-        ocupacionCopropietarioConyuge: conyuge.ocupacionCopropietarioConyuge,
-        idIdentificacionCopropietarioConyuge: conyuge.tipoIdentificacionCopropietariosConyuge,
-        numeroIdentificacionCopropietarioConyuge: conyuge.numIdentificacionCopropietariosConyuge,
-        idDistritoCopropietarioConyuge: conyuge.distritoCopropietariosConyuge,
-        idProvinciaCopropietarioConyuge: conyuge.provinciaCopropietariosConyuge,
-        idDepartamentoCopropietarioConyuge: conyuge.departamentoCopropietariosConyuge,
-        idNacionalidadCopropietarioConyuge: conyuge.paisOrigenCopropietariosConyuge,
-        idResidenciaCopropietarioConyuge: conyuge.paisResidenciaCopropietariosConyuge,
-        direccionCopropietarioConyuge: conyuge.direccionCopropietariosConyuge,
-        correoElectronicoCopropietarioConyuge: conyuge.correoUsuarioCopropietariosConyuge,
-        idPrefijoCopropietarioConyuge: conyuge.prefijoTelefonicoCopropietariosConyuge,
-        celularCopropietarioConyuge: conyuge.numTelefonicoCopropietariosConyuge,
+        nombresApellidosCopropietarioConyuge: conyugecopropietario.nombreCopropietariosConyuge,
+        ocupacionCopropietarioConyuge: conyugecopropietario.ocupacionCopropietarioConyuge,
+        idIdentificacionCopropietarioConyuge: conyugecopropietario.tipoIdentificacionCopropietariosConyuge,
+        numeroIdentificacionCopropietarioConyuge: conyugecopropietario.numIdentificacionCopropietariosConyuge,
+        idDistritoCopropietarioConyuge: conyugecopropietario.distritoCopropietariosConyuge,
+        idProvinciaCopropietarioConyuge: conyugecopropietario.provinciaCopropietariosConyuge,
+        idDepartamentoCopropietarioConyuge: conyugecopropietario.departamentoCopropietariosConyuge,
+        idNacionalidadCopropietarioConyuge: conyugecopropietario.paisOrigenCopropietariosConyuge,
+        idResidenciaCopropietarioConyuge: conyugecopropietario.paisResidenciaCopropietariosConyuge,
+        direccionCopropietarioConyuge: conyugecopropietario.direccionCopropietariosConyuge,
     };
 }
 
@@ -111,20 +102,19 @@ export function buildLotePayload(idCliente, lote) {
         precioMetroCuadradoLetras: lote.precioMetroCuadradoLetras,
         mantenimientoMensual: lote.mantenimientoMensual,
         mantenimientoMensualLetras: lote.mantenimientoMensualLetras,
-        estadoCuenta: lote.estadoCuenta,
-        montoDeudaLetra: lote.montoDeudaLetra ,
         fechaEntrega: lote.fechaEntrega,
         cantidadCuotaCuentaRecaudadora: lote.cantidadCuotaCuentaRecaudadora,
-        saldoLote: lote.saldoLote,
-        saldoLoteLetras: lote.saldoLoteLetras,
+        alicuota:lote.alicuota,
+        alicuotaLetras: lote.alicuotaLetras,
     };
 }
 
 export const buildCuotaExtraordinariaPayload = ({ idLote, cuotaextraordinaria }) => ({
     idLote,
     cantidadCuotaExtraordinaria: cuotaextraordinaria.cantidadCuotaExtraordinaria,
+    cantidadCuotaExtraordinariaLetras: cuotaextraordinaria.cantidadCuotaExtraordinariaLetras,
     montoCuotaExtraordinaria: cuotaextraordinaria.montoCuotaExtraordinaria,
-    mediosPago: cuotaextraordinaria.mediosPago,
+    montoCuotaExtraordinariaLetras: cuotaextraordinaria.montoCuotaExtraordinariaLetras,
 });
 
 
@@ -165,4 +155,24 @@ export const buildCuotaPayload=({idLote,cuota}) => ({
     cantidadCuotaCuentaRecaudadora: cuota.cantidadCuotaCuentaRecaudadora,
     cantidadCuotaBanco: cuota.cantidadCuotaBanco,
     cuotaPendientePago: cuota.cuotaPendientePago,
+    saldoLote: cuota.saldoLote,
+    saldoLoteLetras: cuota.saldoLoteLetras,
+    mediosPago: cuota.mediosPago,
+    estadoCuenta: cuota.estadoCuenta,
+    montoDeudaLetra: cuota.montoDeudaLetra ,
+});
+
+export const buildMatrizPayload = ({ idLote, matriz }) => ({
+    idLote,
+    idDepartamentoMatriz: matriz.departamentoMatriz,
+    idProvinciaMatriz: matriz.provinciaMatriz,
+    idDistritoMatriz: matriz.distritoMatriz,
+    idUbicacion: matriz.ubicacionMatriz,
+    areaMatrizHasMatriz: matriz.areaMatrizHasMatriz,
+    registroMatriz: matriz.registroDeMatriz,
+    partidaMatriz: matriz.partidaMatriz,
+    unidadCatastralMatriz: matriz.unidadCatastralMatriz,
+    urbanizacionMatriz: matriz.urbanizacionMatriz,
+    compraventaMatriz: matriz.compraventaMatriz,
+    situacionLegalMatriz: matriz.situacionLegalMatriz,
 });

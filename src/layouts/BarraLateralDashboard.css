@@ -5,7 +5,7 @@
     width: 200px;
     height: calc(100vh - 60px); /* Ajuste para alinearse con la barra superior */
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("@/assets/imagenes/FondoDashboard.webp"); /* Desde public/ */
+    url("@/assets/imagenes/FondoDashboard.jpg"); /* Desde public/ */
     background-size: cover;
     background-position: center;
     color: white;
@@ -129,65 +129,50 @@ nav ul li {
 }
 
 @media (max-width: 768px) {
-    /* 🔹 Ocultar barra lateral por defecto en móvil */
     .barra-lateral {
-        transform: translateX(-100%);
-    }
-
-    /* 🔹 Cuando se activa (p. ej., usando una clase "abierta") */
-    .barra-lateral.abierta {
-        transform: translateX(0);
-    }
-
-    /* 🔹 Contenido ocupa toda la pantalla */
-    .contenido {
-        margin-left: 0;
-    }
-
-    /* 🔹 Botón para abrir/cerrar (opcional) */
-    .boton-menu {
+        width: 100%;
+        height: 60px;
         position: fixed;
-        top: 70px; /* debajo de la barra superior */
-        left: 20px;
-        z-index: 1100;
-        background: #000;
-        color: #fff;
-        border: none;
-        padding: 10px 12px;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        align-items: center;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+    }
+
+    .barra-lateral ul {
+        display: flex;
+        flex-direction: row;
+        margin-top: -10px;
+        width: max-content;
+    }
+
+    .barra-lateral li {
+        list-style: none;
+        flex: 0 0 33.33vw;
+        text-align: center;
+    }
+
+    .barra-lateral a,
+    .barra-lateral .menu-toggle,
+    .barra-lateral li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 10px;
+        text-decoration: none;
         cursor: pointer;
-        border-radius: 4px;
+    }
+
+    .icono {
+        width: 22px;
+        height: 22px;
+        filter: brightness(0) invert(1);
     }
 }
-
-
-@media (max-width: 480px) {
-    /* 🔹 Ocultar barra lateral por defecto en móvil */
-    .barra-lateral {
-        transform: translateX(-100%);
-    }
-
-    /* 🔹 Cuando se activa (p. ej., usando una clase "abierta") */
-    .barra-lateral.abierta {
-        transform: translateX(0);
-    }
-
-    /* 🔹 Contenido ocupa toda la pantalla */
-    .contenido {
-        margin-left: 0;
-    }
-
-    /* 🔹 Botón para abrir/cerrar (opcional) */
-    .boton-menu {
-        position: fixed;
-        top: 70px; /* debajo de la barra superior */
-        left: 20px;
-        z-index: 1100;
-        background: #000;
-        color: #fff;
-        border: none;
-        padding: 10px 12px;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-}
-

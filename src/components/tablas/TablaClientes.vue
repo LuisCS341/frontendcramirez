@@ -18,7 +18,7 @@
 
           </thead>
           <tbody>
-          <tr v-for="cliente in clientes" :key="cliente.idCliente ">
+          <tr v-for="cliente in clientesFiltrados" :key="cliente.idCliente ">
 
             <MostrarDatosCliente
                 v-for="col in columnasClientes"
@@ -85,73 +85,74 @@ const filtros = reactive({
   idTipoContrato: "",
 });
 
-  const obtenerDatosCombinados = async () => {
-    try {
-      const userData = JSON.parse(localStorage.getItem("user"));
-      const idOperario = userData?.idOperario;
+const obtenerDatosCombinados = async () => {
+  try {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const idOperario = userData?.idOperario;
 
-      const response = await axios.get(
-          `https://backendcramirez.onrender.com/api/clientes/por-operario/${idOperario}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "X-User-ID": idOperario,
-            },
-            withCredentials: true,
-          }
-      );
-
-      console.log("Respuesta del backend:", response.data);
-
-      clientes.value = response.data.map((clienteLote) => {
-        const cliente = clienteLote.cliente;
-        const lote = clienteLote.lote;
-        selectedTemporal[cliente.idCliente] = cliente.operario || "";
-        return {
-          ...cliente,
-          lote,
-          editando: false,
-        };
-      });
-
-      const gruposVistos = new Set();
-      clientes.value.forEach((cliente) => {
-        if (!gruposVistos.has(cliente.idCliente)) {
-          cliente.esPrimeroGrupo = true;
-          gruposVistos.add(cliente.idCliente);
-        } else {
-          cliente.esPrimeroGrupo = false;
+    const response = await axios.get(
+        `https://backendcramirez.onrender.com/api/clientes/por-operario/${idOperario}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-ID": idOperario,
+          },
+          withCredentials: true,
         }
-      });
+    );
 
-      console.log("Clientes luego de mapear:", clientes.value);
+    console.log("Respuesta del backend:", response.data);
 
-    } catch (error) {
-      console.error("Error al obtener datos combinados:", error);
-      alert("Error al obtener datos de clientes y lotes.");
-    }
-  };
+    clientes.value = response.data.map((clienteLote) => {
+      const cliente = clienteLote.cliente;
+      const lote = clienteLote.lote;
+      selectedTemporal[cliente.idCliente] = cliente.operario || "";
 
+      return {
+        ...cliente,
+        ...cliente.cliente,
+        lote: lote,
+        editando: false,
+      };
+    });
+
+    const gruposVistos = new Set();
+    clientes.value.forEach((cliente) => {
+      if (!gruposVistos.has(cliente.idCliente)) {
+        cliente.esPrimeroGrupo = true;
+        gruposVistos.add(cliente.idCliente);
+      } else {
+        cliente.esPrimeroGrupo = false;
+      }
+    });
+
+    console.log("Clientes luego de mapear:", clientes.value);
+
+  } catch (error) {
+    console.error("Error al obtener datos combinados:", error);
+    alert("Error al obtener datos de clientes y lotes.");
+  }
+};
 
 const activarEdicion = (cliente) => {
   if (cliente) {
     cliente.editando = true;
   }
 };
-  /*
+/*
 const activarEdicion = (cliente) => {
-  if (cliente && cliente.idCliente) {
-    router.push({
-      name: 'PlantillaEdicion',
-      params: { idCliente: cliente.idCliente }
-    });
-  }
+if (cliente && cliente.idCliente) {
+  router.push({
+    name: 'PlantillaEdicion',
+    params: { idCliente: cliente.idCliente }
+  });
+}
 };
 
-   */
+ */
 
-const guardarEdicion = async (cliente) => {
-  if (!cliente || !cliente.lote) return;
+const guardarEdicion = async (cliente, lote) => {
+  if (!cliente || !cliente.lote || !cliente.idCliente) return;
 
   const clienteLimpio = { ...cliente };
   delete clienteLimpio.editando;
@@ -167,7 +168,11 @@ const guardarEdicion = async (cliente) => {
   console.log("Payload a enviar:", payload);
 
   try {
-    const response = await axios.put(`https://backendcramirez.onrender.com/api/clientes/${cliente.idCliente}`, payload);
+    const response = await axios.put(
+        `https://backendcramirez.onrender.com/api/clientes/editar/${cliente.idCliente}`,
+        payload
+    );
+
     console.log("Cliente y lote actualizados:", response.data);
 
     Object.assign(cliente, response.data.cliente || {});
@@ -183,60 +188,75 @@ const guardarEdicion = async (cliente) => {
   }
 };
 
-  const formatearFecha = (event, tipo) => {
-    let input = event.target.value;
-    input = input.replace(/[^0-9]/g, '');
-
-    if (input.length > 2) input = input.slice(0, 2) + '/' + input.slice(2);
-    if (input.length > 5) input = input.slice(0, 5) + '/' + input.slice(5);
-    if (input.length > 10) input = input.slice(0, 10);
-
-    event.target.value = input;
-
-  };
 
 
-  onMounted(() => {
-    obtenerDatosCombinados();
+const formatearFecha = (event, tipo) => {
+  let input = event.target.value;
+  input = input.replace(/[^0-9]/g, '');
+
+  if (input.length > 2) input = input.slice(0, 2) + '/' + input.slice(2);
+  if (input.length > 5) input = input.slice(0, 5) + '/' + input.slice(5);
+  if (input.length > 10) input = input.slice(0, 10);
+
+  event.target.value = input;
+
+};
+
+
+onMounted(() => {
+  obtenerDatosCombinados();
+});
+
+const onCambioOperario = async (event, cliente) => {
+  const nuevoUsuario = event.target.value;
+  const idCliente = cliente.idCliente;
+
+  const operarioAnterior = selectedTemporal[idCliente];
+
+  if (nuevoUsuario === operarioAnterior) {
+    return;
+  }
+
+  const confirmacion = confirm(`¿Estás seguro que quieres cambiar el operario?`);
+  if (!confirmacion) {
+    selectedTemporal[idCliente] = operarioAnterior; // Restauramos el operario anterior
+    return;
+  }
+
+  try {
+
+    await axios.put(`https://backendcramirez.onrender.com/api/clientes/transferir/${idCliente}`, {
+      nuevoUsuarioOperario: nuevoUsuario,
+    }, {
+      withCredentials: true,
+    });
+
+    alert("Cliente transferido correctamente");
+
+    cliente.operario = nuevoUsuario;  // Actualizamos el operario en el objeto cliente
+    selectedTemporal[idCliente] = nuevoUsuario;  // Actualizamos el operario en el estado temporal
+
+  } catch (error) {
+    // Si hubo un error, mostramos un mensaje y restauramos el operario anterior
+    console.error("Error detallado:", error);
+    alert("Error al transferir cliente: " + (error.response?.data?.message || error.message));
+
+    selectedTemporal[idCliente] = operarioAnterior;  // Restauramos el operario anterior
+  }
+};
+
+const clientesFiltrados = computed(() => {
+  if (!busquedaGlobal.value) return clientes.value;
+
+  const texto = busquedaGlobal.value.toLowerCase();
+
+  return clientes.value.filter((cliente) => {
+    return Object.keys(filtros).some((campo) => {
+      const valor = cliente[campo];
+      return valor && valor.toString().toLowerCase().includes(texto);
+    });
   });
-
-  const onCambioOperario = async (event, cliente) => {
-    const nuevoUsuario = event.target.value;
-    const idCliente = cliente.idCliente;
-
-    const operarioAnterior = selectedTemporal[idCliente];
-
-    if (nuevoUsuario === operarioAnterior) {
-      return;
-    }
-
-    const confirmacion = confirm(`¿Estás seguro que quieres cambiar el operario?`);
-    if (!confirmacion) {
-      selectedTemporal[idCliente] = operarioAnterior; // Restauramos el operario anterior
-      return;
-    }
-
-    try {
-
-      await axios.put(`https://backendcramirez.onrender.com/api/clientes/transferir/${idCliente}`, {
-        nuevoUsuarioOperario: nuevoUsuario,
-      }, {
-        withCredentials: true,
-      });
-
-      alert("Cliente transferido correctamente");
-
-      cliente.operario = nuevoUsuario;  // Actualizamos el operario en el objeto cliente
-      selectedTemporal[idCliente] = nuevoUsuario;  // Actualizamos el operario en el estado temporal
-
-    } catch (error) {
-      // Si hubo un error, mostramos un mensaje y restauramos el operario anterior
-      console.error("Error detallado:", error);
-      alert("Error al transferir cliente: " + (error.response?.data?.message || error.message));
-
-      selectedTemporal[idCliente] = operarioAnterior;  // Restauramos el operario anterior
-    }
-  };
+});
 
 const exportar = () => {
   exportarClientesXLSX(clientes.value);

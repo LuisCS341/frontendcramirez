@@ -62,16 +62,12 @@
           </div>
 
           <div v-if="formStep === 3">
-            <form @submit.prevent="formularioCuotaExtraordinaria">
+            <form @submit.prevent="formularioLinderos" v-if="form.numLotes > 0">
               <div v-for="(lote, index) in form.lotes" :key="index">
-
-                <CuotaExtraordinaria
-                    v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
-                    :cuotaextraordinaria="lote.cuotaextraordinaria"
+                <Lindero
                     :lote="lote"
                     :index="index"
                 />
-
               </div>
               <button type="submit">Siguiente</button>
             </form>
@@ -90,9 +86,24 @@
           </div>
 
           <div v-if="formStep === 5">
-            <form @submit.prevent="formularioLinderos" v-if="form.numLotes > 0">
+            <form @submit.prevent="formularioCuotaExtraordinaria">
               <div v-for="(lote, index) in form.lotes" :key="index">
-                <Lindero
+                <CuotaExtraordinaria
+                    v-if="lote.tieneCuotaExtraordinaria === 'si' && lote.cuotaextraordinaria"
+                    :cuotaextraordinaria="lote.cuotaextraordinaria"
+                    :lote="lote"
+                    :index="index"
+                />
+
+              </div>
+              <button type="submit">Siguiente</button>
+            </form>
+          </div>
+
+          <div v-if="formStep === 6">
+            <form @submit.prevent="formularioMatriz" v-if="form.numLotes > 0">
+              <div v-for="(lote, index) in form.lotes" :key="index">
+                <Matriz
                     :lote="lote"
                     :index="index"
                 />
@@ -101,17 +112,16 @@
             </form>
           </div>
 
-
-          <div v-if="formStep === 6">
-              <ResumenRegistro
-                  :form="form"
-                  :obtenerNombrePais="obtenerNombrePais"
-                  :obtenerNombreResidencia="obtenerNombreResidencia"
-                  :obtenerNombreDepartamento="obtenerNombreDepartamento"
-                  :obtenerNombreProvincia="obtenerNombreProvincia"
-                  :obtenerNombreDistrito="obtenerNombreDistrito"
-                  :obtenerNombreProyecto="obtenerNombreProyecto"
-              />
+          <div v-if="formStep === 7">
+            <ResumenRegistro
+                :form="form"
+                :obtenerNombrePais="obtenerNombrePais"
+                :obtenerNombreResidencia="obtenerNombreResidencia"
+                :obtenerNombreDepartamento="obtenerNombreDepartamento"
+                :obtenerNombreProvincia="obtenerNombreProvincia"
+                :obtenerNombreDistrito="obtenerNombreDistrito"
+                :obtenerNombreProyecto="obtenerNombreProyecto"
+            />
             <button type="button" class="btn btn-resumen" @click="cerrarResumen">Cerrar</button>
           </div>
 
@@ -135,7 +145,7 @@ import {
   buildLotePayload,
   buildCuotaExtraordinariaPayload,
   buildLinderoPayload,
-  buildCuotaPayload
+  buildCuotaPayload, buildMatrizPayload
 } from '@/data/payloadBuilder.js'
 import {obtenerNombreResidencia, obtenerNombrePais, obtenerNombreDepartamento, obtenerNombreProvincia, obtenerNombreDistrito, obtenerNombreProyecto} from '@/data/utils.js';
 import Cliente from "@/components/formularios/Cliente/Cliente.vue";
@@ -150,6 +160,11 @@ import {ubicaciones} from "@/data/ubicaciones.js";
 import {proyectos, proyectosT3Ids} from "@/data/proyectos.js";
 import CopropietarioConyuge from "@/components/formularios/Copropietario/CopropietarioConyuge.vue";
 import Cuota from "@/components/formularios/Lote/Cuota.vue";
+import {numeroALetras, numeroLetrasSinDecimal} from "@/data/numeroLetrasConNumeros.js";
+import {distritos} from "@/data/distritos.js";
+import {provincias} from "@/data/provincias.js";
+import {departamentos} from "@/data/departamentos.js";
+import Matriz from "@/components/formularios/Lote/Matriz.vue";
 
 
 const formStep = ref(1);
@@ -183,14 +198,11 @@ const form = ref({
     provinciaClienteConyuge: '',
     distritoClienteConyuge: '',
     direccionClienteConyuge: '',
-    correoUsuarioCliente: '',
-    prefijoTelefonicoClienteConyuge: 8,
-    numTelefonicoClienteConyuge: '',
   },
-    numCopropietarios: 0,
-    copropietarios: [],
-    numLotes: 0,
-    lotes: []
+  numCopropietarios: 0,
+  copropietarios: [],
+  numLotes: 0,
+  lotes: []
 });
 
 watch(() => form.value.numCopropietarios, (newValue) => {
@@ -206,12 +218,9 @@ watch(() => form.value.numCopropietarios, (newValue) => {
       provinciaCopropietarios: '',
       distritoCopropietarios: '',
       direccionCopropietariosHogar: '',
-      correoUsuarioCopropietarios: '',
-      prefijoTelefonicoCopropietarios: 8,
-      numTelefonicoCopropietarios: '',
       estadoCivilCopropietarios: 1,
       descripcionEstadoCivil:"",
-      conyuge: {
+      conyugecopropietario: {
         nombreCopropietariosConyuge: '',
         ocupacionCopropietarioConyuge: '',
         tipoIdentificacionCopropietariosConyuge: 1,
@@ -222,9 +231,6 @@ watch(() => form.value.numCopropietarios, (newValue) => {
         paisOrigenCopropietariosConyuge: 8,
         paisResidenciaCopropietariosConyuge: 8,
         direccionCopropietariosConyuge: '',
-        correoUsuarioCopropietariosConyuge: '',
-        prefijoTelefonicoCopropietariosConyuge: 8,
-        numTelefonicoCopropietariosConyuge: '',
       }
     }));
   } else {
@@ -282,24 +288,40 @@ watch(() => form.value.numLotes, (newVal) => {
     fechaEntrega: '',
     mantenimientoMensual: '',
     mantenimientoMensualLetras: '',
-    estadoCuenta: '',
-    montoDeudaLetra: '',
-    saldoLote:'',
-    saldoLoteLetras:'',
+    alicuota:'',
+    alicuotaLetras:'',
     cuota:{
+      mediosPago: '',
       letrasPendientePago:'',
       cuentaRecaudadora:'',
       cuotaInicialIncluyeSeparacion:'',
       CuotaInicialIncluyeSeparacionLetras:'',
       montoCuotas:'',
       montoCuotaLetras:'',
-      fechaPago:'NO DISPONIBLE',
+      fechaPago:'',
       cuotaInicialBanco:'',
       cantidadCuotas:'',
       cantidadCuotaLetras:'',
       cantidadCuotaCuentaRecaudadora:'',
       cantidadCuotaBanco:'',
       cuotaPendientePago: '',
+      saldoLote:'',
+      saldoLoteLetras:'',
+      estadoCuenta: '',
+      montoDeudaLetra: '',
+    },
+    matriz: {
+      departamentoMatriz: '',
+      provinciaMatriz: '',
+      distritoMatriz: '',
+      ubicacionMatriz: '',
+      areaMatrizHasMatriz: '',
+      registroDeMatriz: '',
+      partidaMatriz: '',
+      unidadCatastralMatriz: '',
+      urbanizacionMatriz: '',
+      compraventaMatriz: '',
+      situacionLegalMatriz: '',
     },
     lindero:{
       porLaDerechaLindero: '',
@@ -309,9 +331,10 @@ watch(() => form.value.numLotes, (newVal) => {
     },
     tieneCuotaExtraordinaria: null,
     cuotaextraordinaria: {
-      montoCuotaExtraordinaria: '',
-      mediosPago: '',
       cantidadCuotaExtraordinaria: '',
+      cantidadCuotaExtraordinariaLetras: '',
+      montoCuotaExtraordinaria: '',
+      montoCuotaExtraordinariaLetras: '',
     }
   }));
 });
@@ -356,6 +379,15 @@ const formularioClientevarios = async () => {
     }
 
     const clientePayload = buildClientePayload(form.value);
+
+
+    const idClienteClone = localStorage.getItem("idClienteClone");
+    if (idClienteClone) {
+      clientePayload.idClienteClone = parseInt(idClienteClone);
+      console.log("Incluyendo idClienteClone:", clientePayload.idClienteClone);
+    }
+
+
     console.log("Datos del Cliente a enviar:", clientePayload);
 
     const response = await axios.post("https://backendcramirez.onrender.com/api/clientes", clientePayload, {
@@ -422,17 +454,20 @@ const formularioLote = async () => {
     const requests = [];
 
     if (form.value.numCopropietarios > 0) {
-      form.value.copropietarios.forEach((copropietario) => {
+      for (const copropietario of form.value.copropietarios) {
         const copropietarioPayload = buildCopropietarioPayload(idCliente.value, copropietario);
-        requests.push(
-            axios.post("https://backendcramirez.onrender.com/api/copropietario", copropietarioPayload, {
-              withCredentials: true,
-              headers: {
-                "Content-Type": "application/json",
-                "X-User-ID": idOperario,
-              },
-            })
-        );
+        const { data: nuevoCopropietario } = await axios.post("https://backendcramirez.onrender.com/api/copropietario", copropietarioPayload, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-ID": idOperario,
+          },
+        });
+
+        copropietario.idCopropietario = nuevoCopropietario.idCopropietario;
+        console.log("Copropietario guardado con id:", nuevoCopropietario.idCopropietario);
+        localStorage.setItem("idCopropietario", nuevoCopropietario.idCopropietario);
+
 
         if (copropietario.estadoCivilCopropietarios === 2 && copropietario.conyuge) {
           const conyugePayload = buildConyugePayload(idCliente.value, copropietario.conyuge);
@@ -446,7 +481,7 @@ const formularioLote = async () => {
               })
           );
         }
-      });
+      }
     }
 
     if (form.value.numLotes > 0) {
@@ -463,6 +498,11 @@ const formularioLote = async () => {
 
         lote.idLote = nuevoLote.idLote;
         console.log(`Lote guardado con idLote: ${nuevoLote.idLote}`);
+
+        if (nuevoLote.codigoLoteCliente) {
+          localStorage.setItem("codigoLoteCliente", nuevoLote.codigoLoteCliente);
+          console.log("Código Lote Cliente guardado:", nuevoLote.codigoLoteCliente);
+        }
       }
     }
 
@@ -540,11 +580,33 @@ const formularioLinderos = async () => {
     await Promise.all(requests);
 
     console.log('Linderos registrados con éxito.');
-    formularioActual.value = 2;
 
     formStep.value++;
   } catch (error) {
     console.error('Error al registrar los linderos:', error.response?.data || error.message);
+  }
+};
+
+const formularioMatriz = async () => {
+  if (!form.value?.lotes?.length) {
+    console.warn('No hay lotes disponibles para registrar matriz.');
+    return;
+  }
+
+  try {
+    const requests = form.value.lotes.map(lote => {
+      const payload = buildMatrizPayload(lote);
+      return axios.post('https://backendcramirez.onrender.com/api/matriz', payload);
+    });
+
+    await Promise.all(requests);
+
+    console.log('Matriz registrados con éxito.');
+    formularioActual.value = 2;
+
+    formStep.value++;
+  } catch (error) {
+    console.error('Error al registrar matriz:', error.response?.data || error.message);
   }
 };
 
@@ -694,11 +756,28 @@ watch(() => form.value.lotes, (lotes) => {
           lote.compraventaMatriz = ubicacion.CompraVentaMatriz;
           lote.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
 
+          const departamento = departamentos.find(d => d.nombre === ubicacion.DepartamentoMatriz);
+          const provincia = provincias.find(p => p.nombre === ubicacion.ProvinciaMatriz);
+          const distrito = distritos.find(d => d.nombre === ubicacion.DistritoMatriz);
+          const ubicacionLote = ubicaciones.find(u => u.UbicacionLote === ubicacion.UbicacionLote);
+
+          lote.matriz.departamentoMatriz = departamento ? departamento.id : null;
+          lote.matriz.provinciaMatriz = provincia ? provincia.id : null;
+          lote.matriz.distritoMatriz = distrito ? distrito.id : null;
+          lote.matriz.ubicacionMatriz = ubicacionLote ? ubicacionLote.id:null  ;
+          lote.matriz.areaMatrizHasMatriz = ubicacion.AreaMatrizHas;
+          lote.matriz.registroDeMatriz = ubicacion.RegistroDE;
+          lote.matriz.partidaMatriz = ubicacion.PartidaMatriz;
+          lote.matriz.unidadCatastralMatriz = ubicacion.UnidadCatastralMatriz;
+          lote.matriz.urbanizacionMatriz = ubicacion.UrbanizacionMatriz;
+          lote.matriz.compraventaMatriz = ubicacion.CompraVentaMatriz;
+          lote.matriz.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
         }
       });
     },
     { deep: true }
 );
+
 
 
 const getUbicacionesFiltradas = (proyectoId) => {
@@ -714,21 +793,66 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (newValues, oldValues) =>
   });
 });
 
-const cerrarResumen = () => {
+const cerrarResumen = async () => {
+
+  /*
+  try {
+    await axios.post(`https://backendcramirez.onrender.com/api/email/enviar-cliente/${idCliente.value}`);
+    console.log("Correo enviado con éxito");
+  } catch (error) {
+    console.error("Error al enviar el correo:", error);
+    alert("No se pudo enviar el correo al cliente.");
+    return;
+  }
+
+   */
+
   router.push("/dashboard/formularios/registro-cliente");
 };
 
 watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
-      nuevosIds.forEach((idProyecto, index) => {
-        if (proyectosT3Ids.includes(idProyecto)) {
-          form.value.lotes[index].tipoContratolote = 3;
-        } else {
-          form.value.lotes[index].tipoContratolote = 1;
-        }
-      });
-    },
-    { deep: true }
-);
+  nuevosIds.forEach((idProyecto, index) => {
+    form.value.lotes[index].tipoContratolote = proyectosT3Ids.includes(idProyecto) ? 3 : 1;
+  });
+}, { deep: true });
 
+watch(form, (newForm) => {
+  newForm.lotes.forEach((lote) => {
+    const areaLote = parseFloat(lote.areaLote);
+    const areaMatriz = parseFloat(lote.areaMatriz);
+    const costoLote = parseFloat(lote.costoLote);
+    const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
+
+    // 1. Alícuota
+    if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+      const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
+      lote.alicuota = alicuota.toFixed(4);
+      lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
+    } else {
+      lote.alicuota = 0;
+      lote.alicuotaLetras = '';
+    }
+
+    // 2. Precio por m²
+    if (!isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0) {
+      const precioMetroCuadrado = costoLote / areaLote;
+      lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
+      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase();
+    } else {
+      lote.precioMetroCuadrado = 0;
+      lote.precioMetroCuadradoLetras = '';
+    }
+
+    // 3. Saldo de lote
+    if (!isNaN(costoLote) && !isNaN(cuotaInicial)) {
+      const saldo = costoLote - cuotaInicial;
+      lote.cuota.saldoLote = saldo.toFixed(2);
+      lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase();
+    } else {
+      lote.cuota.saldoLote = 0;
+      lote.cuota.saldoLoteLetras = '';
+    }
+  });
+});
 
 </script>

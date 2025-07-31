@@ -87,18 +87,9 @@ onMounted(() => {
   .chart-container-grafico-contratos {
     width: 200px;
     height: 300px;
-    margin-top: 10px;
-    margin-left: 30px;
+    margin-top: 80px;
+    margin-left: 300px;
   }
 }
 
-/* ========= RESPONSIVE CELULARES PEQUEÑOS ========= */
-@media (max-width: 480px) {
-  .chart-container-grafico-contratos {
-    width: 200px;
-    height: 200px;
-    margin-top: 40px;
-    margin-right: 20px;
-  }
-}
 </style>

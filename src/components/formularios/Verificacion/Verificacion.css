@@ -215,25 +215,6 @@ input:checked + .slider:before {
     margin: 10px 0;
 }
 
-@media (min-width: 769px) {
-    .form-verificacion {
-        margin-left: 200px;
-    }
-}
-
-@media (max-width: 768px) {
-    .form-verificacion {
-        margin-left: 0;
-        padding: 16px;
-        width: 100%;
-    }
-
-    .form-verificacion .content-formulario {
-        padding: 20px;
-        margin-top: 80px;
-    }
-}
-
 /* css del switch */
 .switch-container {
     display: flex;
@@ -322,4 +303,70 @@ input:checked + .slider:before {
     top: -20px; /* lo sube 10px, ajusta a tu gusto */
 }
 
+@media (max-width: 760px) {
 
+    .form-verificacion {
+        width: 680px;
+        height: 600px;
+        padding: 16px;
+        margin-left:60px;
+        margin-top:60px;
+    }
+
+    .form-verificacion .content-formulario {
+        padding: 20px;
+        margin: 0 auto;
+        width: 90%;
+        max-width: 95%;
+    }
+
+    .form-verificacion h2 {
+        font-size: 2rem;
+    }
+
+    .form-verificacion .input-container {
+        margin-top: 20px;
+        width: 560px;
+    }
+
+    .switch-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .switch-option {
+        flex-direction: row;
+        gap: 6px;
+        font-size: 1rem;
+    }
+
+    .switch-option img {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+    }
+
+    .form-verificacion .nacionalidad-toggle {
+        flex-direction: column;
+    }
+
+    .form-verificacion .nacionalidad-toggle button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .form-verificacion button.btn {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+
+    .form-verificacion .result {
+        font-size: 14px;
+        padding: 16px;
+    }
+
+    .form-verificacion .result strong,
+    .form-verificacion .result span {
+        font-size: 14px;
+    }
+}

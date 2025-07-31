@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h3>Copropietario {{ index + 1 }}</h3>
-
+    <h1>COPROPIETARIO {{ index + 1 }}</h1>
+    <div class="identificacion">
     <label>Tipo de Identificación:</label>
     <select v-model="copropietario.tipoIdentificacionCopropietarios">
       <option v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
@@ -14,7 +14,7 @@
         maxlength="8"
         placeholder="Ingrese su Número de Identificación"
     />
-
+    </div>
     <label>Nombre y Apellido:</label>
     <input
         v-model="copropietario.nombreCopropietarios"
@@ -67,26 +67,6 @@
         type="text"
         placeholder="Ingrese su Dirección"
     />
-
-    <label>Correo Electrónico:</label>
-    <input
-        v-model="copropietario.correoUsuarioCopropietarios"
-        type="text"
-        placeholder="usuario@dominio.com"
-    />
-
-    <label>Número Telefónico:</label>
-    <div style="display: flex; gap: 5px;">
-      <select v-model="copropietario.prefijoTelefonicoCopropietarios">
-        <option v-for="prefijo in prefijos" :key="prefijo.id" :value="prefijo.id">{{ prefijo.codigo }}</option>
-      </select>
-      <input
-          v-model="copropietario.numeroTelefonicoCopropietarios"
-          type="text"
-          placeholder="Ingrese su Número Telefónico"
-          @input="copropietario.numeroTelefonicoCopropietarios = copropietario.numeroTelefonicoCopropietarios.replace(/[^0-9]/g, '')"
-      />
-    </div>
 
     <label>Estado Civil:</label>
     <select v-model="copropietario.estadoCivilCopropietarios">

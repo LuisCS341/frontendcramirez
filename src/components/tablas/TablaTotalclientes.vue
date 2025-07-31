@@ -18,7 +18,7 @@
 
           </thead>
           <tbody>
-          <tr v-for="cliente in clientes" :key="cliente.idCliente">
+          <tr v-for="cliente in clientesFiltrados" :key="cliente.idCliente">
 
             <MostrarDatosCliente
                 v-for="col in columnasClientes"
@@ -72,17 +72,10 @@ const selectedTemporal = reactive({});
 const busquedaGlobal = ref("");
 
 const filtros = reactive({
+  idClienteClone:"",
+  idLote:"",
   nombresApellidos: "",
-  direccion: "",
-  correoElectronico: "",
-  celularCliente: "",
-  documentoIdentificacion: "",
   numeroIdentificacion: "",
-  estadoCivil: "",
-  ocupacion: "",
-  residencia: "",
-  prefijoPais: "",
-  idTipoContrato: "",
 });
 
 const obtenerDatosCombinados = async () => {
@@ -125,8 +118,8 @@ const activarEdicion = (cliente) => {
   }
 };
 
-const guardarEdicion = async (cliente) => {
-  if (!cliente || !cliente.lote) return;
+const guardarEdicion = async (cliente, lote) => {
+  if (!cliente || !cliente.lote || !cliente.idCliente) return;
 
   const clienteLimpio = { ...cliente };
   delete clienteLimpio.editando;
@@ -142,7 +135,11 @@ const guardarEdicion = async (cliente) => {
   console.log("Payload a enviar:", payload);
 
   try {
-    const response = await axios.put(`https://backendcramirez.onrender.com/api/clientes/${cliente.idCliente}`, payload);
+    const response = await axios.put(
+        `https://backendcramirez.onrender.com/api/clientes/editar/${cliente.idCliente}`,
+        payload
+    );
+
     console.log("Cliente y lote actualizados:", response.data);
 
     Object.assign(cliente, response.data.cliente || {});
@@ -157,6 +154,7 @@ const guardarEdicion = async (cliente) => {
     alert("Hubo un error al guardar los cambios.");
   }
 };
+
 
 
 const formatearFecha = (event, tipo) => {
@@ -213,6 +211,26 @@ const onCambioOperario = async (event, cliente) => {
     selectedTemporal[idCliente] = operarioAnterior;
   }
 };
+
+const clientesFiltrados = computed(() => {
+  if (!busquedaGlobal.value) return clientes.value;
+
+  const texto = busquedaGlobal.value.toLowerCase();
+
+  return clientes.value.filter((cliente) => {
+    const matchCliente = Object.keys(filtros).some((campo) => {
+      const valor = cliente[campo];
+      return valor && valor.toString().toLowerCase().includes(texto);
+    });
+
+    const matchLote = cliente.lote && Object.entries(cliente.lote).some(([key, value]) => {
+      return value && value.toString().toLowerCase().includes(texto);
+    });
+
+    return matchCliente || matchLote;
+  });
+});
+
 
 const exportar = () => {
   exportarClientesXLSX(clientes.value);

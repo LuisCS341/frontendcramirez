@@ -1,36 +1,15 @@
-<script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import LoadingSpinner from '@/views/LoadingSpinner.vue' // o '@/components/LoadingSpinner.vue' si lo mueves
-
-const cargando = ref(false)
-const router = useRouter()
-
-// Mostrar loader antes de cambiar de ruta
-router.beforeEach((to, from, next) => {
-  cargando.value = true
-  next()
-})
-
-// Ocultar loader después del cambio de ruta
-router.afterEach(() => {
-  setTimeout(() => {
-    cargando.value = false
-  }, 800) // opcional: delay para transición visual
-})
-</script>
-
 <template>
-  <!-- Loader global -->
-  <LoadingSpinner v-if="cargando" />
-
-  <!-- Contenido principal -->
-  <div>
-    <router-view></router-view>
+  <div class="loader-overlay">
+  <div class="loadingspinner">
+    <div id="square1"></div>
+    <div id="square2"></div>
+    <div id="square3"></div>
+    <div id="square4"></div>
+    <div id="square5"></div>
+  </div>
   </div>
 </template>
-
-<style scoped>
+<style>
 .loader-overlay {
   position: fixed;
   inset: 0;

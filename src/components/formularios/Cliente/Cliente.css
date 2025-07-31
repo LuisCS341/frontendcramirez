@@ -1,5 +1,5 @@
 .container {
-    background-image: url("@/assets/imagenes/FondoDashboard.webp");
+    background-color:#F7F4F1;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -9,20 +9,18 @@
     flex-direction: column;
     overflow: hidden;
 }
-
 .nav-buttons button {
     margin: 5px;
     padding: 8px 12px;
-    background-color: #007bff;
+    background-color:  #ff9800;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
 }
 .nav-buttons button:hover {
-    background-color: #0056b3;
+    background-color:  #ff8000;
 }
-
 .user-icon img {
     height: 40px;
     width: 40px;
@@ -41,22 +39,22 @@
 
 
 /*STYLE FORMULARIO 1*/
-.formulario-all{
+.formulario-all {
     background-color: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 20px; /* Más redondeado */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 3px solid #000; /* Contorno negro y grueso */
     width: 500px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: 80vh; /* Altura máxima para evitar que sobresalga */
+    max-height: 80vh;
     overflow-y: auto;
-    margin-top:75px;
+    margin-top: 75px;
     margin-left: 550px;
+    border-radius: 16px;
 }
-
-
 form {
     display: flex;
     flex-direction: column;
@@ -85,7 +83,7 @@ input, select {
 
 
 button {
-    background-color: #007bff;
+    background-color:  #ff9800;
     color: white;
     padding: 10px;
     border: none;
@@ -95,7 +93,10 @@ button {
 h3{
     text-align: center;
 }
-
+h1 {
+    text-align: center; /* Corrección: "aling" → "align" */
+    font-weight: bold;  /* Negrita */
+}
 
 /* FORMULARIO 2  */
 .overlay {
@@ -112,8 +113,6 @@ h3{
     backdrop-filter: blur(5px); /* Efecto de desenfoque */
     animation: fade-in 0.3s ease-in-out;
 }
-
-
 /*STYLE FORMULARIO matriz*/
 .formulario-all-matriz{
     background-color: white;
@@ -129,8 +128,6 @@ h3{
     overflow-y: auto;
     animation: fade-in 0.3s ease-in-out;
 }
-
-
 /* 🔹 ANIMACIONES PARA UNA TRANSICIÓN SUAVE 🔹 */
 @keyframes fade-in {
     from {
@@ -149,8 +146,6 @@ h3{
         transform: scale(1);
     }
 }
-
-
 
 /* 🔹 MEJORAS EN EL FORMULARIO 🔹 */
 .modal form {
@@ -177,7 +172,7 @@ h3{
 
 /* 🔹 BOTÓN "FINALIZAR REGISTRO" 🔹 */
 .modal button[type="submit"] {
-    background: #007bff;
+    background: #ff9800;
     color: white;
     padding: 10px;
     border: none;
@@ -188,7 +183,7 @@ h3{
 }
 
 .modal button[type="submit"]:hover {
-    background: #0056b3;
+    background: #ff9800;
 }
 
 
@@ -267,14 +262,38 @@ h3{
     background-color: #45a049;
 }
 
-
 .prefijo-cliente{
     display: flex;
     gap: 5px;
 }
-
+.identificacion{
+    display: flex;
+    gap: 5px;
+}
 /* esto ayuda a que no se vea mal los select cuando no puedan selecionar*/
+.union {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: nowrap; /* <- Importante: que no salte a otra línea */
+}
 
+.numero {
+    width: 100px;         /* ancho pequeño para números */
+    padding: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.numero-letras {
+    flex: 1;              /* ocupa el espacio restante */
+    min-width: 200px;
+    background-color: #f0f0f0;
+    color: #555;
+    padding: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
 .select-readonly {
     pointer-events: none;
     background-color: white;
@@ -377,4 +396,72 @@ h3{
     margin-top: 75px;
 }
 
+@media (max-width: 760px) {
 
+    /* Ajuste general del contenedor */
+    .container {
+        width: 100vw;
+        height: 510px;
+        margin-top: 50px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: auto;
+        background-size: cover;
+        margin-left: 35px;
+    }
+
+    /* Formularios centrados y adaptados al ancho */
+    .formulario-all,
+    .formulario-edicion,
+    .formulario-all-matriz {
+        width: 90%;
+        margin: 20px auto;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    /* Botones se adaptan al ancho */
+    button,
+    .btn.btn-primary,
+    .btn.btn-resumen {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    /* Inputs y selects adaptados */
+    input,
+    select,
+    .email-input {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    /* Mini formulario adaptado */
+    .mini-formulario input {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Ajuste contenedor de radio tarjetas */
+    .contenedor-radio-tarjetas {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Imágenes reducidas si es necesario */
+    .user-icon img {
+        height: 30px;
+        width: 30px;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .tituloformulario {
+        font-size: 20px;
+    }
+}

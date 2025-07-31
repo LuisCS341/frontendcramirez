@@ -101,13 +101,13 @@ export default {
   }
 };
 </script>
+
 <style scoped>
-.contenido-principal{
-  top: 60px; /* altura exacta de la barra superior */
-  width: 100%;/* para que no se monte sobre la barra lateral */
-  height: 100%; /* para que no se monte sobre la barra superior */
-  box-sizing: border-box;
-  margin-left: -55px;
+.contenido-principal {
+  margin-left: 150px;
+  padding: 20px;
+  min-height: 100vh;
+  background: #dcdcdc;
 }
 
 </style>

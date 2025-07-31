@@ -11,7 +11,6 @@
           <tr>
             <th></th>
             <th>TIPO DE CONTRATO</th>
-            <th>CLIENTE Nº</th>
             <th>CONTRATO Nº</th>
             <th>PROYECTO</th>
             <th>EMPRESA QUE VENDE</th>
@@ -76,7 +75,6 @@
               <button @click="descargarWordPorTipo(fila)" class="btn-descargar">Descargar</button>
             </td>
             <td>{{ getLote(fila)?.contrato ?? '-'}}</td>
-            <td>{{ getLote(fila)?.codigoLoteCliente ?? '-'}}</td>
             <td>{{ getLote(fila)?.idLote ?? '-'}}</td>
             <td>{{ getLote(fila).tipoProyecto ?? '-' }}</td>
             <td>{{ getLote(fila).empresaVende ?? '-' }}</td>
@@ -154,7 +152,7 @@ import {
   getCuotaExtraordinaria,
   getConyuge,
   getCuota,
-  getCopropietario,
+  getCopropietario, getMatriz, getCopropietarioLista,
 } from "@/data/funcionesGetTablaClientes.js";
 
 const clientes = ref([]);
@@ -201,9 +199,34 @@ const descargarWordPorTipo = (cliente) => {
 
 const descargarWordT1 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_T1.docx", {
+
+
+    const lote = getLote(cliente);
+    const conyuge = getConyuge(cliente.cliente);
+    const copropietario = getCopropietario(cliente.cliente);
+    const copropietariolista = getCopropietarioLista(cliente.cliente);
+    const lindero = getLindero(cliente);
+    const matriz = getMatriz(cliente);
+    const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const cuota=getCuota(cliente);
+
+    const tieneConyuge = conyuge?.idClienteConyuge != null;
+    const tieneCopropietarioLista = Array.isArray(copropietariolista) && copropietariolista.some(c => c.idCopropietario != null);
+
+    let plantillaPath = "/plantillas/plantilla_T1.docx";
+
+    if (tieneConyuge && tieneCopropietarioLista) {
+      plantillaPath = "/plantillas/plantilla_T1_contodo.docx";
+    } else if (tieneConyuge && !tieneCopropietarioLista) {
+      plantillaPath = "/plantillas/plantilla_T1_sincopropietario.docx";
+    } else if (!tieneConyuge && tieneCopropietarioLista) {
+      plantillaPath = "/plantillas/plantilla_T1_sinconyuge.docx";
+    }
+
+    const response = await axios.get(plantillaPath, {
       responseType: "arraybuffer",
     });
+
 
     const zip = new PizZip(response.data);
     const doc = new Docxtemplater(zip, {
@@ -218,16 +241,16 @@ const descargarWordT1 = async (cliente) => {
     const diaTexto = numeroATexto(fecha.getDate()).toUpperCase();
     const anioTexto = numeroATexto(anio).toUpperCase();
 
-    const lote = getLote(cliente);
-    const conyuge = getConyuge(cliente.cliente);
-    const copropietario = getCopropietario(cliente.cliente);
-    const lindero = getLindero(cliente);
-    const cuotaExtra = getCuotaExtraordinaria(cliente);
-
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
       documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
       numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
+      idClienteClone: cliente.cliente.idClienteClone ?? '-',
+      codigoLoteCliente: lote?.codigoLoteCliente ? (() => {
+        const [parte1, parte2] = lote.codigoLoteCliente.split('-');
+        return `${parte1.padStart(5, '0')}-${parte2}`;
+      })() : '-',
+
       correoElectronico: cliente.cliente.correoElectronico ?? '-' ,
       nombresApellidos: (cliente.cliente.nombresApellidos ?? '-').replace(/\s+/g, ' ') .replace(/\r?\n|\r/g, ' ') .toUpperCase().trim(),
       nacionalidad: (cliente.cliente.nacionalidad ?? '-').toUpperCase(),
@@ -237,29 +260,7 @@ const descargarWordT1 = async (cliente) => {
       distrito: (cliente.cliente.distrito ?? '-').toUpperCase(),
       provincia: (cliente.cliente.provincia ?? '-').toUpperCase(),
       departamento: (cliente.cliente.departamento ?? '-').toUpperCase(),
-      idLote: lote?.idLote ?? '-',
-      contrato: (lote?.contrato ?? '-').toUpperCase(),
-      tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
-      manzana: (lote?.manzana ?? '-').toUpperCase(),
-      representanteLegal: (lote?.representanteLegalVendedor ?? '-').toUpperCase(),
-      empresaVende: (lote?.empresaVende ?? '-').toUpperCase(),
-      rucVendedor: lote?.rucVendedor ?? '-',
-      numCuenta: lote?.numCuenta ?? '-',
-      cci: lote?.cci ?? '-',
-      mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
-      mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
-      cantidadCuotas: cuota?.cantidadCuotas ?? '-',
-      montoCuotas: cuota?.montoCuotas ?? '-',
-      pagoInicial: lote?.pagoInicial ?? '-',
-      dniVendedor: lote?.dniVendedor ?? '-',
-      fechaSale: lote?.fechaSale ?? '-',
-      costoLote: lote?.costoLote ?? '-',
-      montoLetras: (lote?.montoLetras ?? '-' ).toUpperCase() ,
-      areaLote: lote?.areaLote ?? '-',
-      areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
-      numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
-      direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
-      fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
+      descripcionEstadoCivil: cliente.cliente.descripcionEstadoCivil?? '-',
       idClienteConyuge: conyuge?.idClienteConyuge ?? '-' ,
       nombresApellidosConyuge: (conyuge?.nombresApellidosConyuge ?? '-').toUpperCase() ,
       documentoIdentificacionConyuge: (conyuge?.documentoIdentificacionConyuge ?? '-').toUpperCase() ,
@@ -279,18 +280,66 @@ const descargarWordT1 = async (cliente) => {
       provinciaCopropietarios: (copropietario?.provinciaCopropietarios ?? '-').toUpperCase() ,
       departamentoCopropietarios: (copropietario?.departamentoCopropietarios ?? '-').toUpperCase() ,
       estadoCivilCopropietarios: (copropietario?.estadoCivilCopropietarios ?? '-').toUpperCase() ,
-      porElFrente: lindero?.porElFrente ?? '-' ,
-      porLaDerecha: lindero?.porLaDerecha ?? '-' ,
-      porLaIzquierda: lindero?.porLaIzquierda ?? '-' ,
-      porElFondo: lindero?.porElFondo ?? '-' ,
+      fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
+      porElFrente: lindero?.porElFrente ? parseFloat(lindero.porElFrente).toFixed(2) : '-',
+      porLaDerecha: lindero?.porLaDerecha ? parseFloat(lindero.porLaDerecha).toFixed(2) : '-',
+      porLaIzquierda: lindero?.porLaIzquierda ? parseFloat(lindero.porLaIzquierda).toFixed(2) : '-',
+      porElFondo: lindero?.porElFondo ? parseFloat(lindero.porElFondo).toFixed(2) : '-',
+      idLote: lote?.idLote ?? '-',
+      contrato: (lote?.contrato ?? '-').toUpperCase(),
+      tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
+      manzana: (lote?.manzana ?? '-').toUpperCase(),
+      representanteLegal: (lote?.representanteLegalVendedor ?? '-').toUpperCase(),
+      empresaVende : (lote?.empresaVende ?? '-').toUpperCase(),
+      rucVendedor: lote?.rucVendedor ?? '-',
+      numCuenta: lote?.numCuenta ?? '-',
+      cci: lote?.cci ?? '-',
+      numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
+      direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
+      pagoInicial: lote?.pagoInicial ?? '-',
+      dniVendedor: lote?.dniVendedor ?? '-',
+      fechaSale: lote?.fechaSale ?? '-',
+      costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toFixed(2) : '-',
+      costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
+      areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
+      areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
+      alicuota:lote?.alicuota ?? '-' ,
+      alicuotaLetras: lote?.alicuotaLetras ?? '-',
+      mantenimientoMensual: lote?.mantenimientoMensual ? parseFloat(lote.mantenimientoMensual).toFixed(2) : '-',
+      mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
+      txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
+      txtprovinciamatriz:matriz?.txtprovinciamatriz?? '-',
+      txtdistritomatriz:matriz.matriz?.txtdistritomatriz?? '-',
+      txtubicacionmatriz:matriz?.txtubicacionmatriz?? '-',
+      areaMatrizHasMatriz:matriz?.areaMatrizHasMatriz?? '-',
+      registroDeMatriz:matriz?.registroDeMatriz?? '-',
+      registroMatriz:matriz?.registroMatriz?? '-',
+      partidaMatriz:matriz?.partidaMatriz?? '-',
+      unidadCatastralMatriz:matriz?.unidadCatastralMatriz?? '-',
+      urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
+      compraventaMatriz:matriz?.compraventaMatriz?? '-',
+      situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
+      cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
+      cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
+      fechaPago: cuota?.cuotaInicialIncluyeSeparacion?? '-',
+      cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
+      cuotaInicialBanco: cuota?.cuotaInicialBanco?? '-',
+      saldoLote:cuota?.saldoLote ? parseFloat(cuota.saldoLote).toFixed(2) : '-',
+      saldoLoteLetras:cuota?.saldoLoteLetras?? '-',
+      cantidadCuotas: cuota?.cantidadCuotas ?? '-',
+      cantidadCuotaLetras:cuota?.cantidadCuotaLetras?? '-',
+      cantidadCuotaCuentaRecaudadora: cuota?.cantidadCuotaCuentaRecaudadora?? '-',
+      cantidadCuotaBanco: cuota?.cantidadCuotaBanco?? '-',
+      montoCuotas: cuota?.montoCuotas ?? '-',
+      montoCuotaLetras:cuota?.montoCuotas ?? '-',
+      cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
+      letrasPendientePago: cuota?.letrasPendientePago?? '-',
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
+      mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
 
-
     doc.setData(datos);
-
-    console.log("Variables enviadas a la plantilla:", Object.keys(datos));
 
     try {
       doc.render();
@@ -310,7 +359,6 @@ const descargarWordT1 = async (cliente) => {
       alert("Error al generar el documento Word. Revisa la consola para más detalles.");
       return;
     }
-
 
     const out = doc.getZip().generate({
       type: "blob",
@@ -349,11 +397,13 @@ const descargarWordT2 = async (cliente) => {
     const lindero = getLindero(cliente);
     const cuota = getCuota(cliente);
     const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const matriz= getMatriz(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
       documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
       numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
+      idClienteClone: cliente.cliente.idClienteClone ?? '-',
       correoElectronico: cliente.cliente.correoElectronico ?? '-' ,
       nombresApellidos: (cliente.cliente.nombresApellidos ?? '-').replace(/\s+/g, ' ') .replace(/\r?\n|\r/g, ' ') .toUpperCase().trim(),
       nacionalidad: (cliente.cliente.nacionalidad ?? '-').toUpperCase(),
@@ -363,29 +413,7 @@ const descargarWordT2 = async (cliente) => {
       distrito: (cliente.cliente.distrito ?? '-').toUpperCase(),
       provincia: (cliente.cliente.provincia ?? '-').toUpperCase(),
       departamento: (cliente.cliente.departamento ?? '-').toUpperCase(),
-      idLote: lote?.idLote ?? '-',
-      contrato: (lote?.contrato ?? '-').toUpperCase(),
-      tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
-      manzana: (lote?.manzana ?? '-').toUpperCase(),
-      representanteLegal: (lote?.representanteLegalVendedor ?? '-').toUpperCase(),
-      empresaVende: (lote?.empresaVende ?? '-').toUpperCase(),
-      rucVendedor: lote?.rucVendedor ?? '-',
-      numCuenta: lote?.numCuenta ?? '-',
-      cci: lote?.cci ?? '-',
-      mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
-      mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
-      cantidadCuotas: cuota?.cantidadCuotas ?? '-',
-      montoCuotas: cuota?.montoCuotas ?? '-',
-      pagoInicial: lote?.pagoInicial ?? '-',
-      dniVendedor: lote?.dniVendedor ?? '-',
-      fechaSale: lote?.fechaSale ?? '-',
-      costoLote: lote?.costoLote ?? '-',
-      montoLetras: (lote?.montoLetras ?? '-' ).toUpperCase() ,
-      areaLote: lote?.areaLote ?? '-',
-      areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
-      numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
-      direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
-      fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
+      descripcionEstadoCivil: cliente.cliente.descripcionEstadoCivil?? '-',
       idClienteConyuge: conyuge?.idClienteConyuge ?? '-' ,
       nombresApellidosConyuge: (conyuge?.nombresApellidosConyuge ?? '-').toUpperCase() ,
       documentoIdentificacionConyuge: (conyuge?.documentoIdentificacionConyuge ?? '-').toUpperCase() ,
@@ -405,12 +433,63 @@ const descargarWordT2 = async (cliente) => {
       provinciaCopropietarios: (copropietario?.provinciaCopropietarios ?? '-').toUpperCase() ,
       departamentoCopropietarios: (copropietario?.departamentoCopropietarios ?? '-').toUpperCase() ,
       estadoCivilCopropietarios: (copropietario?.estadoCivilCopropietarios ?? '-').toUpperCase() ,
-      porElFrente: lindero?.porElFrente ?? '-' ,
-      porLaDerecha: lindero?.porLaDerecha ?? '-' ,
-      porLaIzquierda: lindero?.porLaIzquierda ?? '-' ,
-      porElFondo: lindero?.porElFondo ?? '-' ,
+      fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
+      porElFrente: lindero?.porElFrente ? parseFloat(lindero.porElFrente).toFixed(2) : '-',
+      porLaDerecha: lindero?.porLaDerecha ? parseFloat(lindero.porLaDerecha).toFixed(2) : '-',
+      porLaIzquierda: lindero?.porLaIzquierda ? parseFloat(lindero.porLaIzquierda).toFixed(2) : '-',
+      porElFondo: lindero?.porElFondo ? parseFloat(lindero.porElFondo).toFixed(2) : '-',
+      idLote: lote?.idLote ?? '-',
+      contrato: (lote?.contrato ?? '-').toUpperCase(),
+      tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
+      manzana: (lote?.manzana ?? '-').toUpperCase(),
+      representanteLegal: (lote?.representanteLegalVendedor ?? '-').toUpperCase(),
+      empresaVende : (lote?.empresaVende ?? '-').toUpperCase(),
+      rucVendedor: lote?.rucVendedor ?? '-',
+      numCuenta: lote?.numCuenta ?? '-',
+      cci: lote?.cci ?? '-',
+      numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
+      direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
+      pagoInicial: lote?.pagoInicial ?? '-',
+      dniVendedor: lote?.dniVendedor ?? '-',
+      fechaSale: lote?.fechaSale ?? '-',
+      costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toFixed(2) : '-',
+      costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
+      areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
+      areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
+      alicuota:lote?.alicuota ?? '-' ,
+      alicuotaLetras: lote?.alicuotaLetras ?? '-',
+      mantenimientoMensual: lote?.mantenimientoMensual ? parseFloat(lote.mantenimientoMensual).toFixed(2) : '-',
+      mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
+      txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
+      txtprovinciamatriz:matriz?.txtprovinciamatriz?? '-',
+      txtdistritomatriz:matriz.matriz?.txtdistritomatriz?? '-',
+      txtubicacionmatriz:matriz?.txtubicacionmatriz?? '-',
+      areaMatrizHasMatriz:matriz?.areaMatrizHasMatriz?? '-',
+      registroDeMatriz:matriz?.registroDeMatriz?? '-',
+      registroMatriz:matriz?.registroMatriz?? '-',
+      partidaMatriz:matriz?.partidaMatriz?? '-',
+      unidadCatastralMatriz:matriz?.unidadCatastralMatriz?? '-',
+      urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
+      compraventaMatriz:matriz?.compraventaMatriz?? '-',
+      situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
+      cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
+      cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
+      fechaPago: cuota?.cuotaInicialIncluyeSeparacion?? '-',
+      cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
+      cuotaInicialBanco: cuota?.cuotaInicialBanco?? '-',
+      saldoLote:cuota?.saldoLote ? parseFloat(cuota.saldoLote).toFixed(2) : '-',
+      saldoLoteLetras:cuota?.saldoLoteLetras?? '-',
+      cantidadCuotas: cuota?.cantidadCuotas ?? '-',
+      cantidadCuotaLetras:cuota?.cantidadCuotaLetras?? '-',
+      cantidadCuotaCuentaRecaudadora: cuota?.cantidadCuotaCuentaRecaudadora?? '-',
+      cantidadCuotaBanco: cuota?.cantidadCuotaBanco?? '-',
+      montoCuotas: cuota?.montoCuotas ?? '-',
+      montoCuotaLetras:cuota?.montoCuotas ?? '-',
+      cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
+      letrasPendientePago: cuota?.letrasPendientePago?? '-',
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
+      mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
 
     doc.setData(datos);
@@ -460,11 +539,14 @@ const descargarWordT3 = async (cliente) => {
     const copropietario = getCopropietario(cliente.cliente);
     const lindero = getLindero(cliente);
     const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const cuota=getCuota(cliente);
+    const matriz=getMatriz(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
       documentoIdentificacion: (cliente.cliente.documentoIdentificacion ?? '-').toUpperCase(),
       numeroIdentificacion: cliente.cliente.numeroIdentificacion ?? '-',
+      idClienteClone: cliente.cliente.idClienteClone ?? '-',
       correoElectronico: cliente.cliente.correoElectronico ?? '-' ,
       nombresApellidos: (cliente.cliente.nombresApellidos ?? '-').replace(/\s+/g, ' ') .replace(/\r?\n|\r/g, ' ') .toUpperCase().trim(),
       nacionalidad: (cliente.cliente.nacionalidad ?? '-').toUpperCase(),
@@ -474,29 +556,7 @@ const descargarWordT3 = async (cliente) => {
       distrito: (cliente.cliente.distrito ?? '-').toUpperCase(),
       provincia: (cliente.cliente.provincia ?? '-').toUpperCase(),
       departamento: (cliente.cliente.departamento ?? '-').toUpperCase(),
-      idLote: lote?.idLote ?? '-',
-      contrato: (lote?.contrato ?? '-').toUpperCase(),
-      tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
-      manzana: (lote?.manzana ?? '-').toUpperCase(),
-      representanteLegal: (lote?.representanteLegalVendedor ?? '-').toUpperCase(),
-      empresaVende: (lote?.empresaVende ?? '-').toUpperCase(),
-      rucVendedor: lote?.rucVendedor ?? '-',
-      numCuenta: lote?.numCuenta ?? '-',
-      cci: lote?.cci ?? '-',
-      mantenimientoMensual: lote?.mantenimientoMensual ?? '-',
-      mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
-      cantidadCuotas: cuota?.cantidadCuotas ?? '-',
-      montoCuotas: cuota?.montoCuotas ?? '-',
-      pagoInicial: lote?.pagoInicial ?? '-',
-      dniVendedor: lote?.dniVendedor ?? '-',
-      fechaSale: lote?.fechaSale ?? '-',
-      costoLote: lote?.costoLote ?? '-',
-      montoLetras: (lote?.montoLetras ?? '-' ).toUpperCase() ,
-      areaLote: lote?.areaLote ?? '-',
-      areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
-      numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
-      direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
-      fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
+      descripcionEstadoCivil: cliente.cliente.descripcionEstadoCivil?? '-',
       idClienteConyuge: conyuge?.idClienteConyuge ?? '-' ,
       nombresApellidosConyuge: (conyuge?.nombresApellidosConyuge ?? '-').toUpperCase() ,
       documentoIdentificacionConyuge: (conyuge?.documentoIdentificacionConyuge ?? '-').toUpperCase() ,
@@ -516,14 +576,64 @@ const descargarWordT3 = async (cliente) => {
       provinciaCopropietarios: (copropietario?.provinciaCopropietarios ?? '-').toUpperCase() ,
       departamentoCopropietarios: (copropietario?.departamentoCopropietarios ?? '-').toUpperCase() ,
       estadoCivilCopropietarios: (copropietario?.estadoCivilCopropietarios ?? '-').toUpperCase() ,
-      porElFrente: lindero?.porElFrente ?? '-' ,
-      porLaDerecha: lindero?.porLaDerecha ?? '-' ,
-      porLaIzquierda: lindero?.porLaIzquierda ?? '-' ,
-      porElFondo: lindero?.porElFondo ?? '-' ,
+      fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
+      porElFrente: lindero?.porElFrente ? parseFloat(lindero.porElFrente).toFixed(2) : '-',
+      porLaDerecha: lindero?.porLaDerecha ? parseFloat(lindero.porLaDerecha).toFixed(2) : '-',
+      porLaIzquierda: lindero?.porLaIzquierda ? parseFloat(lindero.porLaIzquierda).toFixed(2) : '-',
+      porElFondo: lindero?.porElFondo ? parseFloat(lindero.porElFondo).toFixed(2) : '-',
+      idLote: lote?.idLote ?? '-',
+      contrato: (lote?.contrato ?? '-').toUpperCase(),
+      tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
+      manzana: (lote?.manzana ?? '-').toUpperCase(),
+      representanteLegal: (lote?.representanteLegalVendedor ?? '-').toUpperCase(),
+      empresaVende : (lote?.empresaVende ?? '-').toUpperCase(),
+      rucVendedor: lote?.rucVendedor ?? '-',
+      numCuenta: lote?.numCuenta ?? '-',
+      cci: lote?.cci ?? '-',
+      numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
+      direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
+      pagoInicial: lote?.pagoInicial ?? '-',
+      dniVendedor: lote?.dniVendedor ?? '-',
+      fechaSale: lote?.fechaSale ?? '-',
+      costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toFixed(2) : '-',
+      costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
+      areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
+      areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
+      alicuota:lote?.alicuota ?? '-' ,
+      alicuotaLetras: lote?.alicuotaLetras ?? '-',
+      mantenimientoMensual: lote?.mantenimientoMensual ? parseFloat(lote.mantenimientoMensual).toFixed(2) : '-',
+      mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
+      txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
+      txtprovinciamatriz:matriz?.txtprovinciamatriz?? '-',
+      txtdistritomatriz:matriz.matriz?.txtdistritomatriz?? '-',
+      txtubicacionmatriz:matriz?.txtubicacionmatriz?? '-',
+      areaMatrizHasMatriz:matriz?.areaMatrizHasMatriz?? '-',
+      registroDeMatriz:matriz?.registroDeMatriz?? '-',
+      registroMatriz:matriz?.registroMatriz?? '-',
+      partidaMatriz:matriz?.partidaMatriz?? '-',
+      unidadCatastralMatriz:matriz?.unidadCatastralMatriz?? '-',
+      urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
+      compraventaMatriz:matriz?.compraventaMatriz?? '-',
+      situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
+      cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
+      cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
+      fechaPago: cuota?.cuotaInicialIncluyeSeparacion?? '-',
+      cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
+      cuotaInicialBanco: cuota?.cuotaInicialBanco?? '-',
+      saldoLote:cuota?.saldoLote ? parseFloat(cuota.saldoLote).toFixed(2) : '-',
+      saldoLoteLetras:cuota?.saldoLoteLetras?? '-',
+      cantidadCuotas: cuota?.cantidadCuotas ?? '-',
+      cantidadCuotaLetras:cuota?.cantidadCuotaLetras?? '-',
+      cantidadCuotaCuentaRecaudadora: cuota?.cantidadCuotaCuentaRecaudadora?? '-',
+      cantidadCuotaBanco: cuota?.cantidadCuotaBanco?? '-',
+      montoCuotas: cuota?.montoCuotas ?? '-',
+      montoCuotaLetras:cuota?.montoCuotas ?? '-',
+      cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
+      letrasPendientePago: cuota?.letrasPendientePago?? '-',
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
+      mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
-
 
     doc.setData(datos);
 

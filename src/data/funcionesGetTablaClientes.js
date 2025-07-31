@@ -8,17 +8,24 @@ export const getCuota = (fila) => {
     return fila?.lote?.cuota || {};
 };
 
+export const getMatriz = (fila) => {
+    return fila?.lote?.matriz || {};
+};
+
 export const getCuotaExtraordinaria = (fila) => {
-    return Array.isArray(fila?.lote?.cuotasExtraordinarias) && fila.lote.cuotasExtraordinarias.length > 0
-        ? fila.lote.cuotasExtraordinarias[0]
-        : {};
+    return fila?.lote?.cuotaextraordinaria || {};
 };
 
 export const getConyuge = (fila) => {
-    return fila?.cliente?.conyuge || {};
+    return fila?.conyuge || {};
 };
 
+export const getCopropietarioLista = (fila) => {
+    return Array.isArray(fila?.copropietarios) ? fila.copropietarios : [];
+};
+
+
 export const getCopropietario = (fila) => {
-    const copro = fila?.cliente?.copropietarios;
+    const copro = fila?.copropietarios;
     return Array.isArray(copro) && copro.length > 0 ? copro[0] : {};
 };
