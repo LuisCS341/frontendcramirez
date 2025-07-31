@@ -69,15 +69,13 @@ onMounted(() => {
 
 <style scoped>
 .chart-container-grafico-contratos {
-  background-color: white;
+  background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  justify-content: center;
-  align-items: center;
   height: 395px;
   width: 340px;
-  margin-top: 130px;
-  margin-left: 30px;
+  margin-top: 230px;
+  margin-left: 100px;
   text-align: center;
 }
 

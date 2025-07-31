@@ -1,9 +1,9 @@
 .primary-container {
     position: relative;
-    margin: 0;
+    margin-top: -20px;
     padding: 20px 20px 0 20px; /* Espacio interior arriba y a los lados */
-    width: calc(100% - 90px); /* Resta el ancho de la barra lateral */
-    margin-left: 250px; /* Espacio para la barra lateral */
+    width: calc(108% - 10px); /* Resta el ancho de la barra lateral */
+    margin-left: 20px; /* Espacio para la barra lateral */
     min-height: 100vh; /* Asegura ocupar toda la altura visible */
     box-sizing: border-box;
     transition: margin-left 0.3s ease;

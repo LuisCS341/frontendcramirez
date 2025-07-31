@@ -119,8 +119,8 @@ onMounted(async () => {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   height: 415px;
   width: 630px;
-  margin-top: 130px;
-  margin-left: -100px;
+  margin-top: -435px;
+  margin-left: 500px;
   text-align: center;
 }
 
@@ -130,7 +130,7 @@ onMounted(async () => {
   .chart-container-rendimiento-mes {
     width: 500px;
     height: 320px;
-    margin-top: 430px;
+    margin-top: 420px;
     margin-left: -380px;
     align-items: center;
   }
