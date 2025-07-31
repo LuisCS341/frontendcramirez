@@ -101,13 +101,13 @@ export default {
   }
 };
 </script>
+
 <style scoped>
-.contenido-principal{
-  width: 100%;
-  max-width: 1200px; /* o 100% si no quieres limitarlo */
-  margin: 0 auto; /* centrado automático */
+.contenido-principal {
+  margin-left: 150px;
   padding: 20px;
-  box-sizing: border-box;
+  min-height: 100vh;
+  background: #dcdcdc;
 }
 
 </style>

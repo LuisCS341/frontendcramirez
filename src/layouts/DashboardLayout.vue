@@ -1,5 +1,4 @@
 <template>
-  <div class="dashboard">
   <div class="dashboard-container">
     <BarraLateral />
     <div class="main-content">
@@ -8,30 +7,29 @@
       </div>
     </div>
   </div>
-  </div>
+
 </template>
 
 <script>
 import BarraLateralDashboard from "@/layouts/BarraLateralDashboard.vue";
 import BarraSuperiorDashboard from "@/layouts/BarraSuperiorDashboard.vue";
-import AreaTrabajo from "@/components/dashboard/AreaTrabajo.vue";
 
 export default {
   components: {
     BarraLateral: BarraLateralDashboard,
-    BarraSuperior: BarraSuperiorDashboard,
-    AreaTrabajo: AreaTrabajo,
+    BarraSuperior: BarraSuperiorDashboard
   }
 };
 
 </script>
 
 <style scoped>
-
 .dashboard-container {
   display: flex;
   height: 100vh;
   overflow: hidden;
+  justify-content: center;  /* centra horizontalmente */
+  align-items: center;      /* centra verticalmente */
 }
 
 .main-content {
