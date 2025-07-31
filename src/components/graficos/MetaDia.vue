@@ -27,9 +27,10 @@ const progreso = computed(() =>
 <style scoped>
 .container-meta-dia {
   max-width: 250px;
-  margin: auto;
+
   font-family: sans-serif;
-  margin-left: 75px;
+  margin-left: 850px;
+  margin-top: -150px;
 }
 
 .info-card-meta-dia {
