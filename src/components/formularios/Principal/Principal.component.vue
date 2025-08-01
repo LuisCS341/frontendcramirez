@@ -869,5 +869,49 @@ watch(form, (newForm) => {
   });
 });
 
+watch(form, (newForm) => {
+      newForm.lotes.forEach((lote) => {
+        const areaLote = parseFloat(lote.areaLote);
+        const costoLote = parseFloat(lote.costoLote);
+
+        const precioMetroCuadrado =
+            !isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0
+                ? costoLote / areaLote
+                : 0;
+
+        lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
+        lote.precioMetroCuadradoLetras = precioMetroCuadrado
+            ? numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase()
+            : '';
+      });
+    },
+    { deep: true, immediate: true }
+);
+
+watch(form, (newForm) => {
+      newForm.lotes.forEach((lote) => {
+        if (!lote.cuota) {
+          lote.cuota = {};
+        }
+
+        const costoLote = parseFloat(lote.costoLote);
+        const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
+
+        const saldo =
+            !isNaN(costoLote) && !isNaN(cuotaInicial)
+                ? costoLote - cuotaInicial
+                : 0;
+
+        lote.cuota.saldoLote = saldo.toFixed(2);
+        lote.cuota.saldoLoteLetras = saldo
+            ? numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase()
+            : '';
+      });
+    },
+    { deep: true, immediate: true }
+);
+
+
+
 
 </script>
