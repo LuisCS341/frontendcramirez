@@ -816,107 +816,69 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
   });
 }, { deep: true });
 
-
-watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
-      if (!lote.matriz) {
-        lote.matriz = {};
-      }
-
-      const areaLote = parseFloat(lote.areaLote);
-      const areaMatriz = parseFloat(lote.areaMatriz);
-
-      if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-        const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
-        lote.alicuota = alicuota.toFixed(4);
-        lote.alicuotaLetras= numeroALetras(parseFloat(lote.alicuota));
-      } else {
-        lote.alicuota = 0;
-        lote.alicuotaLetras = '';
-      }
-    });
-    },
-    { deep: true, immediate: true }
-);
-
-
-
-watch(form, (newForm) => {
-      newForm.lotes.forEach((lote) => {
-        const areaLote = parseFloat(lote.areaLote);
-        const costoLote = parseFloat(lote.costoLote);
-
-        const precioMetroCuadrado =
-            !isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0
-                ? costoLote / areaLote
-                : 0;
-
-        lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
-        lote.precioMetroCuadradoLetras = precioMetroCuadrado
-            ? numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase()
-            : '';
-      });
-    },
-    { deep: true, immediate: true }
-);
-
-watch(form, (newForm) => {
-      newForm.lotes.forEach((lote) => {
-        if (!lote.cuota) {
-          lote.cuota = {};
-        }
-
-        const costoLote = parseFloat(lote.costoLote);
-        const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
-
-        const saldo =
-            !isNaN(costoLote) && !isNaN(cuotaInicial)
-                ? costoLote - cuotaInicial
-                : 0;
-
-        lote.cuota.saldoLote = saldo.toFixed(2);
-        lote.cuota.saldoLoteLetras = saldo
-            ? numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase()
-            : '';
-      });
-    },
-    { deep: true, immediate: true }
-);
-
-// formula de cuotas faltantes
 watch(
     form,
     (newForm) => {
       const hoy = new Date();
 
       newForm.lotes.forEach((lote) => {
-        // Inicializa si no existen
-        if (!lote.cuota) lote.cuota = {};
-        if (!lote.cuotaextraordinaria) lote.cuotaextraordinaria = {};
+        // Inicializaciones seguras
+        lote.matriz ??= {};
+        lote.cuota ??= {};
+        lote.cuotaextraordinaria ??= {};
 
+        // 🔹 Cálculo de alícuota
+        const areaLote = parseFloat(lote.areaLote);
+        const areaMatriz = parseFloat(lote.areaMatriz);
+
+        if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+          const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
+          lote.alicuota = alicuota.toFixed(4);
+          lote.alicuotaLetras = numeroALetras(alicuota);
+        } else {
+          lote.alicuota = 0;
+          lote.alicuotaLetras = '';
+        }
+
+        // 🔹 Cálculo del precio por m²
+        const costoLote = parseFloat(lote.costoLote);
+        const precioMetroCuadrado = !isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0
+            ? costoLote / areaLote
+            : 0;
+
+        lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
+        lote.precioMetroCuadradoLetras = precioMetroCuadrado
+            ? numeroLetrasSinDecimal(precioMetroCuadrado.toFixed(2)).toUpperCase()
+            : '';
+
+        // 🔹 Cálculo del saldo
+        const cuotaInicial = parseFloat(lote.cuota.cuotaInicialIncluyeSeparacion);
+        const saldo = !isNaN(costoLote) && !isNaN(cuotaInicial)
+            ? costoLote - cuotaInicial
+            : 0;
+
+        lote.cuota.saldoLote = saldo.toFixed(2);
+        lote.cuota.saldoLoteLetras = saldo
+            ? numeroLetrasSinDecimal(saldo.toFixed(2)).toUpperCase()
+            : '';
+
+        // 🔹 Cálculo de cuotas y letras pendientes
         const fechaInicio = parseFecha(lote.fechaInicioContrato);
         const fechaCancelacion = parseFecha(lote.fechaCancelacionContrato);
 
-        // Si no hay fechas válidas, se limpian los campos
         if (!fechaInicio || !fechaCancelacion) {
           lote.cuota.cuotaPendientePago = '';
           lote.cuota.letrasPendientePago = '';
           return;
         }
 
-        // Total de cuotas desde el inicio hasta la cancelación
         const totalMeses = calcularMeses(fechaInicio, fechaCancelacion);
-
-        // Cuotas pendientes desde hoy hasta cancelación
         const cuotasPendientes = calcularMeses(hoy, fechaCancelacion);
-
-        // Cuotas extraordinarias
         const cuotaExtra = parseInt(lote.cuotaextraordinaria.cantidadCuotaExtraordinaria || 0);
 
-        // Letras pendientes (inicio y fin)
         const letraInicio = totalMeses - cuotasPendientes + 1;
         const letraFin = totalMeses;
 
-        // Texto dinámico para cuotas
         const textoCuotasMensuales = cuotasPendientes === 1
             ? 'cuota mensual consecutiva'
             : 'cuotas mensuales consecutivas';
@@ -927,13 +889,11 @@ watch(
             ? ` y ${String(cuotaExtra).padStart(2, '0')} (${numeroLetrascuotaletras(cuotaExtra)}) ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
             : '';
 
-        // Texto dinámico para letras
         const letrasTexto = `${letraInicio} a ${letraFin}`;
         const letrasExtraTexto = cuotaExtra > 0
             ? ` y ${String(cuotaExtra).padStart(2, '0')} ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
             : '';
 
-        // Asignar al modelo
         lote.cuota.cuotaPendientePago = cuotasTexto + cuotasExtraTexto;
         lote.cuota.letrasPendientePago = letrasTexto + letrasExtraTexto;
       });
@@ -941,7 +901,7 @@ watch(
     { deep: true, immediate: true }
 );
 
-// Función para convertir dd/mm/yyyy a Date
+// 🔧 Utilidades
 function parseFecha(fechaStr) {
   if (!fechaStr || typeof fechaStr !== 'string') return null;
   const [dd, mm, yyyy] = fechaStr.split('/');
@@ -949,7 +909,6 @@ function parseFecha(fechaStr) {
   return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
 }
 
-// Función para calcular la diferencia de meses entre 2 fechas
 function calcularMeses(fecha1, fecha2) {
   const years = fecha2.getFullYear() - fecha1.getFullYear();
   const months = fecha2.getMonth() - fecha1.getMonth();
@@ -958,7 +917,6 @@ function calcularMeses(fecha1, fecha2) {
   return Math.max(total, 0);
 }
 
-// Función para convertir número a letras (hasta 20)
 function numeroLetrascuotaletras(numero) {
   const palabras = [
     'cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis',
