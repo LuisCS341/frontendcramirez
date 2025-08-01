@@ -74,14 +74,15 @@ input:checked + .slider:before {
     transition: 0.3s;
     border-radius: 26px;
 }
-.form-verificacion {display: flex;
+.form-verificacion {
+    display: flex;
     flex-direction: column;
     box-sizing: border-box;
     gap: 8px;
     width: 90vw;
     max-width: 1400px;
     margin: 0 auto;
-    margin-top: -990px;
+    margin-top: -890px;
     padding: 20px 8px 8px 8px; /* padding-top agregado */
     position: relative;
     z-index: 10;
