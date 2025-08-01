@@ -834,31 +834,33 @@ watch(form, (newForm) => {
 
 watch(form, (newForm) => {
   newForm.lotes.forEach((lote) => {
-
+    const areaLote = parseFloat(lote.areaLote);
     const costoLote = parseFloat(lote.costoLote);
     const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
 
-
     // 2. Precio por m²
-    if (!isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0) {
-      const precioMetroCuadrado = costoLote / areaLote;
-      lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
-      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase();
-    } else {
-      lote.precioMetroCuadrado = 0;
-      lote.precioMetroCuadradoLetras = '';
-    }
+    const precioMetroCuadrado =
+        !isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0
+            ? costoLote / areaLote
+            : 0;
+
+    lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
+    lote.precioMetroCuadradoLetras = precioMetroCuadrado
+        ? numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase()
+        : '';
 
     // 3. Saldo de lote
-    if (!isNaN(costoLote) && !isNaN(cuotaInicial)) {
-      const saldo = costoLote - cuotaInicial;
-      lote.cuota.saldoLote = saldo.toFixed(2);
-      lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase();
-    } else {
-      lote.cuota.saldoLote = 0;
-      lote.cuota.saldoLoteLetras = '';
-    }
+    const saldo =
+        !isNaN(costoLote) && !isNaN(cuotaInicial)
+            ? costoLote - cuotaInicial
+            : 0;
+
+    lote.cuota.saldoLote = saldo.toFixed(2);
+    lote.cuota.saldoLoteLetras = saldo
+        ? numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase()
+        : '';
   });
 });
+
 
 </script>
