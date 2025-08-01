@@ -815,14 +815,13 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
     form.value.lotes[index].tipoContratolote = proyectosT3Ids.includes(idProyecto) ? 3 : 1;
   });
 }, { deep: true });
-
 watch(
     form,
     (newForm) => {
       const hoy = new Date();
 
       newForm.lotes.forEach((lote) => {
-        // Inicializaciones seguras
+        // Inicializaciones
         lote.matriz ??= {};
         lote.cuota ??= {};
         lote.cuotaextraordinaria ??= {};
@@ -840,7 +839,7 @@ watch(
           lote.alicuotaLetras = '';
         }
 
-        // 🔹 Cálculo del precio por m²
+        // 🔹 Precio por m²
         const costoLote = parseFloat(lote.costoLote);
         const precioMetroCuadrado = !isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0
             ? costoLote / areaLote
@@ -851,7 +850,7 @@ watch(
             ? numeroLetrasSinDecimal(precioMetroCuadrado.toFixed(2)).toUpperCase()
             : '';
 
-        // 🔹 Cálculo del saldo
+        // 🔹 Saldo de lote
         const cuotaInicial = parseFloat(lote.cuota.cuotaInicialIncluyeSeparacion);
         const saldo = !isNaN(costoLote) && !isNaN(cuotaInicial)
             ? costoLote - cuotaInicial
@@ -869,6 +868,8 @@ watch(
         if (!fechaInicio || !fechaCancelacion) {
           lote.cuota.cuotaPendientePago = '';
           lote.cuota.letrasPendientePago = '';
+          lote.cuota.estadoCuenta = '';
+          lote.cuota.montoDeudaLetra = '';
           return;
         }
 
@@ -896,12 +897,25 @@ watch(
 
         lote.cuota.cuotaPendientePago = cuotasTexto + cuotasExtraTexto;
         lote.cuota.letrasPendientePago = letrasTexto + letrasExtraTexto;
+
+        // 🔹 Estado de cuenta automático
+        const montoCuota = parseFloat(lote.cuota.montoCuotas || 0);
+        const montoExtra = parseFloat(lote.cuotaextraordinaria.cuotaExtraordinariaMonto || 0);
+
+        const mesesPendientes = calcularMeses(hoy, fechaCancelacion);
+        const deudaPendiente = Math.max(0, (mesesPendientes * montoCuota) + montoExtra);
+
+        if (deudaPendiente <= 0) {
+          lote.cuota.estadoCuenta = "PAGADO";
+          lote.cuota.montoDeudaLetra = "PAGADO";
+        } else {
+          lote.cuota.estadoCuenta = `S/ ${deudaPendiente.toFixed(2)}`;
+          lote.cuota.montoDeudaLetra = numeroLetrasSinDecimal(deudaPendiente.toFixed(2));
+        }
       });
     },
     { deep: true, immediate: true }
 );
-
-// 🔧 Utilidades
 function parseFecha(fechaStr) {
   if (!fechaStr || typeof fechaStr !== 'string') return null;
   const [dd, mm, yyyy] = fechaStr.split('/');
@@ -918,13 +932,17 @@ function calcularMeses(fecha1, fecha2) {
 }
 
 function numeroLetrascuotaletras(numero) {
-  const palabras = [
-    'cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis',
-    'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece',
-    'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho',
-    'diecinueve', 'veinte'
-  ];
-  return numero >= 0 && numero <= 20 ? palabras[numero] : numero.toString();
+  const unidades = ['cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve'];
+  const especiales = ['diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
+  const decenas = ['veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
+
+  if (numero < 10) return unidades[numero];
+  if (numero >= 10 && numero < 20) return especiales[numero - 10];
+  if (numero % 10 === 0 && numero <= 90) return decenas[Math.floor(numero / 10) - 2];
+
+  const decena = decenas[Math.floor(numero / 10) - 2];
+  const unidad = unidades[numero % 10];
+  return `${decena} y ${unidad}`;
 }
 
 </script>
