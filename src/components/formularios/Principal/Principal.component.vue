@@ -816,20 +816,27 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
   });
 }, { deep: true });
 
-watch(form, (newForm) => {
-  newForm.lotes.forEach((lote) => {
-    const areaLote = parseFloat(lote.areaLote);
-    const areaMatriz = parseFloat(lote.areaMatriz);
-    const alicuota =
-        !isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0
-            ? ((areaLote * 100) / 10000) / areaMatriz
-            : 0;
 
-    lote.alicuota = alicuota.toFixed(4);
-    lote.alicuotaLetras =
-        alicuota > 0 ? numeroALetras(alicuota) : '';
-  });
-});
+watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
+      if (!lote.matriz) {
+        lote.matriz = {};
+      }
+
+      const areaLote = parseFloat(lote.areaLote);
+      const areaMatriz = parseFloat(lote.areaMatriz);
+
+      if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+        const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
+        lote.matriz.alicuota = alicuota.toFixed(4);
+        lote.matriz.alicuotaLetras= numeroALetras(parseFloat(lote.alicuota));
+      } else {
+        lote.alicuota = 0;
+        lote.alicuotaLetras = '';
+      }
+    });
+    },
+    { deep: true, immediate: true }
+);
 
 
 watch(form, (newForm) => {
