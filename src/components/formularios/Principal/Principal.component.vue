@@ -921,14 +921,14 @@ watch(
             ? 'cuota mensual consecutiva'
             : 'cuotas mensuales consecutivas';
 
-        const cuotasTexto = `cuotas pendientes de pago : ${String(cuotasPendientes).padStart(2, '0')} (${numeroLetrascuotaletras(cuotasPendientes)} ${textoCuotasMensuales})`;
+        const cuotasTexto = `${String(cuotasPendientes).padStart(2, '0')} (${numeroLetrascuotaletras(cuotasPendientes)}) ${textoCuotasMensuales}`;
 
         const cuotasExtraTexto = cuotaExtra > 0
             ? ` y ${String(cuotaExtra).padStart(2, '0')} (${numeroLetrascuotaletras(cuotaExtra)}) ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
             : '';
 
         // Texto dinámico para letras
-        const letrasTexto = `letras pendientes de pago : ${letraInicio} a ${letraFin}`;
+        const letrasTexto = `${letraInicio} a ${letraFin}`;
         const letrasExtraTexto = cuotaExtra > 0
             ? ` y ${String(cuotaExtra).padStart(2, '0')} ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
             : '';
