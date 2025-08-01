@@ -827,8 +827,8 @@ watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
 
       if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
         const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
-        lote.matriz.alicuota = alicuota.toFixed(4);
-        lote.matriz.alicuotaLetras= numeroALetras(parseFloat(lote.alicuota));
+        lote.alicuota = alicuota.toFixed(4);
+        lote.alicuotaLetras= numeroALetras(parseFloat(lote.alicuota));
       } else {
         lote.alicuota = 0;
         lote.alicuotaLetras = '';
