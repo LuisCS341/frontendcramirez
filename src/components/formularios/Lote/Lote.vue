@@ -187,6 +187,7 @@
         v-model="lote.precioMetroCuadrado"
         type="text"
         required
+        readonly
         placeholder="Ingrese el Precio por MT2"
         @input="
       lote.precioMetroCuadrado = lote.precioMetroCuadrado.toString().replace(/[^0-9.]/g, '');

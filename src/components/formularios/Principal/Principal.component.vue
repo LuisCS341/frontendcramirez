@@ -817,56 +817,44 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
 }, { deep: true });
 
 
+
 watch(form, (newForm) => {
   newForm.lotes.forEach((lote) => {
-    calcularAlicuota(lote);
-    calcularPrecioMetroCuadrado(lote);
-    calcularSaldoLote(lote);
+    const areaLote = parseFloat(lote.areaLote);
+    const areaMatriz = parseFloat(lote.areaMatriz);
+    const costoLote = parseFloat(lote.costoLote);
+    const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
+
+    // 1. Alícuota
+    if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+      const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
+      lote.alicuota = alicuota.toFixed(4);
+      lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
+    } else {
+      lote.alicuota = 0;
+      lote.alicuotaLetras = '';
+    }
+
+    // 2. Precio por m²
+    if (!isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0) {
+      const precioMetroCuadrado = costoLote / areaLote;
+      lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
+      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase();
+    } else {
+      lote.precioMetroCuadrado = 0;
+      lote.precioMetroCuadradoLetras = '';
+    }
+
+    // 3. Saldo de lote
+    if (!isNaN(costoLote) && !isNaN(cuotaInicial)) {
+      const saldo = costoLote - cuotaInicial;
+      lote.cuota.saldoLote = saldo.toFixed(2);
+      lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase();
+    } else {
+      lote.cuota.saldoLote = 0;
+      lote.cuota.saldoLoteLetras = '';
+    }
   });
 });
-
-
-function calcularAlicuota(lote) {
-  const areaLote = parseFloat(lote.areaLote);
-  const areaMatriz = parseFloat(lote.areaMatriz);
-
-  if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-    const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
-    lote.alicuota = alicuota.toFixed(4);
-    lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
-  } else {
-    lote.alicuota = 0;
-    lote.alicuotaLetras = '';
-  }
-}
-
-
-function calcularPrecioMetroCuadrado(lote) {
-  const areaLote = parseFloat(lote.areaLote);
-  const costoLote = parseFloat(lote.costoLote);
-
-  if (!isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0) {
-    const precioMetroCuadrado = costoLote / areaLote;
-    lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
-    lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase();
-  } else {
-    lote.precioMetroCuadrado = 0;
-    lote.precioMetroCuadradoLetras = '';
-  }
-}
-
-function calcularSaldoLote(lote) {
-  const costoLote = parseFloat(lote.costoLote);
-  const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
-
-  if (!isNaN(costoLote) && !isNaN(cuotaInicial)) {
-    const saldo = costoLote - cuotaInicial;
-    lote.cuota.saldoLote = saldo.toFixed(2);
-    lote.cuota.saldoLoteLetras = numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase();
-  } else {
-    lote.cuota.saldoLote = 0;
-    lote.cuota.saldoLoteLetras = '';
-  }
-}
 
 </script>
