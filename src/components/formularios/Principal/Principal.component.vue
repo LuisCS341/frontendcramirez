@@ -916,13 +916,22 @@ watch(
         const letraInicio = totalMeses - cuotasPendientes + 1;
         const letraFin = totalMeses;
 
-        // Formato cuotas pendientes
-        const cuotasTexto = `cuotas pendientes de pago : ${String(cuotasPendientes).padStart(2, '0')} (${numeroLetrascuotaletras(cuotasPendientes)} cuotas mensuales consecutivas)`;
-        const cuotasExtraTexto = cuotaExtra > 0 ? ` y ${String(cuotaExtra).padStart(2, '0')} (${numeroLetrascuotaletras(cuotaExtra)}) cuota extraordinaria` : '';
+        // Texto dinámico para cuotas
+        const textoCuotasMensuales = cuotasPendientes === 1
+            ? 'cuota mensual consecutiva'
+            : 'cuotas mensuales consecutivas';
 
-        // Formato letras pendientes
+        const cuotasTexto = `cuotas pendientes de pago : ${String(cuotasPendientes).padStart(2, '0')} (${numeroLetrascuotaletras(cuotasPendientes)} ${textoCuotasMensuales})`;
+
+        const cuotasExtraTexto = cuotaExtra > 0
+            ? ` y ${String(cuotaExtra).padStart(2, '0')} (${numeroLetrascuotaletras(cuotaExtra)}) ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
+            : '';
+
+        // Texto dinámico para letras
         const letrasTexto = `letras pendientes de pago : ${letraInicio} a ${letraFin}`;
-        const letrasExtraTexto = cuotaExtra > 0 ? ` y ${String(cuotaExtra).padStart(2, '0')} cuota extraordinaria` : '';
+        const letrasExtraTexto = cuotaExtra > 0
+            ? ` y ${String(cuotaExtra).padStart(2, '0')} ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
+            : '';
 
         // Asignar al modelo
         lote.cuota.cuotaPendientePago = cuotasTexto + cuotasExtraTexto;
@@ -931,6 +940,8 @@ watch(
     },
     { deep: true, immediate: true }
 );
+
+// Función para convertir dd/mm/yyyy a Date
 function parseFecha(fechaStr) {
   if (!fechaStr || typeof fechaStr !== 'string') return null;
   const [dd, mm, yyyy] = fechaStr.split('/');
@@ -938,14 +949,24 @@ function parseFecha(fechaStr) {
   return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
 }
 
+// Función para calcular la diferencia de meses entre 2 fechas
 function calcularMeses(fecha1, fecha2) {
   const years = fecha2.getFullYear() - fecha1.getFullYear();
   const months = fecha2.getMonth() - fecha1.getMonth();
   let total = years * 12 + months;
-
   if (fecha2.getDate() < fecha1.getDate()) total--;
-
   return Math.max(total, 0);
+}
+
+// Función para convertir número a letras (hasta 20)
+function numeroLetrascuotaletras(numero) {
+  const palabras = [
+    'cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis',
+    'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece',
+    'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho',
+    'diecinueve', 'veinte'
+  ];
+  return numero >= 0 && numero <= 20 ? palabras[numero] : numero.toString();
 }
 
 </script>
