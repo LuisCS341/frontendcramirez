@@ -81,6 +81,7 @@ input:checked + .slider:before {
     width: 90vw;
     max-width: 1400px;
     margin: 0 auto;
+    margin-top: 790px;
     padding: 20px 8px 8px 8px; /* padding-top agregado */
     position: relative;
     z-index: 10;
