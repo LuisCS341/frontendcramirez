@@ -839,35 +839,6 @@ watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
 );
 
 
-watch(form, (newForm) => {
-  newForm.lotes.forEach((lote) => {
-    const areaLote = parseFloat(lote.areaLote);
-    const costoLote = parseFloat(lote.costoLote);
-    const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
-
-    // 2. Precio por m²
-    const precioMetroCuadrado =
-        !isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0
-            ? costoLote / areaLote
-            : 0;
-
-    lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
-    lote.precioMetroCuadradoLetras = precioMetroCuadrado
-        ? numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase()
-        : '';
-
-    // 3. Saldo de lote
-    const saldo =
-        !isNaN(costoLote) && !isNaN(cuotaInicial)
-            ? costoLote - cuotaInicial
-            : 0;
-
-    lote.cuota.saldoLote = saldo.toFixed(2);
-    lote.cuota.saldoLoteLetras = saldo
-        ? numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase()
-        : '';
-  });
-});
 
 watch(form, (newForm) => {
       newForm.lotes.forEach((lote) => {
@@ -911,7 +882,49 @@ watch(form, (newForm) => {
     { deep: true, immediate: true }
 );
 
+// formula de cuotas faltantes
+watch(
+    form,
+    (newForm) => {
+      newForm.lotes.forEach((lote) => {
+        if (!lote.cuota) {
+          lote.cuota = {};
+        }
 
+        if (lote.fechaCancelacionContrato) {
+          const cuotasPendientes = calcularCuotasFaltantes(lote.fechaCancelacionContrato);
+          lote.cuota.cuotaPendientePago = cuotasPendientes;
+        } else {
+          lote.cuota.cuotaPendientePago = 0;
+        }
+      });
+    },
+    { deep: true, immediate: true }
+);
 
+function calcularCuotasFaltantes(fechaCancelacionStr) {
+  if (!fechaCancelacionStr) return 0;
+
+  const partes = fechaCancelacionStr.split('/');
+  if (partes.length !== 3) return 0;
+
+  const dia = parseInt(partes[0], 10);
+  const mes = parseInt(partes[1], 10) - 1; // Mes en Date es 0-indexado
+  const anio = parseInt(partes[2], 10);
+
+  const fechaCancelacion = new Date(anio, mes, dia);
+  const fechaActual = new Date();
+
+  let totalMeses =
+      (fechaCancelacion.getFullYear() - fechaActual.getFullYear()) * 12 +
+      (fechaCancelacion.getMonth() - fechaActual.getMonth());
+
+  // Si el día actual es mayor al de cancelación, restamos un mes
+  if (fechaActual.getDate() > fechaCancelacion.getDate()) {
+    totalMeses--;
+  }
+
+  return totalMeses >= 0 ? totalMeses : 0;
+}
 
 </script>
