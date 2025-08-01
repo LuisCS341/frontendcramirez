@@ -889,42 +889,48 @@ watch(
       const hoy = new Date();
 
       newForm.lotes.forEach((lote) => {
+        // Inicializa si no existen
         if (!lote.cuota) lote.cuota = {};
         if (!lote.cuotaextraordinaria) lote.cuotaextraordinaria = {};
 
         const fechaInicio = parseFecha(lote.fechaInicioContrato);
         const fechaCancelacion = parseFecha(lote.fechaCancelacionContrato);
 
+        // Si no hay fechas válidas, se limpian los campos
         if (!fechaInicio || !fechaCancelacion) {
           lote.cuota.cuotaPendientePago = '';
           lote.cuota.letrasPendientePago = '';
           return;
         }
 
+        // Total de cuotas desde el inicio hasta la cancelación
         const totalMeses = calcularMeses(fechaInicio, fechaCancelacion);
+
+        // Cuotas pendientes desde hoy hasta cancelación
         const cuotasPendientes = calcularMeses(hoy, fechaCancelacion);
+
+        // Cuotas extraordinarias
         const cuotaExtra = parseInt(lote.cuotaextraordinaria.cantidadCuotaExtraordinaria || 0);
 
-        // Ejemplo: si son 48 cuotas y hay 7 pendientes, empieza desde la 42
+        // Letras pendientes (inicio y fin)
         const letraInicio = totalMeses - cuotasPendientes + 1;
         const letraFin = totalMeses;
 
-        // Texto cuotas
-        const cuotasTexto = `cuotas pendientes de pago : ${String(cuotasPendientes).padStart(2, '0')} (${numeroALetras(cuotasPendientes)} cuotas mensuales consecutivas)`;
-        const cuotasExtraTexto = cuotaExtra > 0 ? ` y ${cuotaExtra} (una) cuota extraordinaria` : '';
+        // Formato cuotas pendientes
+        const cuotasTexto = `cuotas pendientes de pago : ${String(cuotasPendientes).padStart(2, '0')} (${numeroLetrascuotaletras(cuotasPendientes)} cuotas mensuales consecutivas)`;
+        const cuotasExtraTexto = cuotaExtra > 0 ? ` y ${String(cuotaExtra).padStart(2, '0')} (${numeroLetrascuotaletras(cuotaExtra)}) cuota extraordinaria` : '';
 
-        // Texto letras
+        // Formato letras pendientes
         const letrasTexto = `letras pendientes de pago : ${letraInicio} a ${letraFin}`;
         const letrasExtraTexto = cuotaExtra > 0 ? ` y ${String(cuotaExtra).padStart(2, '0')} cuota extraordinaria` : '';
 
+        // Asignar al modelo
         lote.cuota.cuotaPendientePago = cuotasTexto + cuotasExtraTexto;
         lote.cuota.letrasPendientePago = letrasTexto + letrasExtraTexto;
       });
     },
     { deep: true, immediate: true }
 );
-
-// Función para convertir fechas en formato dd/mm/aaaa
 function parseFecha(fechaStr) {
   if (!fechaStr || typeof fechaStr !== 'string') return null;
   const [dd, mm, yyyy] = fechaStr.split('/');
@@ -932,7 +938,6 @@ function parseFecha(fechaStr) {
   return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
 }
 
-// Calcula la diferencia de meses entre 2 fechas
 function calcularMeses(fecha1, fecha2) {
   const years = fecha2.getFullYear() - fecha1.getFullYear();
   const months = fecha2.getMonth() - fecha1.getMonth();
@@ -941,13 +946,6 @@ function calcularMeses(fecha1, fecha2) {
   if (fecha2.getDate() < fecha1.getDate()) total--;
 
   return Math.max(total, 0);
-}
-
-// Solo hasta 10 por simplicidad
-function numeroALetras(numero) {
-  const palabras = ['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez'];
-  if (numero >= 0 && numero <= 10) return palabras[numero];
-  return numero.toString();
 }
 
 </script>
