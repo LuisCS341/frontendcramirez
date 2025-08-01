@@ -886,45 +886,68 @@ watch(form, (newForm) => {
 watch(
     form,
     (newForm) => {
+      const hoy = new Date();
+
       newForm.lotes.forEach((lote) => {
-        if (!lote.cuota) {
-          lote.cuota = {};
+        if (!lote.cuota) lote.cuota = {};
+        if (!lote.cuotaextraordinaria) lote.cuotaextraordinaria = {};
+
+        const fechaInicio = parseFecha(lote.fechaInicioContrato);
+        const fechaCancelacion = parseFecha(lote.fechaCancelacionContrato);
+
+        if (!fechaInicio || !fechaCancelacion) {
+          lote.cuota.cuotaPendientePago = '';
+          lote.cuota.letrasPendientePago = '';
+          return;
         }
 
-        if (lote.fechaCancelacionContrato) {
-          const cuotasPendientes = calcularCuotasFaltantes(lote.fechaCancelacionContrato);
-          lote.cuota.cuotaPendientePago = cuotasPendientes;
-        } else {
-          lote.cuota.cuotaPendientePago = 0;
-        }
+        const totalMeses = calcularMeses(fechaInicio, fechaCancelacion);
+        const cuotasPendientes = calcularMeses(hoy, fechaCancelacion);
+        const cuotaExtra = parseInt(lote.cuotaextraordinaria.cantidadCuotaExtraordinaria || 0);
+
+        // Ejemplo: si son 48 cuotas y hay 7 pendientes, empieza desde la 42
+        const letraInicio = totalMeses - cuotasPendientes + 1;
+        const letraFin = totalMeses;
+
+        // Texto cuotas
+        const cuotasTexto = `cuotas pendientes de pago : ${String(cuotasPendientes).padStart(2, '0')} (${numeroALetras(cuotasPendientes)} cuotas mensuales consecutivas)`;
+        const cuotasExtraTexto = cuotaExtra > 0 ? ` y ${cuotaExtra} (una) cuota extraordinaria` : '';
+
+        // Texto letras
+        const letrasTexto = `letras pendientes de pago : ${letraInicio} a ${letraFin}`;
+        const letrasExtraTexto = cuotaExtra > 0 ? ` y ${String(cuotaExtra).padStart(2, '0')} cuota extraordinaria` : '';
+
+        lote.cuota.cuotaPendientePago = cuotasTexto + cuotasExtraTexto;
+        lote.cuota.letrasPendientePago = letrasTexto + letrasExtraTexto;
       });
     },
     { deep: true, immediate: true }
 );
 
-function calcularCuotasFaltantes(fechaCancelacionStr) {
-  if (!fechaCancelacionStr) return 0;
+// Función para convertir fechas en formato dd/mm/aaaa
+function parseFecha(fechaStr) {
+  if (!fechaStr || typeof fechaStr !== 'string') return null;
+  const [dd, mm, yyyy] = fechaStr.split('/');
+  if (!dd || !mm || !yyyy) return null;
+  return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
+}
 
-  const partes = fechaCancelacionStr.split('/');
-  if (partes.length !== 3) return 0;
+// Calcula la diferencia de meses entre 2 fechas
+function calcularMeses(fecha1, fecha2) {
+  const years = fecha2.getFullYear() - fecha1.getFullYear();
+  const months = fecha2.getMonth() - fecha1.getMonth();
+  let total = years * 12 + months;
 
-  const dia = parseInt(partes[0], 10);
-  const mes = parseInt(partes[1], 10) - 1; // Mes en Date es 0-indexado
-  const anio = parseInt(partes[2], 10);
+  if (fecha2.getDate() < fecha1.getDate()) total--;
 
-  const fechaCancelacion = new Date(anio, mes, dia);
-  const fechaActual = new Date();
+  return Math.max(total, 0);
+}
 
-  let totalMeses =
-      (fechaCancelacion.getFullYear() - fechaActual.getFullYear()) * 12 +
-      (fechaCancelacion.getMonth() - fechaActual.getMonth());
-
-  // Si el día actual es mayor al de cancelación, restamos un mes
-  if (fechaActual.getDate() > fechaCancelacion.getDate()) {
-    totalMeses--;
-  }
-
-  return totalMeses >= 0 ? totalMeses : 0;
+// Solo hasta 10 por simplicidad
+function numeroALetras(numero) {
+  const palabras = ['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez'];
+  if (numero >= 0 && numero <= 10) return palabras[numero];
+  return numero.toString();
 }
 
 </script>
