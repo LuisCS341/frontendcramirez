@@ -304,7 +304,7 @@ const descargarWordT1 = async (cliente) => {
       areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
       alicuota:lote?.alicuota ?? '-' ,
-      alicuotaLetras: lote?.alicuotaLetras ?? '-',
+      alicuotaLetras: (lote?.alicuotaLetras ?? '-').toUpperCase(),
       mantenimientoMensual: lote?.mantenimientoMensual ? parseFloat(lote.mantenimientoMensual).toFixed(2) : '-',
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
       txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
@@ -320,20 +320,20 @@ const descargarWordT1 = async (cliente) => {
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
       cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
-      cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
+      cuotaInicialIncluyeSeparacionLetras:(cuota?.cuotaInicialIncluyeSeparacionLetras?? '-').toUpperCase(),
       fechaPago: cuota?.cuotaInicialIncluyeSeparacion?? '-',
       cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
       cuotaInicialBanco: cuota?.cuotaInicialBanco?? '-',
       saldoLote:cuota?.saldoLote ? parseFloat(cuota.saldoLote).toFixed(2) : '-',
-      saldoLoteLetras:cuota?.saldoLoteLetras?? '-',
+      saldoLoteLetras:(cuota?.saldoLoteLetras?? '-').toUpperCase(),
       cantidadCuotas: cuota?.cantidadCuotas ?? '-',
       cantidadCuotaLetras:cuota?.cantidadCuotaLetras?? '-',
       cantidadCuotaCuentaRecaudadora: cuota?.cantidadCuotaCuentaRecaudadora?? '-',
       cantidadCuotaBanco: cuota?.cantidadCuotaBanco?? '-',
       montoCuotas: cuota?.montoCuotas ?? '-',
-      montoCuotaLetras:cuota?.montoCuotas ?? '-',
+      montoCuotaLetras:(cuota?.montoCuotas ?? '-').toUpperCase(),
       cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
-      letrasPendientePago: cuota?.letrasPendientePago?? '-',
+      letrasPendientePago: (cuota?.letrasPendientePago?? '-').toUpperCase(),
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
@@ -374,7 +374,7 @@ const descargarWordT1 = async (cliente) => {
 
 const descargarWordT2 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_T2.docx", {
+    const response = await axios.get("/plantillas/plantilla_t2P.docx", {
       responseType: "arraybuffer",
     });
 
