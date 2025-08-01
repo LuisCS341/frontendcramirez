@@ -239,6 +239,7 @@
           type="text"
           v-model="lote.alicuota"
           required
+          readonly
           @input="
       lote.alicuota = lote.alicuota.toString().replace(/[^0-9.]/g, '');
       lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota).toFixed(4));
