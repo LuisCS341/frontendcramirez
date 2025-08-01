@@ -816,16 +816,10 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
   });
 }, { deep: true });
 
-
-
 watch(form, (newForm) => {
   newForm.lotes.forEach((lote) => {
     const areaLote = parseFloat(lote.areaLote);
     const areaMatriz = parseFloat(lote.areaMatriz);
-    const costoLote = parseFloat(lote.costoLote);
-    const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
-
-    // 1. Alícuota
     if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
       const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
       lote.alicuota = alicuota.toFixed(4);
@@ -834,6 +828,15 @@ watch(form, (newForm) => {
       lote.alicuota = 0;
       lote.alicuotaLetras = '';
     }
+  });
+});
+
+watch(form, (newForm) => {
+  newForm.lotes.forEach((lote) => {
+
+    const costoLote = parseFloat(lote.costoLote);
+    const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
+
 
     // 2. Precio por m²
     if (!isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0) {
