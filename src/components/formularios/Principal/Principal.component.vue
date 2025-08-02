@@ -815,69 +815,108 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
     form.value.lotes[index].tipoContratolote = proyectosT3Ids.includes(idProyecto) ? 3 : 1;
   });
 }, { deep: true });
+
+
+watch(form, (newForm) => {newForm.lotes.forEach((lote) => {
+      if (!lote.matriz) {
+        lote.matriz = {};
+      }
+
+      const areaLote = parseFloat(lote.areaLote);
+      const areaMatriz = parseFloat(lote.areaMatriz);
+
+      if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+        const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
+        lote.alicuota = alicuota.toFixed(4);
+        lote.alicuotaLetras= numeroALetras(parseFloat(lote.alicuota));
+      } else {
+        lote.alicuota = 0;
+        lote.alicuotaLetras = '';
+      }
+    });
+    },
+    { deep: true, immediate: true }
+);
+
+
+
+watch(form, (newForm) => {
+      newForm.lotes.forEach((lote) => {
+        const areaLote = parseFloat(lote.areaLote);
+        const costoLote = parseFloat(lote.costoLote);
+
+        const precioMetroCuadrado =
+            !isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0
+                ? costoLote / areaLote
+                : 0;
+
+        lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
+        lote.precioMetroCuadradoLetras = precioMetroCuadrado
+            ? numeroLetrasSinDecimal(lote.precioMetroCuadrado).toUpperCase()
+            : '';
+      });
+    },
+    { deep: true, immediate: true }
+);
+
+watch(form, (newForm) => {
+      newForm.lotes.forEach((lote) => {
+        if (!lote.cuota) {
+          lote.cuota = {};
+        }
+
+        const costoLote = parseFloat(lote.costoLote);
+        const cuotaInicial = parseFloat(lote.cuota?.cuotaInicialIncluyeSeparacion);
+
+        const saldo =
+            !isNaN(costoLote) && !isNaN(cuotaInicial)
+                ? costoLote - cuotaInicial
+                : 0;
+
+        lote.cuota.saldoLote = saldo.toFixed(2);
+        lote.cuota.saldoLoteLetras = saldo
+            ? numeroLetrasSinDecimal(lote.cuota.saldoLote).toUpperCase()
+            : '';
+      });
+    },
+    { deep: true, immediate: true }
+);
+
+// formula de cuotas faltantes
 watch(
     form,
     (newForm) => {
       const hoy = new Date();
 
       newForm.lotes.forEach((lote) => {
-        // Inicializaciones
-        lote.matriz ??= {};
-        lote.cuota ??= {};
-        lote.cuotaextraordinaria ??= {};
+        // Inicializa si no existen
+        if (!lote.cuota) lote.cuota = {};
+        if (!lote.cuotaextraordinaria) lote.cuotaextraordinaria = {};
 
-        // 🔹 Cálculo de alícuota
-        const areaLote = parseFloat(lote.areaLote);
-        const areaMatriz = parseFloat(lote.areaMatriz);
-
-        if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-          const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
-          lote.alicuota = alicuota.toFixed(4);
-          lote.alicuotaLetras = numeroALetras(alicuota);
-        } else {
-          lote.alicuota = 0;
-          lote.alicuotaLetras = '';
-        }
-
-        // 🔹 Precio por m²
-        const costoLote = parseFloat(lote.costoLote);
-        const precioMetroCuadrado = !isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0
-            ? costoLote / areaLote
-            : 0;
-
-        const letrasPrecio = numeroLetrasSinDecimal(precioMetroCuadrado.toFixed(2));
-        lote.precioMetroCuadrado = precioMetroCuadrado.toFixed(2);
-        lote.precioMetroCuadradoLetras = typeof letrasPrecio === 'string' ? letrasPrecio.toUpperCase() : '';
-
-        // 🔹 Saldo de lote
-        const cuotaInicial = parseFloat(lote.cuota.cuotaInicialIncluyeSeparacion);
-        const saldo = !isNaN(costoLote) && !isNaN(cuotaInicial)
-            ? costoLote - cuotaInicial
-            : 0;
-
-        const letrasSaldo = numeroLetrasSinDecimal(saldo.toFixed(2));
-        lote.cuota.saldoLote = saldo.toFixed(2);
-        lote.cuota.saldoLoteLetras = typeof letrasSaldo === 'string' ? letrasSaldo.toUpperCase() : '';
-
-        // 🔹 Cálculo de cuotas y letras pendientes
         const fechaInicio = parseFecha(lote.fechaInicioContrato);
         const fechaCancelacion = parseFecha(lote.fechaCancelacionContrato);
 
+        // Si no hay fechas válidas, se limpian los campos
         if (!fechaInicio || !fechaCancelacion) {
           lote.cuota.cuotaPendientePago = '';
           lote.cuota.letrasPendientePago = '';
-          lote.cuota.estadoCuenta = '';
-          lote.cuota.montoDeudaLetra = '';
           return;
         }
 
+        // Total de cuotas desde el inicio hasta la cancelación
         const totalMeses = calcularMeses(fechaInicio, fechaCancelacion);
+
+        // Cuotas pendientes desde hoy hasta cancelación
         const cuotasPendientes = calcularMeses(hoy, fechaCancelacion);
+
+        // Cuotas extraordinarias
         const cuotaExtra = parseInt(lote.cuotaextraordinaria.cantidadCuotaExtraordinaria || 0);
 
+        // Letras pendientes (inicio y fin)
         const letraInicio = totalMeses - cuotasPendientes + 1;
         const letraFin = totalMeses;
 
+        // Texto dinámico para cuotas
         const textoCuotasMensuales = cuotasPendientes === 1
             ? 'cuota mensual consecutiva'
             : 'cuotas mensuales consecutivas';
@@ -888,34 +927,21 @@ watch(
             ? ` y ${String(cuotaExtra).padStart(2, '0')} (${numeroLetrascuotaletras(cuotaExtra)}) ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
             : '';
 
+        // Texto dinámico para letras
         const letrasTexto = `${letraInicio} a ${letraFin}`;
         const letrasExtraTexto = cuotaExtra > 0
             ? ` y ${String(cuotaExtra).padStart(2, '0')} ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
             : '';
 
+        // Asignar al modelo
         lote.cuota.cuotaPendientePago = cuotasTexto + cuotasExtraTexto;
         lote.cuota.letrasPendientePago = letrasTexto + letrasExtraTexto;
-
-        // 🔹 Estado de cuenta automático
-        const montoCuota = parseFloat(lote.cuota.montoCuotas || 0);
-        const montoExtra = parseFloat(lote.cuotaextraordinaria.cuotaExtraordinariaMonto || 0);
-        const deudaPendiente = Math.max(0, (cuotasPendientes * montoCuota) + montoExtra);
-
-        if (deudaPendiente <= 0) {
-          lote.cuota.estadoCuenta = "PAGADO";
-          lote.cuota.montoDeudaLetra = "PAGADO";
-        } else {
-          lote.cuota.estadoCuenta = `S/ ${deudaPendiente.toFixed(2)}`;
-          const letrasDeuda = numeroLetrasSinDecimal(deudaPendiente.toFixed(2));
-          lote.cuota.montoDeudaLetra = typeof letrasDeuda === 'string' ? letrasDeuda.toUpperCase() : '';
-        }
       });
     },
     { deep: true, immediate: true }
 );
 
-// 🔧 Utilidades
-
+// Función para convertir dd/mm/yyyy a Date
 function parseFecha(fechaStr) {
   if (!fechaStr || typeof fechaStr !== 'string') return null;
   const [dd, mm, yyyy] = fechaStr.split('/');
@@ -923,6 +949,7 @@ function parseFecha(fechaStr) {
   return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
 }
 
+// Función para calcular la diferencia de meses entre 2 fechas
 function calcularMeses(fecha1, fecha2) {
   const years = fecha2.getFullYear() - fecha1.getFullYear();
   const months = fecha2.getMonth() - fecha1.getMonth();
@@ -931,90 +958,15 @@ function calcularMeses(fecha1, fecha2) {
   return Math.max(total, 0);
 }
 
+// Función para convertir número a letras (hasta 20)
 function numeroLetrascuotaletras(numero) {
-  const unidades = ['cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve'];
-  const especiales = ['diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
-  const decenas = ['veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
-
-  if (numero < 10) return unidades[numero];
-  if (numero >= 10 && numero < 20) return especiales[numero - 10];
-  if (numero % 10 === 0 && numero <= 90) return decenas[Math.floor(numero / 10) - 2];
-
-  const decena = decenas[Math.floor(numero / 10) - 2];
-  const unidad = unidades[numero % 10];
-  return `${decena} y ${unidad}`;
-}
-
-function numeroLetrasSinDecimal(numeroStr) {
-  const numero = parseInt(numeroStr);
-  if (isNaN(numero)) return '';
-  return convertirNumeroALetras(numero) + ' soles';
-}
-function convertirNumeroALetras(num) {
-  function unidades(num) {
-    switch (num) {
-      case 1: return 'UNO';
-      case 2: return 'DOS';
-      case 3: return 'TRES';
-      case 4: return 'CUATRO';
-      case 5: return 'CINCO';
-      case 6: return 'SEIS';
-      case 7: return 'SIETE';
-      case 8: return 'OCHO';
-      case 9: return 'NUEVE';
-      default: return '';
-    }
-  }
-
-  function decenas(num) {
-    if (num < 10) return unidades(num);
-    if (num >= 10 && num < 20) {
-      const especiales = ['DIEZ', 'ONCE', 'DOCE', 'TRECE', 'CATORCE', 'QUINCE', 'DIECISÉIS', 'DIECISIETE', 'DIECIOCHO', 'DIECINUEVE'];
-      return especiales[num - 10];
-    }
-    const dec = ['VEINTE', 'TREINTA', 'CUARENTA', 'CINCUENTA', 'SESENTA', 'SETENTA', 'OCHENTA', 'NOVENTA'];
-    const decena = Math.floor(num / 10);
-    const unidad = num % 10;
-    if (unidad === 0) return dec[decena - 2];
-    if (decena === 2) return 'VEINTI' + unidades(unidad).toLowerCase();
-    return `${dec[decena - 2]} Y ${unidades(unidad)}`;
-  }
-
-  function centenas(num) {
-    if (num < 100) return decenas(num);
-    const cent = Math.floor(num / 100);
-    const resto = num % 100;
-    const nombres = ['CIEN', 'CIENTO', 'DOSCIENTOS', 'TRESCIENTOS', 'CUATROCIENTOS', 'QUINIENTOS', 'SEISCIENTOS', 'SETECIENTOS', 'OCHOCIENTOS', 'NOVECIENTOS'];
-    if (num === 100) return 'CIEN';
-    return `${nombres[cent]} ${decenas(resto)}`.trim();
-  }
-
-  function seccion(num, divisor, singular, plural) {
-    const cientos = Math.floor(num / divisor);
-    const resto = num % divisor;
-    let texto = '';
-    if (cientos > 0)
-      texto = (cientos === 1 ? singular : convertirNumeroALetras(cientos) + ' ' + plural);
-    return resto > 0 ? `${texto} ${convertirNumeroALetras(resto)}` : texto;
-  }
-
-  function miles(num) {
-    return seccion(num, 1000, 'MIL', 'MIL');
-  }
-
-  function millones(num) {
-    return seccion(num, 1000000, 'UN MILLÓN', 'MILLONES');
-  }
-
-  if (typeof num === 'string') num = parseInt(num);
-  if (isNaN(num)) return '';
-
-  if (num === 0) return 'CERO';
-
-  if (num < 100) return decenas(num);
-  if (num < 1000) return centenas(num);
-  if (num < 1000000) return miles(num);
-  return millones(num);
+  const palabras = [
+    'cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis',
+    'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece',
+    'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho',
+    'diecinueve', 'veinte'
+  ];
+  return numero >= 0 && numero <= 20 ? palabras[numero] : numero.toString();
 }
 
 </script>
