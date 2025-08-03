@@ -316,6 +316,8 @@ const descargarWordT1 = async (cliente) => {
       alicuotaLetras: safeUpper(lote?.alicuotaLetras),
       mantenimientoMensual: lote?.mantenimientoMensual ? parseFloat(lote.mantenimientoMensual).toFixed(2) : '-',
       mantenimientoMensualLetras: safeUpper(lote?.mantenimientoMensualLetras),
+precioMetroCuadrado:safeUpper(lote?.precioMetroCuadrado),
+      precioMetroCuadradoLetras:safeUpper(lote?.precioMetroCuadradoLetras),
 
       txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
       txtprovinciamatriz: matriz?.txtprovinciamatriz ?? '-',
@@ -386,7 +388,7 @@ const descargarWordT1 = async (cliente) => {
 
 const descargarWordT2 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_t2P.docx", {
+    const response = await axios.get("/plantillas/plantilla_T2.docx", {
       responseType: "arraybuffer",
     });
 
