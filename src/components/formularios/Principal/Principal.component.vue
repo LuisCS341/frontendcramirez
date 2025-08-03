@@ -815,7 +815,6 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
     form.value.lotes[index].tipoContratolote = proyectosT3Ids.includes(idProyecto) ? 3 : 1;
   });
 }, { deep: true });
-
 watch(
     form,
     (newForm) => {
@@ -892,17 +891,17 @@ watch(
 
 function parseFecha(fechaStr) {
   if (!fechaStr || typeof fechaStr !== 'string') return null;
-  const [dd, mm, yyyy] = fechaStr.split('/');
-  if (!dd || !mm || !yyyy) return null;
-  return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
+  const partes = fechaStr.split('/');
+  if (partes.length !== 3) return null;
+  const [dia, mes, anio] = partes.map(Number);
+  return new Date(anio, mes - 1, dia);
 }
 
-function calcularMeses(fecha1, fecha2) {
-  const years = fecha2.getFullYear() - fecha1.getFullYear();
-  const months = fecha2.getMonth() - fecha1.getMonth();
-  let total = years * 12 + months;
-  if (fecha2.getDate() < fecha1.getDate()) total--;
-  return Math.max(total, 0);
+function calcularMeses(inicio, fin) {
+  if (!(inicio instanceof Date) || !(fin instanceof Date)) return 0;
+  let meses = (fin.getFullYear() - inicio.getFullYear()) * 12;
+  meses += fin.getMonth() - inicio.getMonth();
+  return meses + 1;
 }
 
 function numeroLetrascuotaletras(numero) {
