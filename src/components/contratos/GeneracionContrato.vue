@@ -411,6 +411,11 @@ const descargarWordT2 = async (cliente) => {
     const cuotaExtra = getCuotaExtraordinaria(cliente);
     const matriz= getMatriz(cliente);
 
+
+    function safeUpper(val) {
+      return String(val ?? '-').toUpperCase();
+    }
+
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
       documentoIdentificacion: safeUpper(cliente.cliente.documentoIdentificacion),
