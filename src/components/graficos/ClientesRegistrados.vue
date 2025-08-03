@@ -21,7 +21,7 @@ const clientesHoy = ref(0)
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/clientes/registrados/count')
+    const response = await axios.get('https://backendcramirez.onrender.com/api/clientes/registrados/count')
     clientesHoy.value = response.data
   } catch (error) {
     console.error('Error al obtener los clientes registrados hoy:', error)
