@@ -1,8 +1,9 @@
 .primary-container {
     position: relative;
-    margin-top: -20px;
+    margin-top: 10px;
+    margin-left: 20px;
     padding: 20px 20px 0 20px; /* Espacio interior arriba y a los lados */
-    width: calc(108% - 10px); /* Resta el ancho de la barra lateral */
+    width: calc(108% - 150px); /* Resta el ancho de la barra lateral */
     margin-left: 20px; /* Espacio para la barra lateral */
     min-height: 100vh; /* Asegura ocupar toda la altura visible */
     box-sizing: border-box;
@@ -11,14 +12,13 @@
 }
 
 .secundary-container {
-    margin: 0;
+
     padding: 16px 16px 16px 0; /* Sin padding izquierdo */
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     position: relative;
-    left: 0;
+    margin-left: 130px;
     width: calc(100% - 150px);  /* Ajusta el "150px" al ancho de tu barra lateral */
-    margin-right: 0; /* Elimina margen derecho si no es necesario */
     margin-top: 40px;
 }
 
