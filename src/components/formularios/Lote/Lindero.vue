@@ -11,11 +11,11 @@
     />
 
     <label>Limite por la Derecha:</label>
-    <input v-model="lote.lindero.DescripcionPorLaDerecha"
+    <input v-model="lote.lindero.descripcionPorLaDerecha"
            type="text"
            step="any"
            required
-           placeholder="Ingrese Limite por la Derecha"
+           placeholder="Ingrese metro por la derecha"
     />
 
     <label>Por la Izquierda(m):</label>
@@ -27,11 +27,11 @@
     />
 
     <label>Limite por la Izquierda:</label>
-    <input v-model="lote.lindero.DescripcionPorLaIzquierda"
+    <input v-model="lote.lindero.descripcionPorLaIzquierda"
            type="text"
            step="any"
            required
-           placeholder="Ingrese Limite por la Izquierda"
+           placeholder="Ingrese metro por la izquierda"
     />
 
     <label>Por el Frente(m):</label>
@@ -43,11 +43,11 @@
     />
 
     <label>Limite por el frente:</label>
-    <input v-model="lote.lindero.DescripcionPorElFrente"
+    <input v-model="lote.lindero.descripcionPorElFrente"
            type="text"
            step="any"
            required
-           placeholder="Ingrese Limite por el frente"
+           placeholder="Ingrese metro por el frente"
     />
 
     <label>Por el Fondo(m):</label>
@@ -59,11 +59,11 @@
     />
 
     <label>Limite por el Fondo:</label>
-    <input v-model="lote.lindero.DescripcionPorElFondo"
+    <input v-model="lote.lindero.descripcionPorElFondo"
            type="text"
            step="any"
            required
-           placeholder="Ingrese Limite por el Fondo"
+           placeholder="Ingrese metro por el fondo"
     />
   </div>
 </template>
@@ -80,4 +80,6 @@ defineProps({
     required: true
   }
 });
+
+
 </script>

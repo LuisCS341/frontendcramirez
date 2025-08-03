@@ -1,3 +1,5 @@
+
+
 export function buildClientePayload(form) {
     return {
         nombresApellidos: form.nombreCliente,
@@ -119,13 +121,13 @@ export const buildCuotaExtraordinariaPayload = ({ idLote, cuotaextraordinaria })
 export const buildLinderoPayload = ({ idLote, lindero }) => ({
     idLote,
     porLaDerecha: lindero?.porLaDerechaLindero ,
-    DescripcionPorLaDerecha: lindero?.DescripcionPorLaDerecha ,
+    descripcionPorLaDerecha: lindero?.descripcionPorLaDerecha ,
     porLaIzquierda: lindero?.porLaIzquierdaLindero ,
-    DescripcionPorLaIzquierda: lindero?.DescripcionPorLaIzquierda ,
+    descripcionPorLaIzquierda: lindero?.descripcionPorLaIzquierda ,
     porElFrente: lindero?.porElFrenteLindero ,
-    DescripcionPorElFrente: lindero?.DescripcionPorElFrente ,
+    descripcionPorElFrente: lindero?.descripcionPorElFrente ,
     porElFondo: lindero?.porElFondoLindero ,
-    DescripcionPorElFondo: lindero?.DescripcionPorElFondo ,
+    descripcionPorElFondo: lindero?.descripcionPorElFondo ,
 });
 
 export const buildDocumentoPayload=({idCuotaExtraordinaria,documento}) => ({
