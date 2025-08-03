@@ -325,9 +325,13 @@ watch(() => form.value.numLotes, (newVal) => {
     },
     lindero:{
       porLaDerechaLindero: '',
+      DescripcionPorLaDerecha: '',
       porLaIzquierdaLindero: '',
+      DescripcionPorLaIzquierda: '',
       porElFrenteLindero: '',
+      DescripcionPorElFrente: '',
       porElFondoLindero: '',
+      DescripcionPorElFondo: '',
     },
     tieneCuotaExtraordinaria: null,
     cuotaextraordinaria: {
