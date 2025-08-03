@@ -23,6 +23,20 @@
       <button class="btn" @click="$emit('continuar')">Continuar</button>
     </div>
 
+    <div v-if="cliente && cliente.razonSocial" class="datos-empresa">
+      <h3>📄 Datos de la Empresa</h3>
+      <ul>
+        <li><strong>Razón Social:</strong> {{ cliente.razonSocial }}</li>
+        <li><strong>N° Documento:</strong> {{ cliente.numeroDocumento }}</li>
+        <li><strong>Estado:</strong> {{ cliente.estado }}</li>
+        <li><strong>Condición:</strong> {{ cliente.condicion }}</li>
+        <li><strong>Dirección:</strong> {{ cliente.direccion }}</li>
+        <li><strong>Distrito:</strong> {{ cliente.distrito }}</li>
+        <li><strong>Provincia:</strong> {{ cliente.provincia }}</li>
+        <li><strong>Departamento:</strong> {{ cliente.departamento }}</li>
+      </ul>
+    </div>
+
   </div>
 </template>
 
@@ -32,6 +46,7 @@ defineProps({
   estadoEmpresa: String,
   cliente: Object,
   form: Object,
+  datosEmpresa: Object
 })
 
 defineEmits([

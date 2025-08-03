@@ -146,19 +146,28 @@ const buscarEmpresa = () => {
         const response = await fetch(`https://backendcramirez.onrender.com/api/buscarEmpresa/${documento}`);
         const data = await response.json();
 
-        if (data && data.nombres) {
+        if (data && data.razonSocial) {
           const existeRes = await fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`);
           const existe = await existeRes.json();
 
           Object.assign(cliente, {
-            nombres: data.nombres,
-            apellidoPaterno: data.apellidoPaterno,
-            apellidoMaterno: data.apellidoMaterno,
-            nombreCompleto: data.nombreCompleto,
-            tipoDocumento: data.tipoDocumento,
+            razonSocial: data.razonSocial,
             numeroDocumento: data.numeroDocumento,
-            digitoVerificador: data.digitoVerificador,
+            estado: data.estado,
+            condicion: data.condicion,
+            direccion: data.direccion,
+            distrito: data.distrito,
+            provincia: data.provincia,
+            departamento: data.departamento,
+            tipoEmpresa: data.tipo,
+            actividadEconomica: data.actividadEconomica,
+            numeroTrabajadores: data.numeroTrabajadores,
+            tipoFacturacion: data.tipoFacturacion,
+            tipoContabilidad: data.tipoContabilidad,
+            comercioExterior: data.comercioExterior,
           });
+
+
 
           estadoEmpresa.value = existe ? "Empresa registrada - ya existe en el sistema" : "Empresa nueva";
 
@@ -357,9 +366,6 @@ const buscarCliente = () => {
               provinciaClienteConyuge: clienteBD.idProvinciaConyuge || '',
               distritoClienteConyuge: clienteBD.idDistritoConyuge || '',
               direccionClienteConyuge: clienteBD.direccionConyuge || '',
-              correoUsuarioCliente: clienteBD.correoElectronicoConyuge || '',
-              prefijoTelefonicoClienteConyuge: clienteBD.idPrefijoConyuge || '',
-              numTelefonicoClienteConyuge: clienteBD.celularConyuge || '',
             }
           });
 
