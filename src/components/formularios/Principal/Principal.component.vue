@@ -815,6 +815,7 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
     form.value.lotes[index].tipoContratolote = proyectosT3Ids.includes(idProyecto) ? 3 : 1;
   });
 }, { deep: true });
+
 watch(
     form,
     (newForm) => {
