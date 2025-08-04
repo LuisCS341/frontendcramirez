@@ -34,8 +34,8 @@ const modelo = computed({
         case 'lindero':
           getLindero(props.fila)[props.columna.key] = value;
           break;
-          case 'cuota':
-            getCuota(props.fila)[props.columna.key] = value;
+        case 'cuota':
+          getCuota(props.fila)[props.columna.key] = value;
           break;
         case 'copropietario':
           getCopropietario(props.fila)[props.columna.key] = value;
@@ -64,6 +64,10 @@ const modelo = computed({
 
 
 const valorMostrado = computed(() => {
+  if (typeof props.columna.formatter === 'function') {
+    return props.columna.formatter(props.fila);
+  }
+
   return getLindero(props.fila)?.[props.columna.key] ??
       getConyuge(props.fila)?.[props.columna.key] ??
       getCuota(props.fila)?.[props.columna.key] ??
@@ -72,6 +76,7 @@ const valorMostrado = computed(() => {
       props.fila.lote?.[props.columna.key] ??
       props.fila?.[props.columna.key] ?? '';
 });
+
 
 
 const campoEditable = computed(() => {
