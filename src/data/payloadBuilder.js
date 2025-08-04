@@ -121,9 +121,13 @@ export const buildCuotaExtraordinariaPayload = ({ idLote, cuotaextraordinaria })
 export const buildLinderoPayload = ({ idLote, lindero }) => ({
     idLote,
     porLaDerecha: lindero?.porLaDerechaLindero ,
+    descripcionPorLaDerecha: lindero?.descripcionPorLaDerecha ,
     porLaIzquierda: lindero?.porLaIzquierdaLindero ,
+    descripcionPorLaIzquierda: lindero?.descripcionPorLaIzquierda ,
     porElFrente: lindero?.porElFrenteLindero ,
+    descripcionPorElFrente: lindero?.descripcionPorElFrente ,
     porElFondo: lindero?.porElFondoLindero ,
+    descripcionPorElFondo: lindero?.descripcionPorElFondo ,
 });
 
 export const buildDocumentoPayload=({idCuotaExtraordinaria,documento}) => ({

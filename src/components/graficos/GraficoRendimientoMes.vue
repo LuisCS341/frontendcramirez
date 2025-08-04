@@ -17,7 +17,6 @@ import {
   Legend
 } from 'chart.js';
 
-// Registrar módulos necesarios
 Chart.register(
     BarController,
     BarElement,
@@ -27,7 +26,6 @@ Chart.register(
     Legend
 );
 
-// Obtener el mes actual en español
 const monthNames = [
   'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
   'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
@@ -38,21 +36,16 @@ const currentMonth = ref(monthNames[now.getMonth()]);
 const chartCanvas = ref(null);
 let chartInstance = null;
 
-const data = {
-  labels: ['pastoh', 'nruiz', 'jrodriguez', 'msilva', 'vanespezua', 'mgutierrez', 'jobando', 'analis', 'yarmeli'],
+const chartData = ref({
+  labels: [],
   datasets: [
     {
       label: 'Clientes Registrados',
-      data: [10, 30, 25, 20, 15, 25, 45, 20, 50, 10],
+      data: [],
       backgroundColor: '#FF9800'
-    },
-    {
-      label: 'Clientes No Registrados',
-      data: [20, 50, 15, 10, 18, 22, 30, 15, 10, 20],
-      backgroundColor: '#FDD9A0'
     }
   ]
-};
+});
 
 const options = {
   responsive: true,
@@ -71,7 +64,7 @@ const options = {
     x: {
       title: {
         display: true,
-        text: 'DÍAS',
+        text: 'OPERARIOS',
         font: {
           size: 14,
           weight: 'bold'
@@ -91,30 +84,38 @@ const options = {
   }
 };
 
-// Inicializar el gráfico cuando el componente esté montado
 onMounted(async () => {
-  await nextTick();
+  try {
+    const response = await fetch('https://backendcramirez.onrender.com/api/clientes/registrados-mes-tipo-operario');
+    const resultado = await response.json();
 
-  const ctx = chartCanvas.value?.getContext('2d');
-  if (!ctx) {
-    console.error('❌ No se pudo obtener el contexto del canvas');
-    return;
+    chartData.value.labels = resultado.map(item => item.tipoOperario);
+    chartData.value.datasets[0].data = resultado.map(item => item.cantidad);
+
+    await nextTick();
+
+    const ctx = chartCanvas.value?.getContext('2d');
+    if (!ctx) {
+      console.error('❌ No se pudo obtener el contexto del canvas');
+      return;
+    }
+
+    if (chartInstance) chartInstance.destroy();
+
+    chartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: chartData.value,
+      options
+    });
+  } catch (error) {
+    console.error('❌ Error al obtener datos del backend:', error);
   }
-
-  if (chartInstance) chartInstance.destroy();
-
-  chartInstance = new Chart(ctx, {
-    type: 'bar',
-    data,
-    options
-  });
 });
 </script>
 
 <style scoped>
 .chart-container-rendimiento-mes {
   background-color: white;
-
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   height: 415px;
@@ -124,9 +125,7 @@ onMounted(async () => {
   text-align: center;
 }
 
-/* ========= RESPONSIVE MEDIA PANTALLA ========= */
 @media (max-width: 768px) {
-
   .chart-container-rendimiento-mes {
     width: 500px;
     height: 320px;

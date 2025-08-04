@@ -1,9 +1,18 @@
-import {getLote,getLindero,getCuotaExtraordinaria,getConyuge,getCopropietario} from "@/data/funcionesGetTablaClientes.js";
-
 export const columnasClientes = [
     { key: 'contrato', label: 'TIPO DE CONTRATO', editable: false , nested: 'lote' },
-    { key: 'codigoLoteCliente', label: 'CLIENTE Nº', editable: false, nested: 'lote' },
-    { key: 'idLote', label: 'CONTRATO Nº', editable: false,nested: 'lote' },
+    {
+        key: 'codigoLoteCliente', label: 'CLIENTE Nº', editable: false, nested: 'lote', formatter: (fila) => {
+            const codigo = fila?.lote?.codigoLoteCliente;
+            if (!codigo) return '-';
+            const [parte1, parte2] = codigo.split('-');
+            return `${parte1.padStart(5, '0')}-${parte2}`;
+        }
+    },
+    { key: 'idLote', label: 'CONTRATO Nº', editable: false,nested: 'lote', formatter: (fila) => {
+            const id = fila?.lote?.idLote;
+            return id != null ? id.toString().padStart(5, '0') : '-';
+        }
+    },
     { key: 'tipoProyecto', label: 'PROYECTO',editable: false, nested: 'lote' },
     { key: 'empresaVende', label: 'EMPRESA QUE VENDE', editable: true, nested: 'lote' },
     { key: 'rucVendedor', label: 'RUC VENDEDOR', editable: true, nested: 'lote' },
@@ -40,7 +49,8 @@ export const columnasClientes = [
     { key: 'departamento', label: 'DEPARTAMENTO (CLIENTE)', editable: false ,nested:'cliente' },
     { key: 'ocupacion', label: 'OCUPACIÓN', editable: true ,nested:'cliente' },
     { key: 'estadoCivilCopropietarios', label: 'ESTADO CIVIL (COMPRADORES)', editable: false ,nested:'copropietario' },
-    //{ key: 'tipoSocio', label: 'TIPO DE SOCIO_CÓNYUGE/CONVIVIENTE COPROPIEDAD', editable: true },
+    { key: 'direccionCopropietarios', label: 'DIRECCION - COMPRADOR (CLIENTE)', editable: true ,nested:'copropietario' },
+    { key: 'tipoSocio', label: 'TIPO DE SOCIO_CÓNYUGE/CONVIVIENTE COPROPIEDAD', editable: true },
     { key: 'numeroIdentificacionConyuge', label: 'NUMERO DE DOCUMENTO (CONYUGUE) (CLIENTE)', editable: true ,nested:'conyuge' },
     { key: 'documentoIdentificacionConyuge', label: 'TIPO DE DOCUMENTO (CONYUGUE) (CLIENTE)', editable: false ,nested:'conyuge' },
     { key: 'nombresApellidosConyuge', label: 'NOMBRE COMPLETO (CONYUGUE) (CLIENTE)', editable: true ,nested:'conyuge' },
@@ -59,8 +69,8 @@ export const columnasClientes = [
     { key: 'fechaPago', label: 'CUOTA INICIAL (CLIENTE) FECHA DE PAGO', editable: true ,nested:'cuota'},
     { key: 'cuentaRecaudadora', label: 'CUOTA INICIAL (CLIENTE) CUENTA RECAUDADORA', editable: true,nested:'cuota' },
     { key: 'cuotaInicialBanco', label: 'CUOTA INICIAL (CLIENTE) BANCO', editable: true,nested:'cuota' },
-    { key: 'saldoLote', label: 'SALDO DEL LOTE (CLIENTE)', editable: true,nested:'cuota' },
-    { key: 'saldoLoteLetras', label: 'SALDO DEL LOTE (CLIENTE) EN LETRAS', editable: true ,nested:'cuota'},
+    { key: 'saldoLote', label: 'SALDO DEL LOTE (CLIENTE)', editable: true,nested:'lote' },
+    { key: 'saldoLoteLetras', label: 'SALDO DEL LOTE (CLIENTE) EN LETRAS', editable: true ,nested:'lote'},
     { key: 'cantidadCuotas', label: 'CANTIDAD DE CUOTAS (CLIENTE)', editable:true ,nested:'cuota' },
     { key: 'cantidadCuotaLetras', label: 'CANTIDAD DE CUOTAS (CLIENTE) EN LETRAS', editable: true,nested:'cuota' },
     { key: 'cantidadCuotaCuentaRecaudadora', label: 'CANTIDAD DE CUOTAS (CLIENTE) CUENTA RECAUDADORA', editable: true ,nested:'cuota' },
@@ -76,8 +86,8 @@ export const columnasClientes = [
     { key: 'montoDeudaLetra', label: 'MONTO DE DEUDA EN LETRAS (CLIENTE)', editable: true ,nested:'lote'  },
     { key: 'cuotaPendientePago', label: 'CUOTAS PENDIENTES DE PAGO', editable: true ,nested:'cuota' },
     { key: 'letrasPendientePago', label: 'LETRAS PENDIENTES DE PAGO', editable: true ,nested:'cuota'},
-   // { key: 'cartaNoAdeudo', label: 'CARTA DE NO ADEUDO (CLIENTE) (SI/NO)', editable: true ,nested:'cuotaextraordinaria'},
-   // { key: 'certificadoLote', label: 'CERTIFICADO DE LOTE (CLIENTE) (SI/NO)', editable: true,nested:'cuotaextraordinaria' },
+    // { key: 'cartaNoAdeudo', label: 'CARTA DE NO ADEUDO (CLIENTE) (SI/NO)', editable: true ,nested:'cuotaextraordinaria'},
+    // { key: 'certificadoLote', label: 'CERTIFICADO DE LOTE (CLIENTE) (SI/NO)', editable: true,nested:'cuotaextraordinaria' },
     { key: 'mediosPago', label: 'MEDIOS DE PAGO (CLIENTE) (SI/NO)', editable: true ,nested:'cuotaextraordinaria'},
     //{ key: 'plano1', label: 'PLANOS 1', editable: true ,nested:'cuotaextraordinaria'},
     //{ key: 'plano2', label: 'PLANOS 2', editable: true ,nested:'cuotaextraordinaria' },
