@@ -522,7 +522,7 @@ const descargarWordT2 = async (cliente) => {
 
 const descargarWordT3 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_T3.docx", {
+    const response = await axios.get("/plantillas/plantilla_t3p.docx", {
       responseType: "arraybuffer",
     });
 
@@ -593,6 +593,7 @@ const descargarWordT3 = async (cliente) => {
       porElFondo: lindero?.porElFondo ? parseFloat(lindero.porElFondo).toFixed(2) : '-',
       idLote: lote?.idLote != null ? lote.idLote.toString().padStart(5, '0') : '-',
       contrato: (lote?.contrato ?? '-').toUpperCase(),
+      numerolote:lote?.contrato?.numerolote ?? '-',
       tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
       manzana: (lote?.manzana ?? '-').toUpperCase(),
       representanteLegal: (lote?.representanteLegalVendedor ?? '-').toUpperCase(),
@@ -605,6 +606,7 @@ const descargarWordT3 = async (cliente) => {
       pagoInicial: lote?.pagoInicial ?? '-',
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
+      fechaEntrega:lote?.fechaEntrega ?? '-',
       costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toFixed(2) : '-',
       costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
       areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
