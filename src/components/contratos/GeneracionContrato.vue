@@ -375,7 +375,7 @@ const descargarWordT1 = async (cliente) => {
 
 const descargarWordT2 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_T2.docx", {
+    const response = await axios.get("/plantillas/plantilla_T2PRUEBA.docx", {
       responseType: "arraybuffer",
     });
 
@@ -528,7 +528,7 @@ const descargarWordT2 = async (cliente) => {
 
 const descargarWordT3 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_T3.docx", {
+    const response = await axios.get("/plantillas/plantilla_t3p.docx", {
       responseType: "arraybuffer",
     });
 
