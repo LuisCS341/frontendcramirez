@@ -820,79 +820,96 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (nuevosIds) => {
   });
 }, { deep: true });
 
-watch(
-    form,
-    (newForm) => {
-      const hoy = new Date();
+//FORMULAS A USAR
+watch(() => form.value.lotes, (lotes) => {
+  lotes.forEach((lote) => {
+    const areaLote = parseFloat(lote.areaLote);
+    const areaMatriz = parseFloat(lote.areaMatriz);
+    if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
+      const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
+      lote.alicuota = alicuota.toFixed(4);
+      lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
+    } else {
+      lote.alicuota = '0.0000';
+      lote.alicuotaLetras = '';
+    }
+  });
+}, { deep: true });
 
-      newForm.lotes.forEach((lote) => {
-        // Asegurar que los objetos existen
-        lote.matriz ??= {};
-        lote.cuota ??= {};
-        lote.cuotaextraordinaria ??= {};
+watch(() => form.value.lotes, (lotes) => {
+  lotes.forEach((lote) => {
+    const areaLote = parseFloat(lote.areaLote);
+    const costoLote = parseFloat(lote.costoLote);
+    if (!isNaN(areaLote) && !isNaN(costoLote) && areaLote !== 0) {
+      const precio = costoLote / areaLote;
+      lote.precioMetroCuadrado = precio.toFixed(2);
+      lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(precio.toFixed(2)).toUpperCase();
+    } else {
+      lote.precioMetroCuadrado = '0.00';
+      lote.precioMetroCuadradoLetras = '';
+    }
+  });
+}, { deep: true });
 
-        // === ALICUOTA ===
-        const areaLote = parseFloat(lote.areaLote);
-        const areaMatriz = parseFloat(lote.areaMatriz);
-        if (!isNaN(areaLote) && !isNaN(areaMatriz) && areaMatriz !== 0) {
-          const alicuota = ((areaLote * 100) / 10000) / areaMatriz;
-          lote.alicuota = alicuota.toFixed(4);
-          lote.alicuotaLetras = numeroALetras(parseFloat(lote.alicuota));
-        } else {
-          lote.alicuota = '0.0000';
-          lote.alicuotaLetras = '';
-        }
+watch(() => form.value.lotes, (lotes) => {
+  lotes.forEach((lote) => {
+    lote.cuota ??= {};
+    const costoLote = parseFloat(lote.costoLote);
+    const cuotaInicial = parseFloat(lote.cuota.cuotaInicialIncluyeSeparacion);
+    const saldo = !isNaN(costoLote) && !isNaN(cuotaInicial) ? costoLote - cuotaInicial : 0;
+    lote.cuota.saldoLote = saldo.toFixed(2);
+    lote.cuota.saldoLoteLetras = saldo ? numeroLetrasSinDecimal(saldo.toFixed(2)).toUpperCase() : '';
+  });
+}, { deep: true });
 
-        // === PRECIO POR M² ===
-        const costoLote = parseFloat(lote.costoLote);
-        if (!isNaN(costoLote) && !isNaN(areaLote) && areaLote !== 0) {
-          const precio = costoLote / areaLote;
-          lote.precioMetroCuadrado = precio.toFixed(2);
-          lote.precioMetroCuadradoLetras = numeroLetrasSinDecimal(precio.toFixed(2)).toUpperCase();
-        } else {
-          lote.precioMetroCuadrado = '0.00';
-          lote.precioMetroCuadradoLetras = '';
-        }
+watch(() => form.value.lotes, (lotes) => {
+  const hoy = new Date();
+  lotes.forEach((lote) => {
+    lote.cuota ??= {};
+    lote.cuotaextraordinaria ??= {};
 
-        // === SALDO DE LOTE ===
-        const cuotaInicial = parseFloat(lote.cuota.cuotaInicialIncluyeSeparacion);
-        const saldo = !isNaN(costoLote) && !isNaN(cuotaInicial) ? costoLote - cuotaInicial : 0;
-        lote.cuota.saldoLote = saldo.toFixed(2);
-        lote.cuota.saldoLoteLetras = saldo ? numeroLetrasSinDecimal(saldo.toFixed(2)).toUpperCase() : '';
+    const fechaInicio = parseFecha(lote.fechaInicioContrato);
+    const fechaCancelacion = parseFecha(lote.fechaCancelacionContrato);
 
-        // === CUOTAS Y LETRAS PENDIENTES ===
-        const fechaInicio = parseFecha(lote.fechaInicioContrato);
-        const fechaCancelacion = parseFecha(lote.fechaCancelacionContrato);
-        if (!fechaInicio || !fechaCancelacion) {
-          lote.cuota.cuotaPendientePago = '';
-          lote.cuota.letrasPendientePago = '';
-          return;
-        }
+    // Validación de fechas inválidas
+    if (!fechaInicio || !fechaCancelacion) {
+      lote.cuota.cuotaPendientePago = '';
+      lote.cuota.letrasPendientePago = '';
+      return;
+    }
 
-        const totalMeses = calcularMeses(fechaInicio, fechaCancelacion);
-        const cuotasPendientes = calcularMeses(hoy, fechaCancelacion);
-        const cuotaExtra = parseInt(lote.cuotaextraordinaria.cantidadCuotaExtraordinaria || 0);
+    const totalMeses = calcularMeses(fechaInicio, fechaCancelacion);
+    const cuotasPendientes = calcularMeses(hoy, fechaCancelacion);
+    const cuotaExtra = parseInt(lote.cuotaextraordinaria.cantidadCuotaExtraordinaria || 0);
 
-        const letraInicio = totalMeses - cuotasPendientes + 1;
-        const letraFin = totalMeses;
+    // ✅ Si ya no hay cuotas pendientes
+    if (cuotasPendientes <= 0) {
+      lote.cuota.cuotaPendientePago = 'PAGADO';
+      lote.cuota.letrasPendientePago = '-';
+      return;
+    }
 
-        const textoCuotasMensuales = cuotasPendientes === 1 ? 'cuota mensual consecutiva' : 'cuotas mensuales consecutivas';
-        const cuotasTexto = `${String(cuotasPendientes).padStart(2, '0')} (${numeroLetrascuotaletras(cuotasPendientes)}) ${textoCuotasMensuales}`;
-        const cuotasExtraTexto = cuotaExtra > 0
-            ? ` y ${String(cuotaExtra).padStart(2, '0')} (${numeroLetrascuotaletras(cuotaExtra)}) ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
-            : '';
+    // Si hay cuotas pendientes, calcular normalmente
+    const letraInicio = Math.max(1, totalMeses - cuotasPendientes + 1);
+    const letraFin = totalMeses;
 
-        const letrasTexto = `${letraInicio} a ${letraFin}`;
-        const letrasExtraTexto = cuotaExtra > 0
-            ? ` y ${String(cuotaExtra).padStart(2, '0')} ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
-            : '';
+    const textoCuotasMensuales = cuotasPendientes === 1 ? 'cuota mensual consecutiva' : 'cuotas mensuales consecutivas';
+    const cuotasTexto = `${String(cuotasPendientes).padStart(2, '0')} (${numeroLetrascuotaletras(cuotasPendientes)}) ${textoCuotasMensuales}`;
+    const cuotasExtraTexto = cuotaExtra > 0
+        ? ` y ${String(cuotaExtra).padStart(2, '0')} (${numeroLetrascuotaletras(cuotaExtra)}) ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
+        : '';
 
-        lote.cuota.cuotaPendientePago = cuotasTexto + cuotasExtraTexto;
-        lote.cuota.letrasPendientePago = letrasTexto + letrasExtraTexto;
-      });
-    },
-    { deep: true, immediate: true }
-);
+    const letrasTexto = `${letraInicio} a ${letraFin}`;
+    const letrasExtraTexto = cuotaExtra > 0
+        ? ` y ${String(cuotaExtra).padStart(2, '0')} ${cuotaExtra === 1 ? 'cuota extraordinaria' : 'cuotas extraordinarias'}`
+        : '';
+
+    lote.cuota.cuotaPendientePago = cuotasTexto + cuotasExtraTexto;
+    lote.cuota.letrasPendientePago = letrasTexto + letrasExtraTexto;
+  });
+}, { deep: true });
+
+
 
 function parseFecha(fechaStr) {
   if (!fechaStr || typeof fechaStr !== 'string') return null;

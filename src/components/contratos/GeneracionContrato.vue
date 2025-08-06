@@ -208,17 +208,26 @@ const descargarWordT1 = async (cliente) => {
     const cuotaExtra = getCuotaExtraordinaria(cliente);
     const cuota=getCuota(cliente);
 
+    const tieneCuotaExtra = cuotaExtra?.cantidadCuotaExtraordinaria != null;
     const tieneConyuge = conyuge?.idClienteConyuge != null;
     const tieneCopropietarioLista = Array.isArray(copropietariolista) && copropietariolista.some(c => c.idCopropietario != null);
 
     let plantillaPath = "/plantillas/plantilla_T1.docx";
 
-    if (tieneConyuge && tieneCopropietarioLista) {
+    if (tieneConyuge && tieneCopropietarioLista && !tieneCuotaExtra) {
+      plantillaPath = "/plantillas/plantilla_T1_contodo_sincuotaextraordinaria.docx";
+    } else if (tieneConyuge && tieneCopropietarioLista) {
       plantillaPath = "/plantillas/plantilla_T1_contodo.docx";
+    } else if (tieneConyuge && !tieneCopropietarioLista && !tieneCuotaExtra) {
+      plantillaPath = "/plantillas/plantilla_T1_sincopropietario_sincuotaextraordinaria.docx";
     } else if (tieneConyuge && !tieneCopropietarioLista) {
       plantillaPath = "/plantillas/plantilla_T1_sincopropietario.docx";
+    } else if (!tieneConyuge && tieneCopropietarioLista && !tieneCuotaExtra) {
+      plantillaPath = "/plantillas/plantilla_T1_sinconyuge_sincuotaextraordinaria.docx";
     } else if (!tieneConyuge && tieneCopropietarioLista) {
       plantillaPath = "/plantillas/plantilla_T1_sinconyuge.docx";
+    } else if (!tieneConyuge && !tieneCopropietarioLista && !tieneCuotaExtra) {
+      plantillaPath = "/plantillas/plantilla_T1_sincuotaextraordinaria.docx";
     }
 
     const response = await axios.get(plantillaPath, {
@@ -298,7 +307,9 @@ const descargarWordT1 = async (cliente) => {
       pagoInicial: lote?.pagoInicial ?? '-',
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
-      costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toFixed(2) : '-',
+      costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
+      precioMetroCuadrado: lote?.precioMetroCuadrado ? parseFloat(lote.precioMetroCuadrado).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
+      precioMetroCuadradoLetras:lote?.precioMetroCuadradoLetras??'-',
       costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
       areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
@@ -320,7 +331,7 @@ const descargarWordT1 = async (cliente) => {
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
       cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
       cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
-      fechaPago: cuota?.cuotaInicialIncluyeSeparacion?? '-',
+      fechaPago: cuota?.fechaPago?? '-',
       cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
       cuotaInicialBanco: cuota?.cuotaInicialBanco?? '-',
       saldoLote:cuota?.saldoLote ? parseFloat(cuota.saldoLote).toFixed(2) : '-',
@@ -336,6 +347,7 @@ const descargarWordT1 = async (cliente) => {
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
+
     };
 
     doc.setData(datos);
@@ -373,9 +385,42 @@ const descargarWordT1 = async (cliente) => {
 
 const descargarWordT2 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_T2PRUEBA.docx", {
+
+    const lote = getLote(cliente);
+    const conyuge = getConyuge(cliente.cliente);
+    const copropietario = getCopropietario(cliente.cliente);
+    const copropietariolista = getCopropietarioLista(cliente.cliente);
+    const lindero = getLindero(cliente);
+    const matriz = getMatriz(cliente);
+    const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const cuota=getCuota(cliente);
+
+    const tieneCuotaExtra = cuotaExtra?.cantidadCuotaExtraordinaria != null;
+    const tieneConyuge = conyuge?.idClienteConyuge != null;
+    const tieneCopropietarioLista = Array.isArray(copropietariolista) && copropietariolista.some(c => c.idCopropietario != null);
+
+    let plantillaPath = "/plantillas/plantilla_T2.docx";
+
+    if (tieneConyuge && tieneCopropietarioLista && !tieneCuotaExtra) {
+      plantillaPath = "/plantillas/plantilla_T2_contodo_sincuotaextraordinaria.docx";
+    } else if (tieneConyuge && tieneCopropietarioLista) {
+      plantillaPath = "/plantillas/plantilla_T2_contodo.docx";
+    } else if (tieneConyuge && !tieneCopropietarioLista && !tieneCuotaExtra) {
+      plantillaPath = "/plantillas/plantilla_T2_sincopropietario_sincuotaextraordinaria.docx";
+    } else if (tieneConyuge && !tieneCopropietarioLista) {
+      plantillaPath = "/plantillas/plantilla_T2_sincopropietario.docx";
+    } else if (!tieneConyuge && tieneCopropietarioLista && !tieneCuotaExtra) {
+      plantillaPath = "/plantillas/plantilla_T2_sinconyuge_sincuotaextraordinaria.docx";
+    } else if (!tieneConyuge && tieneCopropietarioLista) {
+      plantillaPath = "/plantillas/plantilla_T2_sinconyuge.docx";
+    } else if (!tieneConyuge && !tieneCopropietarioLista && !tieneCuotaExtra) {
+      plantillaPath = "/plantillas/plantilla_T2_sincuotaextraordinaria.docx";
+    }
+
+    const response = await axios.get(plantillaPath, {
       responseType: "arraybuffer",
     });
+
 
     const zip = new PizZip(response.data);
     const doc = new Docxtemplater(zip, {
@@ -389,14 +434,6 @@ const descargarWordT2 = async (cliente) => {
     const anio = fecha.getFullYear();
     const diaTexto = numeroATexto(fecha.getDate()).toUpperCase();
     const anioTexto = numeroATexto(anio).toUpperCase();
-
-    const lote = getLote(cliente);
-    const conyuge = getConyuge(cliente.cliente);
-    const copropietario = getCopropietario(cliente.cliente);
-    const lindero = getLindero(cliente);
-    const cuota = getCuota(cliente);
-    const cuotaExtra = getCuotaExtraordinaria(cliente);
-    const matriz= getMatriz(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
@@ -439,13 +476,9 @@ const descargarWordT2 = async (cliente) => {
       estadoCivilCopropietarios: (copropietario?.estadoCivilCopropietarios ?? '-').toUpperCase() ,
       fechaFormatoLegal: `LIMA, A LOS ${dia} (${diaTexto}) DÍAS DEL MES DE ${mes} DEL AÑO ${anio} (${anioTexto}).`,
       porElFrente: lindero?.porElFrente ? parseFloat(lindero.porElFrente).toFixed(2) : '-',
-      descripcionPorElFrente: lindero?.descripcionPorElFrente ?? '-',
       porLaDerecha: lindero?.porLaDerecha ? parseFloat(lindero.porLaDerecha).toFixed(2) : '-',
-      descripcionPorLaDerecha: lindero?.descripcionPorLaDerecha ?? '-',
       porLaIzquierda: lindero?.porLaIzquierda ? parseFloat(lindero.porLaIzquierda).toFixed(2) : '-',
-      descripcionPorLaIzquierda:lindero?.descripcionPorLaIzquierda ?? '-',
       porElFondo: lindero?.porElFondo ? parseFloat(lindero.porElFondo).toFixed(2) : '-',
-      descripcionPorElFondo: lindero?.descripcionPorElFondo ?? '-',
       idLote: lote?.idLote != null ? lote.idLote.toString().padStart(5, '0') : '-',
       contrato: (lote?.contrato ?? '-').toUpperCase(),
       numerolote:lote?.contrato?.numerolote ?? '-',
@@ -456,6 +489,8 @@ const descargarWordT2 = async (cliente) => {
       rucVendedor: lote?.rucVendedor ?? '-',
       numCuenta: lote?.numCuenta ?? '-',
       cci: lote?.cci ?? '-',
+      precioMetroCuadrado:lote?.precioMetroCuadrado ?? '-',
+      precioMetroCuadradoLetras:lote?.precioMetroCuadradoLetras??'-',
       numeroLote: lote?.numeroLote ?? '-',
       numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
       direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
@@ -463,7 +498,8 @@ const descargarWordT2 = async (cliente) => {
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
       fechaEntrega:lote?.fechaEntrega ?? '-',
-      costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toFixed(2) : '-',
+      costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
+
       costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
       areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
@@ -485,7 +521,7 @@ const descargarWordT2 = async (cliente) => {
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
       cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
       cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
-      fechaPago: cuota?.cuotaInicialIncluyeSeparacion?? '-',
+      fechaPago: cuota?.fechaPago?? '-',
       cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
       cuotaInicialBanco: cuota?.cuotaInicialBanco?? '-',
       saldoLote:cuota?.saldoLote ? parseFloat(cuota.saldoLote).toFixed(2) : '-',
@@ -617,7 +653,7 @@ const descargarWordT3 = async (cliente) => {
       fechaEntrega: lote?.fechaEntrega ?? '-',
       precioMetroCuadrado:lote?.precioMetroCuadrado ?? '-',
       precioMetroCuadradoLetras:lote?.precioMetroCuadradoLetras??'-',
-      costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toFixed(2) : '-',
+      costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
       areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
       areaLoteLetras: (lote?.areaLoteLetras ?? '-' ).toUpperCase() ,
@@ -639,7 +675,7 @@ const descargarWordT3 = async (cliente) => {
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
       cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
       cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
-      fechaPago: cuota?.cuotaInicialIncluyeSeparacion?? '-',
+      fechaPago: cuota?.fechaPago?? '-',
       cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
       cuotaInicialBanco: cuota?.cuotaInicialBanco?? '-',
       saldoLote:cuota?.saldoLote ? parseFloat(cuota.saldoLote).toFixed(2) : '-',
