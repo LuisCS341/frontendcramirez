@@ -199,8 +199,6 @@ const descargarWordPorTipo = (cliente) => {
 
 const descargarWordT1 = async (cliente) => {
   try {
-
-
     const lote = getLote(cliente);
     const conyuge = getConyuge(cliente.cliente);
     const copropietario = getCopropietario(cliente.cliente);
