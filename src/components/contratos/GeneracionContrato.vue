@@ -445,6 +445,7 @@ const descargarWordT2 = async (cliente) => {
       porElFondo: lindero?.porElFondo ? parseFloat(lindero.porElFondo).toFixed(2) : '-',
       idLote: lote?.idLote != null ? lote.idLote.toString().padStart(5, '0') : '-',
       contrato: (lote?.contrato ?? '-').toUpperCase(),
+      numerolote:lote?.contrato?.numerolote ?? '-',
       tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
       manzana: (lote?.manzana ?? '-').toUpperCase(),
       representanteLegal: (lote?.representanteLegalVendedor ?? '-').toUpperCase(),
@@ -457,6 +458,7 @@ const descargarWordT2 = async (cliente) => {
       pagoInicial: lote?.pagoInicial ?? '-',
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
+      fechaEntrega:lote?.fechaEntrega ?? '-',
       costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toFixed(2) : '-',
       costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
       areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
@@ -492,6 +494,8 @@ const descargarWordT2 = async (cliente) => {
       montoCuotaLetras:cuota?.montoCuotas ?? '-',
       cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
       letrasPendientePago: cuota?.letrasPendientePago?? '-',
+      estadoCuenta:cuota?.estadoCuenta?? '-',
+      montoDeudaLetra:(cuota?.montoDeudaLetra?? '-').toUpperCase(),
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
@@ -662,7 +666,8 @@ const descargarWordT3 = async (cliente) => {
       mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     });
 
-    saveAs(out, `Contrato_T3_${cliente.cliente.nombresApellidos}.docx`);
+    saveAs(out,
+        `Contrato_T3_${cliente.cliente.nombresApellidos}.docx`);
   } catch (error) {
     console.error("Error al descargar plantilla:", error);
     alert("No se pudo descargar o procesar la plantilla");
