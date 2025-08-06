@@ -443,7 +443,7 @@ const descargarWordT2 = async (cliente) => {
       porLaDerecha: lindero?.porLaDerecha ? parseFloat(lindero.porLaDerecha).toFixed(2) : '-',
       descripcionPorLaDerecha: lindero?.descripcionPorLaDerecha ?? '-',
       porLaIzquierda: lindero?.porLaIzquierda ? parseFloat(lindero.porLaIzquierda).toFixed(2) : '-',
-      descripcionPorLaIzquierda:linder?.descripcionPorLaIzquierda ?? '-',
+      descripcionPorLaIzquierda:lindero?.descripcionPorLaIzquierda ?? '-',
       porElFondo: lindero?.porElFondo ? parseFloat(lindero.porElFondo).toFixed(2) : '-',
       descripcionPorElFondo: lindero?.descripcionPorElFondo ?? '-',
       idLote: lote?.idLote != null ? lote.idLote.toString().padStart(5, '0') : '-',
