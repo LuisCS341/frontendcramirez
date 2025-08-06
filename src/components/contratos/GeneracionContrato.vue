@@ -310,7 +310,7 @@ const descargarWordT1 = async (cliente) => {
       mantenimientoMensualLetras: (lote?.mantenimientoMensualLetras ?? '-').toUpperCase(),
       txtdepartamentomatriz: matriz?.txtdepartamentomatriz ?? '-',
       txtprovinciamatriz:matriz?.txtprovinciamatriz?? '-',
-      txtdistritomatriz:matriz.matriz?.txtdistritomatriz?? '-',
+      txtdistritomatriz:matriz?.txtdistritomatriz?? '-',
       txtubicacionmatriz:matriz?.txtubicacionmatriz?? '-',
       areaMatrizHasMatriz:matriz?.areaMatrizHasMatriz?? '-',
       registroDeMatriz:matriz?.registroDeMatriz?? '-',
