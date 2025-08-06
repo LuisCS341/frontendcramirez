@@ -613,6 +613,8 @@ const descargarWordT3 = async (cliente) => {
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
       fechaEntrega: lote?.fechaEntrega ?? '-',
+      precioMetroCuadrado:lote?.precioMetroCuadrado ?? '-',
+      precioMetroCuadradoLetras:lote?.precioMetroCuadradoLetras??'-',
       costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toFixed(2) : '-',
       costoLoteLetras: (lote?.costoLoteLetras ?? '-').toUpperCase(),
       areaLote: lote?.areaLote ? parseFloat(lote.areaLote).toFixed(2) : '-',
