@@ -17,7 +17,6 @@
         type="text"
         required
         maxlength="8"
-        readonly
         style="background-color: #f0f0f0; color: #555;"
         @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"
     />
@@ -28,7 +27,6 @@
         v-model="form.nombreCliente"
         type="text"
         required
-        readonly
         style="background-color: #f0f0f0; color: #555;"
         @input="form.nombreCliente = form.nombreCliente.replace(/[0-9]/g, '')"
     />
