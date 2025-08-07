@@ -154,6 +154,7 @@ import {
   getCuota,
   getCopropietario, getMatriz, getCopropietarioLista,
 } from "@/data/funcionesGetTablaClientes.js";
+import cuotaExtraordinaria from "@/components/Lote/CuotaExtraordinaria.vue";
 
 const clientes = ref([]);
 const busquedaGlobal = ref("");
@@ -695,6 +696,7 @@ const descargarWordT3 = async (cliente) => {
       cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
       letrasPendientePago: cuota?.letrasPendientePago?? '-',
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
+      cantidadCuotaExtraordinariaLetras:cuotaExtraordinaria ?? '-',
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
