@@ -329,7 +329,7 @@ const descargarWordT1 = async (cliente) => {
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
-      cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
+      cuotaInicialIncluyeSeparacion: lote?.cuotaInicialIncluyeSeparacion ? parseFloat(lote.cuotaInicialIncluyeSeparacion).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
       fechaPago: cuota?.fechaPago?? '-',
       cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
@@ -519,7 +519,7 @@ const descargarWordT2 = async (cliente) => {
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
-      cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
+      cuotaInicialIncluyeSeparacion: lote?.cuotaInicialIncluyeSeparacion ? parseFloat(lote.cuotaInicialIncluyeSeparacion).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
       fechaPago: cuota?.fechaPago?? '-',
       cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
@@ -566,9 +566,24 @@ const descargarWordT2 = async (cliente) => {
 
 const descargarWordT3 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_t3p.docx", {
+
+    const lote = getLote(cliente);
+    const conyuge = getConyuge(cliente.cliente);
+    const copropietario = getCopropietario(cliente.cliente);
+    const lindero = getLindero(cliente);
+    const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const cuota=getCuota(cliente);
+    const matriz=getMatriz(cliente);
+
+    const plantillaPath = !cuotaExtra?.cantidadCuotaExtraordinaria
+        ? "/plantillas/plantilla_T3_sincuotaextraordinaria.docx"
+        : "/plantillas/plantilla_T3.docx";
+
+
+    const response = await axios.get(plantillaPath, {
       responseType: "arraybuffer",
     });
+
 
     const zip = new PizZip(response.data);
     const doc = new Docxtemplater(zip, {
@@ -582,14 +597,6 @@ const descargarWordT3 = async (cliente) => {
     const anio = fecha.getFullYear();
     const diaTexto = numeroATexto(fecha.getDate()).toUpperCase();
     const anioTexto = numeroATexto(anio).toUpperCase();
-
-    const lote = getLote(cliente);
-    const conyuge = getConyuge(cliente.cliente);
-    const copropietario = getCopropietario(cliente.cliente);
-    const lindero = getLindero(cliente);
-    const cuotaExtra = getCuotaExtraordinaria(cliente);
-    const cuota=getCuota(cliente);
-    const matriz=getMatriz(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
@@ -673,7 +680,7 @@ const descargarWordT3 = async (cliente) => {
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
-      cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
+      cuotaInicialIncluyeSeparacion: lote?.cuotaInicialIncluyeSeparacion ? parseFloat(lote.cuotaInicialIncluyeSeparacion).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
       fechaPago: cuota?.fechaPago?? '-',
       cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
