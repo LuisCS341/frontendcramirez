@@ -26,8 +26,8 @@
           v-model="form.numIdentificacionUsuario"
           type="text"
           required
-          :maxlength="form.tipoIdentificacion === 2 ? 11 : 8"
-          @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"
+          :maxlength="form.tipoIdentificacion === 2 ? 11 : (form.tipoIdentificacion === 1 ? 8 : 20)"
+          @input="onInputIdentificacion"
       />
     </div>
 
@@ -141,6 +141,17 @@ const props = defineProps({
   form: Object
 });
 
+const onInputIdentificacion = () => {
+  if (props.form.tipoIdentificacion === 4) {
+    // Pasaporte: permitir letras y números
+    props.form.numIdentificacionUsuario = props.form.numIdentificacionUsuario.replace(/[^a-zA-Z0-9]/g, '');
+  } else {
+    // Otros: solo números
+    props.form.numIdentificacionUsuario = props.form.numIdentificacionUsuario.replace(/[^0-9]/g, '');
+  }
+};
+
+//filtros
 const provinciasFiltradas = computed(() =>
     provincias.filter(p => p.departamentoId === props.form.departamento)
 );
