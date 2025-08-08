@@ -26,7 +26,6 @@
           <div class="formulario">
             <h2>{{ isEmpresa ? 'REGISTRO EMPRESA' : 'REGISTRO CLIENTE' }}</h2>
 
-            <!-- EMPRESA -->
             <RegistroEmpresa
                 v-if="isEmpresa"
                 :rucEmpresa="rucEmpresa"
@@ -38,7 +37,6 @@
                 @continuar="irFormulario"
             />
 
-            <!-- CLIENTE -->
             <RegistroCliente
                 v-else
                 :nacionalidad="nacionalidad"
@@ -141,6 +139,7 @@ const buscarEmpresa = () => {
     }
 
     try {
+      localStorage.setItem("numeroDocumento", documento);
 
       if (tipoDocumento === "RUC") {
         const response = await fetch(`https://backendcramirez.onrender.com/api/buscarEmpresa/${documento}`);
@@ -167,11 +166,7 @@ const buscarEmpresa = () => {
             comercioExterior: data.comercioExterior,
           });
 
-
-
           estadoEmpresa.value = existe ? "Empresa registrada - ya existe en el sistema" : "Empresa nueva";
-
-          localStorage.setItem("numeroDocumento", documento);
 
           if (cliente.nombreCompleto) localStorage.setItem("nombreCompleto", cliente.nombreCompleto);
 
@@ -199,7 +194,6 @@ const buscarEmpresa = () => {
 
           Object.assign(cliente, {});
           estadoEmpresa.value = "Empresa nueva";
-          localStorage.setItem("numeroDocumento", documento);
 
         }
       } else {
@@ -207,7 +201,6 @@ const buscarEmpresa = () => {
         const existe = await existeRes.json();
         estadoEmpresa.value = existe ? "Empresa registrada - ya existe en el sistema" : "Empresa nueva";
 
-        localStorage.setItem("numeroDocumento", documento);
         Object.assign(cliente, {});
 
         if (existe) {
@@ -279,7 +272,6 @@ const buscarCliente = () => {
 
           estadoCliente.value = existe ? "Cliente registrado - ya existe en el sistema" : "Cliente nuevo";
 
-          localStorage.setItem("numeroDocumento", documento);
 
           if (cliente.nombreCompleto) localStorage.setItem("nombreCompleto", cliente.nombreCompleto);
 
