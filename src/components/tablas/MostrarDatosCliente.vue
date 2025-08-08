@@ -1,7 +1,15 @@
 <template>
   <td>
     <template v-if="fila.editando && campoEditable">
-      <input v-model="modelo" type="text" />
+
+      <select v-if="esSelect" v-model="modelo">
+        <option v-for="opt in tiposContrato" :key="opt.id" :value="opt.id">
+          {{ opt.nombre }}
+        </option>
+      </select>
+
+
+      <input v-else v-model="modelo" type="text" />
     </template>
 
     <template v-else>
@@ -22,13 +30,30 @@ const props = defineProps({
   tiposContrato: Array
 })
 
+
+const esSelect = computed(() =>
+    props.columna.type === 'select' || props.columna.key === 'idTipocontrato'
+);
+
+const tiposContrato = computed(() => props.tiposContrato ?? [])
+
+
 const modelo = computed({
   get() {
+
     const valor = obtenerValor(props.columna.key);
     return valor == null ? "-" : valor;
   },
 
   set(value) {
+    if (props.columna.nested === 'lote') {
+      props.fila.lote[props.columna.key] = value;
+    } else if (props.columna.nested) {
+      props.fila[props.columna.key] = value;
+    } else {
+      props.fila.cliente[props.columna.key] = value;
+    }
+
     if (props.columna.nested) {
       switch (props.columna.nested) {
         case 'lindero':
@@ -64,6 +89,13 @@ const modelo = computed({
 
 
 const valorMostrado = computed(() => {
+
+  if (props.columna.type === 'select' || props.columna.key === 'idTipoContrato') {
+    const id = props.fila.lote?.[props.columna.key] ?? props.fila?.[props.columna.key];
+    const encontrado = (props.tiposContrato ?? []).find(opt => String(opt.id) === String(id));
+    return encontrado ? encontrado.nombre : '';
+  }
+
   if (typeof props.columna.formatter === 'function') {
     return props.columna.formatter(props.fila);
   }
