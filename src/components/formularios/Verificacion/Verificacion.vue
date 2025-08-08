@@ -70,7 +70,6 @@ import RegistroCliente from "@/components/formularios/Verificacion/RegistroClien
 const router = useRouter();
 const isEmpresa = ref(false);
 const rucEmpresa = ref("");
-const empresa = reactive({});
 const nacionalidad = ref("");
 const dni = ref("");
 const carnetExtranjeria = ref("");
@@ -110,9 +109,6 @@ const form = reactive({
   }
 });
 
-localStorage.removeItem("clienteCompleto");
-
-
 const limpiarDatos = () => {
   cliente.value = {}
   estadoCliente.value = ''
@@ -120,7 +116,43 @@ const limpiarDatos = () => {
   dni.value = ''
   rucEmpresa.value = ''
   carnetExtranjeria.value = ''
+  localStorage.removeItem("clienteCompleto");
+  localStorage.removeItem("nombreCompleto");
 }
+
+const mapearClienteForm = (clienteBD) => {
+  Object.assign(form, {
+    nombreCliente: clienteBD.nombresApellidos || '',
+    ocupacion: clienteBD.ocupacion || '',
+    tipoIdentificacion: clienteBD.idIdentificacion || '',
+    paisOrigen: clienteBD.idNacionalidad || '',
+    paisdeResidencia: clienteBD.idResidencia || '',
+    departamento: clienteBD.idDepartamento || '',
+    provincia: clienteBD.idProvincia || '',
+    distrito: clienteBD.idDistrito || '',
+    direccion: clienteBD.direccion || '',
+    correoUsuario: clienteBD.correoElectronico || '',
+    prefijoTelefonico: clienteBD.idPrefijo || '',
+    celularCliente: clienteBD.celularCliente || '',
+    estadoCivil: clienteBD.estadoCivil || '',
+    descripcionEstadoCivil: clienteBD.descripcionEstadoCivil || '',
+    conyuge: {
+      nombreClienteConyuge: clienteBD.conyuge?.nombresApellidosConyuge || '',
+      ocupacionClienteConyuge: clienteBD.conyuge?.ocupacionConyuge || '',
+      tipoIdentificacionClienteConyuge: clienteBD.conyuge?.idIdentificacionConyuge || '',
+      numIdentificacionClienteConyuge: clienteBD.conyuge?.numeroIdentificacionConyuge || '',
+      paisOrigenClienteConyuge: clienteBD.conyuge?.idNacionalidadConyuge || '',
+      paisResidenciaClienteConyuge: clienteBD.conyuge?.idResidenciaConyuge || '',
+      departamentoClienteConyuge: clienteBD.conyuge?.idDepartamentoConyuge || '',
+      provinciaClienteConyuge: clienteBD.conyuge?.idProvinciaConyuge || '',
+      distritoClienteConyuge: clienteBD.conyuge?.idDistritoConyuge || '',
+      direccionClienteConyuge: clienteBD.conyuge?.direccionConyuge || '',
+      correoUsuarioCliente: clienteBD.conyuge?.correoElectronicoConyuge || '',
+      prefijoTelefonicoClienteConyuge: clienteBD.conyuge?.idPrefijoConyuge || '',
+      numTelefonicoClienteConyuge: clienteBD.conyuge?.celularConyuge || '',
+    }
+  });
+};
 
 const buscarEmpresa = () => {
 
@@ -158,12 +190,6 @@ const buscarEmpresa = () => {
             distrito: data.distrito,
             provincia: data.provincia,
             departamento: data.departamento,
-            tipoEmpresa: data.tipo,
-            actividadEconomica: data.actividadEconomica,
-            numeroTrabajadores: data.numeroTrabajadores,
-            tipoFacturacion: data.tipoFacturacion,
-            tipoContabilidad: data.tipoContabilidad,
-            comercioExterior: data.comercioExterior,
           });
 
           estadoEmpresa.value = existe ? "Empresa registrada - ya existe en el sistema" : "Empresa nueva";
@@ -234,32 +260,27 @@ const buscarEmpresa = () => {
 
 
 const buscarCliente = () => {
-
   if (timeoutId) clearTimeout(timeoutId);
 
   timeoutId = setTimeout(async () => {
     const documento = nacionalidad.value === "peruano" ? dni.value : carnetExtranjeria.value;
     const tipoDocumento = nacionalidad.value === "peruano" ? "DNI" : "CE";
 
-    if (
-        (tipoDocumento === "DNI" && documento.length !== 8) ||
-        (tipoDocumento === "CE" && documento.length !== 11)
-    ) {
+    // Validación de longitud
+    const longitudesValidas = { DNI: 8, CE: 11 };
+    if (documento.length !== longitudesValidas[tipoDocumento]) {
       Object.assign(cliente, {});
       estadoCliente.value = "";
       return;
     }
 
     try {
-
+      // Si es DNI, primero consulta API externa
       if (tipoDocumento === "DNI") {
         const response = await fetch(`https://backendcramirez.onrender.com/api/buscarCliente/${documento}`);
         const data = await response.json();
 
         if (data && data.nombres) {
-          const existeRes = await fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`);
-          const existe = await existeRes.json();
-
           Object.assign(cliente, {
             nombres: data.nombres,
             apellidoPaterno: data.apellidoPaterno,
@@ -270,105 +291,33 @@ const buscarCliente = () => {
             digitoVerificador: data.digitoVerificador,
           });
 
-          estadoCliente.value = existe ? "Cliente registrado - ya existe en el sistema" : "Cliente nuevo";
-
-
-          if (cliente.nombreCompleto) localStorage.setItem("nombreCompleto", cliente.nombreCompleto);
-
-          if (existe) {
-            const clienteRes = await fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`);
-            const clienteBD = await clienteRes.json();
-            Object.assign(form, {
-              ocupacion: clienteBD.ocupacion || '',
-              tipoIdentificacion: clienteBD.idIdentificacion || '',
-              paisOrigen: clienteBD.idNacionalidad || '',
-              paisdeResidencia: clienteBD.idResidencia || '',
-              departamento: clienteBD.idDepartamento || '',
-              provincia: clienteBD.idProvincia || '',
-              distrito: clienteBD.idDistrito || '',
-              direccion: clienteBD.direccion || '',
-              correoUsuario: clienteBD.correoElectronico || '',
-              prefijoTelefonico: clienteBD.idPrefijo || '',
-              celularCliente: clienteBD.celularCliente || '',
-              estadoCivil: clienteBD.estadoCivil || '',
-              descripcionEstadoCivil: clienteBD.descripcionEstadoCivil || '',
-              conyuge: {
-                nombreClienteConyuge: clienteBD.conyuge?.nombresApellidosConyuge || '',
-                ocupacionClienteConyuge: clienteBD.conyuge?.ocupacionConyuge || '',
-                tipoIdentificacionClienteConyuge: clienteBD.conyuge?.idIdentificacionConyuge || '',
-                numIdentificacionClienteConyuge: clienteBD.conyuge?.numeroIdentificacionConyuge || '',
-                paisOrigenClienteConyuge: clienteBD.conyuge?.idNacionalidadConyuge || '',
-                paisResidenciaClienteConyuge: clienteBD.conyuge?.idResidenciaConyuge || '',
-                departamentoClienteConyuge: clienteBD.conyuge?.idDepartamentoConyuge || '',
-                provinciaClienteConyuge: clienteBD.conyuge?.idProvinciaConyuge || '',
-                distritoClienteConyuge: clienteBD.conyuge?.idDistritoConyuge || '',
-                direccionClienteConyuge: clienteBD.conyuge?.direccionConyuge || '',
-                correoUsuarioCliente: clienteBD.conyuge?.correoElectronicoConyuge || '',
-                prefijoTelefonicoClienteConyuge: clienteBD.conyuge?.idPrefijoConyuge || '',
-                numTelefonicoClienteConyuge: clienteBD.conyuge?.celularConyuge || '',
-              }
-            });
-
-            localStorage.setItem("clienteCompleto", JSON.stringify(clienteBD));
+          if (cliente.nombreCompleto) {
+            localStorage.setItem("nombreCompleto", cliente.nombreCompleto);
           }
         } else {
-
           Object.assign(cliente, {});
           estadoCliente.value = "Cliente nuevo";
           localStorage.setItem("numeroDocumento", documento);
-          localStorage.removeItem("nombreCompleto");
-          localStorage.removeItem("clienteCompleto");
+          return;
         }
-      } else {
-        const existeRes = await fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`);
-        const existe = await existeRes.json();
-        estadoCliente.value = existe ? "Cliente registrado - ya existe en el sistema" : "Cliente nuevo";
+      }
 
-        localStorage.setItem("numeroDocumento", documento);
-        localStorage.removeItem("nombreCompleto");
-        localStorage.removeItem("clienteCompleto");
-        Object.assign(cliente, {});
+      // Verificar si ya existe en la BD
+      const existeRes = await fetch(`https://backendcramirez.onrender.com/api/clientes/existe?numeroIdentificacion=${documento}`);
+      const existe = await existeRes.json();
+      estadoCliente.value = existe ? "Cliente registrado - ya existe en el sistema" : "Cliente nuevo";
+      localStorage.setItem("numeroDocumento", documento);
 
-        if (existe) {
-          const clienteRes = await fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`);
-          const clienteBD = await clienteRes.json();
-
-          Object.assign(form, {
-            nombreCliente: clienteBD.nombresApellidos || '',
-            ocupacion: clienteBD.ocupacion || '',
-            tipoIdentificacion: clienteBD.idIdentificacion || '',
-            paisOrigen: clienteBD.idNacionalidad || '',
-            paisdeResidencia: clienteBD.idResidencia || '',
-            departamento: clienteBD.idDepartamento || '',
-            provincia: clienteBD.idProvincia || '',
-            distrito: clienteBD.idDistrito || '',
-            direccion: clienteBD.direccion || '',
-            correoUsuario: clienteBD.correoElectronico || '',
-            prefijoTelefonico: clienteBD.idPrefijo || '',
-            celularCliente: clienteBD.celularCliente || '',
-            estadoCivil: clienteBD.estadoCivil || '',
-            conyuge: {
-              nombreClienteConyuge: clienteBD.nombresApellidosConyuge || '',
-              ocupacionClienteConyuge: clienteBD.ocupacionConyuge || '',
-              tipoIdentificacionClienteConyuge: clienteBD.idIdentificacionConyuge || '',
-              numIdentificacionClienteConyuge: clienteBD.numeroIdentificacionConyuge || '',
-              paisOrigenClienteConyuge: clienteBD.idNacionalidadConyuge || '',
-              paisResidenciaClienteConyuge: clienteBD.idResidenciaConyuge || '',
-              departamentoClienteConyuge: clienteBD.idDepartamentoConyuge || '',
-              provinciaClienteConyuge: clienteBD.idProvinciaConyuge || '',
-              distritoClienteConyuge: clienteBD.idDistritoConyuge || '',
-              direccionClienteConyuge: clienteBD.direccionConyuge || '',
-            }
-          });
-
-          localStorage.setItem("clienteCompleto", JSON.stringify(clienteBD));
-        }
+      if (existe) {
+        const clienteRes = await fetch(`https://backendcramirez.onrender.com/api/clientes/buscar?numeroIdentificacion=${documento}`);
+        const clienteBD = await clienteRes.json();
+        mapearClienteForm(clienteBD);
+        localStorage.setItem("clienteCompleto", JSON.stringify(clienteBD));
       }
     } catch (error) {
       console.error("Error en búsqueda de cliente:", error);
       Object.assign(cliente, {});
       estadoCliente.value = "Cliente nuevo";
-      localStorage.removeItem("clienteCompleto");
     }
   }, 600);
 };

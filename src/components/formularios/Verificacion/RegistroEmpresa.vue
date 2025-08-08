@@ -1,16 +1,16 @@
 <template>
   <div>
-
-    <div class="input-container"  >
+    <div class="input-container">
       <input
           type="text"
           :value="rucEmpresa"
           placeholder="INGRESAR RUC (11 DÍGITOS)"
           maxlength="11"
-          @input="$emit('update:rucEmpresa', $event.target.value); $emit('buscar-empresa')"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          @input="onInputRuc"
       />
     </div>
-
 
     <div v-if="estadoEmpresa === 'Empresa nueva'" class="alerta-nuevo">
       <p>⚠️ Empresa no encontrada en el sistema. Puedes continuar para registrar sus datos.</p>
@@ -18,7 +18,6 @@
     </div>
 
     <div v-if="estadoEmpresa === 'Empresa registrada - ya existe en el sistema'">
-
       <p>✅ La Empresa ya fue registrada en el sistema</p>
       <button class="btn" @click="$emit('continuar')">Continuar</button>
     </div>
@@ -36,23 +35,29 @@
         <li><strong>Departamento:</strong> {{ cliente.departamento }}</li>
       </ul>
     </div>
-
   </div>
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   rucEmpresa: String,
   estadoEmpresa: String,
   cliente: Object,
   form: Object,
   datosEmpresa: Object
-})
+});
 
-defineEmits([
+const emit = defineEmits([
   'update:dni',
   'update:rucEmpresa',
   'buscar-empresa',
   'continuar'
-])
+]);
+
+const onInputRuc = (e) => {
+  const clean = e.target.value.replace(/\D/g, '').slice(0, 11);
+  if (e.target.value !== clean) e.target.value = clean;
+  emit('update:rucEmpresa', clean);
+  emit('buscar-empresa');
+};
 </script>
