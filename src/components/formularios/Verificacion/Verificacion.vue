@@ -258,7 +258,6 @@ const buscarEmpresa = () => {
   }, 600);
 };
 
-
 const buscarCliente = () => {
   if (timeoutId) clearTimeout(timeoutId);
 
