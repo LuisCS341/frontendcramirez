@@ -1,5 +1,5 @@
 export const columnasClientes = [
-    { key: 'contrato', label: 'TIPO DE CONTRATO', editable: false , nested: 'lote' },
+    { key: 'idTipoContrato', label: 'TIPO DE CONTRATO', editable: true , nested: 'lote',type: 'select' },
     {
         key: 'codigoLoteCliente', label: 'CLIENTE Nº', editable: false, nested: 'lote', formatter: (fila) => {
             const codigo = fila?.lote?.codigoLoteCliente;

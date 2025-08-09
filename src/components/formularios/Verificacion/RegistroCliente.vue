@@ -6,13 +6,11 @@
         <button
             :class="{ active: nacionalidad === 'peruano' }"
             @click="$emit('cambiar-nacionalidad', 'peruano')"
-        >🇵🇪 Peruano
-        </button>
+        >🇵🇪 Peruano</button>
         <button
             :class="{ active: nacionalidad === 'extranjero' }"
             @click="$emit('cambiar-nacionalidad', 'extranjero')"
-        >🌍 Extranjero
-        </button>
+        >🌍 Extranjero</button>
       </div>
     </div>
 
@@ -22,7 +20,9 @@
           :value="dni"
           placeholder="Ingresar DNI (8 dígitos)"
           maxlength="8"
-          @input="$emit('update:dni', $event.target.value); $emit('buscar-cliente')"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          @input="onInputDni"
       />
     </div>
 
@@ -30,9 +30,11 @@
       <input
           type="text"
           :value="carnetExtranjeria"
-          placeholder="Ingresar Carnet de Extranjería (12 dígitos)"
-          maxlength="12"
-          @input="$emit('update:carnetExtranjeria', $event.target.value); $emit('buscar-cliente')"
+          placeholder="Ingresar Carnet de Extranjería (11 dígitos)"
+          maxlength="11"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          @input="onInputCE"
       />
     </div>
 
@@ -58,25 +60,41 @@
         <li><strong>Dígito Verificador:</strong> {{ cliente.digitoVerificador }}</li>
       </ul>
     </div>
-
   </div>
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   nacionalidad: String,
   dni: String,
   carnetExtranjeria: String,
   estadoCliente: String,
   cliente: Object,
   form: Object,
-})
+});
 
-defineEmits([
+const emit = defineEmits([
   'update:dni',
   'update:carnetExtranjeria',
   'buscar-cliente',
   'cambiar-nacionalidad',
   'continuar'
-])
+]);
+
+const onlyDigits = (val, maxLen) =>
+    String(val ?? '').replace(/\D/g, '').slice(0, maxLen);
+
+const onInputDni = (e) => {
+  const clean = onlyDigits(e.target.value, 8);
+  if (e.target.value !== clean) e.target.value = clean;
+  emit('update:dni', clean);
+  emit('buscar-cliente');
+};
+
+const onInputCE = (e) => {
+  const clean = onlyDigits(e.target.value, 11);
+  if (e.target.value !== clean) e.target.value = clean;
+  emit('update:carnetExtranjeria', clean);
+  emit('buscar-cliente');
+};
 </script>

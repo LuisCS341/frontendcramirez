@@ -3,31 +3,40 @@
     <h1>DATOS PERSONALES</h1>
 
     <div class="identificacion">
-    <label style="font-weight: bold;">Tipo de Identificación:</label>
-    <select
-        style="background-color: #f0f0f0; color: #555;"
-        v-model="form.tipoIdentificacion" required>
-      <option
-          v-for="tipo in tipoIdentificacion" :key="tipo.id" :value="tipo.id">{{ tipo.nombre }}</option>
-    </select>
+      <label class="labelTipoIdentificacion">Tipo de Identificación:</label>
+      <select
+          class = "selectTipoIdentificacion"
+          v-model="form.tipoIdentificacion"
+          required
+      >
 
-    <label style="font-weight: bold;">Número de Identificación:</label>
-    <input
-        v-model="form.numIdentificacionUsuario"
-        type="text"
-        required
-        maxlength="8"
-        style="background-color: #f0f0f0; color: #555;"
-        @input="form.numIdentificacionUsuario = form.numIdentificacionUsuario.replace(/[^0-9]/g, '')"
-    />
+        <option
+            v-for="tipo in tipoIdentificacion"
+            :key="tipo.id"
+            :value="tipo.id"
+        >
+          {{ tipo.nombre }}
+        </option>
+
+      </select>
+
+      <label class="labelNumeroIdentificacion">Número de Identificación:</label>
+      <input
+          class="inputNumeroIdentificacion"
+          v-model="form.numIdentificacionUsuario"
+          type="text"
+          required
+          :maxlength="form.tipoIdentificacion === 2 ? 11 : (form.tipoIdentificacion === 1 ? 8 : 20)"
+          @input="onInputIdentificacion"
+      />
     </div>
 
-    <label style="font-weight: bold;">Nombre y Apellido:</label>
+    <label class="labelNombreApellido">Nombre y Apellido:</label>
     <input
+        class="inputNombreCliente"
         v-model="form.nombreCliente"
         type="text"
         required
-        style="background-color: #f0f0f0; color: #555;"
         @input="form.nombreCliente = form.nombreCliente.replace(/[0-9]/g, '')"
     />
 
@@ -132,12 +141,21 @@ const props = defineProps({
   form: Object
 });
 
-// ✅ Provincias según departamento
+const onInputIdentificacion = () => {
+  if (props.form.tipoIdentificacion === 4) {
+    // Pasaporte: permitir letras y números
+    props.form.numIdentificacionUsuario = props.form.numIdentificacionUsuario.replace(/[^a-zA-Z0-9]/g, '');
+  } else {
+    // Otros: solo números
+    props.form.numIdentificacionUsuario = props.form.numIdentificacionUsuario.replace(/[^0-9]/g, '');
+  }
+};
+
+//filtros
 const provinciasFiltradas = computed(() =>
     provincias.filter(p => p.departamentoId === props.form.departamento)
 );
 
-// ✅ Distritos según provincia
 const distritosFiltrados = computed(() =>
     distritos.filter(d => d.provinciaId === props.form.provincia)
 );
