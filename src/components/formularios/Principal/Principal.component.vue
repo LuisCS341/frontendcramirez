@@ -73,18 +73,6 @@
             </form>
           </div>
 
-          <div v-if="formStep === 5">
-            <form @submit.prevent="formularioCuota" v-if="form.numLotes > 0">
-              <div v-for="(lote, index) in form.lotes" :key="index">
-                <Cuota
-                    :lote="lote"
-                    :index="index"
-                />
-              </div>
-              <button type="submit">Siguiente</button>
-            </form>
-          </div>
-
           <div v-if="formStep === 4">
             <form @submit.prevent="formularioCuotaExtraordinaria">
               <div v-for="(lote, index) in form.lotes" :key="index">
@@ -95,6 +83,19 @@
                     :index="index"
                 />
 
+              </div>
+              <button type="submit">Siguiente</button>
+            </form>
+          </div>
+
+
+          <div v-if="formStep === 5">
+            <form @submit.prevent="formularioCuota" v-if="form.numLotes > 0">
+              <div v-for="(lote, index) in form.lotes" :key="index">
+                <Cuota
+                    :lote="lote"
+                    :index="index"
+                />
               </div>
               <button type="submit">Siguiente</button>
             </form>
