@@ -235,6 +235,22 @@ const descargarWordT1 = async (cliente) => {
       responseType: "arraybuffer",
     });
 
+    function formatearFechaLarga(fecha) {
+      const date = new Date(fecha);
+      const opciones = { day: '2-digit', month: 'long', year: 'numeric' };
+      return date
+          .toLocaleDateString('es-ES', opciones)
+          .toUpperCase(); // Para ponerlo en mayúsculas como "05 DE AGOSTO DE 2025"
+    }
+
+    function formatearFechaCorta(fecha) {
+      const date = new Date(fecha);
+      const dia = String(date.getDate()).padStart(2, '0');
+      const mes = String(date.getMonth() + 1).padStart(2, '0');
+      const anio = date.getFullYear();
+      return `${dia}/${mes}/${anio}`;
+    }
+
 
     const zip = new PizZip(response.data);
     const doc = new Docxtemplater(zip, {
@@ -308,7 +324,9 @@ const descargarWordT1 = async (cliente) => {
       pagoInicial: lote?.pagoInicial ?? '-',
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
-      fechaEntrega:lote?.fechaEntrega ?? '-',
+      fechaEntrega: lote?.fechaEntrega
+          ? `${formatearFechaLarga(lote.fechaEntrega)} (${formatearFechaCorta(lote.fechaEntrega)})`
+          : '-',
       costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       precioMetroCuadrado: lote?.precioMetroCuadrado ? parseFloat(lote.precioMetroCuadrado).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       precioMetroCuadradoLetras:lote?.precioMetroCuadradoLetras??'-',
