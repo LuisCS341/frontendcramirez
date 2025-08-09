@@ -73,7 +73,7 @@
             </form>
           </div>
 
-          <div v-if="formStep === 4">
+          <div v-if="formStep === 5">
             <form @submit.prevent="formularioCuota" v-if="form.numLotes > 0">
               <div v-for="(lote, index) in form.lotes" :key="index">
                 <Cuota
@@ -85,7 +85,7 @@
             </form>
           </div>
 
-          <div v-if="formStep === 5">
+          <div v-if="formStep === 4">
             <form @submit.prevent="formularioCuotaExtraordinaria">
               <div v-for="(lote, index) in form.lotes" :key="index">
                 <CuotaExtraordinaria
