@@ -308,6 +308,7 @@ const descargarWordT1 = async (cliente) => {
       pagoInicial: lote?.pagoInicial ?? '-',
       dniVendedor: lote?.dniVendedor ?? '-',
       fechaSale: lote?.fechaSale ?? '-',
+      fechaEntrega:lote?.fechaEntrega ?? '-',
       costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       precioMetroCuadrado: lote?.precioMetroCuadrado ? parseFloat(lote.precioMetroCuadrado).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       precioMetroCuadradoLetras:lote?.precioMetroCuadradoLetras??'-',
