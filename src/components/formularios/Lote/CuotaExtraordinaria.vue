@@ -6,7 +6,7 @@
     <div>
       <label>Cantidad de Cuota Extraordinaria:</label>
       <input
-          type="number"
+          type="text"
           v-model="lote.cuotaextraordinaria.cantidadCuotaExtraordinaria"
           placeholder="Ingrese Cantidad de Cuota Extraordinaria"
           step="any"
@@ -32,7 +32,7 @@
     <div>
       <label>Monto de Cuota Extraordinaria:</label>
       <input
-          type="number"
+          type="text"
           step="any"
           v-model="lote.cuotaextraordinaria.montoCuotaExtraordinaria"
           placeholder="Ingrese el Monto de Cuota Extraordinaria"
@@ -49,7 +49,6 @@
       <label>Monto de Cuota Extraordinaria en Letras:</label>
       <input
           type="text"
-          step="any"
           v-model="lote.cuotaextraordinaria.montoCuotaExtraordinariaLetras"
           placeholder="Ingrese el Monto de Cuota Extraordinaria"
           required
