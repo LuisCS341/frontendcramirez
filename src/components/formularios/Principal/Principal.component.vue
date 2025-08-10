@@ -864,7 +864,7 @@ watch(() => form.value.lotes, (lotes) => {
 }, { deep: true });
 
 
-
+/*
 watch(() => form.value.lotes, (lotes) => {
   const hoy = new Date();
   lotes.forEach((lote) => {
@@ -935,4 +935,6 @@ function numeroLetrascuotaletras(numero) {
   return numero >= 0 && numero <= 20 ? palabras[numero] : numero.toString();
 }
 
+
+ */
 </script>
