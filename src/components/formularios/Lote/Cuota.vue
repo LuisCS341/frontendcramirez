@@ -7,6 +7,7 @@
       <input
           type="text"
           v-model="lote.cuota.cuotaInicialIncluyeSeparacion"
+          step="any"
           required
           placeholder="Cuota Inicial Incluye Separacion"
           @input="
@@ -42,6 +43,7 @@
       <input
           type="text"
           v-model="lote.cuota.cuentaRecaudadora"
+          step="any"
           required
           placeholder="Cuenta Recaudadora"
       />
@@ -67,6 +69,7 @@
           type="text"
           v-model="lote.cuota.saldoLote"
           required
+          step="any"
           placeholder="Saldo de Lote"
           @input="
       lote.cuota.saldoLote = lote.cuota.saldoLote.toString().replace(/[^0-9.]/g, '');

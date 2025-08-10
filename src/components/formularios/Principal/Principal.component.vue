@@ -863,6 +863,8 @@ watch(() => form.value.lotes, (lotes) => {
   });
 }, { deep: true });
 
+
+
 watch(() => form.value.lotes, (lotes) => {
   const hoy = new Date();
   lotes.forEach((lote) => {
