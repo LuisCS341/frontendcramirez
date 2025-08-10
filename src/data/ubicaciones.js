@@ -1346,7 +1346,7 @@ export const ubicaciones = [
         SituacionLegalMatriz: 'CUENTA CON CANCELACIÓN DE SALDO DE PRECIO INGRESADO en Notaria Katiuska Ysabel Otayza Wuchi, y con los documentos y planos visados para que la notaria proceda con la inscripcion ante registros publicos a favor de Aybar Corp Sac.',
         proyectoId: 2
     },
-    { id: 50,
+    { id: 51,
         nombre: 'CIUDAD DIAGONAL',
         EmpresaVende: 'AYBAR CORP S.A.C',
         RUCVendedor: 20603865813,
