@@ -585,7 +585,24 @@ const descargarWordT2 = async (cliente) => {
 
 const descargarWordT3 = async (cliente) => {
   try {
-    const response = await axios.get("/plantillas/plantilla_t3p.docx", {
+
+    const lote = getLote(cliente);
+    const conyuge = getConyuge(cliente.cliente);
+    const copropietario = getCopropietario(cliente.cliente);
+    const lindero = getLindero(cliente);
+    const cuotaExtra = getCuotaExtraordinaria(cliente);
+    const cuota=getCuota(cliente);
+    const matriz=getMatriz(cliente);
+
+    const tieneCuotaExtra =
+        cuotaExtra?.cantidadCuotaExtraordinaria != null;
+
+    let plantillaPath = tieneCuotaExtra
+        ? "/plantillas/plantilla_T3.docx"
+        : "/plantillas/plantilla_T3_sincuotaextraordinaria.docx";
+
+    // Descarga
+    const response = await axios.get(plantillaPath, {
       responseType: "arraybuffer",
     });
 
@@ -602,13 +619,6 @@ const descargarWordT3 = async (cliente) => {
     const diaTexto = numeroATexto(fecha.getDate()).toUpperCase();
     const anioTexto = numeroATexto(anio).toUpperCase();
 
-    const lote = getLote(cliente);
-    const conyuge = getConyuge(cliente.cliente);
-    const copropietario = getCopropietario(cliente.cliente);
-    const lindero = getLindero(cliente);
-    const cuotaExtra = getCuotaExtraordinaria(cliente);
-    const cuota=getCuota(cliente);
-    const matriz=getMatriz(cliente);
 
     const datos = {
       idCliente: cliente.cliente.idCliente.toString().padStart(5, '0'),
@@ -718,6 +728,7 @@ const descargarWordT3 = async (cliente) => {
       cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
       letrasPendientePago: cuota?.letrasPendientePago?? '-',
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
+      cantidadCuotaExtraordinariaLetras: cuotaExtra?.cantidadCuotaExtraordinariaLetras ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
