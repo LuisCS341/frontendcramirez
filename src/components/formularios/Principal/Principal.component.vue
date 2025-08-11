@@ -731,56 +731,70 @@ onMounted(() => {
   }
 });
 
+// Rellena datos de un lote desde la "ubicacion" seleccionada
+function hidratarDesdeUbicacion(lote) {
+  const u = ubicaciones.find(x => x.id === lote.ubicacionLote);
+  if (!u) return;
+  lote.matriz ??= {};
 
-watch(() => form.value.lotes, (lotes) => {
-      lotes.forEach(lote => {
-        const ubicacion = ubicaciones.find(u => u.id === lote.ubicacionLote);
-        if (ubicacion) {
-          lote.empresa = ubicacion.nombre;
-          lote.empresaVendedora = ubicacion.EmpresaVende;
-          lote.ruc = ubicacion.RUCVendedor;
-          lote.direccion = ubicacion.DireccionVendedor;
-          lote.tipoRepresentante=ubicacion.TipoRepresentante;
-          lote.representanteLegal = ubicacion.RepresentanteLegalVendedor;
-          lote.dniVendedor = ubicacion.DNIVendedor;
-          lote.partidaPoder = ubicacion.NPartidaPoderVendedor;
-          lote.moneda = ubicacion.Moneda;
-          lote.numCuenta = ubicacion.NumCuenta;
-          lote.cci = ubicacion.CCI;
-          lote.fechaSale = ubicacion.FechaSale;
-          lote.fechaFirma = ubicacion.FechaFirmaContratoDefinitivo;
-          lote.areaMatriz = ubicacion.AreaMatrizHas;
-          lote.registrosDe = ubicacion.RegistroDE;
-          lote.partidaMatriz = ubicacion.PartidaMatriz;
-          lote.ubicacionPredio = ubicacion.UbicacionLote;
-          lote.unidadCatastral = ubicacion.UnidadCatastralMatriz;
-          lote.urbanizacionMatriz = ubicacion.UrbanizacionMatriz;
-          lote.distritoMatriz = ubicacion.DistritoMatriz;
-          lote.provinciaMatriz = ubicacion.ProvinciaMatriz;
-          lote.departamentoMatriz = ubicacion.DepartamentoMatriz;
-          lote.compraventaMatriz = ubicacion.CompraVentaMatriz;
-          lote.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
+  // Campos generales
+  lote.empresa = u.nombre;
+  lote.empresaVendedora = u.EmpresaVende;
+  lote.ruc = u.RUCVendedor;
+  lote.direccion = u.DireccionVendedor;
+  lote.tipoRepresentante = u.TipoRepresentante;
+  lote.representanteLegal = u.RepresentanteLegalVendedor;
+  lote.dniVendedor = u.DNIVendedor;
+  lote.partidaPoder = u.NPartidaPoderVendedor;
+  lote.moneda = u.Moneda;
+  lote.numCuenta = u.NumCuenta;
+  lote.cci = u.CCI;
+  lote.fechaSale = u.FechaSale;
+  lote.fechaFirma = u.FechaFirmaContratoDefinitivo;
 
-          const departamento = departamentos.find(d => d.nombre === ubicacion.DepartamentoMatriz);
-          const provincia = provincias.find(p => p.nombre === ubicacion.ProvinciaMatriz);
-          const distrito = distritos.find(d => d.nombre === ubicacion.DistritoMatriz);
-          const ubicacionLote = ubicaciones.find(u => u.UbicacionLote === ubicacion.UbicacionLote);
+  // Matriz (texto → ids)
+  const dep = departamentos.find(d => d.nombre === u.DepartamentoMatriz);
+  const prov = provincias.find(p => p.nombre === u.ProvinciaMatriz);
+  const dis = distritos.find(d => d.nombre === u.DistritoMatriz);
+  const ubi = ubicaciones.find(xx => xx.UbicacionLote === u.UbicacionLote);
 
-          lote.matriz.departamentoMatriz = departamento ? departamento.id : null;
-          lote.matriz.provinciaMatriz = provincia ? provincia.id : null;
-          lote.matriz.distritoMatriz = distrito ? distrito.id : null;
-          lote.matriz.ubicacionMatriz = ubicacionLote ? ubicacionLote.id:null  ;
-          lote.matriz.areaMatrizHasMatriz = ubicacion.AreaMatrizHas;
-          lote.matriz.registroDeMatriz = ubicacion.RegistroDE;
-          lote.matriz.partidaMatriz = ubicacion.PartidaMatriz;
-          lote.matriz.unidadCatastralMatriz = ubicacion.UnidadCatastralMatriz;
-          lote.matriz.urbanizacionMatriz = ubicacion.UrbanizacionMatriz;
-          lote.matriz.compraventaMatriz = ubicacion.CompraVentaMatriz;
-          lote.matriz.situacionLegalMatriz = ubicacion.SituacionLegalMatriz;
+  lote.areaMatriz = u.AreaMatrizHas;
+  lote.registrosDe = u.RegistroDE;
+  lote.partidaMatriz = u.PartidaMatriz;
+  lote.ubicacionPredio = u.UbicacionLote;
+  lote.unidadCatastral = u.UnidadCatastralMatriz;
+  lote.urbanizacionMatriz = u.UrbanizacionMatriz;
+  lote.distritoMatriz = u.DistritoMatriz;
+  lote.provinciaMatriz = u.ProvinciaMatriz;
+  lote.departamentoMatriz = u.DepartamentoMatriz;
+  lote.compraventaMatriz = u.CompraVentaMatriz;
+  lote.situacionLegalMatriz = u.SituacionLegalMatriz;
+
+  lote.matriz.departamentoMatriz = dep?.id ?? null;
+  lote.matriz.provinciaMatriz    = prov?.id ?? null;
+  lote.matriz.distritoMatriz     = dis?.id ?? null;
+  lote.matriz.ubicacionMatriz    = ubi?.id ?? null;
+  lote.matriz.areaMatrizHasMatriz   = u.AreaMatrizHas ?? null;
+  lote.matriz.registroDeMatriz      = u.RegistroDE ?? null;
+  lote.matriz.partidaMatriz         = u.PartidaMatriz ?? null;
+  lote.matriz.unidadCatastralMatriz = u.UnidadCatastralMatriz ?? null;
+  lote.matriz.urbanizacionMatriz    = u.UrbanizacionMatriz ?? null;
+  lote.matriz.compraventaMatriz     = u.CompraVentaMatriz ?? null;
+  lote.matriz.situacionLegalMatriz  = u.SituacionLegalMatriz ?? null;
+}
+
+// Observa SOLO los IDs de ubicacion de cada lote
+watch(
+    () => form.value.lotes.map(l => l.ubicacionLote),
+    (newIds, oldIds) => {
+      form.value.lotes.forEach((lote, i) => {
+        // Ejecuta si hay valor y cambió vs. anterior (o no había anterior)
+        if (newIds[i] && (!oldIds || newIds[i] !== oldIds[i])) {
+          hidratarDesdeUbicacion(lote);
         }
       });
     },
-    { deep: true }
+    { immediate: true } // si ya viene con valor, se rellena al cargar
 );
 
 

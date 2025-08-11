@@ -182,7 +182,7 @@ export const provincias = [
     {id :181,nombre:'MARISCAL CÁCERES',departamentoId:22},
     {id :182,nombre:'PICOTA',departamentoId:22},
     {id :183,nombre:'RIOJA',departamentoId:22},
-    {id :184,nombre:'SAN MARTÍN',departamentoId:22},
+    {id :184,nombre:'SAN MARTIN',departamentoId:22},
     {id :185,nombre:'TOCACHE',departamentoId:22},
     {id :186,nombre:'TACNA',departamentoId:23},
     {id :187,nombre:'CANDARAVE',departamentoId:23},
@@ -196,5 +196,4 @@ export const provincias = [
     {id :195,nombre:'PADRE ABAD',departamentoId:25},
     {id :196,nombre:'PURÚS',departamentoId:25},
     {id :197,nombre:'-',departamentoId:26},
-    {id :198,nombre:'SAN MARTIN',departamentoId:22},
 ];
