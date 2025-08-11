@@ -800,7 +800,6 @@ watch(() => form.value.lotes.map(l => l.proyectolote), (newValues, oldValues) =>
 
 const cerrarResumen = async () => {
 
-  /*
   try {
     await axios.post(`https://backendcramirez.onrender.com/api/email/enviar-cliente/${idCliente.value}`);
     console.log("Correo enviado con éxito");
@@ -809,9 +808,6 @@ const cerrarResumen = async () => {
     alert("No se pudo enviar el correo al cliente.");
     return;
   }
-
-   */
-
   router.push("/dashboard/formularios/registro-cliente");
 };
 
