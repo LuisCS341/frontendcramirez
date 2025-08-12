@@ -311,11 +311,11 @@ const descargarWordT1 = async (cliente) => {
           ? (() => {
             const [dia, mes, anio] = lote.fechaSale.split('/').map(Number);
             const fechaObj = new Date(anio, mes - 1, dia); // mes - 1 porque enero = 0
-            return `${fechaObj.toLocaleDateString('es-ES', {
+            return `(${lote.fechaSale}) ${fechaObj.toLocaleDateString('es-ES', {
               day: 'numeric',
               month: 'long',
               year: 'numeric'
-            })} (${lote.fechaSale})`.toUpperCase();
+            }).toUpperCase()}`;
           })()
           : '-',
       costoLote: lote?.costoLote ? parseFloat(lote.costoLote).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
