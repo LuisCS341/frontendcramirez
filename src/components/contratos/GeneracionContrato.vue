@@ -345,7 +345,7 @@ const descargarWordT1 = async (cliente) => {
       fechaPago: cuota?.fechaPago?? '-',
       cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
       cuotaInicialBanco: cuota?.cuotaInicialBanco?? '-',
-      saldoLote:cuota?.saldoLote ? parseFloat(cuota.saldoLote).toFixed(2) : '-',
+      saldoLote: cuota?.saldoLote ? parseFloat(cuota.saldoLote).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       saldoLoteLetras:cuota?.saldoLoteLetras?? '-',
       cantidadCuotas: cuota?.cantidadCuotas ?? '-',
       cantidadCuotaLetras:cuota?.cantidadCuotaLetras?? '-',
