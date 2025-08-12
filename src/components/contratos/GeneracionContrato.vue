@@ -356,6 +356,7 @@ const descargarWordT1 = async (cliente) => {
       cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
       letrasPendientePago: cuota?.letrasPendientePago?? '-',
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
+      cantidadCuotaExtraordinariaLetras:cuotaExtraordinaria ?? '-',
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
 
