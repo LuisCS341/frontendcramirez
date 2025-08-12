@@ -686,11 +686,11 @@ const descargarWordT3 = async (cliente) => {
           ? (() => {
             const [dia, mes, anio] = lote.fechaSale.split('/').map(Number);
             const fechaObj = new Date(anio, mes - 1, dia); // mes - 1 porque enero = 0
-            return `${fechaObj.toLocaleDateString('es-ES', {
+            return `(${lote.fechaSale}) ${fechaObj.toLocaleDateString('es-ES', {
               day: 'numeric',
               month: 'long',
               year: 'numeric'
-            })} (${lote.fechaSale})`.toUpperCase();
+            }).toUpperCase()}`;
           })()
           : '-',
       fechaEntrega: lote?.fechaEntrega ?? '-',
@@ -716,7 +716,7 @@ const descargarWordT3 = async (cliente) => {
       urbanizacionMatriz:matriz?.urbanizacionMatriz?? '-',
       compraventaMatriz:matriz?.compraventaMatriz?? '-',
       situacionLegalMatriz: matriz?.situacionLegalMatriz?? '-',
-      cuotaInicialIncluyeSeparacion:cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toFixed(2) : '-',
+      cuotaInicialIncluyeSeparacion: cuota?.cuotaInicialIncluyeSeparacion ? parseFloat(cuota.cuotaInicialIncluyeSeparacion).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       cuotaInicialIncluyeSeparacionLetras:cuota?.cuotaInicialIncluyeSeparacionLetras?? '-',
       fechaPago: cuota?.fechaPago?? '-',
       cuentaRecaudadora: cuota?.cuentaRecaudadora?? '-',
