@@ -356,7 +356,7 @@ const descargarWordT1 = async (cliente) => {
       cuotaPendientePago:cuota?.cuotaPendientePago?? '-',
       letrasPendientePago: cuota?.letrasPendientePago?? '-',
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
-      cantidadCuotaExtraordinariaLetras:cuotaExtraordinaria ?? '-',
+      cantidadCuotaExtraordinariaLetras: cuotaExtra?.cantidadCuotaExtraordinariaLetras ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
 
@@ -558,6 +558,7 @@ const descargarWordT2 = async (cliente) => {
       estadoCuenta:cuota?.estadoCuenta?? '-',
       montoDeudaLetra:(cuota?.montoDeudaLetra?? '-').toUpperCase(),
       cantidadCuotaExtraordinaria: cuotaExtra?.cantidadCuotaExtraordinaria ?? '-' ,
+      cantidadCuotaExtraordinariaLetras: cuotaExtra?.cantidadCuotaExtraordinariaLetras ?? '-' ,
       montoCuotaExtraordinaria: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
       mediosPago: cuotaExtra?.montoCuotaExtraordinaria ?? '-' ,
     };
