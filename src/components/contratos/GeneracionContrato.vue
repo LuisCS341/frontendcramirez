@@ -493,7 +493,6 @@ const descargarWordT2 = async (cliente) => {
       porElFondo: lindero?.porElFondo ? parseFloat(lindero.porElFondo).toFixed(2) : '-',
       idLote: lote?.idLote != null ? lote.idLote.toString().padStart(5, '0') : '-',
       contrato: (lote?.contrato ?? '-').toUpperCase(),
-      numerolote:lote?.numerolote ?? '-',
       tipoProyecto: (lote?.tipoProyecto ?? '-').toUpperCase(),
       manzana: (lote?.manzana ?? '-').toUpperCase(),
       representanteLegal: (lote?.representanteLegalVendedor ?? '-').toUpperCase(),
