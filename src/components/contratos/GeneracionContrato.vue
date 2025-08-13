@@ -481,6 +481,7 @@ const descargarWordT2 = async (cliente) => {
       numeroIdentificacionCopropietarios: (copropietario?.numeroIdentificacionCopropietarios ?? '-').toUpperCase() ,
       ocupacionCopropietarios: (copropietario?.ocupacionCopropietarios ?? '-').toUpperCase() ,
       documentoIdentificacionCopropietarios: (copropietario?.documentoIdentificacionCopropietarios ?? '-').toUpperCase() ,
+      nacionalidadCopropietarios:(copropietario?.paisOrigenCopropietarios??'-').toUpperCase(),
       direccionCopropietarios: (copropietario?.direccionCopropietarios ?? '-').toUpperCase() ,
       distritoCopropietarios: (copropietario?.distritoCopropietarios ?? '-').toUpperCase() ,
       provinciaCopropietarios: (copropietario?.provinciaCopropietarios ?? '-').toUpperCase() ,
