@@ -506,7 +506,7 @@ const descargarWordT2 = async (cliente) => {
       cci: lote?.cci ?? '-',
       precioMetroCuadrado: lote?.precioMetroCuadrado ? parseFloat(lote.precioMetroCuadrado).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-',
       precioMetroCuadradoLetras:lote?.precioMetroCuadradoLetras??'-',
-      numeroLote: lote?.numeroLote ?? 0,
+      numeroLote: lote?.numeroLote ?? '-',
       numeroPartidaPoderVendedor: lote?.numeroPartidaPoderVendedor ?? '-',
       direccionVendedor: (lote?.direccionVendedor ?? '-').toUpperCase(),
       pagoInicial: lote?.pagoInicial ?? '-',
@@ -515,11 +515,11 @@ const descargarWordT2 = async (cliente) => {
           ? (() => {
             const [dia, mes, anio] = lote.fechaSale.split('/').map(Number);
             const fechaObj = new Date(anio, mes - 1, dia); // mes - 1 porque enero = 0
-            return `${fechaObj.toLocaleDateString('es-ES', {
+            return `(${lote.fechaSale}) ${fechaObj.toLocaleDateString('es-ES', {
               day: 'numeric',
               month: 'long',
               year: 'numeric'
-            })} (${lote.fechaSale})`.toUpperCase();
+            }).toUpperCase()}`;
           })()
           : '-',
       fechaEntrega:lote?.fechaEntrega ?? '-',
